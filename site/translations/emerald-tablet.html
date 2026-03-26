@@ -23,351 +23,202 @@
 <div class="page-wide">
 <a href="index.html" class="back-link">&larr; All Translations</a>
 <h1>Emerald Tablet: Parallel Translations</h1>
-<p style="color:var(--text-muted);margin-bottom:1rem">13 translations, 18 verses</p>
-<details style="margin-bottom:1rem"><summary style="cursor:pointer;color:var(--accent);font-family:var(--font-sans)">Select columns to display</summary>
-<div id="col-selector" style="padding:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:4px;margin-top:0.5rem">
-<label style="display:block;margin:0.3rem 0;font-family:var(--font-sans);font-size:0.85rem"><input type="checkbox" class="col-toggle" data-col="arabic_sirr_al_khaliqa" checked> Arabic (Sirr al-Khaliqa tradition) (ARABIC)</label>
-<label style="display:block;margin:0.3rem 0;font-family:var(--font-sans);font-size:0.85rem"><input type="checkbox" class="col-toggle" data-col="jabir_arabic" > Jabirian Arabic Version (ARABIC)</label>
-<label style="display:block;margin:0.3rem 0;font-family:var(--font-sans);font-size:0.85rem"><input type="checkbox" class="col-toggle" data-col="ruska_anonymous_arabic" > Anonymous Arabic Version (Ruska) (ARABIC)</label>
-<label style="display:block;margin:0.3rem 0;font-family:var(--font-sans);font-size:0.85rem"><input type="checkbox" class="col-toggle" data-col="latin_vulgate" checked> Latin Vulgate (LATIN)</label>
-<label style="display:block;margin:0.3rem 0;font-family:var(--font-sans);font-size:0.85rem"><input type="checkbox" class="col-toggle" data-col="twelfth_century_latin" checked> Twelfth Century Latin (LATIN)</label>
-<label style="display:block;margin:0.3rem 0;font-family:var(--font-sans);font-size:0.85rem"><input type="checkbox" class="col-toggle" data-col="beato_latin" > Translation of Beato (LATIN)</label>
-<label style="display:block;margin:0.3rem 0;font-family:var(--font-sans);font-size:0.85rem"><input type="checkbox" class="col-toggle" data-col="newton_english" checked> Newton's English Translation (ENGLISH)</label>
-<label style="display:block;margin:0.3rem 0;font-family:var(--font-sans);font-size:0.85rem"><input type="checkbox" class="col-toggle" data-col="bacstrom_english" > Bacstrom's English Translation (ENGLISH)</label>
-<label style="display:block;margin:0.3rem 0;font-family:var(--font-sans);font-size:0.85rem"><input type="checkbox" class="col-toggle" data-col="blavatsky_english" > Blavatsky's Translation (ENGLISH)</label>
-<label style="display:block;margin:0.3rem 0;font-family:var(--font-sans);font-size:0.85rem"><input type="checkbox" class="col-toggle" data-col="idries_shah_english" > Idries Shah Translation (ENGLISH)</label>
-<label style="display:block;margin:0.3rem 0;font-family:var(--font-sans);font-size:0.85rem"><input type="checkbox" class="col-toggle" data-col="fulcanelli_french_1" > Fulcanelli Translation (version 1) (FRENCH)</label>
-<label style="display:block;margin:0.3rem 0;font-family:var(--font-sans);font-size:0.85rem"><input type="checkbox" class="col-toggle" data-col="fulcanelli_french_2" > Fulcanelli Translation (version 2) (FRENCH)</label>
-<label style="display:block;margin:0.3rem 0;font-family:var(--font-sans);font-size:0.85rem"><input type="checkbox" class="col-toggle" data-col="kriegsmann_translation" > Kriegsmann Translation (Phoenician) (PHOENICIAN)</label>
-</div></details>
+<p style="color:var(--text-muted);margin-bottom:1rem">13 translations available, 18 verses</p>
+<div style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;padding:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:4px">
+<div style="flex:1;min-width:200px">
+<label style="font-family:var(--font-sans);font-size:0.8rem;color:var(--text-muted);display:block;margin-bottom:0.3rem">Arabic Translation</label>
+<select class="translation-selector" data-col="col-arabic" style="width:100%">
+  <option value="arabic_sirr_al_khaliqa" selected>Arabic (Sirr al-Khaliqa tradition)</option>
+  <option value="jabir_arabic">Jabirian Arabic Version</option>
+  <option value="ruska_anonymous_arabic">Anonymous Arabic Version (Ruska)</option>
+</select>
+</div>
+<div style="flex:1;min-width:200px">
+<label style="font-family:var(--font-sans);font-size:0.8rem;color:var(--text-muted);display:block;margin-bottom:0.3rem">Latin Translation</label>
+<select class="translation-selector" data-col="col-latin" style="width:100%">
+  <option value="latin_vulgate" selected>Latin Vulgate</option>
+  <option value="twelfth_century_latin">Twelfth Century Latin</option>
+  <option value="beato_latin">Translation of Beato</option>
+</select>
+</div>
+<div style="flex:1;min-width:200px">
+<label style="font-family:var(--font-sans);font-size:0.8rem;color:var(--text-muted);display:block;margin-bottom:0.3rem">English / Other Translation</label>
+<select class="translation-selector" data-col="col-english" style="width:100%">
+  <option value="newton_english" selected>Newton's English Translation</option>
+  <option value="bacstrom_english">Bacstrom's English Translation</option>
+  <option value="blavatsky_english">Blavatsky's Translation</option>
+  <option value="idries_shah_english">Idries Shah Translation</option>
+  <option value="fulcanelli_french_1">Fulcanelli Translation (version 1)</option>
+  <option value="fulcanelli_french_2">Fulcanelli Translation (version 2)</option>
+  <option value="kriegsmann_translation">Kriegsmann Translation (Phoenician)</option>
+</select>
+</div>
+</div>
+<script>
+const VERSE_DATA = {"arabic_sirr_al_khaliqa": {"1": "حقًّا يقينًا لا شك فيه", "10": "هذه قوة القوى كلها، لأنها تغلب كل شيء لطيف وتدخل في كل شيء كثيف", "11": "هكذا خلق العالم", "12": "من هذا تكون العجائب، ووسائله هذه", "13": "ولذلك سميت هرمس مثلث بالحكمة", "2": "إنّ الأعلى من الأسفل، والأسفل من الأعلى", "3": "يعمل عجائب شيء واحد\nوكما كانت الأشياء كلها من واحد بتدبير واحد\nفكذلك ولدت من هذا الشيء الواحد بتدبير", "4": "أبوه الشمس، وأمه القمر", "5": "حملته الريح في بطنها، أرضته الأرض", "6": "هو أبو كل طلسم في العالم كله", "6a": "قوته تامّة إذا تحولت إلى الأرض", "7": "تفصل الأرض من النار، اللطيف من الكثيف برفق وحكمة", "8": "يصعد من الأرض إلى السماء، ثم ينزل إلى الأرض\nفيأخذ قوة العلويات والسفليات", "9": "فبهذا يكون لك مجد العالم كله\nلذلك يهرب منك كل ظلمة"}, "jabir_arabic": {"0": "Balinas mentions the engraving on the table in the hand of Hermes, which says:", "1": "Truth! Certainty! That in which there is no doubt!", "14": "And I have already explained the meaning of the whole of this in two of these books of mine.", "2": "That which is above is from that which is below, and that which is below is from that which is above, working the miracles of one.", "3": "As all things were from one.", "4": "Its father is the Sun and its mother the Moon.", "5": "The Earth carried it in her belly, and the Wind nourished it in her belly,", "7": "as Earth which shall become Fire.", "7a": "Feed the Earth from that which is subtle, with the greatest power.", "8": "It ascends from the earth to the heaven and becomes ruler over that which is above and that which is below."}, "ruska_anonymous_arabic": {"0": "Here is that which the priest Sagijus of Nabulus has dictated concerning the entrance of Balinas into the hidden chamber... After my entrance into the chamber, where the talisman was set up, I came up to an old man sitting on a golden throne, who was holding an emerald table in one hand. And behold the following - in Syriac, the primordial language- was written thereon:", "1": "Here (is) a true explanation, concerning which there can be no doubt.", "10": "The force of forces, which overcomes every subtle thing and penetrates into everything gross.", "11": "The structure of the microcosm is in accordance with the structure of the macrocosm.", "12": "And accordingly proceed the knowledgeable.", "13": "And to this aspired Hermes, who was threefold graced with wisdom.", "14": "And this is his last book, which he concealed in the chamber.", "2": "It attests: The above from the below, and the below from the above -the work of the miracle of the One.", "3": "And things have been from this primal substance through a single act. How wonderful is this work! It is the main (principle) of the world and is its maintainer.", "4": "Its father is the sun and its mother the moon; the", "5": "wind has borne it in its body, and the earth has nourished it.", "6": "the father of talismen and the protector of miracles", "6a": "whose powers are perfect, and whose lights are confirmed (?),", "7": "a fire that becomes earth.", "7a": "Separate the earth from the fire, so you will attain the subtle as more inherent than the gross, with care and sagacity.", "8": "It rises from earth to heaven, so as to draw the lights of the heights to itself, and descends to the earth; thus within it are the forces of the above and the below;", "9": "because the light of lights within it, thus does the darkness flee before it."}, "newton_english": {"1": "Tis true without lying, certain & most true.", "10": "Its force is above all force. ffor it vanquishes every subtile thing & penetrates every solid thing.", "11a": "So was ye world created.", "12": "From this are & do come admirable adaptaions whereof ye means (Or process) is here in this.", "13": "Hence I am called Hermes Trismegist, having the three parts of ye philosophy of ye whole world.", "14": "That wch I have said of ye operation of ye Sun is accomplished & ended.", "2": "That wch is below is like that wch is above & that wch is above is like yt wch is below to do ye miracles of one only thing.", "3": "And as all things have been & arose from one by ye mediation of one: so all things have their birth from this one thing by adaptation.", "4": "The Sun is its father, the moon its mother,", "5": "the wind hath carried it in its belly, the earth its nourse.", "6": "The father of all perfection in ye whole world is here.", "7": "Its force or power is entire if it be converted into earth.", "7a": "Seperate thou ye earth from ye fire, ye subtile from the gross sweetly wth great indoustry.", "8": "It ascends from ye earth to ye heaven & again it desends to ye earth and receives ye force of things superior & inferior.", "9": "By this means you shall have ye glory of ye whole world & thereby all obscurity shall fly from you."}, "bacstrom_english": {"0": "The Secret Works of CHIRAM ONE in essence, but three in aspect.", "1": "It is true, no lie, certain and to be depended upon,", "10": "This is the strength of all powers. With this thou wilt be able to overcome all things and transmute all what is fine and what is coarse.", "11a": "In this manner the world was created;", "12": "the arrangements to follow this road are hidden.", "13": "For this reason I am called Chiram Telat Mechasot, one in essence, but three in aspect. In this trinity is hidden the wisdom of the whole world.", "14": "It is ended now, what I have said concerning the effects of the sun. Finish of the Tabula Smaragdina.", "2": "the superior agrees with the inferior, and the inferior agrees with the superior, to effect that one truly wonderful work.", "3": "As all things owe their existence to the will of the only one, so all things owe their origin to the one only thing, the most hidden by the arrangement of the only God.", "4": "The father of that one only thing is the sun its mother is the moon,", "5": "the wind carries it in its belly; but its nourse is a spirituous earth.", "6": "That one only thing is the father of all things in the Universe.", "6a": "Its power is perfect,", "7": "after it has been united with a spirituous earth.", "7a": "Separate that spirituous earth from the dense or crude by means of a gentle heat, with much attention.", "8": "In great measure it ascends from the earth up to heaven, and descends again, newborn, on the earth, and the superior and the inferior are increased in power.", "9": "By this wilt thou partake of the honours of the whole world. And Darkness will fly from thee."}, "blavatsky_english": {"10": "This thing has more fortitude than fortitude itself, because it will overcome every subtile thing and penetrate every solid thing.", "11a": "By it the world was formed.", "2": "What is below is like that which is above, and what is above is similar to that which is below to accomplish the wonders of the one thing.", "3": "As all things were produced by the mediation of one being, so all things were produced from this one by adaption.", "4": "Its father is the sun, its mother the moon.", "6a": "It is the cause of all perfection throughout the whole earth.", "7": "Its power is perfect if it is changed into earth.", "7a": "Separate the earth from the fire, the subtile from the gross, acting prudently and with judgement. 8 ) Ascend with the greatest sagacity from earth to heaven, and unite together the power of things inferior and superior;", "9": "thus you will possess the light of the whole world, and all obscurity will fly away from you."}, "idries_shah_english": {"1": "The truth, certainty, truest, without untruth. 2 )What is above is like what is below. What is below is like what is above. The miracle of unity is to be attained.", "10": "This is the power of all strength- it overcomes that which is delicate and penetrates through solids.", "11a": "This was the means of the creation of the world.", "12": "And in the future wonderful developements will be made, and this is the way.", "13": "I am Hermes the Threefold Sage, so named because I hold the three elements of all wisdom.", "14": "And thus ends the revelation of the work of the Sun. (Shah 1964: 198).", "3": "Everything is formed from the contemplation of unity, and all things come about from unity, by means of adaptation.", "4": "Its parents are the Sun and Moon.", "5": "It was borne by the wind and nurtured by the Earth.", "6": "Every wonder is from it", "6a": "and its power is complete.", "7": "Throw it upon earth,", "7a": "and earth will separate from fire. The impalbable separated from the palpable.", "8": "Through wisdom it rises slowly from the world to heaven. Then it descends to the world combining the power of the upper and the lower. 9 )Thus you will have the illumination of all the world, and darkness will disappear."}, "fulcanelli_french_1": {"1": "This is the truth, the whole truth and nothing but the truth:-", "10": "It is power, strong with the strength of all power, for it will penetrate all mysteries and dispel all ignorance.", "11a": "By it the world was created.", "12": "From it are born manifold wonders, the means to achieving which are here given", "13": "It is for this reason that I am called Hermes Trismegistus; for I possess the three essentials of the philosophy of the universe.", "14": "This is is the sum total of the work of the Sun.", "2": "As below, so above; and as above so below. With this knowledge alone you may work miracles.", "3": "And since all things exist in and eminate from the ONE Who is the ultimate Cause, so all things are born after their kind from this ONE.", "4": "The Sun is the father, the Moon the mother;", "5": "the wind carried it in his belly. Earth is its nurse and its guardian.", "6": "It is the Father of all things,", "6a": "the eternal Will is contained in it.", "7": "Here, on earth, its strength, its power remain one and undivded.", "7a": "Earth must be separated from fire, the subtle from the dense, gently with unremitting care.", "8": "It arises from the earth and descends from heaven; it gathers to itself the strength of things above and things below.", "9": "By means of this one thing all the glory of the world shall be yours and all obscurity flee from you."}, "fulcanelli_french_2": {"1": "It is true without untruth, certain and most true:", "10": "It is the power strong with all power, for it will defeat every subtle thing and penetrate every solid thing", "11a": "In this way the world was created.", "12": "From it are born wonderful adaptations, of which the way here is given.", "13": "That is why I have been called Hermes Tristmegistus, having the three parts of the universal philosophy.", "14": "This, that I have called the solar Work, is complete.", "2": "that which is below is like that which is on high, and that which is on high is like that which is below; by these things are made the miracles of one thing.", "3": "And as all things are, and come from One, by the mediation of One, So all things are born from this unique thing by adaption.", "4": "The Sun is the father and the Moon the mother.", "5": "The wind carries it in its stomach. The earth is its nourisher and its receptacle. 6 The Father of all the Theleme of the universal world is here.", "6a": "Its force, or power, remains entire,", "7": "if it is converted into earth.", "7a": "You separate the earth from the fire, the subtle from the gross, gently with great industry.", "8": "It climbs from the earth and descends from the sky, and receives the force of things superior and things inferior.", "9": "You will have by this way, the glory of the world and all obscurity will flee from you."}, "latin_vulgate": {"1": "Verum, sine mendacio, certum et verissimum:", "10": "Haec est totius fortitudinis fortitudo fortis,\nquia vincet omnem rem subtilem, omnemque solidam penetrabit.", "11": "Sic mundus creatus est.", "12": "Hinc erunt adaptationes mirabiles, quarum modus est hic.", "13": "Itaque vocatus sum Hermes Trismegistus, habens tres partes philosophiae totius mundi.", "14": "Completum est quod dixi de operatione Solis.", "2": "Quod est inferius est sicut quod est superius,\net quod est superius est sicut quod est inferius,\nad perpetranda miracula rei unius.", "3": "Et sicut omnes res fuerunt ab uno, meditatione unius,\nsic omnes res natae fuerunt ab hac una re, adaptatione.", "4": "Pater eius est Sol, mater eius Luna;", "5": "portavit illud ventus in ventre suo;\nnutrix eius terra est.", "6": "Pater omnis telesmi totius mundi est hic.", "6a": "Vis eius integra est, si versa fuerit in terram.", "7": "Separabis terram ab igne, subtile a spisso, suaviter cum magno ingenio.", "8": "Ascendit a terra in caelum, iterumque descendit in terram,\net recipit vim superiorum et inferiorum.", "9": "Sic habebis gloriam totius mundi;\nideo fugiet a te omnis obscuritas."}, "twelfth_century_latin": {"0": "When I entered into the cave, I received the tablet zaradi, which was inscribed, from between the hands of Hermes, in which I discovered these words:", "1": "True, without falsehood, certain, most certain.", "10": "This is the whole most strong strength of all strength, for it overcomes all subtle things, and penetrates all solid things.", "11a": "Thus was the world created.", "12": "From this comes marvelous adaptions of which this is the proceedure.", "13": "Therefore I am called Hermes, because I have three parts of the wisdom of the whole world.", "14": "And complete is what I had to say about the work of the Sun, from the book of Galieni Alfachimi.", "2": "What is above is like what is below, and what is below is like that which is above. To make the miracle of the one thing.", "3": "And as all things were made from contemplation of one, so all things were born from one adaptation.", "4": "Its father is the Sun, its mother is the Moon.", "5": "The wind carried it in its womb, the earth breast fed it.", "6": "It is the father of all ‘works of wonder' (Telesmi) in the world.", "6a": "Its power is complete (integra).", "7": "If cast to (turned towards- versa fuerit) earth,", "7a": "it will separate earth from fire, the subtile from the gross.", "8": "With great capacity it ascends from earth to heaven. Again it descends to earth, and takes back the power of the above and the below.", "9": "Thus you will receive the glory of the distinctiveness of the world. All obscurity will flee from you."}, "beato_latin": {"1": "This is true and remote from all cover of falsehood", "10": "For this by its fortitude snatches the palm from all other fortitude and power. For it is able to penetrate and subdue everything subtle and everything crude and hard.", "11a": "By this means the world was founded", "12": "and hence the marvelous cojunctions of it and admirable effects, since this is the way by which these marvels may be brought about.", "13": "And because of this they have called me Hermes Tristmegistus since I have the three parts of the wisdom and Philsosphy of the whole universe.", "14": "My speech is finished which i have spoken concerning the solar work", "2": "Whatever is below is similar to that which is above. Through this the marvels of the work of one thing are procured and perfected.", "3": "Also, as all things are made from one, by the condsideration of one, so all things were made from this one, by conjunction.", "4": "The father of it is the sun, the mother the moon.", "5": "The wind bore it in the womb. Its nurse is the earth, the mother of all perfection.", "6a": "Its power is perfected.", "7": "If it is turned into earth,", "7a": "separate the earth from the fire, the subtle and thin from the crude and course, prudently, with modesty and wisdom.", "8": "This ascends from the earth into the sky and again descends from the sky to the earth, and receives the power and efficacy of things above and of things below.", "9": "By this means you will acquire the glory of the whole world, and so you will drive away all shadows and blindness."}, "kriegsmann_translation": {"1": "I speak truly, not falsely, certainly and most truly", "10": "This thing itself presently comes forth stronger by reasons of this fortitude: it subdues all bodies surely, whether tenuous or solid, by penetrating them.", "11a": "And so everything whatsoever that the world contains was created.", "12": "Hence admirable works are accomplished which are instituted (carried out- instituuntur) according to the same mode.", "13": "To me therefor the name of Hermes Trismegistus has been awarded because I am discovered as the Teacher of the three parts of the wisdom of the world.", "14": "These then are the considerations which I have concluded ought to be written down concerning the readiest operations of the Chymic art.", "2": "These things below with those above and those with these join forces again so that they produce a single thing the most wonderful of all.", "3": "And as the whole universe was brought forth from one by the word of one GOD, so also all things are regenerated perpetually from this one according to the disposition of Nature.", "4": "It has the Sun for father and the Moon for mother:", "5": "it is carried by the air as if in a womb, it is nursed by the earth.", "6": "It is the cause, this, of all perfection of all things throughout the universe.", "6a": "This will attain the highest perfection of powers", "7": "if it shall be reduced into earth", "7a": "Distribute here the earth and there the fire, thin out the density of this the suavest (suavissima) thing of all.", "8": "Ascend with the greatest sagacity of genius from the earth into the sky, and thence descend again to the earth, and recognise that the forces of things above and of things below are one,", "9": "so as to posses the glory of the whole world- and beyond this man of abject fate may have nothing further."}};
+</script>
 <div style="overflow-x:auto">
 <table class="verse-table">
 <thead><tr>
-<th>V.</th>
-<th class="col-arabic_sirr_al_khaliqa" style="display:table-cell">Arabic (Sirr al-Khaliqa t...<br><span style="font-weight:normal;font-size:0.7rem">ARABIC</span></th>
-<th class="col-jabir_arabic" style="display:none">Jabirian Arabic Version<br><span style="font-weight:normal;font-size:0.7rem">ARABIC</span></th>
-<th class="col-ruska_anonymous_arabic" style="display:none">Anonymous Arabic Version ...<br><span style="font-weight:normal;font-size:0.7rem">ARABIC</span></th>
-<th class="col-latin_vulgate" style="display:table-cell">Latin Vulgate<br><span style="font-weight:normal;font-size:0.7rem">LATIN</span></th>
-<th class="col-twelfth_century_latin" style="display:table-cell">Twelfth Century Latin<br><span style="font-weight:normal;font-size:0.7rem">LATIN</span></th>
-<th class="col-beato_latin" style="display:none">Translation of Beato<br><span style="font-weight:normal;font-size:0.7rem">LATIN</span></th>
-<th class="col-newton_english" style="display:table-cell">Newton's English Translat...<br><span style="font-weight:normal;font-size:0.7rem">ENGLISH</span></th>
-<th class="col-bacstrom_english" style="display:none">Bacstrom's English Transl...<br><span style="font-weight:normal;font-size:0.7rem">ENGLISH</span></th>
-<th class="col-blavatsky_english" style="display:none">Blavatsky's Translation<br><span style="font-weight:normal;font-size:0.7rem">ENGLISH</span></th>
-<th class="col-idries_shah_english" style="display:none">Idries Shah Translation<br><span style="font-weight:normal;font-size:0.7rem">ENGLISH</span></th>
-<th class="col-fulcanelli_french_1" style="display:none">Fulcanelli Translation (v...<br><span style="font-weight:normal;font-size:0.7rem">FRENCH</span></th>
-<th class="col-fulcanelli_french_2" style="display:none">Fulcanelli Translation (v...<br><span style="font-weight:normal;font-size:0.7rem">FRENCH</span></th>
-<th class="col-kriegsmann_translation" style="display:none">Kriegsmann Translation (P...<br><span style="font-weight:normal;font-size:0.7rem">PHOENICIAN</span></th>
+<th style="width:40px">V.</th>
+<th id="th-arabic" style="width:30%">Arabic (Sirr al-Khaliqa)<br><span style="font-weight:normal;font-size:0.7rem">ARABIC</span></th>
+<th id="th-latin" style="width:35%">Latin Vulgate<br><span style="font-weight:normal;font-size:0.7rem">LATIN</span></th>
+<th id="th-english" style="width:35%">Newton's English Translation<br><span style="font-weight:normal;font-size:0.7rem">ENGLISH</span></th>
 </tr></thead>
 <tbody>
 <tr>
 <td class="verse-num">0</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl"></td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl">Balinas mentions the engraving on the table in the hand of Hermes, which says:</td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">Here is that which the priest Sagijus of Nabulus has dictated concerning the entrance of Balinas into the hidden chamber... After my entrance into the chamber, where the talisman was set up, I came up to an old man sitting on a golden throne, who was holding an emerald table in one hand. And behold the following - in Syriac, the primordial language- was written thereon:</td>
-<td class="col-latin_vulgate" style="display:table-cell"></td>
-<td class="col-twelfth_century_latin" style="display:table-cell">When I entered into the cave, I received the tablet zaradi, which was inscribed, from between the hands of Hermes, in which I discovered these words:</td>
-<td class="col-beato_latin" style="display:none"></td>
-<td class="col-newton_english" style="display:table-cell"></td>
-<td class="col-bacstrom_english" style="display:none">The Secret Works of CHIRAM ONE in essence, but three in aspect.</td>
-<td class="col-blavatsky_english" style="display:none"></td>
-<td class="col-idries_shah_english" style="display:none"></td>
-<td class="col-fulcanelli_french_1" style="display:none"></td>
-<td class="col-fulcanelli_french_2" style="display:none"></td>
-<td class="col-kriegsmann_translation" style="display:none"></td>
+<td class="verse-col" data-col="col-arabic" dir="rtl"></td>
+<td class="verse-col" data-col="col-latin"></td>
+<td class="verse-col" data-col="col-english"></td>
 </tr>
 <tr>
 <td class="verse-num">1</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl">حقًّا يقينًا لا شك فيه</td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl">Truth! Certainty! That in which there is no doubt!</td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">Here (is) a true explanation, concerning which there can be no doubt.</td>
-<td class="col-latin_vulgate" style="display:table-cell">Verum, sine mendacio, certum et verissimum:</td>
-<td class="col-twelfth_century_latin" style="display:table-cell">True, without falsehood, certain, most certain.</td>
-<td class="col-beato_latin" style="display:none">This is true and remote from all cover of falsehood</td>
-<td class="col-newton_english" style="display:table-cell">Tis true without lying, certain & most true.</td>
-<td class="col-bacstrom_english" style="display:none">It is true, no lie, certain and to be depended upon,</td>
-<td class="col-blavatsky_english" style="display:none"></td>
-<td class="col-idries_shah_english" style="display:none">The truth, certainty, truest, without untruth. 2 )What is above is like what is below. What is below is like what is above. The miracle of unity is to be attained.</td>
-<td class="col-fulcanelli_french_1" style="display:none">This is the truth, the whole truth and nothing but the truth:-</td>
-<td class="col-fulcanelli_french_2" style="display:none">It is true without untruth, certain and most true:</td>
-<td class="col-kriegsmann_translation" style="display:none">I speak truly, not falsely, certainly and most truly</td>
+<td class="verse-col" data-col="col-arabic" dir="rtl">حقًّا يقينًا لا شك فيه</td>
+<td class="verse-col" data-col="col-latin">Verum, sine mendacio, certum et verissimum:</td>
+<td class="verse-col" data-col="col-english">Tis true without lying, certain & most true.</td>
 </tr>
 <tr>
 <td class="verse-num">2</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl">إنّ الأعلى من الأسفل، والأسفل من الأعلى</td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl">That which is above is from that which is below, and that which is below is from that which is above, working the miracles of one.</td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">It attests: The above from the below, and the below from the above -the work of the miracle of the One.</td>
-<td class="col-latin_vulgate" style="display:table-cell">Quod est inferius est sicut quod est superius,
+<td class="verse-col" data-col="col-arabic" dir="rtl">إنّ الأعلى من الأسفل، والأسفل من الأعلى</td>
+<td class="verse-col" data-col="col-latin">Quod est inferius est sicut quod est superius,
 et quod est superius est sicut quod est inferius,
 ad perpetranda miracula rei unius.</td>
-<td class="col-twelfth_century_latin" style="display:table-cell">What is above is like what is below, and what is below is like that which is above. To make the miracle of the one thing.</td>
-<td class="col-beato_latin" style="display:none">Whatever is below is similar to that which is above. Through this the marvels of the work of one thing are procured and perfected.</td>
-<td class="col-newton_english" style="display:table-cell">That wch is below is like that wch is above & that wch is above is like yt wch is below to do ye miracles of one only thing.</td>
-<td class="col-bacstrom_english" style="display:none">the superior agrees with the inferior, and the inferior agrees with the superior, to effect that one truly wonderful work.</td>
-<td class="col-blavatsky_english" style="display:none">What is below is like that which is above, and what is above is similar to that which is below to accomplish the wonders of the one thing.</td>
-<td class="col-idries_shah_english" style="display:none"></td>
-<td class="col-fulcanelli_french_1" style="display:none">As below, so above; and as above so below. With this knowledge alone you may work miracles.</td>
-<td class="col-fulcanelli_french_2" style="display:none">that which is below is like that which is on high, and that which is on high is like that which is below; by these things are made the miracles of one thing.</td>
-<td class="col-kriegsmann_translation" style="display:none">These things below with those above and those with these join forces again so that they produce a single thing the most wonderful of all.</td>
+<td class="verse-col" data-col="col-english">That wch is below is like that wch is above & that wch is above is like yt wch is below to do ye miracles of one only thing.</td>
 </tr>
 <tr>
 <td class="verse-num">3</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl">يعمل عجائب شيء واحد
+<td class="verse-col" data-col="col-arabic" dir="rtl">يعمل عجائب شيء واحد
 وكما كانت الأشياء كلها من واحد بتدبير واحد
 فكذلك ولدت من هذا الشيء الواحد بتدبير</td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl">As all things were from one.</td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">And things have been from this primal substance through a single act. How wonderful is this work! It is the main (principle) of the world and is its maintainer.</td>
-<td class="col-latin_vulgate" style="display:table-cell">Et sicut omnes res fuerunt ab uno, meditatione unius,
+<td class="verse-col" data-col="col-latin">Et sicut omnes res fuerunt ab uno, meditatione unius,
 sic omnes res natae fuerunt ab hac una re, adaptatione.</td>
-<td class="col-twelfth_century_latin" style="display:table-cell">And as all things were made from contemplation of one, so all things were born from one adaptation.</td>
-<td class="col-beato_latin" style="display:none">Also, as all things are made from one, by the condsideration of one, so all things were made from this one, by conjunction.</td>
-<td class="col-newton_english" style="display:table-cell">And as all things have been & arose from one by ye mediation of one: so all things have their birth from this one thing by adaptation.</td>
-<td class="col-bacstrom_english" style="display:none">As all things owe their existence to the will of the only one, so all things owe their origin to the one only thing, the most hidden by the arrangement of the only God.</td>
-<td class="col-blavatsky_english" style="display:none">As all things were produced by the mediation of one being, so all things were produced from this one by adaption.</td>
-<td class="col-idries_shah_english" style="display:none">Everything is formed from the contemplation of unity, and all things come about from unity, by means of adaptation.</td>
-<td class="col-fulcanelli_french_1" style="display:none">And since all things exist in and eminate from the ONE Who is the ultimate Cause, so all things are born after their kind from this ONE.</td>
-<td class="col-fulcanelli_french_2" style="display:none">And as all things are, and come from One, by the mediation of One, So all things are born from this unique thing by adaption.</td>
-<td class="col-kriegsmann_translation" style="display:none">And as the whole universe was brought forth from one by the word of one GOD, so also all things are regenerated perpetually from this one according to the disposition of Nature.</td>
+<td class="verse-col" data-col="col-english">And as all things have been & arose from one by ye mediation of one: so all things have their birth from this one thing by adaptation.</td>
 </tr>
 <tr>
 <td class="verse-num">4</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl">أبوه الشمس، وأمه القمر</td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl">Its father is the Sun and its mother the Moon.</td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">Its father is the sun and its mother the moon; the</td>
-<td class="col-latin_vulgate" style="display:table-cell">Pater eius est Sol, mater eius Luna;</td>
-<td class="col-twelfth_century_latin" style="display:table-cell">Its father is the Sun, its mother is the Moon.</td>
-<td class="col-beato_latin" style="display:none">The father of it is the sun, the mother the moon.</td>
-<td class="col-newton_english" style="display:table-cell">The Sun is its father, the moon its mother,</td>
-<td class="col-bacstrom_english" style="display:none">The father of that one only thing is the sun its mother is the moon,</td>
-<td class="col-blavatsky_english" style="display:none">Its father is the sun, its mother the moon.</td>
-<td class="col-idries_shah_english" style="display:none">Its parents are the Sun and Moon.</td>
-<td class="col-fulcanelli_french_1" style="display:none">The Sun is the father, the Moon the mother;</td>
-<td class="col-fulcanelli_french_2" style="display:none">The Sun is the father and the Moon the mother.</td>
-<td class="col-kriegsmann_translation" style="display:none">It has the Sun for father and the Moon for mother:</td>
+<td class="verse-col" data-col="col-arabic" dir="rtl">أبوه الشمس، وأمه القمر</td>
+<td class="verse-col" data-col="col-latin">Pater eius est Sol, mater eius Luna;</td>
+<td class="verse-col" data-col="col-english">The Sun is its father, the moon its mother,</td>
 </tr>
 <tr>
 <td class="verse-num">5</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl">حملته الريح في بطنها، أرضته الأرض</td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl">The Earth carried it in her belly, and the Wind nourished it in her belly,</td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">wind has borne it in its body, and the earth has nourished it.</td>
-<td class="col-latin_vulgate" style="display:table-cell">portavit illud ventus in ventre suo;
+<td class="verse-col" data-col="col-arabic" dir="rtl">حملته الريح في بطنها، أرضته الأرض</td>
+<td class="verse-col" data-col="col-latin">portavit illud ventus in ventre suo;
 nutrix eius terra est.</td>
-<td class="col-twelfth_century_latin" style="display:table-cell">The wind carried it in its womb, the earth breast fed it.</td>
-<td class="col-beato_latin" style="display:none">The wind bore it in the womb. Its nurse is the earth, the mother of all perfection.</td>
-<td class="col-newton_english" style="display:table-cell">the wind hath carried it in its belly, the earth its nourse.</td>
-<td class="col-bacstrom_english" style="display:none">the wind carries it in its belly; but its nourse is a spirituous earth.</td>
-<td class="col-blavatsky_english" style="display:none"></td>
-<td class="col-idries_shah_english" style="display:none">It was borne by the wind and nurtured by the Earth.</td>
-<td class="col-fulcanelli_french_1" style="display:none">the wind carried it in his belly. Earth is its nurse and its guardian.</td>
-<td class="col-fulcanelli_french_2" style="display:none">The wind carries it in its stomach. The earth is its nourisher and its receptacle. 6 The Father of all the Theleme of the universal world is here.</td>
-<td class="col-kriegsmann_translation" style="display:none">it is carried by the air as if in a womb, it is nursed by the earth.</td>
+<td class="verse-col" data-col="col-english">the wind hath carried it in its belly, the earth its nourse.</td>
 </tr>
 <tr>
 <td class="verse-num">6</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl">هو أبو كل طلسم في العالم كله</td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl"></td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">the father of talismen and the protector of miracles</td>
-<td class="col-latin_vulgate" style="display:table-cell">Pater omnis telesmi totius mundi est hic.</td>
-<td class="col-twelfth_century_latin" style="display:table-cell">It is the father of all ‘works of wonder' (Telesmi) in the world.</td>
-<td class="col-beato_latin" style="display:none"></td>
-<td class="col-newton_english" style="display:table-cell">The father of all perfection in ye whole world is here.</td>
-<td class="col-bacstrom_english" style="display:none">That one only thing is the father of all things in the Universe.</td>
-<td class="col-blavatsky_english" style="display:none"></td>
-<td class="col-idries_shah_english" style="display:none">Every wonder is from it</td>
-<td class="col-fulcanelli_french_1" style="display:none">It is the Father of all things,</td>
-<td class="col-fulcanelli_french_2" style="display:none"></td>
-<td class="col-kriegsmann_translation" style="display:none">It is the cause, this, of all perfection of all things throughout the universe.</td>
+<td class="verse-col" data-col="col-arabic" dir="rtl">هو أبو كل طلسم في العالم كله</td>
+<td class="verse-col" data-col="col-latin">Pater omnis telesmi totius mundi est hic.</td>
+<td class="verse-col" data-col="col-english">The father of all perfection in ye whole world is here.</td>
 </tr>
 <tr>
 <td class="verse-num">6a</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl">قوته تامّة إذا تحولت إلى الأرض</td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl"></td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">whose powers are perfect, and whose lights are confirmed (?),</td>
-<td class="col-latin_vulgate" style="display:table-cell">Vis eius integra est, si versa fuerit in terram.</td>
-<td class="col-twelfth_century_latin" style="display:table-cell">Its power is complete (integra).</td>
-<td class="col-beato_latin" style="display:none">Its power is perfected.</td>
-<td class="col-newton_english" style="display:table-cell"></td>
-<td class="col-bacstrom_english" style="display:none">Its power is perfect,</td>
-<td class="col-blavatsky_english" style="display:none">It is the cause of all perfection throughout the whole earth.</td>
-<td class="col-idries_shah_english" style="display:none">and its power is complete.</td>
-<td class="col-fulcanelli_french_1" style="display:none">the eternal Will is contained in it.</td>
-<td class="col-fulcanelli_french_2" style="display:none">Its force, or power, remains entire,</td>
-<td class="col-kriegsmann_translation" style="display:none">This will attain the highest perfection of powers</td>
+<td class="verse-col" data-col="col-arabic" dir="rtl">قوته تامّة إذا تحولت إلى الأرض</td>
+<td class="verse-col" data-col="col-latin">Vis eius integra est, si versa fuerit in terram.</td>
+<td class="verse-col" data-col="col-english"></td>
 </tr>
 <tr>
 <td class="verse-num">7</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl">تفصل الأرض من النار، اللطيف من الكثيف برفق وحكمة</td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl">as Earth which shall become Fire.</td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">a fire that becomes earth.</td>
-<td class="col-latin_vulgate" style="display:table-cell">Separabis terram ab igne, subtile a spisso, suaviter cum magno ingenio.</td>
-<td class="col-twelfth_century_latin" style="display:table-cell">If cast to (turned towards- versa fuerit) earth,</td>
-<td class="col-beato_latin" style="display:none">If it is turned into earth,</td>
-<td class="col-newton_english" style="display:table-cell">Its force or power is entire if it be converted into earth.</td>
-<td class="col-bacstrom_english" style="display:none">after it has been united with a spirituous earth.</td>
-<td class="col-blavatsky_english" style="display:none">Its power is perfect if it is changed into earth.</td>
-<td class="col-idries_shah_english" style="display:none">Throw it upon earth,</td>
-<td class="col-fulcanelli_french_1" style="display:none">Here, on earth, its strength, its power remain one and undivded.</td>
-<td class="col-fulcanelli_french_2" style="display:none">if it is converted into earth.</td>
-<td class="col-kriegsmann_translation" style="display:none">if it shall be reduced into earth</td>
+<td class="verse-col" data-col="col-arabic" dir="rtl">تفصل الأرض من النار، اللطيف من الكثيف برفق وحكمة</td>
+<td class="verse-col" data-col="col-latin">Separabis terram ab igne, subtile a spisso, suaviter cum magno ingenio.</td>
+<td class="verse-col" data-col="col-english">Its force or power is entire if it be converted into earth.</td>
 </tr>
 <tr>
 <td class="verse-num">7a</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl"></td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl">Feed the Earth from that which is subtle, with the greatest power.</td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">Separate the earth from the fire, so you will attain the subtle as more inherent than the gross, with care and sagacity.</td>
-<td class="col-latin_vulgate" style="display:table-cell"></td>
-<td class="col-twelfth_century_latin" style="display:table-cell">it will separate earth from fire, the subtile from the gross.</td>
-<td class="col-beato_latin" style="display:none">separate the earth from the fire, the subtle and thin from the crude and course, prudently, with modesty and wisdom.</td>
-<td class="col-newton_english" style="display:table-cell">Seperate thou ye earth from ye fire, ye subtile from the gross sweetly wth great indoustry.</td>
-<td class="col-bacstrom_english" style="display:none">Separate that spirituous earth from the dense or crude by means of a gentle heat, with much attention.</td>
-<td class="col-blavatsky_english" style="display:none">Separate the earth from the fire, the subtile from the gross, acting prudently and with judgement. 8 ) Ascend with the greatest sagacity from earth to heaven, and unite together the power of things inferior and superior;</td>
-<td class="col-idries_shah_english" style="display:none">and earth will separate from fire. The impalbable separated from the palpable.</td>
-<td class="col-fulcanelli_french_1" style="display:none">Earth must be separated from fire, the subtle from the dense, gently with unremitting care.</td>
-<td class="col-fulcanelli_french_2" style="display:none">You separate the earth from the fire, the subtle from the gross, gently with great industry.</td>
-<td class="col-kriegsmann_translation" style="display:none">Distribute here the earth and there the fire, thin out the density of this the suavest (suavissima) thing of all.</td>
+<td class="verse-col" data-col="col-arabic" dir="rtl"></td>
+<td class="verse-col" data-col="col-latin"></td>
+<td class="verse-col" data-col="col-english">Seperate thou ye earth from ye fire, ye subtile from the gross sweetly wth great indoustry.</td>
 </tr>
 <tr>
 <td class="verse-num">8</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl">يصعد من الأرض إلى السماء، ثم ينزل إلى الأرض
+<td class="verse-col" data-col="col-arabic" dir="rtl">يصعد من الأرض إلى السماء، ثم ينزل إلى الأرض
 فيأخذ قوة العلويات والسفليات</td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl">It ascends from the earth to the heaven and becomes ruler over that which is above and that which is below.</td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">It rises from earth to heaven, so as to draw the lights of the heights to itself, and descends to the earth; thus within it are the forces of the above and the below;</td>
-<td class="col-latin_vulgate" style="display:table-cell">Ascendit a terra in caelum, iterumque descendit in terram,
+<td class="verse-col" data-col="col-latin">Ascendit a terra in caelum, iterumque descendit in terram,
 et recipit vim superiorum et inferiorum.</td>
-<td class="col-twelfth_century_latin" style="display:table-cell">With great capacity it ascends from earth to heaven. Again it descends to earth, and takes back the power of the above and the below.</td>
-<td class="col-beato_latin" style="display:none">This ascends from the earth into the sky and again descends from the sky to the earth, and receives the power and efficacy of things above and of things below.</td>
-<td class="col-newton_english" style="display:table-cell">It ascends from ye earth to ye heaven & again it desends to ye earth and receives ye force of things superior & inferior.</td>
-<td class="col-bacstrom_english" style="display:none">In great measure it ascends from the earth up to heaven, and descends again, newborn, on the earth, and the superior and the inferior are increased in power.</td>
-<td class="col-blavatsky_english" style="display:none"></td>
-<td class="col-idries_shah_english" style="display:none">Through wisdom it rises slowly from the world to heaven. Then it descends to the world combining the power of the upper and the lower. 9 )Thus you will have the illumination of all the world, and darkness will disappear.</td>
-<td class="col-fulcanelli_french_1" style="display:none">It arises from the earth and descends from heaven; it gathers to itself the strength of things above and things below.</td>
-<td class="col-fulcanelli_french_2" style="display:none">It climbs from the earth and descends from the sky, and receives the force of things superior and things inferior.</td>
-<td class="col-kriegsmann_translation" style="display:none">Ascend with the greatest sagacity of genius from the earth into the sky, and thence descend again to the earth, and recognise that the forces of things above and of things below are one,</td>
+<td class="verse-col" data-col="col-english">It ascends from ye earth to ye heaven & again it desends to ye earth and receives ye force of things superior & inferior.</td>
 </tr>
 <tr>
 <td class="verse-num">9</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl">فبهذا يكون لك مجد العالم كله
+<td class="verse-col" data-col="col-arabic" dir="rtl">فبهذا يكون لك مجد العالم كله
 لذلك يهرب منك كل ظلمة</td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl"></td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">because the light of lights within it, thus does the darkness flee before it.</td>
-<td class="col-latin_vulgate" style="display:table-cell">Sic habebis gloriam totius mundi;
+<td class="verse-col" data-col="col-latin">Sic habebis gloriam totius mundi;
 ideo fugiet a te omnis obscuritas.</td>
-<td class="col-twelfth_century_latin" style="display:table-cell">Thus you will receive the glory of the distinctiveness of the world. All obscurity will flee from you.</td>
-<td class="col-beato_latin" style="display:none">By this means you will acquire the glory of the whole world, and so you will drive away all shadows and blindness.</td>
-<td class="col-newton_english" style="display:table-cell">By this means you shall have ye glory of ye whole world & thereby all obscurity shall fly from you.</td>
-<td class="col-bacstrom_english" style="display:none">By this wilt thou partake of the honours of the whole world. And Darkness will fly from thee.</td>
-<td class="col-blavatsky_english" style="display:none">thus you will possess the light of the whole world, and all obscurity will fly away from you.</td>
-<td class="col-idries_shah_english" style="display:none"></td>
-<td class="col-fulcanelli_french_1" style="display:none">By means of this one thing all the glory of the world shall be yours and all obscurity flee from you.</td>
-<td class="col-fulcanelli_french_2" style="display:none">You will have by this way, the glory of the world and all obscurity will flee from you.</td>
-<td class="col-kriegsmann_translation" style="display:none">so as to posses the glory of the whole world- and beyond this man of abject fate may have nothing further.</td>
+<td class="verse-col" data-col="col-english">By this means you shall have ye glory of ye whole world & thereby all obscurity shall fly from you.</td>
 </tr>
 <tr>
 <td class="verse-num">10</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl">هذه قوة القوى كلها، لأنها تغلب كل شيء لطيف وتدخل في كل شيء كثيف</td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl"></td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">The force of forces, which overcomes every subtle thing and penetrates into everything gross.</td>
-<td class="col-latin_vulgate" style="display:table-cell">Haec est totius fortitudinis fortitudo fortis,
+<td class="verse-col" data-col="col-arabic" dir="rtl">هذه قوة القوى كلها، لأنها تغلب كل شيء لطيف وتدخل في كل شيء كثيف</td>
+<td class="verse-col" data-col="col-latin">Haec est totius fortitudinis fortitudo fortis,
 quia vincet omnem rem subtilem, omnemque solidam penetrabit.</td>
-<td class="col-twelfth_century_latin" style="display:table-cell">This is the whole most strong strength of all strength, for it overcomes all subtle things, and penetrates all solid things.</td>
-<td class="col-beato_latin" style="display:none">For this by its fortitude snatches the palm from all other fortitude and power. For it is able to penetrate and subdue everything subtle and everything crude and hard.</td>
-<td class="col-newton_english" style="display:table-cell">Its force is above all force. ffor it vanquishes every subtile thing & penetrates every solid thing.</td>
-<td class="col-bacstrom_english" style="display:none">This is the strength of all powers. With this thou wilt be able to overcome all things and transmute all what is fine and what is coarse.</td>
-<td class="col-blavatsky_english" style="display:none">This thing has more fortitude than fortitude itself, because it will overcome every subtile thing and penetrate every solid thing.</td>
-<td class="col-idries_shah_english" style="display:none">This is the power of all strength- it overcomes that which is delicate and penetrates through solids.</td>
-<td class="col-fulcanelli_french_1" style="display:none">It is power, strong with the strength of all power, for it will penetrate all mysteries and dispel all ignorance.</td>
-<td class="col-fulcanelli_french_2" style="display:none">It is the power strong with all power, for it will defeat every subtle thing and penetrate every solid thing</td>
-<td class="col-kriegsmann_translation" style="display:none">This thing itself presently comes forth stronger by reasons of this fortitude: it subdues all bodies surely, whether tenuous or solid, by penetrating them.</td>
+<td class="verse-col" data-col="col-english">Its force is above all force. ffor it vanquishes every subtile thing & penetrates every solid thing.</td>
 </tr>
 <tr>
 <td class="verse-num">11</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl">هكذا خلق العالم</td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl"></td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">The structure of the microcosm is in accordance with the structure of the macrocosm.</td>
-<td class="col-latin_vulgate" style="display:table-cell">Sic mundus creatus est.</td>
-<td class="col-twelfth_century_latin" style="display:table-cell"></td>
-<td class="col-beato_latin" style="display:none"></td>
-<td class="col-newton_english" style="display:table-cell"></td>
-<td class="col-bacstrom_english" style="display:none"></td>
-<td class="col-blavatsky_english" style="display:none"></td>
-<td class="col-idries_shah_english" style="display:none"></td>
-<td class="col-fulcanelli_french_1" style="display:none"></td>
-<td class="col-fulcanelli_french_2" style="display:none"></td>
-<td class="col-kriegsmann_translation" style="display:none"></td>
+<td class="verse-col" data-col="col-arabic" dir="rtl">هكذا خلق العالم</td>
+<td class="verse-col" data-col="col-latin">Sic mundus creatus est.</td>
+<td class="verse-col" data-col="col-english"></td>
 </tr>
 <tr>
 <td class="verse-num">11a</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl"></td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl"></td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl"></td>
-<td class="col-latin_vulgate" style="display:table-cell"></td>
-<td class="col-twelfth_century_latin" style="display:table-cell">Thus was the world created.</td>
-<td class="col-beato_latin" style="display:none">By this means the world was founded</td>
-<td class="col-newton_english" style="display:table-cell">So was ye world created.</td>
-<td class="col-bacstrom_english" style="display:none">In this manner the world was created;</td>
-<td class="col-blavatsky_english" style="display:none">By it the world was formed.</td>
-<td class="col-idries_shah_english" style="display:none">This was the means of the creation of the world.</td>
-<td class="col-fulcanelli_french_1" style="display:none">By it the world was created.</td>
-<td class="col-fulcanelli_french_2" style="display:none">In this way the world was created.</td>
-<td class="col-kriegsmann_translation" style="display:none">And so everything whatsoever that the world contains was created.</td>
+<td class="verse-col" data-col="col-arabic" dir="rtl"></td>
+<td class="verse-col" data-col="col-latin"></td>
+<td class="verse-col" data-col="col-english">So was ye world created.</td>
 </tr>
 <tr>
 <td class="verse-num">12</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl">من هذا تكون العجائب، ووسائله هذه</td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl"></td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">And accordingly proceed the knowledgeable.</td>
-<td class="col-latin_vulgate" style="display:table-cell">Hinc erunt adaptationes mirabiles, quarum modus est hic.</td>
-<td class="col-twelfth_century_latin" style="display:table-cell">From this comes marvelous adaptions of which this is the proceedure.</td>
-<td class="col-beato_latin" style="display:none">and hence the marvelous cojunctions of it and admirable effects, since this is the way by which these marvels may be brought about.</td>
-<td class="col-newton_english" style="display:table-cell">From this are & do come admirable adaptaions whereof ye means (Or process) is here in this.</td>
-<td class="col-bacstrom_english" style="display:none">the arrangements to follow this road are hidden.</td>
-<td class="col-blavatsky_english" style="display:none"></td>
-<td class="col-idries_shah_english" style="display:none">And in the future wonderful developements will be made, and this is the way.</td>
-<td class="col-fulcanelli_french_1" style="display:none">From it are born manifold wonders, the means to achieving which are here given</td>
-<td class="col-fulcanelli_french_2" style="display:none">From it are born wonderful adaptations, of which the way here is given.</td>
-<td class="col-kriegsmann_translation" style="display:none">Hence admirable works are accomplished which are instituted (carried out- instituuntur) according to the same mode.</td>
+<td class="verse-col" data-col="col-arabic" dir="rtl">من هذا تكون العجائب، ووسائله هذه</td>
+<td class="verse-col" data-col="col-latin">Hinc erunt adaptationes mirabiles, quarum modus est hic.</td>
+<td class="verse-col" data-col="col-english">From this are & do come admirable adaptaions whereof ye means (Or process) is here in this.</td>
 </tr>
 <tr>
 <td class="verse-num">13</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl">ولذلك سميت هرمس مثلث بالحكمة</td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl"></td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">And to this aspired Hermes, who was threefold graced with wisdom.</td>
-<td class="col-latin_vulgate" style="display:table-cell">Itaque vocatus sum Hermes Trismegistus, habens tres partes philosophiae totius mundi.</td>
-<td class="col-twelfth_century_latin" style="display:table-cell">Therefore I am called Hermes, because I have three parts of the wisdom of the whole world.</td>
-<td class="col-beato_latin" style="display:none">And because of this they have called me Hermes Tristmegistus since I have the three parts of the wisdom and Philsosphy of the whole universe.</td>
-<td class="col-newton_english" style="display:table-cell">Hence I am called Hermes Trismegist, having the three parts of ye philosophy of ye whole world.</td>
-<td class="col-bacstrom_english" style="display:none">For this reason I am called Chiram Telat Mechasot, one in essence, but three in aspect. In this trinity is hidden the wisdom of the whole world.</td>
-<td class="col-blavatsky_english" style="display:none"></td>
-<td class="col-idries_shah_english" style="display:none">I am Hermes the Threefold Sage, so named because I hold the three elements of all wisdom.</td>
-<td class="col-fulcanelli_french_1" style="display:none">It is for this reason that I am called Hermes Trismegistus; for I possess the three essentials of the philosophy of the universe.</td>
-<td class="col-fulcanelli_french_2" style="display:none">That is why I have been called Hermes Tristmegistus, having the three parts of the universal philosophy.</td>
-<td class="col-kriegsmann_translation" style="display:none">To me therefor the name of Hermes Trismegistus has been awarded because I am discovered as the Teacher of the three parts of the wisdom of the world.</td>
+<td class="verse-col" data-col="col-arabic" dir="rtl">ولذلك سميت هرمس مثلث بالحكمة</td>
+<td class="verse-col" data-col="col-latin">Itaque vocatus sum Hermes Trismegistus, habens tres partes philosophiae totius mundi.</td>
+<td class="verse-col" data-col="col-english">Hence I am called Hermes Trismegist, having the three parts of ye philosophy of ye whole world.</td>
 </tr>
 <tr>
 <td class="verse-num">14</td>
-<td class="col-arabic_sirr_al_khaliqa" style="display:table-cell" dir="rtl"></td>
-<td class="col-jabir_arabic" style="display:none" dir="rtl">And I have already explained the meaning of the whole of this in two of these books of mine.</td>
-<td class="col-ruska_anonymous_arabic" style="display:none" dir="rtl">And this is his last book, which he concealed in the chamber.</td>
-<td class="col-latin_vulgate" style="display:table-cell">Completum est quod dixi de operatione Solis.</td>
-<td class="col-twelfth_century_latin" style="display:table-cell">And complete is what I had to say about the work of the Sun, from the book of Galieni Alfachimi.</td>
-<td class="col-beato_latin" style="display:none">My speech is finished which i have spoken concerning the solar work</td>
-<td class="col-newton_english" style="display:table-cell">That wch I have said of ye operation of ye Sun is accomplished & ended.</td>
-<td class="col-bacstrom_english" style="display:none">It is ended now, what I have said concerning the effects of the sun. Finish of the Tabula Smaragdina.</td>
-<td class="col-blavatsky_english" style="display:none"></td>
-<td class="col-idries_shah_english" style="display:none">And thus ends the revelation of the work of the Sun. (Shah 1964: 198).</td>
-<td class="col-fulcanelli_french_1" style="display:none">This is is the sum total of the work of the Sun.</td>
-<td class="col-fulcanelli_french_2" style="display:none">This, that I have called the solar Work, is complete.</td>
-<td class="col-kriegsmann_translation" style="display:none">These then are the considerations which I have concluded ought to be written down concerning the readiest operations of the Chymic art.</td>
+<td class="verse-col" data-col="col-arabic" dir="rtl"></td>
+<td class="verse-col" data-col="col-latin">Completum est quod dixi de operatione Solis.</td>
+<td class="verse-col" data-col="col-english">That wch I have said of ye operation of ye Sun is accomplished & ended.</td>
 </tr>
 </tbody></table>
 </div>
 
 <script>
-document.querySelectorAll('.col-toggle').forEach(cb => {
-    cb.addEventListener('change', function() {
-        const col = this.dataset.col;
-        const display = this.checked ? 'table-cell' : 'none';
-        document.querySelectorAll('.col-' + col).forEach(el => {
-            el.style.display = display;
+document.querySelectorAll('.translation-selector').forEach(select => {
+    select.addEventListener('change', function() {
+        const colId = this.dataset.col;
+        const transId = this.value;
+        const transData = VERSE_DATA[transId] || {};
+        const selectedOption = this.options[this.selectedIndex];
+        const title = selectedOption.text;
+
+        // Update header
+        const thId = colId.replace('col-', 'th-');
+        const th = document.getElementById(thId);
+        if (th) {
+            const lang = transId.includes('arabic') ? 'ARABIC' :
+                         transId.includes('latin') || transId.includes('vulgate') || transId.includes('beato') || transId.includes('twelfth') ? 'LATIN' :
+                         transId.includes('french') || transId.includes('fulcanelli') ? 'FRENCH' :
+                         transId.includes('phoenician') || transId.includes('kriegsmann') ? 'PHOENICIAN' : 'ENGLISH';
+            th.innerHTML = title + '<br><span style="font-weight:normal;font-size:0.7rem">' + lang + '</span>';
+        }
+
+        // Update verse cells
+        const rows = document.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            const verseNum = row.querySelector('.verse-num');
+            if (!verseNum) return;
+            const vkey = verseNum.textContent;
+            const cell = row.querySelector('[data-col="' + colId + '"]');
+            if (cell) {
+                cell.textContent = transData[vkey] || '';
+                cell.dir = transId.includes('arabic') ? 'rtl' : 'ltr';
+            }
         });
     });
 });

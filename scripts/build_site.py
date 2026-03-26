@@ -239,8 +239,17 @@ body {
     text-align: left;
     font-family: var(--font-sans);
     font-size: 0.8rem;
-    position: sticky;
-    top: 45px;
+}
+.translation-selector {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg-card);
+    color: var(--text);
+    margin: 0.25rem;
 }
 .verse-table td {
     padding: 0.75rem;
@@ -641,93 +650,129 @@ def build_translations_index(conn):
 
 
 def build_parallel_viewer(conn):
-    """Build the centerpiece: Emerald Tablet parallel translation page."""
-    # Get translations with verses
+    """Build the centerpiece: Emerald Tablet parallel translation page with 3 dropdown columns."""
+    # Get translations with verses, grouped by language
     translations = conn.execute("""
         SELECT t.id, t.translation_id, t.title, t.language
         FROM translations t
         WHERE t.id IN (SELECT DISTINCT translation_id FROM translation_verses)
-        ORDER BY
-            CASE t.language
-                WHEN 'ARABIC' THEN 1
-                WHEN 'LATIN' THEN 2
-                WHEN 'ENGLISH' THEN 3
-                WHEN 'FRENCH' THEN 4
-                ELSE 5
-            END,
-            t.date_year
+        ORDER BY t.language, t.date_year
     """).fetchall()
 
-    # Get all verse numbers
-    verse_nums = conn.execute("""
-        SELECT DISTINCT verse_number, verse_sub
-        FROM translation_verses
-        ORDER BY CAST(verse_number AS INTEGER), verse_sub
-    """).fetchall()
+    # Group by language for dropdowns
+    by_lang = {}
+    for trans_pk, trans_id, trans_title, trans_lang in translations:
+        by_lang.setdefault(trans_lang, []).append((trans_pk, trans_id, trans_title))
 
-    # Build verse lookup
-    verse_data = {}
+    # Build verse lookup: verse_data[trans_id][verse_key] = text
+    all_verses = {}
     for trans_pk, trans_id, trans_title, trans_lang in translations:
         verses = conn.execute("""
             SELECT verse_number, verse_sub, verse_text
             FROM translation_verses WHERE translation_id = ?
         """, (trans_pk,)).fetchall()
+        all_verses[trans_id] = {}
         for vnum, vsub, vtext in verses:
             key = f"{vnum}{vsub}" if vsub else vnum
-            if key not in verse_data:
-                verse_data[key] = {}
-            verse_data[key][trans_id] = vtext
+            all_verses[trans_id][key] = vtext
 
-    # Select default columns (4 most important)
-    default_cols = ['arabic_sirr_al_khaliqa', 'latin_vulgate', 'twelfth_century_latin', 'newton_english']
-    all_trans = [(tid, ttitle, tlang) for _, tid, ttitle, tlang in translations]
+    # Get sorted verse keys
+    all_keys = set()
+    for tv in all_verses.values():
+        all_keys.update(tv.keys())
+    sorted_keys = sorted(all_keys, key=lambda x: (int(re.match(r'\d+', x).group()), x))
+
+    # Defaults
+    default_arabic = 'arabic_sirr_al_khaliqa'
+    default_latin = 'latin_vulgate'
+    default_english = 'newton_english'
+
+    # Build options for each language group
+    arabic_options = by_lang.get('ARABIC', [])
+    latin_options = by_lang.get('LATIN', [])
+    english_options = by_lang.get('ENGLISH', []) + by_lang.get('FRENCH', []) + by_lang.get('PHOENICIAN', [])
+
+    def make_select(col_id, options, default_id, label):
+        html = f'<div style="flex:1;min-width:200px">\n'
+        html += f'<label style="font-family:var(--font-sans);font-size:0.8rem;color:var(--text-muted);display:block;margin-bottom:0.3rem">{label}</label>\n'
+        html += f'<select class="translation-selector" data-col="{col_id}" style="width:100%">\n'
+        for _, tid, ttitle in options:
+            selected = ' selected' if tid == default_id else ''
+            html += f'  <option value="{tid}"{selected}>{ttitle}</option>\n'
+        html += '</select>\n</div>\n'
+        return html
 
     body = '<div class="page-wide">\n'
     body += '<a href="index.html" class="back-link">&larr; All Translations</a>\n'
     body += '<h1>Emerald Tablet: Parallel Translations</h1>\n'
-    body += f'<p style="color:var(--text-muted);margin-bottom:1rem">{len(translations)} translations, {len(verse_data)} verses</p>\n'
+    body += f'<p style="color:var(--text-muted);margin-bottom:1rem">{len(translations)} translations available, {len(sorted_keys)} verses</p>\n'
 
-    # Column selector
-    body += '<details style="margin-bottom:1rem"><summary style="cursor:pointer;color:var(--accent);font-family:var(--font-sans)">Select columns to display</summary>\n'
-    body += '<div id="col-selector" style="padding:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:4px;margin-top:0.5rem">\n'
-    for tid, ttitle, tlang in all_trans:
-        checked = 'checked' if tid in default_cols else ''
-        body += f'<label style="display:block;margin:0.3rem 0;font-family:var(--font-sans);font-size:0.85rem"><input type="checkbox" class="col-toggle" data-col="{tid}" {checked}> {ttitle} ({tlang})</label>\n'
-    body += '</div></details>\n'
+    # Dropdown selectors
+    body += '<div style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;padding:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:4px">\n'
+    body += make_select('col-arabic', arabic_options, default_arabic, 'Arabic Translation')
+    body += make_select('col-latin', latin_options, default_latin, 'Latin Translation')
+    body += make_select('col-english', english_options, default_english, 'English / Other Translation')
+    body += '</div>\n'
 
-    # Table
+    # Embed all verse data as JSON for JS switching
+    body += '<script>\nconst VERSE_DATA = '
+    body += json.dumps(all_verses, ensure_ascii=False)
+    body += ';\n</script>\n'
+
+    # Table with 3 visible columns
     body += '<div style="overflow-x:auto">\n<table class="verse-table">\n<thead><tr>\n'
-    body += '<th>V.</th>\n'
-    for tid, ttitle, tlang in all_trans:
-        display = 'table-cell' if tid in default_cols else 'none'
-        short = ttitle[:25] + "..." if len(ttitle) > 25 else ttitle
-        body += f'<th class="col-{tid}" style="display:{display}">{short}<br><span style="font-weight:normal;font-size:0.7rem">{tlang}</span></th>\n'
+    body += '<th style="width:40px">V.</th>\n'
+    body += f'<th id="th-arabic" style="width:30%">Arabic (Sirr al-Khaliqa)<br><span style="font-weight:normal;font-size:0.7rem">ARABIC</span></th>\n'
+    body += f'<th id="th-latin" style="width:35%">Latin Vulgate<br><span style="font-weight:normal;font-size:0.7rem">LATIN</span></th>\n'
+    body += f'<th id="th-english" style="width:35%">Newton\'s English Translation<br><span style="font-weight:normal;font-size:0.7rem">ENGLISH</span></th>\n'
     body += '</tr></thead>\n<tbody>\n'
 
-    # Sort verse keys
-    sorted_keys = sorted(verse_data.keys(), key=lambda x: (int(re.match(r'\d+', x).group()), x))
-
     for vkey in sorted_keys:
+        ar_text = all_verses.get(default_arabic, {}).get(vkey, '')
+        la_text = all_verses.get(default_latin, {}).get(vkey, '')
+        en_text = all_verses.get(default_english, {}).get(vkey, '')
         body += '<tr>\n'
         body += f'<td class="verse-num">{vkey}</td>\n'
-        for tid, ttitle, tlang in all_trans:
-            display = 'table-cell' if tid in default_cols else 'none'
-            text = verse_data[vkey].get(tid, '')
-            rtl = ' dir="rtl"' if tlang == 'ARABIC' else ''
-            body += f'<td class="col-{tid}" style="display:{display}"{rtl}>{text}</td>\n'
+        body += f'<td class="verse-col" data-col="col-arabic" dir="rtl">{ar_text}</td>\n'
+        body += f'<td class="verse-col" data-col="col-latin">{la_text}</td>\n'
+        body += f'<td class="verse-col" data-col="col-english">{en_text}</td>\n'
         body += '</tr>\n'
 
     body += '</tbody></table>\n</div>\n'
 
-    # JavaScript for column toggle
+    # JavaScript for dropdown switching
     body += """
 <script>
-document.querySelectorAll('.col-toggle').forEach(cb => {
-    cb.addEventListener('change', function() {
-        const col = this.dataset.col;
-        const display = this.checked ? 'table-cell' : 'none';
-        document.querySelectorAll('.col-' + col).forEach(el => {
-            el.style.display = display;
+document.querySelectorAll('.translation-selector').forEach(select => {
+    select.addEventListener('change', function() {
+        const colId = this.dataset.col;
+        const transId = this.value;
+        const transData = VERSE_DATA[transId] || {};
+        const selectedOption = this.options[this.selectedIndex];
+        const title = selectedOption.text;
+
+        // Update header
+        const thId = colId.replace('col-', 'th-');
+        const th = document.getElementById(thId);
+        if (th) {
+            const lang = transId.includes('arabic') ? 'ARABIC' :
+                         transId.includes('latin') || transId.includes('vulgate') || transId.includes('beato') || transId.includes('twelfth') ? 'LATIN' :
+                         transId.includes('french') || transId.includes('fulcanelli') ? 'FRENCH' :
+                         transId.includes('phoenician') || transId.includes('kriegsmann') ? 'PHOENICIAN' : 'ENGLISH';
+            th.innerHTML = title + '<br><span style="font-weight:normal;font-size:0.7rem">' + lang + '</span>';
+        }
+
+        // Update verse cells
+        const rows = document.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            const verseNum = row.querySelector('.verse-num');
+            if (!verseNum) return;
+            const vkey = verseNum.textContent;
+            const cell = row.querySelector('[data-col="' + colId + '"]');
+            if (cell) {
+                cell.textContent = transData[vkey] || '';
+                cell.dir = transId.includes('arabic') ? 'rtl' : 'ltr';
+            }
         });
     });
 });
