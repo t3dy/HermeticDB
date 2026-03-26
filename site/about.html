@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — EmeraldTablet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="site-nav">
+  <span class="site-title">EmeraldTablet</span>
+  <a href="index.html">Home</a>
+  <a href="texts/index.html">Texts</a>
+  <a href="persons/index.html">Persons</a>
+  <a href="translations/index.html">Translations</a>
+  <a href="concepts/index.html">Concepts</a>
+  <a href="timeline.html">Timeline</a>
+  <a href="bibliography.html">Bibliography</a>
+  <a href="manuscripts/index.html">Manuscripts</a>
+  <a href="about.html" class="active">About</a>
+</nav>
+
+<div class="page-content">
+<h1>About This Project</h1>
+<p>The EmeraldTablet Knowledge Portal is a digital humanities project providing encyclopedic reference for the Hermetic tradition from late antiquity to the early modern period, anchored on a digital edition of the Emerald Tablet (Tabula Smaragdina).</p>
+<h2 class="section-header">Architecture</h2>
+<p>SQLite database &rarr; Python pipeline &rarr; static HTML/CSS/JS &rarr; GitHub Pages. No frameworks, Python standard library only.</p>
+<h2 class="section-header">Database Statistics</h2>
+<table style="width:100%;border-collapse:collapse;font-family:var(--font-sans)">
+<tr><td style="padding:0.4rem;border-bottom:1px solid var(--border)">Texts</td><td style="padding:0.4rem;border-bottom:1px solid var(--border);font-weight:700;text-align:right">27</td></tr>
+<tr><td style="padding:0.4rem;border-bottom:1px solid var(--border)">Persons</td><td style="padding:0.4rem;border-bottom:1px solid var(--border);font-weight:700;text-align:right">49</td></tr>
+<tr><td style="padding:0.4rem;border-bottom:1px solid var(--border)">Translations</td><td style="padding:0.4rem;border-bottom:1px solid var(--border);font-weight:700;text-align:right">15</td></tr>
+<tr><td style="padding:0.4rem;border-bottom:1px solid var(--border)">Translation Verses</td><td style="padding:0.4rem;border-bottom:1px solid var(--border);font-weight:700;text-align:right">190</td></tr>
+<tr><td style="padding:0.4rem;border-bottom:1px solid var(--border)">Concepts</td><td style="padding:0.4rem;border-bottom:1px solid var(--border);font-weight:700;text-align:right">19</td></tr>
+<tr><td style="padding:0.4rem;border-bottom:1px solid var(--border)">Bibliography</td><td style="padding:0.4rem;border-bottom:1px solid var(--border);font-weight:700;text-align:right">26</td></tr>
+<tr><td style="padding:0.4rem;border-bottom:1px solid var(--border)">Manuscripts</td><td style="padding:0.4rem;border-bottom:1px solid var(--border);font-weight:700;text-align:right">4</td></tr>
+<tr><td style="padding:0.4rem;border-bottom:1px solid var(--border)">Timeline Events</td><td style="padding:0.4rem;border-bottom:1px solid var(--border);font-weight:700;text-align:right">29</td></tr>
+<tr><td style="padding:0.4rem;border-bottom:1px solid var(--border)">Person-Text Roles</td><td style="padding:0.4rem;border-bottom:1px solid var(--border);font-weight:700;text-align:right">32</td></tr>
+<tr><td style="padding:0.4rem;border-bottom:1px solid var(--border)">Corpus Documents</td><td style="padding:0.4rem;border-bottom:1px solid var(--border);font-weight:700;text-align:right">72</td></tr>
+<tr><td style="padding:0.4rem;border-bottom:1px solid var(--border)">Corpus Segments</td><td style="padding:0.4rem;border-bottom:1px solid var(--border);font-weight:700;text-align:right">10134</td></tr>
+</table>
+<h2 class="section-header">Provenance</h2>
+<p>Every datum in this portal carries provenance metadata: source method (SEED_DATA, CORPUS_EXTRACTION, DETERMINISTIC), review status (DRAFT, REVIEWED, VERIFIED), and confidence level (HIGH, MEDIUM, LOW).</p>
+<h2 class="section-header">Methodology</h2>
+<p>Data pipeline: corpus conversion (PDF to markdown) &rarr; corpus indexing &rarr; text segmentation &rarr; keyword marking &rarr; entity extraction &rarr; relationship linking &rarr; card assembly &rarr; static site generation &rarr; validation.</p>
+</div>
+
+</body>
+</html>

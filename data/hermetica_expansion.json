@@ -1,0 +1,756 @@
+{
+  "texts": [
+    {
+      "text_id": "corpus_hermeticum",
+      "title": "Corpus Hermeticum",
+      "title_original": "Corpus Hermeticum",
+      "language": "GREEK",
+      "text_type": "PRIMARY_SOURCE",
+      "date_composed_start": 100,
+      "date_composed_end": 300,
+      "description": "Collection of 18 Greek philosophical-theological treatises attributed to Hermes Trismegistus. Core texts of the philosophical Hermetic tradition covering cosmogony, theology, soteriology, and the nature of the divine mind (Nous). Compiled ca. 4th century CE from earlier individual treatises."
+    },
+    {
+      "text_id": "poimandres",
+      "title": "Poimandres (Corpus Hermeticum I)",
+      "title_original": "Ποιμάνδρης",
+      "language": "GREEK",
+      "text_type": "PRIMARY_SOURCE",
+      "date_composed_start": 100,
+      "date_composed_end": 200,
+      "description": "Opening treatise of the Corpus Hermeticum. Cosmogonic vision in which Poimandres (Divine Mind/Nous) reveals the creation of the cosmos and the descent of the Anthropos (Primal Human) into matter. Foundational text for Hermetic metaphysics."
+    },
+    {
+      "text_id": "ch_xiii_on_rebirth",
+      "title": "On Rebirth (Corpus Hermeticum XIII)",
+      "title_original": "Περὶ Παλιγγενεσίας",
+      "language": "GREEK",
+      "text_type": "PRIMARY_SOURCE",
+      "date_composed_start": 100,
+      "date_composed_end": 300,
+      "description": "Treatise on spiritual regeneration (palingenesia). Hermes instructs Tat on the initiatory process of shedding material identification and assuming divine consciousness. Ambiguously positioned between mystery-religion and philosophical gnosis."
+    },
+    {
+      "text_id": "asclepius",
+      "title": "Asclepius (Latin Hermetica)",
+      "title_original": "Asclepius",
+      "language": "LATIN",
+      "text_type": "PRIMARY_SOURCE",
+      "date_composed_start": 200,
+      "date_composed_end": 400,
+      "description": "Latin Hermetic dialogue covering statue consecration and divine animation (38-41), immaterial thanksgiving (41), and the apocalyptic prophecy of Egypt's divine abandonment (24-26). Bridge between philosophical and operative Hermeticism."
+    },
+    {
+      "text_id": "discourse_eighth_ninth",
+      "title": "Discourse on the Eighth and Ninth",
+      "title_original": null,
+      "language": "GREEK",
+      "text_type": "PRIMARY_SOURCE",
+      "date_composed_start": 200,
+      "date_composed_end": 400,
+      "description": "Coptic Hermetic text from Nag Hammadi Codex VI. Visionary ascent through cosmic spheres with vocalic hymns and ecstatic union. Shows initiatory and mystical dimensions of Hermeticism."
+    },
+    {
+      "text_id": "visions_of_zosimos",
+      "title": "The Visions of Zosimos",
+      "title_original": null,
+      "language": "GREEK",
+      "text_type": "PRIMARY_SOURCE",
+      "date_composed_start": 250,
+      "date_composed_end": 310,
+      "description": "Allegorical dream-visions by Zosimos of Panopolis encoding alchemical operations within cosmological and mystical narrative. Features the sacrificing priest Ion, the 15-step altar, and seven punishments. Most elaborate visionary alchemy in the late antique corpus."
+    },
+    {
+      "text_id": "de_mysteriis",
+      "title": "De mysteriis (On the Mysteries)",
+      "title_original": "Περὶ τῶν μυστηρίων",
+      "language": "GREEK",
+      "text_type": "TREATISE",
+      "date_composed_start": 300,
+      "date_composed_end": 330,
+      "description": "Iamblichus's defense of theurgy against Porphyry's rationalist critique. Treats Hermetic texts as translations of Egyptian Books of Thoth. Argues that ritual language carries inherent divine energy that fades through translation (exitalos). Key text linking Hermetic and Neoplatonic traditions."
+    },
+    {
+      "text_id": "picatrix",
+      "title": "Picatrix (Ghayat al-Hakim)",
+      "title_original": "غاية الحكيم",
+      "language": "ARABIC",
+      "text_type": "COMPILATION",
+      "date_composed_start": 950,
+      "date_composed_end": 1000,
+      "description": "Comprehensive Arabic treatise on talismanic magic, celestial invocation, and Hermetic-Neoplatonic cosmology. Major conduit for transmission of Hermetic magical practice into medieval Europe via Latin translation."
+    },
+    {
+      "text_id": "book_24_philosophers",
+      "title": "Book of the 24 Philosophers (Liber XXIV Philosophorum)",
+      "title_original": "Liber XXIV Philosophorum",
+      "language": "LATIN",
+      "text_type": "TREATISE",
+      "date_composed_start": 300,
+      "date_composed_end": 1200,
+      "description": "Collection of 24 definitions of God in aphoristic form. Possibly late antique origin, earliest manuscripts 12th century. Contains the famous definition 'God is an infinite sphere whose center is everywhere and circumference is nowhere.' Influential in medieval philosophy."
+    },
+    {
+      "text_id": "de_sex_rerum_principiis",
+      "title": "De sex rerum principiis (On the Six Principles of Things)",
+      "title_original": "De sex rerum principiis",
+      "language": "LATIN",
+      "text_type": "PSEUDO_EPIGRAPHA",
+      "date_composed_start": 1100,
+      "date_composed_end": 1200,
+      "description": "Medieval treatise attributed to Hermes Trismegistus on six fundamental principles. Adapted Neoplatonic cosmology for medieval Latin readership. Edited by Paolo Lucentini and Mark Damien Delp."
+    },
+    {
+      "text_id": "three_books_occult_philosophy",
+      "title": "Three Books of Occult Philosophy (De occulta philosophia)",
+      "title_original": "De occulta philosophia libri tres",
+      "language": "LATIN",
+      "text_type": "TREATISE",
+      "date_composed_start": 1510,
+      "date_composed_end": 1533,
+      "description": "Cornelius Agrippa's systematic synthesis of Hermetic, Neoplatonic, Kabbalistic, and astrological magic. The most influential early modern magical treatise, providing the theoretical framework for all subsequent Western ceremonial magic."
+    },
+    {
+      "text_id": "900_theses",
+      "title": "900 Theses (Conclusiones)",
+      "title_original": "Conclusiones philosophicae, cabalisticae et theologicae",
+      "language": "LATIN",
+      "text_type": "TREATISE",
+      "date_composed_start": 1486,
+      "date_composed_end": 1486,
+      "description": "Giovanni Pico della Mirandola's 900 philosophical propositions synthesizing Hermetic, Kabbalistic, Neoplatonic, and Christian doctrines. Radicalization of Ficino's Hermetic synthesis through comparative theology."
+    },
+    {
+      "text_id": "ficino_platonic_theology",
+      "title": "Platonic Theology (Theologia Platonica)",
+      "title_original": "Theologia Platonica de immortalitate animae",
+      "language": "LATIN",
+      "text_type": "TREATISE",
+      "date_composed_start": 1469,
+      "date_composed_end": 1474,
+      "description": "Marsilio Ficino's masterwork integrating Hermeticism with Neoplatonism and Christianity. Positions Hermes Trismegistus as a prisca theologia authority anticipating Christian revelation."
+    },
+    {
+      "text_id": "kitab_al_asrar",
+      "title": "Book of Secrets (Kitab al-Asrar)",
+      "title_original": "كتاب الأسرار",
+      "language": "ARABIC",
+      "text_type": "TREATISE",
+      "date_composed_start": 850,
+      "date_composed_end": 925,
+      "description": "Alchemical treatise attributed to Al-Razi (Rhazes) describing chemical operations and transmutation. Major work in the Arabic alchemical tradition synthesizing Greek chemical philosophy with Arabic experimentation."
+    },
+    {
+      "text_id": "hermetism_late_antiquity_humanism",
+      "title": "Hermetism from Late Antiquity to Humanism (IPM 40)",
+      "title_original": null,
+      "language": "ENGLISH",
+      "text_type": "COMPILATION",
+      "date_composed_start": 2003,
+      "date_composed_end": 2003,
+      "description": "Proceedings of the 2001 Naples conference organized by the Hermes Latinus research group. Edited by Paolo Lucentini, Ilaria Parri, and Vittoria Perrone Compagni (Brepols, IPM 40). Four sections: Philosophical Hermetism, Medieval/Renaissance, Arabic/Hebrew, Operative."
+    }
+  ],
+
+  "persons": [
+    {
+      "person_id": "zosimos_of_panopolis",
+      "name": "Zosimos of Panopolis",
+      "name_alt": "[\"Zosimos\"]",
+      "era": "ca. 300 CE",
+      "role_primary": "AUTHOR",
+      "description": "Greco-Egyptian alchemist and compiler of the Cheirometica (28-book chemical encyclopedia). Author of the allegorical Visions encoding alchemical operations within mystical narrative. Bridge between Hermetic philosophy and practical alchemy. Cited Demokritos and Maria as authorities."
+    },
+    {
+      "person_id": "iamblichus",
+      "name": "Iamblichus",
+      "name_alt": "[\"Iamblichus of Chalcis\", \"Abamon\"]",
+      "birth_year": 245,
+      "death_year": 325,
+      "era": "late 3rd-early 4th c. CE",
+      "role_primary": "PHILOSOPHER",
+      "description": "Syrian Neoplatonic philosopher and theurgist. Author of De mysteriis, defending ritual practice against Porphyry's rationalism. Adopted the pseudonym Abamon (Egyptian prophet persona) to present himself as custodian of Hermetic-Egyptian tradition. Treated Hermetic texts as translations of Egyptian Books of Thoth."
+    },
+    {
+      "person_id": "porphyry",
+      "name": "Porphyry",
+      "name_alt": "[\"Porphyry of Tyre\"]",
+      "birth_year": 234,
+      "death_year": 305,
+      "era": "late 3rd c. CE",
+      "role_primary": "PHILOSOPHER",
+      "description": "Plotinian Neoplatonist and critic of ritual/theurgy. His Letter to Anebo questioned the efficacy of traditional rites, prompting Iamblichus's De mysteriis response. Represents the rationalist opposition to Hermetic-theurgic traditions."
+    },
+    {
+      "person_id": "plotinus",
+      "name": "Plotinus",
+      "birth_year": 204,
+      "death_year": 270,
+      "era": "3rd c. CE",
+      "role_primary": "PHILOSOPHER",
+      "description": "Founder of Neoplatonism. Developed the emanationist metaphysics (the One, Nous, Soul, Matter) that became the philosophical backdrop for Hermetic cosmology. Teacher of Porphyry. His mystical ascent theory parallels Hermetic gnosis."
+    },
+    {
+      "person_id": "augustine",
+      "name": "Augustine of Hippo",
+      "name_alt": "[\"Saint Augustine\", \"Augustinus\"]",
+      "birth_year": 354,
+      "death_year": 430,
+      "era": "late 4th-early 5th c. CE",
+      "role_primary": "PHILOSOPHER",
+      "description": "Church father who critically engaged with Hermetic texts. In City of God, both praised Hermes as a pagan who recognized the true God and condemned the Asclepius for its account of statue animation as demonic idolatry. Key figure in the Christian reception and suppression of Hermeticism."
+    },
+    {
+      "person_id": "marsilio_ficino",
+      "name": "Marsilio Ficino",
+      "name_alt": "[\"Ficino\"]",
+      "birth_year": 1433,
+      "death_year": 1499,
+      "era": "15th c. CE",
+      "role_primary": "TRANSLATOR",
+      "description": "Florentine Neoplatonist who translated the Corpus Hermeticum into Latin (1463) before completing his translation of Plato, reflecting the priority given to Hermetic wisdom. Founder of the Platonic Academy. His Platonic Theology integrated Hermeticism with Christianity. The central figure in the Renaissance revival of Hermeticism."
+    },
+    {
+      "person_id": "giovanni_pico",
+      "name": "Giovanni Pico della Mirandola",
+      "name_alt": "[\"Pico\"]",
+      "birth_year": 1463,
+      "death_year": 1494,
+      "era": "late 15th c. CE",
+      "role_primary": "PHILOSOPHER",
+      "description": "Florentine humanist who synthesized Hermetic, Kabbalistic, Neoplatonic, and Christian doctrines in his 900 Theses (1486). Radicalized Ficino's synthesis by adding Kabbalah. His Oration on the Dignity of Man draws on Hermetic anthropology."
+    },
+    {
+      "person_id": "giordano_bruno",
+      "name": "Giordano Bruno",
+      "name_alt": "[\"Bruno\"]",
+      "birth_year": 1548,
+      "death_year": 1600,
+      "era": "late 16th c. CE",
+      "role_primary": "PHILOSOPHER",
+      "description": "Italian philosopher who radicalized Hermetic naturalism toward pantheism and infinite cosmology. Author of De magia and Heroic Frenzies. Burned at the stake in 1600. Represents the most extreme development of Renaissance Hermeticism."
+    },
+    {
+      "person_id": "cornelius_agrippa",
+      "name": "Cornelius Agrippa",
+      "name_alt": "[\"Heinrich Cornelius Agrippa von Nettesheim\"]",
+      "birth_year": 1486,
+      "death_year": 1535,
+      "era": "early 16th c. CE",
+      "role_primary": "AUTHOR",
+      "description": "German magus and systematic thinker who produced the most influential early modern magical synthesis in Three Books of Occult Philosophy (1533). Student of Trithemius. Integrated Hermetic, Neoplatonic, Kabbalistic, and astrological systems into a coherent magical worldview."
+    },
+    {
+      "person_id": "lodovico_lazzarelli",
+      "name": "Lodovico Lazzarelli",
+      "name_alt": "[\"Lazarelli\"]",
+      "birth_year": 1447,
+      "death_year": 1500,
+      "era": "late 15th c. CE",
+      "role_primary": "AUTHOR",
+      "description": "Italian Hermetic philosopher who represents the bridge between medieval and Renaissance Hermeticism. Author of Hermetic writings studied in the ACMRS edition by Hanegraaff and Bouthoorn. Active renovator of the Hermetic tradition."
+    },
+    {
+      "person_id": "al_razi",
+      "name": "Al-Razi (Rhazes)",
+      "name_alt": "[\"Abu Bakr Muhammad ibn Zakariyya al-Razi\", \"Rhazes\"]",
+      "birth_year": 854,
+      "death_year": 925,
+      "era": "9th-10th c. CE",
+      "role_primary": "AUTHOR",
+      "description": "Major Islamic alchemist and physician. Author of the Book of Secrets (Kitab al-Asrar). Synthesized Greek chemical philosophy with Arabic experimentation. One of the most important figures in the Arabic alchemical tradition."
+    },
+    {
+      "person_id": "john_dee",
+      "name": "John Dee",
+      "birth_year": 1527,
+      "death_year": 1608,
+      "era": "16th c. CE",
+      "role_primary": "PHILOSOPHER",
+      "description": "English mathematician, astrologer, and Hermetic magus. Court philosopher to Elizabeth I. His Monas Hieroglyphica attempted to create a universal symbolic system drawing on Hermetic, Kabbalistic, and mathematical principles."
+    },
+    {
+      "person_id": "isaac_casaubon",
+      "name": "Isaac Casaubon",
+      "birth_year": 1559,
+      "death_year": 1614,
+      "era": "late 16th-early 17th c. CE",
+      "role_primary": "SCHOLAR",
+      "description": "Classical scholar who in 1614 demonstrated that the Corpus Hermeticum was not ancient Egyptian but post-Christian in date, based on linguistic and stylistic analysis. His dating destroyed the Renaissance belief in Hermetic prisca theologia but did not end Hermetic influence."
+    },
+    {
+      "person_id": "brian_copenhaver",
+      "name": "Brian P. Copenhaver",
+      "era": "contemporary",
+      "role_primary": "SCHOLAR",
+      "description": "Author of the standard English translation of the Corpus Hermeticum and Latin Asclepius (Hermetica, 1992). Emphasizes the philosophical nature of Hermetic texts. His translation and commentary remain the primary scholarly reference."
+    },
+    {
+      "person_id": "christian_bull",
+      "name": "Christian H. Bull",
+      "era": "contemporary",
+      "role_primary": "SCHOLAR",
+      "description": "Author of The Tradition of Hermes Trismegistus (2018). Argues for Egyptian priestly authorship of Hermetic texts and emphasizes ritual dimensions. Reestablishes the case for Egyptian authenticity of the Hermetic tradition."
+    },
+    {
+      "person_id": "wouter_hanegraaff",
+      "name": "Wouter J. Hanegraaff",
+      "era": "contemporary",
+      "role_primary": "SCHOLAR",
+      "description": "Leading scholar of Western esotericism. Editor of the Lazzarelli Hermetic writings (with Bouthoorn). Recent work on Hermetic Spirituality and the Historical Imagination (2022) emphasizes visionary and transformative dimensions of Hermeticism."
+    },
+    {
+      "person_id": "david_litwa",
+      "name": "M. David Litwa",
+      "era": "contemporary",
+      "role_primary": "SCHOLAR",
+      "description": "Editor and translator of Hermetica II (2018): the excerpts of Stobaeus, papyrus fragments, and ancient testimonies. Emphasizes narrative construction and the fragmentary nature of Hermetic reception."
+    },
+    {
+      "person_id": "garth_fowden",
+      "name": "Garth Fowden",
+      "era": "contemporary",
+      "role_primary": "SCHOLAR",
+      "description": "Author of The Egyptian Hermes (1986), which established the Hellenized Egyptian priestly context for Hermetic texts. Foundational work connecting Hermeticism to actual Egyptian religious practice."
+    },
+    {
+      "person_id": "kyle_fraser",
+      "name": "Kyle Fraser",
+      "era": "contemporary",
+      "role_primary": "SCHOLAR",
+      "description": "Author of 'Hermetism and Hieratic Tradition in the De mysteriis of Iamblichus' (GRBS 65, 2025). Bridges Hermetic and Iamblichean studies through ritual language theory. Demonstrates shared vocabulary (exitalos) between CH XVI and De mysteriis."
+    },
+    {
+      "person_id": "jean_pierre_mahe",
+      "name": "Jean-Pierre Mahé",
+      "era": "contemporary",
+      "role_primary": "SCHOLAR",
+      "description": "Specialist in Hermetic initiatory pedagogy. Reframed Hermeticism as ritualized initiation rather than abstract philosophy, identifying van Gennep-style phases (separation, liminality, incorporation) in Hermetic texts. Key contributor to understanding the 'Way of Immortality.'"
+    },
+    {
+      "person_id": "paolo_lucentini",
+      "name": "Paolo Lucentini",
+      "era": "contemporary",
+      "role_primary": "SCHOLAR",
+      "description": "Leader of the Hermes Latinus research group. Co-editor of De sex rerum principiis (with Mark Damien Delp) and Hermetism from Late Antiquity to Humanism (IPM 40, Brepols 2003). Central figure in the study of medieval Latin Hermetic transmission."
+    },
+    {
+      "person_id": "florian_ebeling",
+      "name": "Florian Ebeling",
+      "era": "contemporary",
+      "role_primary": "SCHOLAR",
+      "description": "Co-author (with Jan Assmann) of The Secret History of Hermes Trismegistus (2007). Establishes a diachronic methodology for tracing Hermetic reception from antiquity to modernity."
+    },
+    {
+      "person_id": "allen_debus",
+      "name": "Allen G. Debus",
+      "birth_year": 1926,
+      "death_year": 2009,
+      "era": "20th c.",
+      "role_primary": "SCHOLAR",
+      "description": "Historian of science who wrote The Chemical Philosophy (1977/2002), tracing Paracelsian and Hermetic influences on early modern science and medicine. Co-editor (with Merkel) of Hermeticism and the Renaissance (Folger Institute)."
+    },
+    {
+      "person_id": "peter_forshaw",
+      "name": "Peter J. Forshaw",
+      "era": "contemporary",
+      "role_primary": "SCHOLAR",
+      "description": "Author of The Mage's Images: Heinrich Khunrath in His Oratory and Laboratory (Brill, 2 vols). Leading scholar of Khunrath and early modern Hermetic-alchemical visual culture."
+    },
+    {
+      "person_id": "claudio_moreschini",
+      "name": "Claudio Moreschini",
+      "era": "contemporary",
+      "role_primary": "SCHOLAR",
+      "description": "Author of Hermes Christianus: The Intermingling of Hermetic Piety and Christian Thought (Brepols, 2005). Traces the complex relationship between Hermetic and Christian theology from late antiquity through the Renaissance."
+    },
+    {
+      "person_id": "lactantius",
+      "name": "Lactantius",
+      "name_alt": "[\"Lucius Caecilius Firmianus Lactantius\"]",
+      "birth_year": 250,
+      "death_year": 325,
+      "era": "late 3rd-early 4th c. CE",
+      "role_primary": "AUTHOR",
+      "description": "Early Christian apologist who cited Hermes Trismegistus approvingly as a pagan prophet who foresaw Christian truths. His use of Hermetic texts in Divinae Institutiones established the model for Christian appropriation of Hermetic authority."
+    },
+    {
+      "person_id": "thomas_aquinas",
+      "name": "Thomas Aquinas",
+      "birth_year": 1225,
+      "death_year": 1274,
+      "era": "13th c. CE",
+      "role_primary": "PHILOSOPHER",
+      "description": "Scholastic theologian whose Aristotelian framework filtered and controlled the reception of Hermetic ideas in medieval universities. Acknowledged Hermetic authority selectively while restricting magical applications."
+    }
+  ],
+
+  "concepts": [
+    {
+      "slug": "nous",
+      "label": "Nous (Divine Mind)",
+      "label_alt": "[\"Divine Intelligence\", \"νοῦς\"]",
+      "category": "PHILOSOPHICAL",
+      "definition_short": "The supreme intellect; first principle of being below the One; consciousness as cosmic principle.",
+      "definition_long": "In Hermetic metaphysics, Nous is the creator of the cosmos through thought and the vehicle of divine knowledge transmitted to humanity. In Poimandres (CH I), Nous reveals itself as the source of all creation. The goal of Hermetic gnosis is recognition of one's essential identity with Nous.",
+      "significance": "Core Hermetic concept appearing in virtually every treatise. The term's frequency and semantic range are key markers for computational analysis of Hermetic texts."
+    },
+    {
+      "slug": "logos",
+      "label": "Logos (Divine Word)",
+      "label_alt": "[\"Divine Reason\", \"Creative Speech\", \"λόγος\"]",
+      "category": "PHILOSOPHICAL",
+      "definition_short": "Rational principle of creation; divine utterance that structures reality; intermediary between transcendent One and material cosmos.",
+      "definition_long": "In Hermetic cosmology, Logos emanates from Nous and structures material creation. It is both the rational order of the cosmos and the creative speech by which that order is established. Can be perceived and known by initiates who achieve gnosis.",
+      "significance": "Mediating principle between the transcendent and material in Hermetic philosophy. Connects Hermetic thought to Stoic, Platonic, and Christian Logos traditions."
+    },
+    {
+      "slug": "gnosis",
+      "label": "Gnosis (Saving Knowledge)",
+      "label_alt": "[\"γνῶσις\", \"salvific knowledge\"]",
+      "category": "THEOLOGICAL",
+      "definition_short": "Experiential knowledge of divine nature and cosmic structure; transformative recognition of self as divine.",
+      "definition_long": "Hermetic gnosis is not mere intellectual knowing but transformative recognition. It is 'knowledge of self' — self-realization of divine nature achieved through interior illumination and initiatory practice. Unlike Gnostic gnosis which rejects the material world, Hermetic gnosis affirms the cosmos as good and knowable.",
+      "significance": "Central salvific mechanism distinguishing Hermeticism from both Gnosticism (different attitude to cosmos) and Christianity (different salvific mechanism)."
+    },
+    {
+      "slug": "theurgy",
+      "label": "Theurgy (Divine Work)",
+      "label_alt": "[\"θεουργία\", \"sacred ritual\"]",
+      "category": "THEOLOGICAL",
+      "definition_short": "Sacred ritual designed to enact union with the divine through participatory action rather than coercive manipulation.",
+      "definition_long": "Distinguished from magic (which coerces impersonal forces), theurgy is participatory and requires right intention and inner transformation. Practiced by Iamblichus and transmitted through Hermetic-priestly traditions. Components include ineffable names, synthemata (sacred symbols), ritual timing, and immaterial offerings.",
+      "significance": "Bridge between philosophical and operative Hermeticism. Iamblichus's defense of theurgy in De mysteriis is the key text linking Hermetic ritual to Neoplatonic metaphysics."
+    },
+    {
+      "slug": "palingenesia",
+      "label": "Palingenesia (Regeneration)",
+      "label_alt": "[\"spiritual rebirth\", \"new birth\", \"παλιγγενεσία\"]",
+      "category": "THEOLOGICAL",
+      "definition_short": "Spiritual rebirth through shedding material identification and assuming divine consciousness.",
+      "definition_long": "Central to CH XIII, where Hermes instructs Tat on the initiatory process. The practitioner sheds the twelve torments of materiality and receives the ten divine powers. Jean-Pierre Mahé identifies this as following van Gennep's initiatory structure: separation, liminality, incorporation.",
+      "significance": "The transformative endpoint of Hermetic practice. Connects to alchemical symbolism of death and rebirth (nigredo → rubedo)."
+    },
+    {
+      "slug": "sympatheia",
+      "label": "Sympatheia (Universal Correspondence)",
+      "label_alt": "[\"cosmic sympathy\", \"συμπάθεια\"]",
+      "category": "COSMOLOGICAL",
+      "definition_short": "Universal resonance and correspondence between all levels of reality; the ability of lower to affect upper through right knowledge.",
+      "definition_long": "The Stoic-Hermetic principle that all parts of the cosmos are interconnected through sympathetic relationships. This interconnection allows for the efficacy of astrology (celestial influence on terrestrial events), talismanic magic (material objects channeling celestial forces), and theurgy (human ritual affecting divine presence).",
+      "significance": "Basis of all operative Hermeticism. Without sympatheia, alchemy, astrology, and magic would have no theoretical justification."
+    },
+    {
+      "slug": "anthropos",
+      "label": "Anthropos (Primal Human)",
+      "label_alt": "[\"Divine Humanity\", \"Ἄνθρωπος\"]",
+      "category": "PHILOSOPHICAL",
+      "definition_short": "Original archetypal human containing the microcosm of all creation; human nature as essentially divine.",
+      "definition_long": "In Poimandres (CH I), the Anthropos is a divine being who descends into matter through desire for creation. Humans retain this divine nature and can recover it through gnosis. This anthropology grounds the Hermetic claim that humans are capable of deification (theopoiesis).",
+      "significance": "Basis for human capacity for salvation and transformation. Foundation of Hermetic magical anthropocentrism — the magus can affect the cosmos because the human contains the cosmos."
+    },
+    {
+      "slug": "prisca_theologia",
+      "label": "Prisca Theologia (Ancient Theology)",
+      "label_alt": "[\"perennial philosophy\", \"philosophia perennis\"]",
+      "category": "PHILOSOPHICAL",
+      "definition_short": "The Renaissance doctrine that a single divine truth was given to humanity in antiquity and passed through a chain of sages including Hermes, Moses, Orpheus, Pythagoras, and Plato.",
+      "definition_long": "Ficino and Pico positioned Hermes Trismegistus as the first link in a golden chain of ancient wisdom (prisca theologia) predating Moses and anticipating Christianity. This doctrine justified the study of pagan Hermetic texts within a Christian framework. Casaubon's 1614 redating of the Hermetica undermined the chronological claim but did not kill the idea.",
+      "significance": "The intellectual framework that made Renaissance Hermeticism possible. Without prisca theologia, studying pagan Egyptian texts would have been heresy rather than piety."
+    },
+    {
+      "slug": "barbarous_names",
+      "label": "Barbarous Names (Onomata Barbara)",
+      "label_alt": "[\"sacred language\", \"ὀνόματα βαρβαρικά\"]",
+      "category": "LINGUISTIC",
+      "definition_short": "Foreign, non-Greek sacred names carrying inherent divine energy that cannot survive translation.",
+      "definition_long": "Iamblichus (De mysteriis 7.4-5) defends the use of Egyptian and other non-Greek sacred names in ritual, arguing that they are joined to the nature of divine beings and lose their potency when translated into Greek. The shared vocabulary of exitalos (fading) between CH XVI and De mysteriis demonstrates this theory bridges Hermetic and Neoplatonic traditions.",
+      "significance": "Foundational to theurgic practice. Embodies a theory of ritual language as energetic and ontological rather than merely conventional."
+    },
+    {
+      "slug": "demiurge",
+      "label": "Demiurge (Craftsman God)",
+      "label_alt": "[\"δημιουργός\", \"Creator\"]",
+      "category": "COSMOLOGICAL",
+      "definition_short": "Second-order creative deity responsible for shaping the material world.",
+      "definition_long": "In Hermetic cosmology, the Demiurge is generally a benevolent craftsman who shapes matter according to divine patterns. This contrasts sharply with Gnostic systems where the demiurge (Yaldabaoth) is ignorant or malevolent. The Hermetic Demiurge creates a beautiful, ordered cosmos worthy of contemplation.",
+      "significance": "Key distinction between Hermeticism and Gnosticism. The positive valuation of the Demiurge entails a positive valuation of the material world, enabling rather than prohibiting engagement with nature (alchemy, science)."
+    },
+    {
+      "slug": "magnum_opus",
+      "label": "Magnum Opus (Great Work)",
+      "label_alt": "[\"Great Work\", \"opus magnum\"]",
+      "category": "ALCHEMICAL",
+      "definition_short": "The alchemical process of creating the Philosopher's Stone through stages of transformation (nigredo, albedo, citrinitas, rubedo).",
+      "definition_long": "The Great Work proceeds through symbolic stages: nigredo (blackening/putrefaction/death), albedo (whitening/purification), citrinitas (yellowing), and rubedo (reddening/completion). Each stage corresponds to both a material chemical operation and a psychological/spiritual transformation. Hortulanus decoded the Emerald Tablet as encoding this sequence.",
+      "significance": "Central organizing metaphor of alchemical practice. Provides the interpretive framework through which the Emerald Tablet was read as a practical manual from the 14th century onward."
+    }
+  ],
+
+  "bibliography": [
+    {
+      "source_id": "copenhaver_1992",
+      "author": "Brian P. Copenhaver",
+      "title": "Hermetica: The Greek Corpus Hermeticum and the Latin Asclepius in a New English Translation with Notes and Introduction",
+      "year": 1992,
+      "publisher": "Cambridge University Press",
+      "pub_type": "EDITION",
+      "relevance": "PRIMARY",
+      "in_collection": 1,
+      "notes": "Standard English translation. Primary scholarly reference for philosophical Hermetica."
+    },
+    {
+      "source_id": "bull_2018",
+      "author": "Christian H. Bull",
+      "title": "The Tradition of Hermes Trismegistus: The Egyptian Priestly Figure as a Teacher of Hellenized Wisdom",
+      "year": 2018,
+      "publisher": "Brill",
+      "pub_type": "MONOGRAPH",
+      "relevance": "PRIMARY",
+      "in_collection": 1,
+      "notes": "548 pages. Argues for Egyptian priestly authorship and ritual dimensions."
+    },
+    {
+      "source_id": "fowden_1986",
+      "author": "Garth Fowden",
+      "title": "The Egyptian Hermes: A Historical Approach to the Late Pagan Mind",
+      "year": 1986,
+      "publisher": "Cambridge University Press",
+      "pub_type": "MONOGRAPH",
+      "relevance": "PRIMARY",
+      "notes": "Foundational work establishing Egyptian priestly context."
+    },
+    {
+      "source_id": "ebeling_assmann_2007",
+      "author": "Florian Ebeling and Jan Assmann",
+      "title": "The Secret History of Hermes Trismegistus: Hermeticism from Ancient to Modern Times",
+      "year": 2007,
+      "publisher": "Cornell University Press",
+      "pub_type": "MONOGRAPH",
+      "relevance": "PRIMARY",
+      "in_collection": 1,
+      "notes": "Diachronic reception history. Establishes periodization methodology."
+    },
+    {
+      "source_id": "hanegraaff_2022",
+      "author": "Wouter J. Hanegraaff",
+      "title": "Hermetic Spirituality and the Historical Imagination: Altered States of Knowledge in Late Antiquity",
+      "year": 2022,
+      "publisher": "Cambridge University Press",
+      "pub_type": "MONOGRAPH",
+      "relevance": "PRIMARY",
+      "in_collection": 1,
+      "notes": "Visionary and experiential dimensions of Hermeticism."
+    },
+    {
+      "source_id": "moreschini_2005",
+      "author": "Claudio Moreschini",
+      "title": "Hermes Christianus: The Intermingling of Hermetic Piety and Christian Thought",
+      "year": 2005,
+      "publisher": "Brepols",
+      "pub_type": "MONOGRAPH",
+      "relevance": "PRIMARY",
+      "in_collection": 1,
+      "notes": "Hermetic-Christian theological fusion from late antiquity through Renaissance."
+    },
+    {
+      "source_id": "lucentini_parri_2003",
+      "author": "Paolo Lucentini, Ilaria Parri, and Vittoria Perrone Compagni (eds.)",
+      "title": "Hermetism from Late Antiquity to Humanism",
+      "year": 2003,
+      "publisher": "Brepols (IPM 40)",
+      "pub_type": "COLLECTION",
+      "relevance": "PRIMARY",
+      "notes": "Proceedings of 2001 Naples Hermes Latinus conference. Key contributions on medieval transmission."
+    },
+    {
+      "source_id": "debus_1977",
+      "author": "Allen G. Debus",
+      "title": "The Chemical Philosophy: Paracelsian Science and Medicine in the Sixteenth and Seventeenth Centuries",
+      "year": 1977,
+      "publisher": "Science History Publications",
+      "pub_type": "MONOGRAPH",
+      "relevance": "DIRECT",
+      "in_collection": 1,
+      "notes": "759 pages. Traces Paracelsian-Hermetic influence on early modern science."
+    },
+    {
+      "source_id": "forshaw_2020",
+      "author": "Peter J. Forshaw",
+      "title": "The Mage's Images: Heinrich Khunrath in His Oratory and Laboratory",
+      "year": 2020,
+      "publisher": "Brill",
+      "pub_type": "MONOGRAPH",
+      "relevance": "DIRECT",
+      "in_collection": 1,
+      "notes": "2 volumes (498+482 pages). Leading study of Khunrath's Hermetic-alchemical visual culture."
+    },
+    {
+      "source_id": "hanegraaff_bouthoorn_2005",
+      "author": "Wouter J. Hanegraaff and Ruud M. Bouthoorn",
+      "title": "Lodovico Lazzarelli (1447-1500): The Hermetic Writings and Related Documents",
+      "year": 2005,
+      "publisher": "ACMRS",
+      "pub_type": "EDITION",
+      "relevance": "DIRECT",
+      "in_collection": 1,
+      "notes": "376 pages. Critical edition of Lazzarelli's Hermetic writings."
+    },
+    {
+      "source_id": "fraser_2025",
+      "author": "Kyle Fraser",
+      "title": "Hermetism and Hieratic Tradition in the De mysteriis of Iamblichus",
+      "year": 2025,
+      "journal": "Greek, Roman, and Byzantine Studies",
+      "pub_type": "ARTICLE",
+      "relevance": "PRIMARY",
+      "in_collection": 1,
+      "notes": "Bridges Hermetic and Iamblichean studies through shared vocabulary (exitalos)."
+    }
+  ],
+
+  "timeline_events": [
+    {
+      "year": 100,
+      "year_end": 300,
+      "event_type": "COMPOSITION",
+      "title": "Corpus Hermeticum treatises composed",
+      "description": "Individual treatises of the philosophical Hermetica composed in Greco-Egyptian milieu.",
+      "text": "corpus_hermeticum"
+    },
+    {
+      "year": 300,
+      "event_type": "COMPOSITION",
+      "title": "Iamblichus writes De mysteriis",
+      "description": "Defense of theurgy and Hermetic ritual practice against Porphyry's rationalism.",
+      "person": "iamblichus",
+      "text": "de_mysteriis"
+    },
+    {
+      "year": 1463,
+      "event_type": "TRANSLATION",
+      "title": "Ficino translates Corpus Hermeticum into Latin",
+      "description": "Commissioned by Cosimo de' Medici. Ficino prioritized translating Hermes over Plato, reflecting the believed antiquity of the texts.",
+      "person": "marsilio_ficino",
+      "text": "corpus_hermeticum"
+    },
+    {
+      "year": 1486,
+      "event_type": "PUBLICATION",
+      "title": "Pico publishes 900 Theses",
+      "description": "Synthesis of Hermetic, Kabbalistic, Neoplatonic, and Christian doctrines. Condemned by Pope Innocent VIII.",
+      "person": "giovanni_pico",
+      "text": "900_theses"
+    },
+    {
+      "year": 1533,
+      "event_type": "PUBLICATION",
+      "title": "Agrippa publishes Three Books of Occult Philosophy",
+      "description": "Most influential early modern magical synthesis integrating Hermetic, Neoplatonic, and Kabbalistic systems.",
+      "person": "cornelius_agrippa",
+      "text": "three_books_occult_philosophy"
+    },
+    {
+      "year": 1600,
+      "event_type": "PUBLICATION",
+      "title": "Giordano Bruno burned at the stake",
+      "description": "Execution for heresy in Rome. Bruno's Hermetic naturalism and pantheism were among the charges.",
+      "person": "giordano_bruno"
+    },
+    {
+      "year": 1614,
+      "event_type": "SCHOLARSHIP",
+      "title": "Casaubon redates the Corpus Hermeticum",
+      "description": "Isaac Casaubon demonstrates on linguistic and stylistic grounds that the Hermetica are post-Christian, not ancient Egyptian. Undermines prisca theologia chronology.",
+      "person": "isaac_casaubon",
+      "text": "corpus_hermeticum"
+    },
+    {
+      "year": 1986,
+      "event_type": "SCHOLARSHIP",
+      "title": "Fowden publishes The Egyptian Hermes",
+      "description": "Establishes the Hellenized Egyptian priestly context for Hermetic texts.",
+      "person": "garth_fowden",
+      "bib": "fowden_1986"
+    },
+    {
+      "year": 1992,
+      "event_type": "SCHOLARSHIP",
+      "title": "Copenhaver publishes Hermetica translation",
+      "description": "Standard English translation of Corpus Hermeticum and Asclepius with notes.",
+      "person": "brian_copenhaver",
+      "bib": "copenhaver_1992"
+    },
+    {
+      "year": 2018,
+      "event_type": "SCHOLARSHIP",
+      "title": "Bull publishes The Tradition of Hermes Trismegistus",
+      "description": "Reestablishes Egyptian priestly authorship argument with ritual dimensions.",
+      "person": "christian_bull",
+      "bib": "bull_2018"
+    }
+  ],
+
+  "text_relationships": [
+    {"parent": "corpus_hermeticum", "child": "poimandres", "type": "CONTAINS", "notes": "CH I — opening treatise"},
+    {"parent": "corpus_hermeticum", "child": "ch_xiii_on_rebirth", "type": "CONTAINS", "notes": "CH XIII — on regeneration"},
+    {"parent": "de_mysteriis", "child": "corpus_hermeticum", "type": "RELATED_TO", "notes": "Iamblichus treats Hermetic texts as translations of Egyptian Books of Thoth"},
+    {"parent": "ficino_platonic_theology", "child": "corpus_hermeticum", "type": "COMMENTARY_ON", "notes": "Ficino integrates Hermetic thought into his Platonic synthesis"}
+  ],
+
+  "concept_text_refs": [
+    {"concept": "nous", "text": "corpus_hermeticum"},
+    {"concept": "nous", "text": "poimandres"},
+    {"concept": "logos", "text": "corpus_hermeticum"},
+    {"concept": "logos", "text": "poimandres"},
+    {"concept": "gnosis", "text": "corpus_hermeticum"},
+    {"concept": "gnosis", "text": "ch_xiii_on_rebirth"},
+    {"concept": "theurgy", "text": "de_mysteriis"},
+    {"concept": "theurgy", "text": "asclepius"},
+    {"concept": "palingenesia", "text": "ch_xiii_on_rebirth"},
+    {"concept": "sympatheia", "text": "picatrix"},
+    {"concept": "anthropos", "text": "poimandres"},
+    {"concept": "prisca_theologia", "text": "ficino_platonic_theology"},
+    {"concept": "prisca_theologia", "text": "900_theses"},
+    {"concept": "barbarous_names", "text": "de_mysteriis"},
+    {"concept": "demiurge", "text": "poimandres"},
+    {"concept": "demiurge", "text": "asclepius"},
+    {"concept": "magnum_opus", "text": "hortulanus_commentary"},
+    {"concept": "magnum_opus", "text": "emerald_tablet"}
+  ],
+
+  "person_text_roles": [
+    {"person": "hermes_trismegistus", "text": "corpus_hermeticum", "role": "ATTRIBUTED_AUTHOR"},
+    {"person": "hermes_trismegistus", "text": "asclepius", "role": "ATTRIBUTED_AUTHOR"},
+    {"person": "hermes_trismegistus", "text": "emerald_tablet", "role": "ATTRIBUTED_AUTHOR"},
+    {"person": "balinas", "text": "sirr_al_khaliqa", "role": "ATTRIBUTED_AUTHOR"},
+    {"person": "balinas", "text": "emerald_tablet", "role": "DISCOVERER"},
+    {"person": "jabir_ibn_hayyan", "text": "kitab_ustuqus", "role": "ATTRIBUTED_AUTHOR"},
+    {"person": "ibn_umayl", "text": "book_silvery_water", "role": "AUTHOR"},
+    {"person": "nemesius_of_emesa", "text": "de_natura_hominis", "role": "AUTHOR"},
+    {"person": "hugo_of_santalla", "text": "de_secretis_naturae", "role": "TRANSLATOR"},
+    {"person": "hortulanus", "text": "hortulanus_commentary", "role": "AUTHOR"},
+    {"person": "heinrich_khunrath", "text": "amphitheatrum", "role": "AUTHOR"},
+    {"person": "michael_maier", "text": "atalanta_fugiens", "role": "AUTHOR"},
+    {"person": "marsilio_ficino", "text": "corpus_hermeticum", "role": "TRANSLATOR"},
+    {"person": "marsilio_ficino", "text": "ficino_platonic_theology", "role": "AUTHOR"},
+    {"person": "giovanni_pico", "text": "900_theses", "role": "AUTHOR"},
+    {"person": "cornelius_agrippa", "text": "three_books_occult_philosophy", "role": "AUTHOR"},
+    {"person": "giordano_bruno", "text": "corpus_hermeticum", "role": "COMMENTATOR"},
+    {"person": "iamblichus", "text": "de_mysteriis", "role": "AUTHOR"},
+    {"person": "zosimos_of_panopolis", "text": "visions_of_zosimos", "role": "AUTHOR"},
+    {"person": "al_razi", "text": "kitab_al_asrar", "role": "ATTRIBUTED_AUTHOR"},
+    {"person": "isaac_newton", "text": "emerald_tablet", "role": "TRANSLATOR"},
+    {"person": "isaac_casaubon", "text": "corpus_hermeticum", "role": "COMMENTATOR"},
+    {"person": "lodovico_lazzarelli", "text": "corpus_hermeticum", "role": "COMMENTATOR"},
+    {"person": "augustine", "text": "asclepius", "role": "COMMENTATOR"},
+    {"person": "lactantius", "text": "corpus_hermeticum", "role": "COMMENTATOR"},
+    {"person": "thomas_aquinas", "text": "corpus_hermeticum", "role": "COMMENTATOR"},
+    {"person": "paolo_lucentini", "text": "de_sex_rerum_principiis", "role": "EDITOR"},
+    {"person": "ursula_weisser", "text": "sirr_al_khaliqa", "role": "EDITOR"},
+    {"person": "brian_copenhaver", "text": "corpus_hermeticum", "role": "EDITOR"},
+    {"person": "david_litwa", "text": "corpus_hermeticum", "role": "EDITOR"},
+    {"person": "christian_bull", "text": "corpus_hermeticum", "role": "COMMENTATOR"},
+    {"person": "wouter_hanegraaff", "text": "corpus_hermeticum", "role": "COMMENTATOR"}
+  ]
+}
