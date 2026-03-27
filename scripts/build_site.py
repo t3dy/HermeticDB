@@ -650,7 +650,48 @@ def build_translations_index(conn):
 
 
 def build_parallel_viewer(conn):
-    """Build the centerpiece: Emerald Tablet parallel translation page with 3 dropdown columns."""
+    """Build the centerpiece: Emerald Tablet parallel translation page with annotations."""
+    # Load annotation data
+    wa_path = BASE_DIR / "data" / "word_annotations.json"
+    vc_path = BASE_DIR / "data" / "verse_commentary.json"
+    word_annotations = {}
+    verse_commentary = {}
+    if wa_path.exists():
+        with open(wa_path, "r", encoding="utf-8") as f:
+            word_annotations = json.load(f)
+    if vc_path.exists():
+        with open(vc_path, "r", encoding="utf-8") as f:
+            verse_commentary = json.load(f)
+
+    def annotate_text(verse_key, lang_key):
+        """Wrap words in spans with hover tooltips from word_annotations."""
+        annotations = word_annotations.get(lang_key, {}).get(verse_key, [])
+        if not annotations:
+            return None  # No annotations for this verse
+        parts = []
+        for wa in annotations:
+            word = wa.get("word", "")
+            trans = wa.get("translation", "")
+            translit = wa.get("transliteration", "")
+            notes = wa.get("notes", "")
+
+            # Build tooltip
+            tip_parts = []
+            if translit:
+                tip_parts.append(translit)
+            if trans:
+                tip_parts.append(trans)
+            if notes:
+                tip_parts.append(f"[{notes}]")
+            tip = " — ".join(tip_parts) if tip_parts else ""
+
+            if tip:
+                css = "border-bottom:1px dotted #d4a574;cursor:help"
+                parts.append(f'<span style="{css}" title="{tip}">{word}</span>')
+            else:
+                parts.append(word)
+        return " ".join(parts)
+
     # Get translations with verses, grouped by language
     translations = conn.execute("""
         SELECT t.id, t.translation_id, t.title, t.language
@@ -659,12 +700,10 @@ def build_parallel_viewer(conn):
         ORDER BY t.language, t.date_year
     """).fetchall()
 
-    # Group by language for dropdowns
     by_lang = {}
     for trans_pk, trans_id, trans_title, trans_lang in translations:
         by_lang.setdefault(trans_lang, []).append((trans_pk, trans_id, trans_title))
 
-    # Build verse lookup: verse_data[trans_id][verse_key] = text
     all_verses = {}
     for trans_pk, trans_id, trans_title, trans_lang in translations:
         verses = conn.execute("""
@@ -676,24 +715,21 @@ def build_parallel_viewer(conn):
             key = f"{vnum}{vsub}" if vsub else vnum
             all_verses[trans_id][key] = vtext
 
-    # Get sorted verse keys
     all_keys = set()
     for tv in all_verses.values():
         all_keys.update(tv.keys())
     sorted_keys = sorted(all_keys, key=lambda x: (int(re.match(r'\d+', x).group()), x))
 
-    # Defaults
     default_arabic = 'arabic_sirr_al_khaliqa'
     default_latin = 'latin_vulgate'
     default_english = 'newton_english'
 
-    # Build options for each language group
     arabic_options = by_lang.get('ARABIC', [])
     latin_options = by_lang.get('LATIN', [])
     english_options = by_lang.get('ENGLISH', []) + by_lang.get('FRENCH', []) + by_lang.get('PHOENICIAN', [])
 
     def make_select(col_id, options, default_id, label):
-        html = f'<div style="flex:1;min-width:200px">\n'
+        html = f'<div style="flex:1;min-width:180px">\n'
         html += f'<label style="font-family:var(--font-sans);font-size:0.8rem;color:var(--text-muted);display:block;margin-bottom:0.3rem">{label}</label>\n'
         html += f'<select class="translation-selector" data-col="{col_id}" style="width:100%">\n'
         for _, tid, ttitle in options:
@@ -705,37 +741,72 @@ def build_parallel_viewer(conn):
     body = '<div class="page-wide">\n'
     body += '<a href="index.html" class="back-link">&larr; All Translations</a>\n'
     body += '<h1>Emerald Tablet: Parallel Translations</h1>\n'
-    body += f'<p style="color:var(--text-muted);margin-bottom:1rem">{len(translations)} translations available, {len(sorted_keys)} verses</p>\n'
+    body += f'<p style="color:var(--text-muted);margin-bottom:0.5rem">{len(translations)} translations available. Hover over Arabic and Latin words for transliteration, translation, and alchemical notes.</p>\n'
 
     # Dropdown selectors
     body += '<div style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;padding:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:4px">\n'
-    body += make_select('col-arabic', arabic_options, default_arabic, 'Arabic Translation')
-    body += make_select('col-latin', latin_options, default_latin, 'Latin Translation')
-    body += make_select('col-english', english_options, default_english, 'English / Other Translation')
+    body += make_select('col-arabic', arabic_options, default_arabic, 'Arabic')
+    body += make_select('col-latin', latin_options, default_latin, 'Latin')
+    body += make_select('col-english', english_options, default_english, 'English / Other')
     body += '</div>\n'
 
-    # Embed all verse data as JSON for JS switching
+    # Embed verse data for JS switching
     body += '<script>\nconst VERSE_DATA = '
     body += json.dumps(all_verses, ensure_ascii=False)
     body += ';\n</script>\n'
 
-    # Table with 3 visible columns
+    # Table with 4 columns: Arabic, Latin, English, Commentary
     body += '<div style="overflow-x:auto">\n<table class="verse-table">\n<thead><tr>\n'
-    body += '<th style="width:40px">V.</th>\n'
-    body += f'<th id="th-arabic" style="width:30%">Arabic (Sirr al-Khaliqa)<br><span style="font-weight:normal;font-size:0.7rem">ARABIC</span></th>\n'
-    body += f'<th id="th-latin" style="width:35%">Latin Vulgate<br><span style="font-weight:normal;font-size:0.7rem">LATIN</span></th>\n'
-    body += f'<th id="th-english" style="width:35%">Newton\'s English Translation<br><span style="font-weight:normal;font-size:0.7rem">ENGLISH</span></th>\n'
+    body += '<th style="width:30px">V.</th>\n'
+    body += '<th id="th-arabic" style="width:22%">Arabic (Sirr al-Khaliqa)<br><span style="font-weight:normal;font-size:0.7rem">ARABIC</span></th>\n'
+    body += '<th id="th-latin" style="width:25%">Latin Vulgate<br><span style="font-weight:normal;font-size:0.7rem">LATIN</span></th>\n'
+    body += '<th id="th-english" style="width:23%">Newton\'s English<br><span style="font-weight:normal;font-size:0.7rem">ENGLISH</span></th>\n'
+    body += '<th style="width:30%;background:#3a2a1a">Commentary<br><span style="font-weight:normal;font-size:0.7rem">ALCHEMICAL CONTEXT</span></th>\n'
     body += '</tr></thead>\n<tbody>\n'
 
     for vkey in sorted_keys:
         ar_text = all_verses.get(default_arabic, {}).get(vkey, '')
         la_text = all_verses.get(default_latin, {}).get(vkey, '')
         en_text = all_verses.get(default_english, {}).get(vkey, '')
+
+        # Try annotated versions
+        ar_annotated = annotate_text(vkey, "arabic")
+        la_annotated = annotate_text(vkey, "latin")
+        ar_display = ar_annotated if ar_annotated else ar_text
+        la_display = la_annotated if la_annotated else la_text
+
+        # Commentary
+        vc = verse_commentary.get(vkey, {})
+        commentary_html = ""
+        if vc:
+            summary = vc.get("summary", "")
+            comm = vc.get("commentary", "")
+            cosmo = vc.get("cosmological", "")
+            lab = vc.get("laboratory", "")
+            philo = vc.get("philological", "")
+
+            commentary_html = f'<div style="font-size:0.82rem;line-height:1.5">'
+            if summary:
+                commentary_html += f'<p style="font-weight:600;color:var(--accent);margin-bottom:0.4rem">{summary}</p>'
+            if comm:
+                commentary_html += f'<p style="margin-bottom:0.5rem">{comm}</p>'
+            if cosmo or lab or philo:
+                commentary_html += '<div style="font-size:0.75rem;border-top:1px solid var(--border);padding-top:0.4rem;margin-top:0.3rem">'
+                if cosmo:
+                    commentary_html += f'<p><span style="color:#1a5276;font-weight:600">Cosmological:</span> {cosmo}</p>'
+                if lab:
+                    commentary_html += f'<p><span style="color:#8b4513;font-weight:600">Laboratory:</span> {lab}</p>'
+                if philo:
+                    commentary_html += f'<p><span style="color:#6c3483;font-weight:600">Philological:</span> {philo}</p>'
+                commentary_html += '</div>'
+            commentary_html += '</div>'
+
         body += '<tr>\n'
         body += f'<td class="verse-num">{vkey}</td>\n'
-        body += f'<td class="verse-col" data-col="col-arabic" dir="rtl">{ar_text}</td>\n'
-        body += f'<td class="verse-col" data-col="col-latin">{la_text}</td>\n'
+        body += f'<td class="verse-col" data-col="col-arabic" dir="rtl">{ar_display}</td>\n'
+        body += f'<td class="verse-col" data-col="col-latin">{la_display}</td>\n'
         body += f'<td class="verse-col" data-col="col-english">{en_text}</td>\n'
+        body += f'<td style="background:#faf8f4">{commentary_html}</td>\n'
         body += '</tr>\n'
 
     body += '</tbody></table>\n</div>\n'
@@ -751,7 +822,6 @@ document.querySelectorAll('.translation-selector').forEach(select => {
         const selectedOption = this.options[this.selectedIndex];
         const title = selectedOption.text;
 
-        // Update header
         const thId = colId.replace('col-', 'th-');
         const th = document.getElementById(thId);
         if (th) {
@@ -762,7 +832,6 @@ document.querySelectorAll('.translation-selector').forEach(select => {
             th.innerHTML = title + '<br><span style="font-weight:normal;font-size:0.7rem">' + lang + '</span>';
         }
 
-        // Update verse cells
         const rows = document.querySelectorAll('tbody tr');
         rows.forEach(row => {
             const verseNum = row.querySelector('.verse-num');

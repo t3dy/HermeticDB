@@ -1,0 +1,114 @@
+{
+  "1": {
+    "summary": "An oath formula establishing the authority and truthfulness of what follows.",
+    "commentary": "The opening verse functions as a frame device authenticating the text as revealed knowledge. In the Sirr al-Khaliqa, the Tablet is discovered inscribed on green stone in a hidden chamber beneath a statue of Hermes, and this oath validates the discovery. Hortulanus reads the oath as confirming that alchemy is a true science, not mere speculation. The triple affirmation (true, certain, most true) mirrors legal and prophetic oath patterns common in late antique pseudepigrapha.",
+    "cosmological": "Establishes the text as cosmological revelation, not human composition. The oath pattern links to late antique discovery narratives authenticating esoteric knowledge.",
+    "laboratory": "Hortulanus reads the oath as affirming the reality of the Philosopher's Stone and the certainty of the alchemical art against skeptics.",
+    "philological": "Arabic haqq yaqin (true, certain) becomes Latin verum, certum et verissimum. The emphatic tripling intensifies across transmission."
+  },
+  "2": {
+    "summary": "The macrocosm-microcosm axiom: upper and lower realms are causally linked.",
+    "commentary": "The most famous Hermetic axiom. Critically, the Arabic uses min (from): the upper is from the lower, and vice versa, expressing causal emanation between realms. The Latin vulgate replaces this with sicut (like), shifting the meaning from generative causation to mere correspondence. Hugo of Santalla's earlier Latin preserves the causal sense with de (from). This single preposition change transformed how Europe understood the axiom, converting an emanationist cosmological claim into a principle of analogy.",
+    "cosmological": "Celestial spheres generate terrestrial forms through emanation. Upper and lower realms are causally linked, not merely analogous, in the Arabic reading.",
+    "laboratory": "Volatile substances (above) and fixed substances (below) must be reunited through distillation and fixation to accomplish transmutation.",
+    "philological": "Arabic min (from, causal) becomes Latin sicut (like, analogical) in the vulgate. Hugo preserves de (from). The most famous Hermetic axiom is a Latin creative reading."
+  },
+  "3": {
+    "summary": "All things originated from a single source through a single process of adaptation.",
+    "commentary": "This verse encodes Neoplatonic emanation: multiplicity proceeds from the One through a single mediating act. The Arabic tadbir (planning, management) becomes Latin meditatione (meditation/contemplation) in the vulgate, shifting the creative act from deliberate divine management to intellectual contemplation. Some manuscripts read mediatione (mediation), which better preserves the Arabic sense of an intermediary process. Hortulanus reads this as affirming the unity of prime matter underlying all metals.",
+    "cosmological": "Neoplatonic emanation doctrine: the cosmos unfolds from a single source through a single Logos or mediating intellect, generating multiplicity from unity.",
+    "laboratory": "All metals share a single prime matter. The alchemical work reverses differentiation to recover this unity, then redirects it toward gold.",
+    "philological": "Arabic tadbir (planning, management) becomes meditatione (contemplation) or mediatione (mediation). The variant changes whether creation is an act of divine will or intellectual process."
+  },
+  "4": {
+    "summary": "The Sun is the father and the Moon the mother of the alchemical subject.",
+    "commentary": "Solar and lunar imagery encodes the two fundamental alchemical principles. Hortulanus decodes Sun as sulfur (the active, masculine, hot-dry principle) and Moon as mercury (the passive, feminine, cold-moist principle). Within the Sirr al-Khaliqa's cosmology, the Sun and Moon govern the generation of metals in the earth, paralleling celestial influence on terrestrial formation. The verse establishes a generative cosmology where the Stone is conceived through the union of complementary principles.",
+    "cosmological": "Sun and Moon govern terrestrial generation through celestial influence. Planetary forces direct the formation of metals within the earth.",
+    "laboratory": "Hortulanus: Sun = Philosophers' Gold (sulfur principle), Moon = Philosophers' Silver (mercury principle). Their union is the chemical wedding.",
+    "philological": "Arabic and Latin align closely here. The gendered cosmological language transfers intact, though Latin readers increasingly read Sol and Luna as specific laboratory substances."
+  },
+  "5": {
+    "summary": "Wind carried the subject in its womb; earth is its nurse.",
+    "commentary": "The verse describes conception and nourishment of the alchemical subject through elemental agents. Hortulanus reads wind as the vaporous atmosphere within the sealed retort where the volatile substance gestates, and earth as the fixed body that stabilizes and nourishes the product. In the Sirr al-Khaliqa framework, this describes how aerial and terrestrial elements participate in the generation of substances, paralleling embryological models where breath and nutrition produce the living being.",
+    "cosmological": "Air and earth participate in cosmic generation. The wind-womb image echoes Stoic pneuma doctrine, where breath animates and carries formative power.",
+    "laboratory": "Hortulanus: the volatile substance is conceived within the sealed retort's vaporous interior. Earth as nurse means fixation through recombination with solid ferment.",
+    "philological": "Arabic and Latin correspond closely. Ventus in ventre suo (wind in its belly) preserves the Arabic wordplay between rih (wind) and batn (womb/belly)."
+  },
+  "6": {
+    "summary": "The alchemical subject is the father of all talismans throughout the world.",
+    "commentary": "The Arabic abu al-tilasmat (father of talismans) connects the Tablet to the tradition of astral magic, where talismans channel celestial forces into material forms. The Latin translator, unable to render tilasm, simply transliterated it as telesmi, creating a ghost word with no Latin meaning. This transliteration became one of the most debated terms in alchemical commentary. Newton, lacking the Arabic context, substituted perfectionis (perfection), producing a third layer of meaning entirely absent from the original.",
+    "cosmological": "The One Thing is the master source of all talismanic power, channeling celestial forces into material forms through the science of astral correspondences.",
+    "laboratory": "The Philosopher's Stone is the master talisman enabling all transmutations, concentrating universal active force into a single operative substance.",
+    "philological": "Arabic tilasm (talisman) becomes Latin telesmi (transliteration, ghost word) becomes Newton's perfection. Three-layer semantic drift from astral magic to abstract virtue."
+  },
+  "6a": {
+    "summary": "Its power is complete when it has been turned to earth.",
+    "commentary": "This brief verse states the condition for the subject's power to become operative: fixation into a stable, earthy form. In laboratory terms, the volatile substance must be brought down and fixed before it can act as a transmuting agent. The verse bridges the talismanic claim of verse 6 with the operative instructions that follow, establishing that potency requires material stabilization. Hortulanus reads this as the completion of the fixation stage.",
+    "cosmological": "Celestial power becomes operative only when embodied in terrestrial matter. Pure spiritual force requires material instantiation to act in the world.",
+    "laboratory": "The volatile product must be fixed (turned to earth) before the Stone's transmuting power is active. Fixation completes the preparatory stage.",
+    "philological": "Latin integra (integral, complete) renders Arabic tamma (complete, perfect). The conditional si versa fuerit (if it has been turned) preserves the Arabic conditional structure."
+  },
+  "7": {
+    "summary": "The core operative instruction: separate earth from fire, the subtle from the gross.",
+    "commentary": "This is the central laboratory command of the Tablet. Hortulanus reads it as mundification: the physical cleansing and purification of the raw material through gentle, sustained heat. The separation of subtle from gross corresponds to distillation, where volatile essences are drawn off from dense residue. The Arabic birfq wa-hikma (with gentleness and wisdom) becomes Latin suaviter cum magno ingenio (gently with great skill), emphasizing that the operation requires patience and craft, not violent force.",
+    "cosmological": "Mirrors the primordial cosmological separation of elements from undifferentiated matter, recapitulating the original act of creation in the laboratory.",
+    "laboratory": "Distillation and purification. Separate volatile from fixed using gentle sustained heat. Hortulanus specifies a water bath (balneum mariae) to avoid damaging the material.",
+    "philological": "Arabic birfq wa-hikma (gently, with wisdom) becomes suaviter cum magno ingenio (gently, with great skill). Wisdom shifts to technical ingenuity."
+  },
+  "7a": {
+    "summary": "A variant verse division; in some numbering schemes this content is merged with verse 7.",
+    "commentary": "In the verse structure used here, 7a is treated as continuous with verse 7, covering the same separation instruction. Some editions merge these verses; others treat the separation of earth from fire and subtle from gross as two distinct operations. The division reflects manuscript variation in how the Arabic text was segmented by later editors and translators. The operative meaning remains the same: purification through controlled separation.",
+    "cosmological": "The dual separation (earth/fire, subtle/gross) reflects two aspects of cosmological differentiation: elemental separation and qualitative refinement of matter.",
+    "laboratory": "Two-stage purification: first separate fixed earth from volatile fire (calcination), then refine the subtle essence from the gross residue (distillation).",
+    "philological": "Verse division varies across manuscripts and editions. Some treat this as a single verse, others as two distinct commands. The segmentation is editorial, not original."
+  },
+  "8": {
+    "summary": "The substance ascends to heaven and descends to earth, gathering the powers of both realms.",
+    "commentary": "This verse describes the cyclical operation of sublimation and fixation that constitutes the core of the alchemical work. The substance is volatilized (ascent to heaven) through heating, then condensed and fixed (descent to earth) by cooling. Each cycle refines the material and concentrates its active powers. In the Sirr al-Khaliqa framework, this mirrors the cosmic circuit of celestial influence descending into matter and terrestrial exhalations ascending toward the spheres.",
+    "cosmological": "Mirrors the Neoplatonic circuit: emanation descends from the One into matter, then returns upward. The alchemist reproduces this cosmic cycle in the flask.",
+    "laboratory": "Sublimation (ascent) followed by fixation or condensation (descent). Repeated cycling purifies the substance and concentrates its transmuting power.",
+    "philological": "Arabic and Latin align closely. Iterumque (and again) in the Latin emphasizes the repeated, cyclical nature of the operation more explicitly than the Arabic."
+  },
+  "9": {
+    "summary": "Through this work you attain the glory of the whole world, and all darkness flees.",
+    "commentary": "The verse announces the reward of the completed work: universal knowledge and the dispelling of ignorance. On the laboratory level, glory signifies the perfected Stone with its power of transmutation. The flight of darkness echoes Neoplatonic light metaphysics, where matter (darkness) is illuminated by the descent of divine intellect. Hortulanus reads this as the Stone's power to overcome all impurity and disease, both in metals and in the human body.",
+    "cosmological": "Gnosis: the adept who completes the work participates in divine illumination. Darkness as ignorance and material opacity is overcome through knowledge of causes.",
+    "laboratory": "The perfected Stone overcomes all impurity in metals (transmutation) and disease in the body (the elixir). Glory = the Stone's universal efficacy.",
+    "philological": "Arabic majda (glory) and Latin gloriam correspond. The imagery of fleeing darkness is consistent across versions, drawing on shared Neoplatonic light metaphysics."
+  },
+  "10": {
+    "summary": "This is the force of all forces: it overcomes every subtle thing and penetrates every solid thing.",
+    "commentary": "The verse declares the Stone's supreme operative power in the language of Aristotelian physics. It overcomes subtle (volatile, spiritual) substances and penetrates solid (dense, fixed) ones. This dual capacity means the Stone can act on both the volatile and fixed components of any metal, enabling total transmutation. The language echoes the Sirr al-Khaliqa's elemental theory, where the interaction of qualities (hot, cold, moist, dry) drives all natural transformation.",
+    "cosmological": "The One Thing possesses the supreme active force in the cosmos, capable of acting on all levels of material density from the most ethereal to the most compact.",
+    "laboratory": "The completed Stone transmutes both volatile and fixed substances. It can project onto molten metal (penetrating solid) and capture volatile spirits (overcoming subtle).",
+    "philological": "Arabic quwwat al-quwa (force of forces) maps to Latin fortitudinis fortitudo fortis. The superlative construction is preserved but intensified in the Latin tripling."
+  },
+  "11": {
+    "summary": "Thus was the world created: the alchemical work recapitulates cosmogony.",
+    "commentary": "This brief verse draws the explicit parallel between the alchemical operation and the original creation of the world. The practitioner who performs the work described in the preceding verses literally reenacts the cosmogonic process. In the Sirr al-Khaliqa, creation proceeds through the differentiation of elemental qualities from primordial matter, exactly the process the alchemist performs in the flask. Alchemy is thus not mere craft but a participation in the divine creative act.",
+    "cosmological": "The alchemical opus recapitulates the original creation. The laboratory becomes a microcosm where the adept reproduces the cosmogonic sequence.",
+    "laboratory": "The sequence of operations (separation, sublimation, fixation) mirrors how the world was made from undifferentiated matter. The work is cosmogony in miniature.",
+    "philological": "Arabic and Latin are terse and closely aligned. Sic mundus creatus est directly renders the Arabic hakadha khuliqa al-alam."
+  },
+  "12": {
+    "summary": "From this come marvelous adaptations; the means for achieving them are given here.",
+    "commentary": "The verse claims that the Tablet itself contains the operative method for producing wonders. The Latin adaptationes mirabiles (marvelous adaptations) echoes the adaptatione of verse 3, creating a structural frame: all things were born by adaptation from the One, and here the means of that adaptation are disclosed. Hortulanus reads this as confirming that the preceding verses constitute a complete recipe. The verse functions as a self-referential closure, asserting the text's sufficiency as a guide.",
+    "cosmological": "The wonders produced by the Stone are natural, not supernatural: they are adaptations of the same process by which the cosmos generates all forms.",
+    "laboratory": "Hortulanus: the Tablet contains the complete method. No external instructions are needed beyond what is encoded in its verses.",
+    "philological": "Latin adaptationes links back to adaptatione in verse 3, creating an internal textual echo. Arabic wasail (means, methods) becomes modus (method, way)."
+  },
+  "13": {
+    "summary": "The speaker identifies himself as Hermes Trismegistus, possessing the three parts of cosmic wisdom.",
+    "commentary": "The authorial self-identification closes the Hermetic frame. The three parts of wisdom traditionally correspond to the three domains of the natural world (mineral, vegetable, animal) or to the three philosophical disciplines. In some Latin Christian readings, Trismegistus was reinterpreted as a pagan prophecy of the Trinity. The Arabic muthallath bil-hikma (tripled in wisdom) is more straightforward than the Latin theological appropriations. The verse anchors the text's authority in the Hermetic tradition.",
+    "cosmological": "Hermes possesses knowledge of all three cosmic domains, unifying celestial, terrestrial, and intermediate realms in a single philosophical vision.",
+    "laboratory": "The three parts correspond to mastery over the mineral, vegetable, and animal kingdoms, the three domains of alchemical operation and transmutation.",
+    "philological": "Arabic muthallath bil-hikma (tripled in wisdom) becomes Latin Trismegistus with tres partes philosophiae. Some Christian readers glossed this as a Trinitarian prophecy."
+  },
+  "14": {
+    "summary": "The work of the Sun is complete: a closing formula sealing the text.",
+    "commentary": "The final verse serves as a colophon sealing the text. The operatio Solis (work of the Sun) refers both to the alchemical production of gold (the solar metal) and to the completion of the cosmogonic process described throughout the Tablet. The verse mirrors the opening oath, creating a closed textual frame. Newton read the Sun here as the universal active principle governing all natural operations, linking alchemy to gravitational and chemical physics.",
+    "cosmological": "The solar work encompasses the entire cosmic process of generation, from emanation through differentiation to the perfection of all forms.",
+    "laboratory": "The Great Work is complete: the Philosopher's Stone, identified with solar gold and the perfection of metals, has been achieved through the operations described.",
+    "philological": "This verse appears only in the Latin tradition, absent from some Arabic manuscripts. Its presence marks the vulgate recension and functions as a scribal colophon."
+  }
+}
