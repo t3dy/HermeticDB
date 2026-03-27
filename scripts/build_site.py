@@ -763,7 +763,7 @@ def build_parallel_viewer(conn):
     body += '<th id="th-arabic" style="width:28%">Arabic (Sirr al-Khaliqa)<br><span style="font-weight:normal;font-size:0.7rem">ARABIC</span></th>\n'
     body += '<th id="th-latin" style="width:28%">Latin Vulgate<br><span style="font-weight:normal;font-size:0.7rem">LATIN</span></th>\n'
     body += '<th id="th-english" style="width:28%">Newton\'s English<br><span style="font-weight:normal;font-size:0.7rem">ENGLISH</span></th>\n'
-    body += '<th style="width:16%;background:#3a2a1a;font-size:0.75rem">Notes</th>\n'
+    body += '<th style="width:16%;background:#3a2a1a;font-size:0.75rem">Notes<br><span style="font-weight:normal;font-size:0.65rem;opacity:0.7">Click to expand</span></th>\n'
     body += '</tr></thead>\n<tbody>\n'
 
     for vkey in sorted_keys:
