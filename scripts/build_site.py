@@ -750,18 +750,20 @@ def build_parallel_viewer(conn):
     body += make_select('col-english', english_options, default_english, 'English / Other')
     body += '</div>\n'
 
-    # Embed verse data for JS switching
+    # Embed verse data + commentary as JSON for JS
     body += '<script>\nconst VERSE_DATA = '
     body += json.dumps(all_verses, ensure_ascii=False)
+    body += ';\nconst COMMENTARY = '
+    body += json.dumps(verse_commentary, ensure_ascii=False)
     body += ';\n</script>\n'
 
-    # Table with 4 columns: Arabic, Latin, English, Commentary
+    # Table: 3 translation columns + narrow hint column
     body += '<div style="overflow-x:auto">\n<table class="verse-table">\n<thead><tr>\n'
     body += '<th style="width:30px">V.</th>\n'
-    body += '<th id="th-arabic" style="width:22%">Arabic (Sirr al-Khaliqa)<br><span style="font-weight:normal;font-size:0.7rem">ARABIC</span></th>\n'
-    body += '<th id="th-latin" style="width:25%">Latin Vulgate<br><span style="font-weight:normal;font-size:0.7rem">LATIN</span></th>\n'
-    body += '<th id="th-english" style="width:23%">Newton\'s English<br><span style="font-weight:normal;font-size:0.7rem">ENGLISH</span></th>\n'
-    body += '<th style="width:30%;background:#3a2a1a">Commentary<br><span style="font-weight:normal;font-size:0.7rem">ALCHEMICAL CONTEXT</span></th>\n'
+    body += '<th id="th-arabic" style="width:28%">Arabic (Sirr al-Khaliqa)<br><span style="font-weight:normal;font-size:0.7rem">ARABIC</span></th>\n'
+    body += '<th id="th-latin" style="width:28%">Latin Vulgate<br><span style="font-weight:normal;font-size:0.7rem">LATIN</span></th>\n'
+    body += '<th id="th-english" style="width:28%">Newton\'s English<br><span style="font-weight:normal;font-size:0.7rem">ENGLISH</span></th>\n'
+    body += '<th style="width:16%;background:#3a2a1a;font-size:0.75rem">Notes</th>\n'
     body += '</tr></thead>\n<tbody>\n'
 
     for vkey in sorted_keys:
@@ -769,51 +771,52 @@ def build_parallel_viewer(conn):
         la_text = all_verses.get(default_latin, {}).get(vkey, '')
         en_text = all_verses.get(default_english, {}).get(vkey, '')
 
-        # Try annotated versions
         ar_annotated = annotate_text(vkey, "arabic")
         la_annotated = annotate_text(vkey, "latin")
         ar_display = ar_annotated if ar_annotated else ar_text
         la_display = la_annotated if la_annotated else la_text
 
-        # Commentary
+        # Narrow hint: just the summary, clickable
         vc = verse_commentary.get(vkey, {})
-        commentary_html = ""
-        if vc:
-            summary = vc.get("summary", "")
-            comm = vc.get("commentary", "")
-            cosmo = vc.get("cosmological", "")
-            lab = vc.get("laboratory", "")
-            philo = vc.get("philological", "")
-
-            commentary_html = f'<div style="font-size:0.82rem;line-height:1.5">'
-            if summary:
-                commentary_html += f'<p style="font-weight:600;color:var(--accent);margin-bottom:0.4rem">{summary}</p>'
-            if comm:
-                commentary_html += f'<p style="margin-bottom:0.5rem">{comm}</p>'
-            if cosmo or lab or philo:
-                commentary_html += '<div style="font-size:0.75rem;border-top:1px solid var(--border);padding-top:0.4rem;margin-top:0.3rem">'
-                if cosmo:
-                    commentary_html += f'<p><span style="color:#1a5276;font-weight:600">Cosmological:</span> {cosmo}</p>'
-                if lab:
-                    commentary_html += f'<p><span style="color:#8b4513;font-weight:600">Laboratory:</span> {lab}</p>'
-                if philo:
-                    commentary_html += f'<p><span style="color:#6c3483;font-weight:600">Philological:</span> {philo}</p>'
-                commentary_html += '</div>'
-            commentary_html += '</div>'
+        summary = vc.get("summary", "")
+        hint = ""
+        if summary:
+            short_summary = summary[:80] + ("..." if len(summary) > 80 else "")
+            hint = (f'<a href="#" class="commentary-link" data-verse="{vkey}" '
+                    f'style="font-size:0.78rem;color:var(--accent);text-decoration:none;line-height:1.3;display:block">'
+                    f'{short_summary}</a>')
 
         body += '<tr>\n'
         body += f'<td class="verse-num">{vkey}</td>\n'
         body += f'<td class="verse-col" data-col="col-arabic" dir="rtl">{ar_display}</td>\n'
         body += f'<td class="verse-col" data-col="col-latin">{la_display}</td>\n'
         body += f'<td class="verse-col" data-col="col-english">{en_text}</td>\n'
-        body += f'<td style="background:#faf8f4">{commentary_html}</td>\n'
+        body += f'<td style="background:#faf8f4;padding:0.5rem">{hint}</td>\n'
         body += '</tr>\n'
 
     body += '</tbody></table>\n</div>\n'
 
-    # JavaScript for dropdown switching
+    # Side panel overlay (hidden by default)
+    body += """
+<div id="commentary-panel" style="
+    display:none;position:fixed;top:0;right:0;width:380px;height:100vh;
+    background:var(--bg-card);border-left:3px solid var(--accent);
+    box-shadow:-4px 0 20px rgba(0,0,0,0.15);z-index:200;
+    overflow-y:auto;padding:1.5rem;font-size:0.88rem;line-height:1.6;
+">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+        <h3 id="panel-title" style="color:var(--accent);margin:0;font-size:1.1rem">Verse Commentary</h3>
+        <a href="#" id="panel-close" style="color:var(--text-muted);text-decoration:none;font-size:1.5rem;line-height:1">&times;</a>
+    </div>
+    <div id="panel-body"></div>
+</div>
+<div id="commentary-backdrop" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.2);z-index:199"></div>
+"""
+
+    # JavaScript for dropdown switching + commentary panel
     body += """
 <script>
+// Dropdown column switching
 document.querySelectorAll('.translation-selector').forEach(select => {
     select.addEventListener('change', function() {
         const colId = this.dataset.col;
@@ -844,6 +847,72 @@ document.querySelectorAll('.translation-selector').forEach(select => {
             }
         });
     });
+});
+
+// Commentary side panel
+const panel = document.getElementById('commentary-panel');
+const panelBody = document.getElementById('panel-body');
+const panelTitle = document.getElementById('panel-title');
+const backdrop = document.getElementById('commentary-backdrop');
+
+function openCommentary(vkey) {
+    const c = COMMENTARY[vkey];
+    if (!c) return;
+
+    panelTitle.textContent = 'Verse ' + vkey;
+    let html = '';
+    if (c.summary) {
+        html += '<p style="font-weight:600;color:var(--accent);margin-bottom:0.75rem;font-size:0.95rem">' + c.summary + '</p>';
+    }
+    if (c.commentary) {
+        html += '<div style="margin-bottom:1rem">' + c.commentary.split('\\n').map(p => '<p style="margin-bottom:0.5rem">' + p + '</p>').join('') + '</div>';
+    }
+    if (c.cosmological || c.laboratory || c.philological) {
+        html += '<div style="border-top:2px solid var(--border);padding-top:0.75rem;margin-top:0.5rem">';
+        html += '<h4 style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.5rem">Registers</h4>';
+        if (c.cosmological) {
+            html += '<div style="margin-bottom:0.6rem;padding-left:0.75rem;border-left:3px solid #1a5276">';
+            html += '<p style="font-weight:600;color:#1a5276;font-size:0.8rem;margin-bottom:0.2rem">Cosmological</p>';
+            html += '<p style="font-size:0.85rem">' + c.cosmological + '</p></div>';
+        }
+        if (c.laboratory) {
+            html += '<div style="margin-bottom:0.6rem;padding-left:0.75rem;border-left:3px solid #8b4513">';
+            html += '<p style="font-weight:600;color:#8b4513;font-size:0.8rem;margin-bottom:0.2rem">Laboratory</p>';
+            html += '<p style="font-size:0.85rem">' + c.laboratory + '</p></div>';
+        }
+        if (c.philological) {
+            html += '<div style="margin-bottom:0.6rem;padding-left:0.75rem;border-left:3px solid #6c3483">';
+            html += '<p style="font-weight:600;color:#6c3483;font-size:0.8rem;margin-bottom:0.2rem">Philological</p>';
+            html += '<p style="font-size:0.85rem">' + c.philological + '</p></div>';
+        }
+        html += '</div>';
+    }
+    panelBody.innerHTML = html;
+    panel.style.display = 'block';
+    backdrop.style.display = 'block';
+}
+
+function closeCommentary() {
+    panel.style.display = 'none';
+    backdrop.style.display = 'none';
+}
+
+document.querySelectorAll('.commentary-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        openCommentary(this.dataset.verse);
+    });
+});
+
+document.getElementById('panel-close').addEventListener('click', function(e) {
+    e.preventDefault();
+    closeCommentary();
+});
+
+backdrop.addEventListener('click', closeCommentary);
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeCommentary();
 });
 </script>
 """
