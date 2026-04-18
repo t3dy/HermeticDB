@@ -1,0 +1,13 @@
+1:"$Sreact.fragment"
+2:I[22016,["/HermeticDB/_next/static/chunks/13h-0fd.p-1ga.js","/HermeticDB/_next/static/chunks/0d3shmwh5_nmn.js"],""]
+4:I[97367,["/HermeticDB/_next/static/chunks/13h-0fd.p-1ga.js","/HermeticDB/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+5:"$Sreact.suspense"
+3:T5ad,<h3>Further Extracted Evidence</h3>
+<ul>
+<li>8      On Decknamen, see William R. <span class="entity-pill" title="Source fragment: peter_j_forshaw_the_mage_s_images_heinrich_khunrath_in_his_oratory_and_laboratory_volume_1_prologue_bio_bibliograp:page_162">[eref]</span></li>
+<li>Newman, ‘Decknamen or pseudochemical language? <span class="entity-pill" title="Source fragment: peter_j_forshaw_the_mage_s_images_heinrich_khunrath_in_his_oratory_and_laboratory_volume_1_prologue_bio_bibliograp:page_162">[eref]</span></li>
+<li>She is not simply a Decknamen (cover name) as  many historians of alchemy thought. <span class="entity-pill" title="Source fragment: theodor_abt_wilferd_madelung_the_book_of_pictures_muṣḥaf_aṣ_ṣuwar_by_zosimos_of_panopolis_facsimile_1_living_human_herit:page_36">[eref]</span></li>
+<li>found in our Mushafas-suwar frequently mentioned as «ascunia, murder-  ess of her husband».وه In the light of the dialogue ofZosimos and Theosebeia that was pre-  sented earlier on page 35 f., it becomes clear that ascunia is not a  Decknamen as Plessner and other historians of alchemy assumed, but that  it is a symbol for the feminine principle that was experienced by Zosimos  in his beloved student Theosebeia. <span class="entity-pill" title="Source fragment: theodor_abt_wilferd_madelung_the_book_of_pictures_muṣḥaf_aṣ_ṣuwar_by_zosimos_of_panopolis_facsimile_1_living_human_herit:page_55">[eref]</span></li>
+</ul>
+0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"page-container","style":{"maxWidth":"800px"},"children":[["$","$L2",null,{"href":"/dictionary","style":{"color":"var(--accent)","textDecoration":"none","fontSize":"0.9rem","fontFamily":"var(--font-sans)"},"children":"← Back to Dictionary"}],["$","h1",null,{"className":"title-large","style":{"marginTop":"2rem","marginBottom":"0.5rem"},"children":"Decknamen (Cover Names)"}],["$","div",null,{"className":"card-meta","style":{"color":"var(--text-muted)","fontSize":"1rem","marginBottom":"3rem"},"children":"LINGUISTIC"}],["$","div",null,{"className":"markdown-body","dangerouslySetInnerHTML":{"__html":"$3"}}]]}],null,["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"16smHo2UURGQV2r-Az_il"}
+6:null
