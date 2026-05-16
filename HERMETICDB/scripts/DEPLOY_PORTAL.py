@@ -24,12 +24,25 @@ ITALIC_TERMS = [
     "nefesh", "ruach", "neshamah", "okhema", "spiritus"
 ]
 
+def clean_prose(text):
+    if not text: return ""
+    # Strip hashtags, brackets, and other code-like artifacts
+    text = re.sub(r'[#\[\]{}*]', '', text)
+    # Ensure it's treated as a single block of prose
+    return text.strip()
+
 def italicize_terms(text):
-    if not text:
-        return text
-    for term in sorted(ITALIC_TERMS, key=len, reverse=True):
-        pattern = r'(?<![<\w/])(' + re.escape(term) + r')(?![>\w/])'
-        text = re.sub(pattern, r'<em>\1</em>', text)
+    if not text: return ""
+    # Strip artifacts first
+    text = clean_prose(text)
+    # Wrap in p if not present
+    if not text.startswith("<p>"):
+        text = f"<p>{text}</p>"
+    
+    # Custom italics for common Hermetic terms
+    terms = ["Nous", "Logos", "Pneuma", "Gnosis", "Eusebeia", "Thriskeia", "Poimandres", "Asklepios", "Palingenesia", "Sympatheia"]
+    for term in terms:
+        text = re.sub(rf'\b{term}\b', f'<i>{term}</i>', text, flags=re.IGNORECASE)
     return text
 
 # --- CONFIG ---
@@ -425,23 +438,59 @@ def deploy_to(target_dir, cursor):
                                       ("persons", "The Hermetic Lineage", "Sages, alchemists, and philosophers of the Thrice-Greatest.", "biographies"),
                                       ("scholars", "Modern Scholarship", "Key academic authorities and commentary traditions.", "scholars"),
                                       ("concepts", "Hermetic Dictionary", "Encyclopedic index of philosophical and alchemical concepts.", "dictionary")]:
-        if table == "texts": cursor.execute("SELECT * FROM texts ORDER BY title")
-        elif table == "scholars": cursor.execute("SELECT * FROM persons WHERE role_primary = 'SCHOLAR' ORDER BY name")
-        elif table == "persons": cursor.execute("SELECT * FROM persons WHERE role_primary != 'SCHOLAR' OR role_primary IS NULL ORDER BY name")
-        elif table == "concepts": cursor.execute("SELECT * FROM concepts ORDER BY label")
+        
+        era_groups = {}
+        if table == "texts":
+            cursor.execute("SELECT * FROM texts ORDER BY transmission_notes, title")
+            for row in cursor.fetchall():
+                era = (row['transmission_notes'] or "GENERAL").replace("_", " ")
+                if era not in era_groups: era_groups[era] = []
+                era_groups[era].append(row)
+        elif table == "scholars":
+            cursor.execute("SELECT * FROM persons WHERE role_primary = 'SCHOLAR' ORDER BY name")
+            era_groups["MODERN"] = cursor.fetchall()
+        elif table == "persons":
+            cursor.execute("SELECT * FROM persons WHERE role_primary != 'SCHOLAR' OR role_primary IS NULL ORDER BY era, name")
+            for row in cursor.fetchall():
+                era = (row['era'] or "UNKNOWN").replace("_", " ")
+                if era not in era_groups: era_groups[era] = []
+                era_groups[era].append(row)
+        elif table == "concepts":
+            cursor.execute("SELECT * FROM concepts ORDER BY category, label")
+            for row in cursor.fetchall():
+                era = (row['category'] or "GENERAL").replace("_", " ")
+                if era not in era_groups: era_groups[era] = []
+                era_groups[era].append(row)
+
+        sections_html = ""
+        compact_list_html = '<div class="compact-directory" style="margin-bottom: 4rem; padding: 2rem; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border)">'
+        compact_list_html += '<h3 style="margin-top:0; color:var(--accent)">Compact Directory</h3><div style="display: flex; flex-wrap: wrap; gap: 1rem;">'
+
+        for era, rows in era_groups.items():
+            cards = ""
+            era_links = []
+            for row in rows:
+                name = row['name'] if 'name' in row.keys() else (row['title'] if 'title' in row.keys() else row['label'])
+                cat_type = ""
+                if table == "concepts" and 'category_type' in row.keys() and row['category_type']:
+                    cat_type = f" · {row['category_type'].replace('_', ' ')}"
+                
+                meta = row['text_type'] if 'text_type' in row.keys() else (f"{(row['era'] or 'Unknown').replace('_',' ')} · {row['role_primary'] or 'Figure'}" if 'era' in row.keys() else f"{row['category']}{cat_type}")
+                desc = row['description'] if 'description' in row.keys() else row['definition_short']
+                # CLEAN PROSE
+                desc = clean_prose(desc)
+
+                target_folder = target if target != "dictionary" else "concepts"
+                link = f"{REPO_URL}/{target_folder}/{row[0]}.html"
+                cards += generate_entity_card(name, meta, desc, link)
+                era_links.append(f'<a href="{link}" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">{name}</a>')
             
-        cards = ""
-        for row in cursor.fetchall():
-            name = row['name'] if 'name' in row.keys() else (row['title'] if 'title' in row.keys() else row['label'])
-            cat_type = ""
-            if table == "concepts" and 'category_type' in row.keys() and row['category_type']:
-                cat_type = f" · {row['category_type'].replace('_', ' ')}"
-            meta = row['text_type'] if 'text_type' in row.keys() else (f"{(row['era'] or 'Unknown').replace('_',' ')} · {row['role_primary'] or 'Figure'}" if 'era' in row.keys() else f"{row['category']}{cat_type}")
-            desc = row['description'] if 'description' in row.keys() else row['definition_short']
-            target_folder = target if target != "dictionary" else "concepts"
-            link = f"{REPO_URL}/{target_folder}/{row[0]}.html"
-            cards += generate_entity_card(name, meta, desc, link)
-        content = f'<main class="page-container"><h1 class="title-large">{title}</h1><p class="text-subtitle">{sub}</p><div class="grid">{cards}</div></main>'
+            sections_html += f'<h2 class="title-medium" style="margin-top:4rem; border-bottom: 2px solid var(--accent); display:inline-block">{era}</h2><div class="grid">{cards}</div>'
+            compact_list_html += f'<div style="width:100%; margin-top:1rem; font-weight:bold; color:var(--text-muted); font-size:0.8rem">{era}</div>'
+            compact_list_html += "".join(era_links)
+
+        compact_list_html += '</div></div>'
+        content = f'<main class="page-container"><h1 class="title-large">{title}</h1><p class="text-subtitle" style="margin-bottom:3rem">{sub}</p>{compact_list_html}{sections_html}</main>'
         with open(target_dir / f"{target}.html", "w", encoding="utf-8") as f: f.write(BASE_TEMPLATE.replace("{{title}}", title).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", content))
 
     # 6. ERAS
