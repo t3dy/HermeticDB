@@ -254,6 +254,7 @@ NAV_BAR = f"""
             <a class="nav-link" href="{REPO_URL}/dictionary.html">Dictionary</a>
             <a class="nav-link" href="{REPO_URL}/timeline.html">Timeline</a>
             <a class="nav-link" href="{REPO_URL}/map.html">Interactive Map</a>
+            <a class="nav-link" href="{REPO_URL}/graph.html" style="color:var(--accent); font-weight:bold">Relationship Graph</a>
             <a class="nav-link" href="{REPO_URL}/about.html">Methodology</a>
         </div>
     </div>
@@ -596,6 +597,160 @@ def deploy_to(target_dir, cursor):
     </main>
     """
     with open(target_dir / "map.html", "w", encoding="utf-8") as f: f.write(BASE_TEMPLATE.replace("{{title}}", "Interactive Map").replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", map_content))
+
+    # 6.9 RELATIONSHIP GRAPH (D3.JS)
+    nodes = []
+    links = []
+    
+    # 1. PERSONS
+    cursor.execute("SELECT person_id, name, role_primary FROM persons")
+    for r in cursor.fetchall():
+        nodes.append({ "id": r[0], "label": r[1], "group": "PERSON", "role": r[2] })
+    
+    # 2. TEXTS
+    cursor.execute("SELECT text_id, title, text_type FROM texts")
+    for r in cursor.fetchall():
+        nodes.append({ "id": r[0], "label": r[1], "group": "TEXT", "role": r[2] })
+    
+    # 3. CONCEPTS
+    cursor.execute("SELECT slug, label, category FROM concepts")
+    for r in cursor.fetchall():
+        nodes.append({ "id": r[0], "label": r[1], "group": "CONCEPT", "role": r[2] })
+    
+    # 4. EDGES (Person <-> Text)
+    cursor.execute("SELECT person_id, text_id, rel_type FROM person_text_refs")
+    for r in cursor.fetchall():
+        links.append({ "source": r[0], "target": r[1], "value": 2, "type": r[2] })
+    
+    # 5. EDGES (Concept <-> Text)
+    cursor.execute("SELECT concept_id, text_id FROM concept_text_refs")
+    # Need to map integer IDs back to slugs for D3 source/target
+    cursor.execute("""
+        SELECT c.slug, t.text_id 
+        FROM concept_text_refs r
+        JOIN concepts c ON r.concept_id = c.id
+        JOIN texts t ON r.text_id = t.id
+    """)
+    for r in cursor.fetchall():
+        links.append({ "source": r[0], "target": r[1], "value": 1, "type": "THEME" })
+
+    import json
+    graph_data = { "nodes": nodes, "links": links }
+    
+    graph_content = f"""
+    <main class="page-container" style="max-width: 100%; padding: 0;">
+        <div style="padding: 4rem 2rem 1rem 2rem">
+            <h1 class="title-large">Hermetic Relationship Graph</h1>
+            <p class="text-subtitle">Visualizing the connections between sages, treatises, and concepts.</p>
+        </div>
+        
+        <div id="graph-container" style="width: 100%; height: 80vh; background: var(--bg-card); border-top: 1px solid var(--border); position: relative; overflow: hidden;">
+            <div id="graph-info" style="position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.8); padding: 1rem; border: 1px solid var(--border); border-radius: 8px; z-index: 10; max-width: 300px; display:none">
+                <h3 id="info-title" style="color:var(--accent); margin:0"></h3>
+                <p id="info-type" style="font-size:0.8rem; color:var(--text-muted); margin: 0.5rem 0"></p>
+                <p id="info-desc" style="font-size:0.9rem; margin:0"></p>
+            </div>
+            <svg id="network-graph" style="width:100%; height:100%"></svg>
+        </div>
+
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script>
+            const data = {json.dumps(graph_data)};
+            const svg = d3.select("#network-graph");
+            const width = window.innerWidth;
+            const height = window.innerHeight * 0.8;
+            
+            const simulation = d3.forceSimulation(data.nodes)
+                .force("link", d3.forceLink(data.links).id(d => d.id).distance(100))
+                .force("charge", d3.forceManyBody().strength(-300))
+                .force("center", d3.forceCenter(width / 2, height / 2))
+                .force("x", d3.forceX(width / 2).strength(0.1))
+                .force("y", d3.forceY(height / 2).strength(0.1));
+
+            const link = svg.append("g")
+                .attr("stroke", "rgba(255,255,255,0.1)")
+                .attr("stroke-opacity", 0.6)
+                .selectAll("line")
+                .data(data.links)
+                .join("line")
+                .attr("stroke-width", d => Math.sqrt(d.value));
+
+            const node = svg.append("g")
+                .selectAll("g")
+                .data(data.nodes)
+                .join("g")
+                .call(drag(simulation))
+                .on("mouseover", (event, d) => {{
+                    d3.select("#graph-info").style("display", "block");
+                    d3.select("#info-title").text(d.label);
+                    d3.select("#info-type").text(d.group + " · " + (d.role || ""));
+                    
+                    // Highlight connections
+                    link.style("stroke", l => (l.source.id === d.id || l.target.id === d.id) ? "var(--accent)" : "rgba(255,255,255,0.1)")
+                        .style("stroke-opacity", l => (l.source.id === d.id || l.target.id === d.id) ? 1 : 0.1);
+                }})
+                .on("mouseout", () => {{
+                    // d3.select("#graph-info").style("display", "none");
+                    link.style("stroke", "rgba(255,255,255,0.1)").style("stroke-opacity", 0.6);
+                }});
+
+            node.append("circle")
+                .attr("r", d => d.group === "PERSON" ? 8 : (d.group === "TEXT" ? 6 : 4))
+                .attr("fill", d => {{
+                    if (d.group === "PERSON") return "#4a9eff";
+                    if (d.group === "TEXT") return "#d4af37";
+                    return "#20c997";
+                }})
+                .attr("stroke", "#fff")
+                .attr("stroke-width", 1.5);
+
+            node.append("text")
+                .attr("x", 12)
+                .attr("y", 4)
+                .text(d => d.label)
+                .attr("fill", "#fff")
+                .style("font-size", "10px")
+                .style("pointer-events", "none")
+                .style("opacity", 0.7);
+
+            simulation.on("tick", () => {{
+                link
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y);
+
+                node
+                    .attr("transform", d => `translate(${{d.x}}, ${{d.y}})`);
+            }});
+
+            function drag(simulation) {{
+                function dragstarted(event) {{
+                    if (!event.active) simulation.alphaTarget(0.3).restart();
+                    event.subject.fx = event.subject.x;
+                    event.subject.fy = event.subject.y;
+                }}
+                
+                function dragged(event) {{
+                    event.subject.fx = event.x;
+                    event.subject.fy = event.y;
+                }}
+                
+                function dragended(event) {{
+                    if (!event.active) simulation.alphaTarget(0);
+                    event.subject.fx = null;
+                    event.subject.fy = null;
+                }}
+                
+                return d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended);
+            }}
+        </script>
+    </main>
+    """
+    with open(target_dir / "graph.html", "w", encoding="utf-8") as f: f.write(BASE_TEMPLATE.replace("{{title}}", "Relationship Graph").replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", graph_content))
 
     # 7. LANDING PAGE
     landing_content = f"""
