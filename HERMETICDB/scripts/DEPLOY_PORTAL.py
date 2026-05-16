@@ -247,6 +247,7 @@ NAV_BAR = f"""
             <a class="nav-link" href="{REPO_URL}/eras/medieval.html">Medieval</a>
             <a class="nav-link" href="{REPO_URL}/eras/renaissance.html">Renaissance</a>
             <div style="width:1px;height:20px;background:rgba(255,255,255,0.1)"></div>
+            <a class="nav-link" href="{REPO_URL}/corpus.html" style="color:var(--accent-light); font-weight:bold">Corpus Map</a>
             <a class="nav-link" href="{REPO_URL}/texts.html">Texts</a>
             <a class="nav-link" href="{REPO_URL}/biographies.html">Biographies</a>
             <a class="nav-link" href="{REPO_URL}/scholars.html">Scholars</a>
@@ -464,6 +465,33 @@ def deploy_to(target_dir, cursor):
     </main>
     """
     with open(target_dir / "about.html", "w", encoding="utf-8") as f: f.write(BASE_TEMPLATE.replace("{{title}}", "Methodology").replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", about_content))
+
+    # 6.7 HERMETIC CORPUS MAP
+    cursor.execute("SELECT * FROM texts WHERE transmission_notes = 'THEOLOGICAL_HERMETICA' ORDER BY title")
+    theo_cards = ""
+    for row in cursor.fetchall():
+        theo_cards += generate_entity_card(row['title'], "Theological Hermetica", row['description'], f"{REPO_URL}/texts/{row['text_id']}.html")
+    
+    cursor.execute("SELECT * FROM texts WHERE transmission_notes = 'TECHNICAL_HERMETICA' ORDER BY title")
+    tech_cards = ""
+    for row in cursor.fetchall():
+        tech_cards += generate_entity_card(row['title'], "Technical Hermetica", row['description'], f"{REPO_URL}/texts/{row['text_id']}.html")
+    
+    corpus_content = f"""
+    <main class="page-container">
+        <h1 class="title-large">The Hermetic Corpus Map</h1>
+        <p class="text-subtitle">A topographical guide to the Theological and Technical Hermetica.</p>
+        
+        <h2 style="color:var(--accent); margin-top:4rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem">I. Theological Hermetica (Philosophical)</h2>
+        <p class="text-muted" style="margin-bottom: 2rem">Treatises focused on the nature of God (Nous), the soul's ascent, and the spiritual rebirth of the practitioner.</p>
+        <div class="grid">{theo_cards}</div>
+        
+        <h2 style="color:var(--accent); margin-top:6rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem">II. Technical Hermetica (Practical)</h2>
+        <p class="text-muted" style="margin-bottom: 2rem">Writings attributed to Hermes concerning the practical sciences of alchemy, astrology, and natural magic (sympatheia).</p>
+        <div class="grid">{tech_cards}</div>
+    </main>
+    """
+    with open(target_dir / "corpus.html", "w", encoding="utf-8") as f: f.write(BASE_TEMPLATE.replace("{{title}}", "Corpus Map").replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", corpus_content))
 
     # 7. LANDING PAGE
     landing_content = f"""
