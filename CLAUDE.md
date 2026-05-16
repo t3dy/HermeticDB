@@ -1,101 +1,143 @@
-# Claude Code Instructions — EmeraldTablet
+# Claude Code Instructions — EmeraldTablet / HermeticDB
+
+## MANDATORY FIRST STEP
+
+**Before writing any prose for the database, read `STYLEGUIDE.md` in full.** It governs all `bio_html`, `analysis_html`, `definition_long`, and `description` fields. Violations — including hashtags, brackets, markdown symbols, bullet lists, or placeholder text — will corrupt the portal. The standard is encyclopedia-level scholarly prose.
+
+---
+
+## Project Mission
+
+The HermeticDB is an authoritative scholarly reference portal for the history of Hermeticism — the textual tradition centered on the figure of Hermes Trismegistus from Late Antiquity through the modern period. It is not an esoteric or promotional site. It is a rigorous, provenance-aware digital edition structured for academic browsing, built to the historiographical standards of Wouter J. Hanegraaff and the *Dictionary of Gnosis and Western Esotericism* (Brill, 2006).
+
+The portal has three constituencies: (1) scholars researching the Hermetic tradition, (2) students approaching the field for the first time, (3) serious independent researchers. All three deserve the same standard of accuracy and readability.
+
+---
 
 ## Current Phase
 
-**INFRASTRUCTURE HARDENING / CORPUS STRUCTURING**
+**SCHOLARLY SYNTHESIS / ONGOING ENRICHMENT**
 
-The project has enough corpus material. Collection is no longer the bottleneck. The priority is building stable transformation infrastructure: corpus indexing → segmentation → validation → entity extraction. Do not expand scope. Do not build UI. Do not invent ontology beyond what is needed for corpus plumbing.
+The infrastructure is built. The database is relational and populated. The static site deploys correctly. The current priority is:
 
-## Project Overview
+1. Ensuring all significant scholars, figures, and texts are in the database with full encyclopedia-quality prose
+2. Fixing any entries with style violations (artifacts, hashtags, stubs)
+3. Strengthening the relational graph (person → text → concept links)
+4. Expanding the timeline with granular event data
 
-Hermeticism Knowledge Portal anchored on the Emerald Tablet (Tabula Smaragdina). Covers late antiquity through early modern period. Database-driven static site following the AtalantaClaudiens/HPMarginalia architecture.
+---
 
 ## Architecture
 
 SQLite → Python pipeline → static HTML/CSS/JS → GitHub Pages. No frameworks, stdlib only.
 
-**Required data flow (the middle layer is mandatory):**
+- **Database**: `db/emerald_tablet.db`
+- **Deploy script**: `HERMETICDB/scripts/DEPLOY_PORTAL.py` — single source of truth for site generation
+- **Ingestion scripts**: `scripts/` — all data modifications go through idempotent Python scripts
+- **Output**: `docs/` and `site/` (GitHub Pages serves `docs/`)
 
-```
-CORPUS FILES (.md, .txt)
-    ↓
-INDEX (scripts/index_corpus.py → corpus_documents table)
-    ↓
-SEGMENTS (scripts/segment_texts.py → corpus_segments table)
-    ↓
-TARGET MARKS (scripts/mark_target_sections.py → segment scores/flags)
-    ↓
-VALIDATION (scripts/validate.py — structural checks)
-    ↓
-ENTITY EXTRACTION (scripts/extract_*.py → entity tables)
-    ↓
-LINKING (scripts/link_*.py → relationship tables)
-    ↓
-ASSEMBLY (scripts/assemble_*.py → analysis_html)
-    ↓
-SITE BUILD (scripts/build_site.py → site/)
-    ↓
-FINAL VALIDATION (scripts/validate.py — site/link checks)
-```
-
-The site is a consumer of the structured database, not the place where structure gets improvised.
+---
 
 ## Key Files
 
 | Purpose | File |
 |---------|------|
-| Entry point | This file |
+| **Style mandate** | `STYLEGUIDE.md` ← READ FIRST |
+| Entry point | This file (`CLAUDE.md`) |
 | Phase status | `PHASESTATUS.md` |
-| Routing guide | `INFRASTRUCTURE_NEXT.md` |
-| Schema | `docs/ONTOLOGY.md` |
-| Pipeline | `docs/PIPELINE.md` |
+| Data ontology | `docs/ONTOLOGY.md` |
 | Architecture | `docs/SYSTEM.md` |
-| Lessons learned | `TAKEAWAYS1.md` |
-| Corpus search report | `HERMETICSEARCH.md` |
-| Database | `db/emerald_tablet.db` (gitignored, rebuilt from scripts) |
-| Seed data | `data/emerald_tablet_seed.json` |
-| Output | `site/` (static HTML deployed to GitHub Pages) |
+| Database | `db/emerald_tablet.db` |
+| Deploy | `HERMETICDB/scripts/DEPLOY_PORTAL.py` |
 
-## Deterministic / LLM Boundary (Deckard Rule)
+---
 
-| Category | Examples | Tool |
-|----------|----------|------|
-| **DETERMINISTIC** | Parsing, indexing, segmentation, keyword scoring, section detection, FK validation, HTML generation | Python (regex, sqlite3) |
-| **JUDGMENT (LLM)** | Scholarly argument extraction, concept elaboration, translation alignment, analysis assembly | Targeted LLM reading of marked sections |
-| **WASTE** | Using LLM for structure extraction, keyword counting, language detection, header parsing | — |
-| **DANGER** | LLM output directly into DB without validation gate | — |
+## Data Ontology Summary
 
-LLM usage is bounded, late-stage, and validated. It happens only AFTER indexing, segmentation, and marking are complete. All LLM output goes to `staging/` first, is validated against schema CHECK constraints, then loaded.
+### Persons Table
+All entries in `persons` cover either (a) historical/mythical figures who appear in the Hermetic tradition as actors, or (b) modern scholars who study that tradition. The `role_primary` field distinguishes them:
+
+- **SCHOLAR** — modern academic historians and translators (Hanegraaff, Fowden, Copenhaver, Porreca, etc.)
+- **PHILOSOPHER, ALCHEMIST, SAGE, TRANSLATOR, PRIEST, DEITY, PHYSICIAN, MATHEMATICIAN, POET** — historical figures
+
+The `era` field uses: `ANTIQUITY`, `MEDIEVAL`, `RENAISSANCE`, `EARLY_MODERN`, `MODERN`.
+
+Scholars are grouped on the website by their area of specialization, not merely by era:
+- Antiquity and Late Antique Studies
+- Medieval and Arabic Hermetica
+- Renaissance and Early Modern Studies
+- Modern Esotericism and Historiography
+- Kabbalistic and Related Studies
+
+### Texts Table
+Primary texts (`text_type = PRIMARY_SOURCE`) vs. secondary scholarship (`text_type = SCHOLARSHIP`, `COMMENTARY`, `COMPILATION`) must be clearly separated throughout the site. The key types are:
+
+- **PRIMARY_SOURCE** — original Hermetic texts (CH, Asclepius, Emerald Tablet, Picatrix, Liber XXIV)
+- **TREATISE** — Renaissance and early modern philosophical works with Hermetic content
+- **SCHOLARSHIP** — modern academic books and critical editions
+- **MANIFESTO** — Rosicrucian and related programmatic texts
+- **COMPILATION** — Anthologies, collected fragments
+
+### Concepts Table
+Two fundamental categories, maintained with `category_type`:
+- **ACTOR_TERM** — used by historical figures (*prisca theologia*, *magia naturalis*, *gnosis*, *nous*)
+- **ANALYST_TERM** — retrospective scholarly categories (*Hermeticism*, *Yates Paradigm*, *Rejected Knowledge*)
+
+This distinction must NEVER be collapsed. It is central to the Hanegraaffian methodology underpinning the entire project.
+
+---
+
+## Historiographical Principles (Bake These In)
+
+1. **No reification**: Do not treat "Hermeticism" as a bounded, coherent tradition with fixed members. Historical actors were embedded in complex, overlapping contexts.
+2. **Actor/Analyst distinction**: Always maintained (see STYLEGUIDE.md and ONTOLOGY.md).
+3. **Provenance on every claim**: All assertions traceable to a named source.
+4. **Medieval continuity**: The Renaissance "rediscovery" was not a break — it built on a continuous 12th–13th century Latin Hermetic tradition (*Hermes Latinus*) centered on texts like *De sex rerum principiis*, *Liber XXIV Philosophorum*, and the Latin *Asclepius*.
+5. **Arabic transmission**: The Islamic world was the primary vehicle of Hermetic survival from Late Antiquity. Abu Ma'shar, Jabir, al-Kindi, and the *Picatrix* tradition are not peripheral — they are central.
+6. **The Yates Paradigm is contested**: Present Frances Yates's thesis (Hermeticism → Scientific Revolution) with appropriate historiographical context. The paradigm has been substantially revised by Hanegraaff, Copenhaver, and others.
+
+---
 
 ## Pipeline Rules
 
-1. **No ad-hoc data.** If data is not seeded, indexed, or produced by a listed pipeline script, it is fragile and out of contract. Any data set outside the standard pipeline will be lost on rebuild.
-2. **Provenance on every row.** Every database row must carry `source_method`, `review_status`, `confidence`. No exceptions.
-3. **Idempotent scripts.** Every script uses `CREATE TABLE IF NOT EXISTS` and `INSERT OR IGNORE`. Safe to re-run.
-4. **Rebuild reproduces everything.** The full rebuild command in `docs/PIPELINE.md` must produce the complete database from scratch.
-5. **Validate before and after.** Structural validation after entity extraction. Link validation after site build.
-6. **BUILT vs PLANNED.** All docs must distinguish implemented from aspirational. Tag `[BUILT]` or `[PLANNED]`.
-7. **Slugs, not row IDs.** Never hardcode database row IDs. Use text slugs that survive rebuilds.
-8. **Infrastructure before enrichment.** Corpus indexing and segmentation must be complete before entity extraction begins.
-9. **Enrichment before UI.** Entity tables must be populated before site build is meaningful.
+1. **No ad-hoc data.** All data must be inserted via idempotent Python scripts in `scripts/`.
+2. **Provenance on every row.** `source_method`, `review_status`, `confidence` required on all rows.
+3. **Idempotent scripts.** All scripts use `INSERT OR IGNORE`. Safe to re-run.
+4. **Slugs, not row IDs.** Never hardcode database row IDs.
+5. **Validate after enrichment.** Run the deploy script after any ingestion to verify output.
+6. **Style before deploy.** Check new prose against `STYLEGUIDE.md` before committing to DB.
+
+---
+
+## Key Scholarly Authorities (Reference These)
+
+These are the primary scholarly authorities whose frameworks govern this portal:
+
+| Scholar | Key Work | Relevance |
+|---------|----------|-----------|
+| Wouter J. Hanegraaff | *Dictionary of Gnosis and Western Esotericism* (2006); *Hermetic Spirituality and the Historical Imagination* (2022) | Methodological framework; Actor/Analyst distinction |
+| Garth Fowden | *The Egyptian Hermes* (1986) | Late Antique Hermetic milieu; the "Way of Hermes" |
+| Brian P. Copenhaver | *Hermetica* (1992, Cambridge) | Standard English translation of CH and Asclepius |
+| Frances A. Yates | *Giordano Bruno and the Hermetic Tradition* (1964) | The Yates Paradigm (contested but foundational) |
+| Paolo Lucentini & Mark D. Delp | *De sex rerum principiis* (Brepols, 2006) | Medieval Latin Hermetica |
+| David Porreca | Hermes Latinus series; *Picatrix* translation (2019) | Medieval classroom reception of Hermes |
+| Kevin van Bladel | *The Arabic Hermes* (2009) | Arabic transmission |
+| Liana Saif | Arabic occult sciences | Islamic Hermetica and astral magic |
+| Christian H. Bull | *The Tradition of Hermes Trismegistus* (2018) | Egyptian priestly origins |
+| Anna van den Kerchove | *La voie d'Hermès* (2012) | Ritual practices in the Hermetica |
+| M. David Litwa | *Hermetica II* (2018, Cambridge) | Stobaean fragments and papyri |
+
+---
 
 ## Vocabulary Lock
 
-All enum values are defined in `scripts/init_db.py` CHECK constraints. See `staging/vocab_lock.md` for the complete list. Swarm agents and LLM output must use only these values. If a new value is needed, add it to the CHECK constraint in `init_db.py` first.
+All enum values are defined in `scripts/init_db.py` CHECK constraints. Do not invent new values for `era`, `text_type`, `category`, `category_type`, `role_primary`, or `source_method` without adding them to the schema first.
 
-## Swarm Rules
+---
 
-- Background agents are read-only
-- Agents write only to `staging/` (JSON or Markdown)
-- Main session validates and merges staging output into pipeline
-- Agents cannot run Bash (permission system blocks shell access)
-- Use staging-file pattern, not direct DB writes
-
-## Key Conventions
+## Python Conventions
 
 - Python stdlib only (sqlite3, json, re, pathlib)
-- Verse numbering uses TEXT (0-14 scheme with sub-verses like "6a")
-- Text relationships model containment, derivation, and translation chains
-- Persons table includes both historical and mythical figures
-- Corpus files live in root, `hermetic/`, and `KeyHermeticChats/`
-- Converted scholarship goes alongside source PDFs as `.md` files
+- All scripts must be idempotent (`INSERT OR IGNORE`, `UPDATE OR IGNORE`)
+- DB path: `c:\Dev\EmeraldTablet\db\emerald_tablet.db`
+- Deploy command: `python c:\Dev\EmeraldTablet\HERMETICDB\scripts\DEPLOY_PORTAL.py`

@@ -31,6 +31,11 @@ def clean_prose(text):
     # Ensure it's treated as a single block of prose
     return text.strip()
 
+def clean_inline(text):
+    if not text:
+        return ""
+    return clean_prose(str(text))
+
 def italicize_terms(text):
     if not text: return ""
     # Strip artifacts first
@@ -314,14 +319,21 @@ BASE_TEMPLATE = """<!DOCTYPE html>
 """
 
 def generate_entity_card(title, meta, desc, link):
-    desc_text = italicize_terms(" ".join(desc.split()[:25]) if desc else "No short definition available") + "..."
+    desc_text = clean_inline(" ".join(desc.split()[:25]) if desc else "No short definition available") + "..."
     return f"""
     <a class="card" href="{link}">
-        <div class="card-title">{italicize_terms(title)}</div>
+        <div class="card-title">{clean_inline(title)}</div>
         <div class="card-meta">{meta}</div>
         <div class="card-desc">{desc_text}</div>
     </a>
     """
+
+def slug_for_row(table, row):
+    if table == "texts":
+        return row["text_id"]
+    if table == "concepts":
+        return row["slug"]
+    return row["person_id"]
 
 def get_fragments(cursor, entity_id, entity_type):
     """Fetch corpus fragments that mention the entity or are part of the document."""
@@ -453,8 +465,11 @@ def deploy_to(target_dir, cursor):
                 else:
                     era_groups["PRIMARY SOURCES"].append(row)
         elif table == "scholars":
-            cursor.execute("SELECT * FROM persons WHERE role_primary = 'SCHOLAR' ORDER BY name")
-            era_groups["MODERN"] = cursor.fetchall()
+            cursor.execute("SELECT * FROM persons WHERE role_primary = 'SCHOLAR' ORDER BY scholar_group, name")
+            for row in cursor.fetchall():
+                group = row['scholar_group'] if 'scholar_group' in row.keys() and row['scholar_group'] else "Modern Esotericism and Historiography"
+                if group not in era_groups: era_groups[group] = []
+                era_groups[group].append(row)
         elif table == "persons":
             cursor.execute("SELECT * FROM persons WHERE role_primary != 'SCHOLAR' OR role_primary IS NULL ORDER BY era, name")
             for row in cursor.fetchall():
@@ -487,7 +502,7 @@ def deploy_to(target_dir, cursor):
                 desc = clean_prose(desc)
 
                 target_folder = target if target != "dictionary" else "concepts"
-                link = f"{REPO_URL}/{target_folder}/{row[0]}.html"
+                link = f"{REPO_URL}/{target_folder}/{slug_for_row(table, row)}.html"
                 cards += generate_entity_card(name, meta, desc, link)
                 era_links.append(f'<a href="{link}" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">{name}</a>')
             
@@ -523,12 +538,36 @@ def deploy_to(target_dir, cursor):
 
     for era_id, era_name in [("late-antiquity", "Late Antiquity"), ("medieval", "Medieval"), ("renaissance", "Renaissance"), ("early-modern", "Early Modern"), ("modern", "Modern")]:
         db_era = "ANTIQUITY" if era_id == "late-antiquity" else era_id.upper().replace("-", "_")
+        
+        # Persons
         cursor.execute("SELECT * FROM persons WHERE era = ? ORDER BY name", (db_era,))
         era_cards = ""
         for row in cursor.fetchall():
             era_cards += generate_entity_card(row['name'], row['role_primary'], row['description'], f"{REPO_URL}/biographies/{row['person_id']}.html")
+        
+        # Texts
+        date_query = ""
+        if db_era == 'ANTIQUITY': date_query = "date_composed_start < 600"
+        elif db_era == 'MEDIEVAL': date_query = "date_composed_start >= 600 AND date_composed_start < 1400"
+        elif db_era == 'RENAISSANCE': date_query = "date_composed_start >= 1400 AND date_composed_start < 1600"
+        elif db_era == 'EARLY_MODERN': date_query = "date_composed_start >= 1600 AND date_composed_start < 1850"
+        elif db_era == 'MODERN': date_query = "date_composed_start >= 1850"
+        
+        text_cards = ""
+        if date_query:
+            cursor.execute(f"SELECT * FROM texts WHERE {date_query} ORDER BY title")
+            for row in cursor.fetchall():
+                text_cards += generate_entity_card(row['title'], row['text_type'], row['description'], f"{REPO_URL}/texts/{row['text_id']}.html")
+        
         prose = ERA_PROSE.get(db_era, "")
-        content = f'<main class="page-container"><h1 class="title-large">{era_name} Archives</h1><p class="text-subtitle">Figures and manuscripts of the {era_name} period.</p>{prose}<div class="grid">{era_cards}</div></main>'
+        
+        sections_html = ""
+        if era_cards:
+            sections_html += f'<h2 style="color:var(--accent); margin-top:4rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem">Figures</h2><div class="grid">{era_cards}</div>'
+        if text_cards:
+            sections_html += f'<h2 style="color:var(--accent); margin-top:4rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem">Manuscripts & Texts</h2><div class="grid">{text_cards}</div>'
+            
+        content = f'<main class="page-container"><h1 class="title-large">{era_name} Archives</h1><p class="text-subtitle">Figures and manuscripts of the {era_name} period.</p>{prose}{sections_html}</main>'
         with open(target_dir / "eras" / f"{era_id}.html", "w", encoding="utf-8") as f: f.write(BASE_TEMPLATE.replace("{{title}}", era_name).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", content))
 
     # 6.5. TIMELINE
@@ -884,7 +923,10 @@ def deploy_to(target_dir, cursor):
         f.write(BASE_TEMPLATE.replace("{{title}}", "Historiographical Debates").replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", DEBATES_CONTENT))
 
 def main():
-    conn = sqlite3.connect(DB_PATH)
+    try:
+        conn = sqlite3.connect(DB_PATH)
+    except sqlite3.OperationalError:
+        conn = sqlite3.connect(f"file:{DB_PATH.as_posix()}?mode=ro&immutable=1", uri=True)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
