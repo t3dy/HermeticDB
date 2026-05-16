@@ -396,13 +396,35 @@ def deploy_to(target_dir, cursor):
         with open(target_dir / f"{target}.html", "w", encoding="utf-8") as f: f.write(BASE_TEMPLATE.replace("{{title}}", title).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", content))
 
     # 6. ERAS
+    ERA_PROSE = {
+        "ANTIQUITY": """
+            <div class="prose-content" style="margin-bottom: 3rem; border-left: 2px solid var(--accent-light); padding-left: 2rem">
+                <p>Hermeticism in Late Antiquity (c. 100–500 CE) was a diverse, living ritual and philosophical milieu centered in Roman Egypt. Following the landmark work of <b>Garth Fowden</b> and <b>Jean-Pierre Mahé</b>, we understand this period not as the work of isolated 'armchair' philosophers, but as a technical 'Way of Hermes' (<i>hermaike hodos</i>). This way involved spiritual exercises, liturgical hymns, and alchemical internalizations designed to lead the practitioner toward <i>gnosis</i> and deification.</p>
+                <p>The philosophical Hermetica (like the <i>Poimandres</i>) and the technical Hermetica (astrology, alchemy, magic) were originally two sides of the same Egyptian temple coin. Figures like <b>Zosimos of Panopolis</b> prove that the boundaries between 'rational' philosophy and 'irrational' magic are modern scholarly impositions.</p>
+            </div>
+        """,
+        "MEDIEVAL": """
+            <div class="prose-content" style="margin-bottom: 3rem; border-left: 2px solid var(--accent-light); padding-left: 2rem">
+                <p>The Medieval period saw the survival and expansion of Hermeticism primarily through the Islamic world. Arabic scholars integrated 'Hermes' into the prophetic lineage of Idris and Enoch, producing foundational texts like the <i>Sirr al-Khaliqa</i> (The Secret of Creation) and the <i>Picatrix</i>.</p>
+                <p>In the 12th century, the translation of these Arabic texts into Latin introduced the <i>Emerald Tablet</i> and the technical Hermetica to Europe, influencing theologians like <b>Albertus Magnus</b> and <b>Roger Bacon</b>. This 'Medieval Hermetica' laid the structural groundwork for the more famous Renaissance 'rediscovery'.</p>
+            </div>
+        """,
+        "RENAISSANCE": """
+            <div class="prose-content" style="margin-bottom: 3rem; border-left: 2px solid var(--accent-light); padding-left: 2rem">
+                <p>The Renaissance (c. 1460–1600) represents the 'golden age' of Western Hermeticism, initiated by <b>Marsilio Ficino's</b> translation of the <i>Corpus Hermeticum</i> into Latin. This period saw the synthesis of Hermeticism with Christian Kabbalah, Neoplatonism, and humanism.</p>
+                <p>Figures like <b>Pico della Mirandola</b> and <b>Giordano Bruno</b> utilized the 'Yates Paradigm' of the active magus to challenge traditional scholasticism, while <b>Cornelius Agrippa</b> provided the definitive synthesis of 'Occult Philosophy' that would define the era's magical worldview.</p>
+            </div>
+        """
+    }
+
     for era_id, era_name in [("late-antiquity", "Late Antiquity"), ("medieval", "Medieval"), ("renaissance", "Renaissance"), ("early-modern", "Early Modern"), ("modern", "Modern")]:
-        db_era = era_id.upper().replace("-", "_")
+        db_era = "ANTIQUITY" if era_id == "late-antiquity" else era_id.upper().replace("-", "_")
         cursor.execute("SELECT * FROM persons WHERE era = ? ORDER BY name", (db_era,))
         era_cards = ""
         for row in cursor.fetchall():
             era_cards += generate_entity_card(row['name'], row['role_primary'], row['description'], f"{REPO_URL}/biographies/{row['person_id']}.html")
-        content = f'<main class="page-container"><h1 class="title-large">{era_name} Archives</h1><p class="text-subtitle">Figures and manuscripts of the {era_name} period.</p><div class="grid">{era_cards}</div></main>'
+        prose = ERA_PROSE.get(db_era, "")
+        content = f'<main class="page-container"><h1 class="title-large">{era_name} Archives</h1><p class="text-subtitle">Figures and manuscripts of the {era_name} period.</p>{prose}<div class="grid">{era_cards}</div></main>'
         with open(target_dir / "eras" / f"{era_id}.html", "w", encoding="utf-8") as f: f.write(BASE_TEMPLATE.replace("{{title}}", era_name).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", content))
 
     # 6.5. TIMELINE
