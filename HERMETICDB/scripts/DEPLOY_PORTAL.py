@@ -253,6 +253,7 @@ NAV_BAR = f"""
             <a class="nav-link" href="{REPO_URL}/scholars.html">Scholars</a>
             <a class="nav-link" href="{REPO_URL}/dictionary.html">Dictionary</a>
             <a class="nav-link" href="{REPO_URL}/timeline.html">Timeline</a>
+            <a class="nav-link" href="{REPO_URL}/map.html">Interactive Map</a>
             <a class="nav-link" href="{REPO_URL}/about.html">Methodology</a>
         </div>
     </div>
@@ -538,6 +539,63 @@ def deploy_to(target_dir, cursor):
     </main>
     """
     with open(target_dir / "corpus.html", "w", encoding="utf-8") as f: f.write(BASE_TEMPLATE.replace("{{title}}", "Corpus Map").replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", corpus_content))
+
+    # 6.8 INTERACTIVE MAP
+    cursor.execute("SELECT * FROM locations")
+    locs = cursor.fetchall()
+    loc_js_objects = []
+    for l in locs:
+        loc_js_objects.append(f'{{ "label": "{l["label"]}", "lat": {l["lat"]}, "lng": {l["lng"]}, "desc": "{l["description"]}" }}')
+    
+    loc_js_array = "[" + ",".join(loc_js_objects) + "]"
+    
+    map_content = f"""
+    <main class="page-container">
+        <h1 class="title-large">Interactive Geography of Hermeticism</h1>
+        <p class="text-subtitle">Major centers of transmission, translation, and practice.</p>
+        <div id="map" style="height: 600px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-card);"></div>
+        
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {{
+                const map = L.map('map').setView([35, 20], 3);
+                L.tileLayer('https://{{s}}.basemaps.cartocdn.com/dark_all/{{z}}/{{x}}/{{y}}{{r}}.png', {{
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                }}).addTo(map);
+
+                const locations = {loc_js_array};
+                
+                const hermeticIcon = L.divIcon({{
+                    className: 'hermetic-marker',
+                    html: '<div style="width:12px; height:12px; background:var(--accent); border:2px solid #fff; border-radius:50%; box-shadow: 0 0 10px var(--accent);"></div>',
+                    iconSize: [12, 12]
+                }});
+
+                locations.forEach(loc => {{
+                    L.marker([loc.lat, loc.lng], {{icon: hermeticIcon}})
+                        .addTo(map)
+                        .bindPopup(`<b>${{loc.label}}</b><br><br>${{loc.desc}}`, {{
+                            className: 'hermetic-popup'
+                        }});
+                }});
+            }});
+        </script>
+        <style>
+            .hermetic-popup .leaflet-popup-content-wrapper {{
+                background: var(--bg-card);
+                color: var(--text-main);
+                border: 1px solid var(--border);
+                font-family: var(--font-body);
+            }}
+            .hermetic-popup .leaflet-popup-tip {{
+                background: var(--bg-card);
+            }}
+        </style>
+    </main>
+    """
+    with open(target_dir / "map.html", "w", encoding="utf-8") as f: f.write(BASE_TEMPLATE.replace("{{title}}", "Interactive Map").replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", map_content))
 
     # 7. LANDING PAGE
     landing_content = f"""
