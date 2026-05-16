@@ -623,8 +623,6 @@ def deploy_to(target_dir, cursor):
         links.append({ "source": r[0], "target": r[1], "value": 2, "type": r[2] })
     
     # 5. EDGES (Concept <-> Text)
-    cursor.execute("SELECT concept_id, text_id FROM concept_text_refs")
-    # Need to map integer IDs back to slugs for D3 source/target
     cursor.execute("""
         SELECT c.slug, t.text_id 
         FROM concept_text_refs r
@@ -633,6 +631,16 @@ def deploy_to(target_dir, cursor):
     """)
     for r in cursor.fetchall():
         links.append({ "source": r[0], "target": r[1], "value": 1, "type": "THEME" })
+
+    # 6. EDGES (Person <-> Person)
+    cursor.execute("SELECT person_a, person_b, rel_type FROM person_person_refs")
+    for r in cursor.fetchall():
+        links.append({ "source": r[0], "target": r[1], "value": 3, "type": r[2] })
+
+    # 7. EDGES (Text <-> Text)
+    cursor.execute("SELECT text_a, text_b, rel_type FROM text_text_refs")
+    for r in cursor.fetchall():
+        links.append({ "source": r[0], "target": r[1], "value": 3, "type": r[2] })
 
     import json
     graph_data = { "nodes": nodes, "links": links }
@@ -685,6 +693,16 @@ def deploy_to(target_dir, cursor):
                     d3.select("#info-title").text(d.label);
                     d3.select("#info-type").text(d.group + " · " + (d.role || ""));
                     
+                    // Show connections in info box
+                    const connections = data.links
+                        .filter(l => l.source.id === d.id || l.target.id === d.id)
+                        .map(l => {{
+                            const other = l.source.id === d.id ? l.target : l.source;
+                            return `<li><b>${{l.type}}</b>: ${{other.label}}</li>`;
+                        }})
+                        .join("");
+                    d3.select("#info-desc").html(`<ul style="list-style:none; padding:0; margin:1rem 0">${{connections}}</ul>`);
+
                     // Highlight connections
                     link.style("stroke", l => (l.source.id === d.id || l.target.id === d.id) ? "var(--accent)" : "rgba(255,255,255,0.1)")
                         .style("stroke-opacity", l => (l.source.id === d.id || l.target.id === d.id) ? 1 : 0.1);
