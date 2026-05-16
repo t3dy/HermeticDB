@@ -1,0 +1,1 @@
+﻿Artifact: C:\Dev\EmeraldTablet\artifacts\emeraldtablet_integration_snapshot_20260515_212515

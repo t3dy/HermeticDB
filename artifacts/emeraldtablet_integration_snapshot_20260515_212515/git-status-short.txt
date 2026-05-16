@@ -1,0 +1,146 @@
+﻿ M CLAUDE.md
+ M HERMETICDB/scripts/DEPLOY_PORTAL.py
+ M PHASESTATUS.md
+ M docs/biographies.html
+ M docs/biographies/johann_valentin_andreae.html
+ M docs/biographies/nicholas_of_cusa.html
+ D docs/biographies/ochema.html
+ D docs/biographies/phantasmata.html
+ M docs/biographies/pietro_pomponazzi.html
+ M docs/biographies/symphorien_champier.html
+ D docs/biographies/virtus_loci.html
+ M docs/concepts/prisca_theologia.html
+ M docs/dictionary.html
+ M docs/eras/early-modern.html
+ M docs/eras/late-antiquity.html
+ M docs/eras/medieval.html
+ M docs/eras/modern.html
+ M docs/eras/renaissance.html
+ M docs/graph.html
+ M docs/map.html
+ M docs/scholars.html
+ D docs/scholars/atalanta_fugiens.html
+ M docs/scholars/david_porreca.html
+ M docs/scholars/frances_yates.html
+ M docs/scholars/mark_damien_delp.html
+ D docs/scholars/nicholas_goodrick-clarke.html
+ M docs/scholars/roger_bacon.html
+ M docs/texts.html
+ M docs/texts/asclepius.html
+ M docs/texts/aurora_consurgens.html
+ M docs/texts/ch_i.html
+ M docs/texts/ch_i_poimandres.html
+ D docs/texts/ch_ii_to_asclepius.html
+ M docs/texts/ch_xiii.html
+ D docs/texts/ch_xiii_on_rebirth_and_silence.html
+ M docs/texts/de_occulta_philosophia_libri_tres.html
+ M docs/texts/de_sex_rerum_principiis.html
+ M docs/texts/emerald_tablet.html
+ M docs/texts/giordano_bruno_yates.html
+ M docs/texts/iamblichus_mysteriis.html
+ M docs/texts/liber_xxiv_philosophorum.html
+ M docs/texts/picatrix.html
+ M docs/texts/rosarium_philosophorum.html
+ D docs/texts/theatrum_chem_britannicum.html
+ D docs/texts/yates_bruno_hermetic.html
+ M docs/timeline.html
+ M site/biographies.html
+ M site/biographies/johann_valentin_andreae.html
+ M site/biographies/nicholas_of_cusa.html
+ D site/biographies/ochema.html
+ D site/biographies/phantasmata.html
+ M site/biographies/pietro_pomponazzi.html
+ M site/biographies/symphorien_champier.html
+ D site/biographies/virtus_loci.html
+ M site/concepts/prisca_theologia.html
+ M site/dictionary.html
+ M site/eras/early-modern.html
+ M site/eras/late-antiquity.html
+ M site/eras/medieval.html
+ M site/eras/modern.html
+ M site/eras/renaissance.html
+ M site/graph.html
+ M site/map.html
+ M site/scholars.html
+ D site/scholars/atalanta_fugiens.html
+ M site/scholars/david_porreca.html
+ M site/scholars/frances_yates.html
+ M site/scholars/mark_damien_delp.html
+ D site/scholars/nicholas_goodrick-clarke.html
+ M site/scholars/roger_bacon.html
+ M site/texts.html
+ M site/texts/asclepius.html
+ M site/texts/aurora_consurgens.html
+ M site/texts/ch_i.html
+ M site/texts/ch_i_poimandres.html
+ D site/texts/ch_ii_to_asclepius.html
+ M site/texts/ch_xiii.html
+ D site/texts/ch_xiii_on_rebirth_and_silence.html
+ M site/texts/de_occulta_philosophia_libri_tres.html
+ M site/texts/de_sex_rerum_principiis.html
+ M site/texts/emerald_tablet.html
+ M site/texts/giordano_bruno_yates.html
+ M site/texts/iamblichus_mysteriis.html
+ M site/texts/liber_xxiv_philosophorum.html
+ M site/texts/picatrix.html
+ M site/texts/rosarium_philosophorum.html
+ D site/texts/theatrum_chem_britannicum.html
+ D site/texts/yates_bruno_hermetic.html
+ M site/timeline.html
+?? AGENTS.md
+?? STYLEGUIDE.md
+?? _db_backup_20260515_212336/
+?? docs/biographies/alain_de_lille.html
+?? docs/biographies/gilbert_of_poitiers.html
+?? docs/biographies/thierry_of_chartres.html
+?? docs/biographies/thomas_of_york.html
+?? docs/biographies/william_of_conches.html
+?? docs/concepts/anima_mundi_divine.html
+?? docs/concepts/imagination_magical.html
+?? docs/concepts/immanent_logos.html
+?? docs/concepts/infinite_sphere.html
+?? docs/concepts/lumen_gloriae.html
+?? docs/concepts/monas_generativa.html
+?? docs/concepts/perfect_nature.html
+?? docs/concepts/planetary_mansions.html
+?? docs/concepts/planetary_spirits.html
+?? docs/concepts/suffumigation.html
+?? docs/concepts/theurgical_statues.html
+?? docs/scholars/dan_attrell.html
+?? docs/scholars/paolo_lucentini.html
+?? docs/scholars/robert_grosseteste.html
+?? docs/texts/de_maximis_theologiae.html
+?? docs/texts/hermes_latinus_series.html
+?? docs/texts/liber_de_causis.html
+?? docs/texts/liber_de_spiritu_et_anima.html
+?? docs/texts/picatrix_latin.html
+?? scripts/assign_scholar_groups.py
+?? scripts/consolidate_and_expand.py
+?? scripts/extra_dictionary_expansion.py
+?? scripts/ingest_medieval_hermetica.py
+?? scripts/mass_link_scholarship.py
+?? scripts/refine_historical_data.py
+?? site/biographies/alain_de_lille.html
+?? site/biographies/gilbert_of_poitiers.html
+?? site/biographies/thierry_of_chartres.html
+?? site/biographies/thomas_of_york.html
+?? site/biographies/william_of_conches.html
+?? site/concepts/anima_mundi_divine.html
+?? site/concepts/imagination_magical.html
+?? site/concepts/immanent_logos.html
+?? site/concepts/infinite_sphere.html
+?? site/concepts/lumen_gloriae.html
+?? site/concepts/monas_generativa.html
+?? site/concepts/perfect_nature.html
+?? site/concepts/planetary_mansions.html
+?? site/concepts/planetary_spirits.html
+?? site/concepts/suffumigation.html
+?? site/concepts/theurgical_statues.html
+?? site/scholars/dan_attrell.html
+?? site/scholars/paolo_lucentini.html
+?? site/scholars/robert_grosseteste.html
+?? site/texts/de_maximis_theologiae.html
+?? site/texts/hermes_latinus_series.html
+?? site/texts/liber_de_causis.html
+?? site/texts/liber_de_spiritu_et_anima.html
+?? site/texts/picatrix_latin.html

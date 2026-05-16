@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>The Emerald Library - HermeticDB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        
+:root {
+    --bg: #0a0a0c;
+    --bg-card: #141418;
+    --accent: #d4af37;
+    --accent-light: #f1d37e;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --border: rgba(212, 175, 55, 0.2);
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.site-nav {
+    background: rgba(10, 10, 12, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.title-large {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: var(--accent-light);
+    margin-bottom: 1rem;
+}
+
+.text-subtitle {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--accent-light);
+    margin-bottom: 0.5rem;
+}
+
+.card-meta {
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.card-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.prose-content {
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    font-size: 1.15rem;
+    color: #d8d8d8;
+}
+
+.prose-content h2 {
+    font-family: var(--font-display);
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+}
+
+.prose-content p {
+    margin-bottom: 1.5rem;
+}
+
+.back-link {
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.scholarly-fragment {
+    border-left: 3px solid var(--accent);
+    background: rgba(212, 175, 55, 0.05);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.fragment-source {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    font-style: normal;
+    color: var(--accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+    .theme-tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.theme-tag:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+</style>
+</head>
+<body>
+    
+<nav class="site-nav">
+    <div class="nav-container">
+        <a class="nav-logo" href="/HermeticDB">HERMETICDB</a>
+        <div class="nav-links">
+            <a class="nav-link" href="/HermeticDB/eras/late-antiquity.html">Late Antiquity</a>
+            <a class="nav-link" href="/HermeticDB/eras/medieval.html">Medieval</a>
+            <a class="nav-link" href="/HermeticDB/eras/renaissance.html">Renaissance</a>
+            <div style="width:1px;height:20px;background:rgba(255,255,255,0.1)"></div>
+            <a class="nav-link" href="/HermeticDB/corpus.html" style="color:var(--accent-light); font-weight:bold">Corpus Map</a>
+            <a class="nav-link" href="/HermeticDB/texts.html">Texts</a>
+            <a class="nav-link" href="/HermeticDB/biographies.html">Biographies</a>
+            <a class="nav-link" href="/HermeticDB/scholars.html">Scholars</a>
+            <a class="nav-link" href="/HermeticDB/dictionary.html">Dictionary</a>
+            <a class="nav-link" href="/HermeticDB/debates.html">Debates</a>
+            <a class="nav-link" href="/HermeticDB/timeline.html">Timeline</a>
+            <a class="nav-link" href="/HermeticDB/map.html">Interactive Map</a>
+            <a class="nav-link" href="/HermeticDB/graph.html" style="color:var(--accent); font-weight:bold">Relationship Graph</a>
+            <a class="nav-link" href="/HermeticDB/about.html">Methodology</a>
+        </div>
+    </div>
+</nav>
+
+    <main class="page-container"><h1 class="title-large">The Emerald Library</h1><p class="text-subtitle" style="margin-bottom:3rem">Canonical treatises and manuscript lineages.</p><div class="compact-directory" style="margin-bottom: 4rem; padding: 2rem; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border)"><h3 style="margin-top:0; color:var(--accent)">Compact Directory</h3><div style="display: flex; flex-wrap: wrap; gap: 1rem;"><div style="width:100%; margin-top:1rem; font-weight:bold; color:var(--text-muted); font-size:0.8rem">PRIMARY SOURCES</div><a href="/HermeticDB/texts/96.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Giordano Bruno and the Hermetic Tradition</a><a href="/HermeticDB/texts/102.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Hermes Latinus (Brepols Series)</a><a href="/HermeticDB/texts/12.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Amphitheatrum Sapientiae Aeternae</a><a href="/HermeticDB/texts/10.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Atalanta Fugiens</a><a href="/HermeticDB/texts/6.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Aurora Consurgens</a><a href="/HermeticDB/texts/32.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH I: Poimandres</a><a href="/HermeticDB/texts/93.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH I: Poimandres</a><a href="/HermeticDB/texts/40.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH II: To Hermes</a><a href="/HermeticDB/texts/41.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH III: A Sacred Discourse</a><a href="/HermeticDB/texts/33.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH IV: The Mixing Bowl (Krater)</a><a href="/HermeticDB/texts/94.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH IV: The Mixing Bowl (Krater)</a><a href="/HermeticDB/texts/46.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH IX: On Thinking and Sense</a><a href="/HermeticDB/texts/42.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH V: God is Manifest</a><a href="/HermeticDB/texts/43.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH VI: God is the Good</a><a href="/HermeticDB/texts/44.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH VII: The Greatest Evil</a><a href="/HermeticDB/texts/45.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH VIII: Nothing is Lost</a><a href="/HermeticDB/texts/26.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH X: The Key</a><a href="/HermeticDB/texts/34.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH X: The Key</a><a href="/HermeticDB/texts/47.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH XI: Mind to Hermes</a><a href="/HermeticDB/texts/48.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH XII: On the Common Mind</a><a href="/HermeticDB/texts/35.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH XIII: On Rebirth</a><a href="/HermeticDB/texts/95.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH XIII: The Secret Discourse on the Mountain</a><a href="/HermeticDB/texts/49.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH XIV: To Tat</a><a href="/HermeticDB/texts/50.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH XVI: Definitions of Asclepius</a><a href="/HermeticDB/texts/51.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH XVII: To a King</a><a href="/HermeticDB/texts/52.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">CH XVIII: Praise of Kings</a><a href="/HermeticDB/texts/70.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Chaeremon: Fragments</a><a href="/HermeticDB/texts/19.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Chymical Wedding of Christian Rosenkreutz</a><a href="/HermeticDB/texts/71.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Clement of Alexandria: Stromata</a><a href="/HermeticDB/texts/1.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Corpus Hermeticum</a><a href="/HermeticDB/texts/78.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Crater Hermetis</a><a href="/HermeticDB/texts/9.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">De Occulta Philosophia</a><a href="/HermeticDB/texts/92.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">De sex rerum principiis</a><a href="/HermeticDB/texts/59.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Definitions of Hermes to Asclepius (Armenian)</a><a href="/HermeticDB/texts/20.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Dictionary of Gnosis and Western Esotericism</a><a href="/HermeticDB/texts/17.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Esotericism and the Academy</a><a href="/HermeticDB/texts/72.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Eusebius: Praeparatio Evangelica</a><a href="/HermeticDB/texts/18.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Fama Fraternitatis</a><a href="/HermeticDB/texts/63.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Hermetic Fragments in Cyril of Alexandria</a><a href="/HermeticDB/texts/62.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Hermetic Fragments in Lactantius</a><a href="/HermeticDB/texts/68.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Iamblichus: De Mysteriis</a><a href="/HermeticDB/texts/65.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Iatromathematica of Hermes</a><a href="/HermeticDB/texts/5.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Kitāb Sirr al-Khalīqa</a><a href="/HermeticDB/texts/27.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Kore Kosmou (Virgin of the World)</a><a href="/HermeticDB/texts/73.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Lactantius: Divinae Institutiones</a><a href="/HermeticDB/texts/38.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Liber Hermetis</a><a href="/HermeticDB/texts/57.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Liber Hermetis (25 Chapters)</a><a href="/HermeticDB/texts/67.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Liber Vaccae (The Book of the Cow)</a><a href="/HermeticDB/texts/91.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Liber XXIV philosophorum</a><a href="/HermeticDB/texts/98.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Liber XXIV philosophorum</a><a href="/HermeticDB/texts/99.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Liber de Causis</a><a href="/HermeticDB/texts/53.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Liber de stellis beibeniis</a><a href="/HermeticDB/texts/69.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Manetho: Aegyptiaca</a><a href="/HermeticDB/texts/8.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Monas Hieroglyphica</a><a href="/HermeticDB/texts/75.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Mushaf al-Suwar (The Book of Pictures)</a><a href="/HermeticDB/texts/56.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">PGM VII: The Stele of Hermes</a><a href="/HermeticDB/texts/3.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Picatrix (Ghayat al-Hakim)</a><a href="/HermeticDB/texts/16.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Psychology and Alchemy</a><a href="/HermeticDB/texts/7.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Rosarium Philosophorum</a><a href="/HermeticDB/texts/77.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Secretum Secretorum (Secret of Secrets)</a><a href="/HermeticDB/texts/29.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Sefer Yetzirah</a><a href="/HermeticDB/texts/74.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Sirr al-Khaliqa (The Secret of Creation)</a><a href="/HermeticDB/texts/11.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Splendor Solis</a><a href="/HermeticDB/texts/2.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The Asclepius</a><a href="/HermeticDB/texts/64.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The Brontologion of Hermes</a><a href="/HermeticDB/texts/39.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The Centiloquium (Hermetic)</a><a href="/HermeticDB/texts/30.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The City of the Sun</a><a href="/HermeticDB/texts/37.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The Cyranides (Kyranides)</a><a href="/HermeticDB/texts/36.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The Discourse on the Eighth and Ninth</a><a href="/HermeticDB/texts/4.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The Emerald Tablet</a><a href="/HermeticDB/texts/55.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The Golden Tractate (Tractatus Aureus)</a><a href="/HermeticDB/texts/60.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The Prayer of Thanksgiving (NHC VI, 7)</a><a href="/HermeticDB/texts/66.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The Salmeschoiniaka</a><a href="/HermeticDB/texts/54.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The Seven Chapters of Hermes</a><a href="/HermeticDB/texts/58.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The Stobaean Fragments (SH 1-29)</a><a href="/HermeticDB/texts/61.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The Vienne Fragment</a><a href="/HermeticDB/texts/15.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Theatrum Chemicum Britannicum</a><a href="/HermeticDB/texts/28.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Turba Philosophorum</a><a href="/HermeticDB/texts/100.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">De Maximis Theologiae (Regulae Theologiae)</a><a href="/HermeticDB/texts/97.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">De Occulta Philosophia Libri Tres</a><a href="/HermeticDB/texts/101.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Liber de spiritu et anima</a><a href="/HermeticDB/texts/103.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Picatrix (Latin Translation)</a><div style="width:100%; margin-top:1rem; font-weight:bold; color:var(--text-muted); font-size:0.8rem">MODERN SCHOLARSHIP</div><a href="/HermeticDB/texts/84.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Access to Western Esotericism</a><a href="/HermeticDB/texts/82.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Dictionary of Gnosis and Western Esotericism</a><a href="/HermeticDB/texts/83.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Giordano Bruno and the Hermetic Tradition</a><a href="/HermeticDB/texts/21.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Hermetica: The Greek Corpus Hermeticum and the Latin Asclepius</a><a href="/HermeticDB/texts/80.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Hermetism from Late Antiquity to Humanism</a><a href="/HermeticDB/texts/88.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Spiritual and Demonic Magic: From Ficino to Campanella</a><a href="/HermeticDB/texts/90.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The Alchemical Amphitheatre: Heinrich Khunrath and the Magical Citadel</a><a href="/HermeticDB/texts/87.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The Arabic Influences on Early Modern Occult Philosophy</a><a href="/HermeticDB/texts/79.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The Egyptian Hermes: A Historical Approach to the Late Pagan Mind</a><a href="/HermeticDB/texts/85.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">The Secret History of Hermes Trismegistus</a><a href="/HermeticDB/texts/81.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Théorie et pratique dans l'Asclepius</a><a href="/HermeticDB/texts/86.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">Western Esotericism: A Brief History of Secret Knowledge</a><a href="/HermeticDB/texts/89.html" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">White Magic, Black Magic in the European Renaissance</a></div></div><h2 class="title-medium" style="margin-top:4rem; border-bottom: 2px solid var(--accent); display:inline-block">PRIMARY SOURCES</h2><div class="grid">
+    <a class="card" href="/HermeticDB/texts/96.html">
+        <div class="card-title"><p>Giordano Bruno and the Hermetic Tradition</p></div>
+        <div class="card-meta">COMPILATION</div>
+        <div class="card-desc"><p>Frances Yates's seminal work creating the Yates Paradigm.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/102.html">
+        <div class="card-title"><p>Hermes Latinus (Brepols Series)</p></div>
+        <div class="card-meta">COMPILATION</div>
+        <div class="card-desc"><p>The critical edition series published by Brepols (Corpus Christianorum Continuatio Mediaevalis) collecting all Latin texts attributed to Hermes Trismegistus, edited by Lucentini, Porreca, and others.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/12.html">
+        <div class="card-title"><p>Amphitheatrum Sapientiae Aeternae</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Khunrath's masterpiece of theosophical alchemy.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/10.html">
+        <div class="card-title"><p>Atalanta Fugiens</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Michael Maier's emblematic and musical alchemical work.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/6.html">
+        <div class="card-title"><p>Aurora Consurgens</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Illuminated alchemical manuscript attributed to Aquinas.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/32.html">
+        <div class="card-title"><p>CH I: <i>Poimandres</i></p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>The opening revelation of the Corpus Hermeticum.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/93.html">
+        <div class="card-title"><p>CH I: <i>Poimandres</i></p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>The foundational revelation of the Corpus Hermeticum.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/40.html">
+        <div class="card-title"><p>CH II: To Hermes</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A discourse where Hermes explains the nature of the cosmos as a container and God as the container of all.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/41.html">
+        <div class="card-title"><p>CH III: A Sacred Discourse</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A brief, highly dense cosmogony describing the emergence of the elements and the zoidia (zodiac).</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/33.html">
+        <div class="card-title"><p>CH IV: The Mixing Bowl (Krater)</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Treatise on the immersion in the Mind.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/94.html">
+        <div class="card-title"><p>CH IV: The Mixing Bowl (Krater)</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Treatise describing the baptism of the mind in a divine mixing bowl.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/46.html">
+        <div class="card-title"><p>CH IX: On Thinking and Sense</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Distinguishes between divine thinking (noesis) and human sense perception (aisthesis).</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/42.html">
+        <div class="card-title"><p>CH V: God is Manifest</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A treatise arguing that God, though invisible, is manifest through the order and beauty of his creation.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/43.html">
+        <div class="card-title"><p>CH VI: God is the Good</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Explores the philosophical identity of God with the concept of the absolute Good.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/44.html">
+        <div class="card-title"><p>CH VII: The Greatest Evil</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A polemical discourse against ignorance, which is described as the greatest evil among men.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/45.html">
+        <div class="card-title"><p>CH VIII: Nothing is Lost</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Arguments for the immortality of the soul and the permanence of the cosmos.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/26.html">
+        <div class="card-title"><p>CH X: The Key</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Hermetic treatise summarizing the entire philosophy and mapping the descent of the soul.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/34.html">
+        <div class="card-title"><p>CH X: The Key</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A comprehensive summary of Hermetic doctrine.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/47.html">
+        <div class="card-title"><p>CH XI: Mind to Hermes</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A revelation from the Mind (<i>Nous</i>) to Hermes about the infinity of God and the cosmos.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/48.html">
+        <div class="card-title"><p>CH XII: On the Common Mind</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Discusses the presence of the 'Common Mind' in all rational beings.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/35.html">
+        <div class="card-title"><p>CH XIII: On Rebirth</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A ritual-dialogue on the secret discourse of the mountain.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/95.html">
+        <div class="card-title"><p>CH XIII: The Secret Discourse on the Mountain</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Hermes initiates Tat into the mystery of spiritual rebirth.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/49.html">
+        <div class="card-title"><p>CH XIV: To Tat</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A summary discourse from Hermes to his son Tat on the nature of the creator.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/50.html">
+        <div class="card-title"><p>CH XVI: Definitions of Asclepius</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A collection of definitions regarding God, matter, and the sun, translated from an 'original' Egyptian source.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/51.html">
+        <div class="card-title"><p>CH XVII: To a King</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A brief fragment of a discourse addressed to a king (likely of Egypt) regarding the worship of God.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/52.html">
+        <div class="card-title"><p>CH XVIII: Praise of Kings</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A rhetorical panegyric that utilizes Hermetic themes to praise earthly rulers.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/70.html">
+        <div class="card-title"><p>Chaeremon: Fragments</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>The writings of the Stoic priest-philosopher of Alexandria, key for the Egyptian-Greek synthesis.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/19.html">
+        <div class="card-title"><p>Chymical Wedding of Christian Rosenkreutz</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>The third Rosicrucian manifesto, an allegorical romance.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/71.html">
+        <div class="card-title"><p>Clement of Alexandria: Stromata</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A key early Christian source that preserves descriptions of the Hermetic procession and books.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/1.html">
+        <div class="card-title"><p>Corpus Hermeticum</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A collection of 17 Greek treatises on Hermetic philosophy.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/78.html">
+        <div class="card-title"><p>Crater Hermetis</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A 15th-century dialogue by Lodovico Lazzarelli that synthesizes Hermetic regeneration with Christian theology.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/9.html">
+        <div class="card-title"><p>De Occulta Philosophia</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Heinrich Cornelius Agrippa's monumental three-book synthesis of occult knowledge (1533).</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/92.html">
+        <div class="card-title"><p>De sex rerum principiis</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A 12th-century cosmological treatise, often associated with the School of Chartres.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/59.html">
+        <div class="card-title"><p>Definitions of Hermes to Asclepius (Armenian)</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A collection of Hermetic definitions preserved in Armenian, reflecting an early stage of the tradition.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/20.html">
+        <div class="card-title"><p>Dictionary of <i>Gnosis</i> and Western Esotericism</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Edited by Wouter Hanegraaff.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/17.html">
+        <div class="card-title"><p>Esotericism and the Academy</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Key historiographical work by Wouter Hanegraaff.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/72.html">
+        <div class="card-title"><p>Eusebius: Praeparatio Evangelica</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A massive work preserving numerous fragments of lost pagan and Hermetic works.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/18.html">
+        <div class="card-title"><p>Fama Fraternitatis</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>The first Rosicrucian manifesto.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/63.html">
+        <div class="card-title"><p>Hermetic Fragments in Cyril of Alexandria</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Fragments preserved in Cyril's 'Against Julian', often providing Greek originals for texts known only in translation.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/62.html">
+        <div class="card-title"><p>Hermetic Fragments in Lactantius</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Quotes and summaries of lost Hermetic works preserved in the Divine Institutes of the Christian apologist Lactantius.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/68.html">
+        <div class="card-title"><p>Iamblichus: De Mysteriis</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>On the Mysteries of the Egyptians, Chaldeans, and Assyrians. A key defense of theurgy.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/65.html">
+        <div class="card-title"><p>Iatromathematica of Hermes</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A collection of Hermetic texts on medical astrology, linking planetary decans to bodily ailments.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/5.html">
+        <div class="card-title"><p>Kitāb Sirr al-Khalīqa</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>The earliest source of the Emerald Tablet.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/27.html">
+        <div class="card-title"><p>Kore Kosmou (Virgin of the World)</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Massive Stobaean fragment where Isis teaches Horus the secrets of cosmic animation.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/73.html">
+        <div class="card-title"><p>Lactantius: Divinae Institutiones</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>The Divine Institutes, where Hermes is cited as an ancient prophet of monotheism.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/38.html">
+        <div class="card-title"><p>Liber Hermetis</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>An extensive Latin Hermetic astrological treatise on the decans and lots.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/57.html">
+        <div class="card-title"><p>Liber Hermetis (25 Chapters)</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A Latin translation of a Greek Hermetic astrological work focusing on the decans and their physical effects.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/67.html">
+        <div class="card-title"><p>Liber Vaccae (The Book of the Cow)</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A notorious Late Antique/Medieval work of 'astral' and 'natural' magic attributed to Hermes, involving extreme biological operations.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/91.html">
+        <div class="card-title"><p>Liber XXIV philosophorum</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A 12th-century Latin collection of 24 ontological definitions of God attributed to various ancient philosophers.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/98.html">
+        <div class="card-title"><p>Liber XXIV philosophorum</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A Medieval Latin text containing 24 definitions of God, often cited for the Hermetic definition of God as an infinite sphere.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/99.html">
+        <div class="card-title"><p>Liber de Causis</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>An Arabic adaptation of Proclus's Elements of Theology, falsely attributed to Aristotle in the Middle Ages. A major vehicle for Neoplatonic emanationism in Latin scholasticism.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/53.html">
+        <div class="card-title"><p>Liber de stellis beibeniis</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A foundational Hermetic text on the 'beibian' stars (fixed stars of magical significance).</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/69.html">
+        <div class="card-title"><p>Manetho: Aegyptiaca</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>The History of Egypt, used as a primary source for Egyptian chronological and religious transmission.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/8.html">
+        <div class="card-title"><p>Monas Hieroglyphica</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>John Dee's esoteric mathematical symbol.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/75.html">
+        <div class="card-title"><p>Mushaf al-Suwar (The Book of Pictures)</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A famous Arabic alchemical work attributed to Zosimos, filled with Hermetic allegorical illustrations.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/56.html">
+        <div class="card-title"><p>PGM VII: The Stele of Hermes</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A Greek magical papyrus containing a ritual invocation of Hermes as the 'Lord of the World'.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/3.html">
+        <div class="card-title"><p>Picatrix (Ghayat al-Hakim)</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>The Latin translation of the Arabic 'Ghāyat al-Ḥakīm' (The Goal of the Wise).</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/16.html">
+        <div class="card-title"><p>Psychology and Alchemy</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A major work by Carl Jung connecting alchemical symbolism to psychoanalysis.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/7.html">
+        <div class="card-title"><p>Rosarium Philosophorum</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>16th-century compilation of early alchemical authority.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/77.html">
+        <div class="card-title"><p>Secretum Secretorum (Secret of Secrets)</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A pseudo-Aristotelian work that includes Hermetic medical, astrological, and alchemical lore.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/29.html">
+        <div class="card-title"><p>Sefer Yetzirah</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>The 'Book of Creation', foundational text of Jewish esotericism mapping creation via language.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/74.html">
+        <div class="card-title"><p>Sirr al-Khaliqa (The Secret of Creation)</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>The earliest Arabic text to preserve the Emerald Tablet, attributed to Balinas (Apollonius of Tyana).</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/11.html">
+        <div class="card-title"><p>Splendor Solis</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>One of the most beautifully illustrated alchemical manuscripts.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/2.html">
+        <div class="card-title"><p>The Asclepius</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A dialogue on the nature of the cosmos and theurgy.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/64.html">
+        <div class="card-title"><p>The Brontologion of Hermes</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A Late Antique technical treatise on thunder-divination attributed to Hermes Trismegistus.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/39.html">
+        <div class="card-title"><p>The Centiloquium (Hermetic)</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A collection of 100 astrological aphorisms attributed to Hermes.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/30.html">
+        <div class="card-title"><p>The City of the Sun</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Campanella's utopian vision of a society governed by astral magic and Hermetic priests.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/37.html">
+        <div class="card-title"><p>The Cyranides (Kyranides)</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A massive compendium of Hermetic natural magic, lapidaries, and herbalism.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/36.html">
+        <div class="card-title"><p>The Discourse on the Eighth and Ninth</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A Coptic Hermetic text from Nag Hammadi (NHC VI, 6) describing a ritual initiation.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/4.html">
+        <div class="card-title"><p>The Emerald Tablet</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>The foundational text of the alchemical tradition.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/55.html">
+        <div class="card-title"><p>The Golden Tractate (Tractatus Aureus)</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>One of the most widely circulated medieval alchemical texts attributed to Hermes Trismegistus.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/60.html">
+        <div class="card-title"><p>The Prayer of Thanksgiving (NHC VI, 7)</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A liturgical prayer found at Nag Hammadi, also known from the Latin Asclepius and a Greek papyrus.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/66.html">
+        <div class="card-title"><p>The Salmeschoiniaka</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>An ancient Egyptian-Hermetic work on the decans and their influence on human fate and health.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/54.html">
+        <div class="card-title"><p>The Seven Chapters of Hermes</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>An ancient alchemical work detailing the seven steps of the Great Work.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/58.html">
+        <div class="card-title"><p>The Stobaean Fragments (SH 1-29)</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A collection of 29 fragments of Hermetic treatises preserved by the 5th-century anthologist John of Stobi (Stobaeus).</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/61.html">
+        <div class="card-title"><p>The Vienne Fragment</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>A Greek fragment of a Hermetic treatise discovered in Vienne, dealing with the nature of the soul.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/15.html">
+        <div class="card-title"><p>Theatrum Chemicum Britannicum</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>Extensive collection of English alchemical poetry compiled by Elias Ashmole.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/28.html">
+        <div class="card-title"><p>Turba Philosophorum</p></div>
+        <div class="card-meta">PRIMARY_SOURCE</div>
+        <div class="card-desc"><p>The 'Assembly of the Philosophers', translating Arabic alchemy into a Greek philosophical framework.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/100.html">
+        <div class="card-title"><p>De Maximis Theologiae (Regulae Theologiae)</p></div>
+        <div class="card-meta">TREATISE</div>
+        <div class="card-desc"><p>134 theological maxims with commentary by Alain de Lille, containing the earliest printed transmission of the 'infinite sphere' definition from the Liber XXIV Philosophorum.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/97.html">
+        <div class="card-title"><p>De Occulta Philosophia Libri Tres</p></div>
+        <div class="card-meta">TREATISE</div>
+        <div class="card-desc"><p>Agrippa's massive synthesis of natural, celestial, and ceremonial magic.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/101.html">
+        <div class="card-title"><p>Liber de spiritu et anima</p></div>
+        <div class="card-meta">TREATISE</div>
+        <div class="card-desc"><p>A pseudo-Augustinian 12th-century mystical psychology of the soul that cites Hermes. Circulated widely in scholastic miscellanies alongside the Asclepius and Liber XXIV.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/103.html">
+        <div class="card-title"><p>Picatrix (Latin Translation)</p></div>
+        <div class="card-meta">TREATISE</div>
+        <div class="card-desc"><p>The Latin translation of the Arabic Ghayat al-Hakim, produced in Castile c. 1256 under Alfonso X. The definitive manual of astral magic in the Latin</p>...</div>
+    </a>
+    </div><h2 class="title-medium" style="margin-top:4rem; border-bottom: 2px solid var(--accent); display:inline-block">MODERN SCHOLARSHIP</h2><div class="grid">
+    <a class="card" href="/HermeticDB/texts/84.html">
+        <div class="card-title"><p>Access to Western Esotericism</p></div>
+        <div class="card-meta">COMMENTARY</div>
+        <div class="card-desc"><p>Scholarly work by Antoine Faivre.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/82.html">
+        <div class="card-title"><p>Dictionary of <i>Gnosis</i> and Western Esotericism</p></div>
+        <div class="card-meta">COMMENTARY</div>
+        <div class="card-desc"><p>Scholarly work by Wouter Hanegraaff.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/83.html">
+        <div class="card-title"><p>Giordano Bruno and the Hermetic Tradition</p></div>
+        <div class="card-meta">COMMENTARY</div>
+        <div class="card-desc"><p>Scholarly work by Frances Yates.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/21.html">
+        <div class="card-title"><p>Hermetica: The Greek Corpus Hermeticum and the Latin Asclepius</p></div>
+        <div class="card-meta">COMMENTARY</div>
+        <div class="card-desc"><p>Translated and introduced by Brian P. Copenhaver.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/80.html">
+        <div class="card-title"><p>Hermetism from Late Antiquity to Humanism</p></div>
+        <div class="card-meta">COMMENTARY</div>
+        <div class="card-desc"><p>Scholarly work by Lucentini, Parri, Perrone Compagni (Eds.).</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/88.html">
+        <div class="card-title"><p>Spiritual and Demonic Magic: From Ficino to Campanella</p></div>
+        <div class="card-meta">COMMENTARY</div>
+        <div class="card-desc"><p>Scholarly work by D.P. Walker.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/90.html">
+        <div class="card-title"><p>The Alchemical Amphitheatre: Heinrich Khunrath and the Magical Citadel</p></div>
+        <div class="card-meta">COMMENTARY</div>
+        <div class="card-desc"><p>Scholarly work by Peter Forshaw.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/87.html">
+        <div class="card-title"><p>The Arabic Influences on Early Modern Occult Philosophy</p></div>
+        <div class="card-meta">COMMENTARY</div>
+        <div class="card-desc"><p>Scholarly work by Liana Saif.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/79.html">
+        <div class="card-title"><p>The Egyptian Hermes: A Historical Approach to the Late Pagan Mind</p></div>
+        <div class="card-meta">COMMENTARY</div>
+        <div class="card-desc"><p>Scholarly work by Garth Fowden.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/85.html">
+        <div class="card-title"><p>The Secret History of Hermes Trismegistus</p></div>
+        <div class="card-meta">COMMENTARY</div>
+        <div class="card-desc"><p>Scholarly work by Florian Ebeling.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/81.html">
+        <div class="card-title"><p>Théorie et pratique dans l'Asclepius</p></div>
+        <div class="card-meta">COMMENTARY</div>
+        <div class="card-desc"><p>Scholarly work by Jean-Pierre Mahé.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/86.html">
+        <div class="card-title"><p>Western Esotericism: A Brief History of Secret Knowledge</p></div>
+        <div class="card-meta">COMMENTARY</div>
+        <div class="card-desc"><p>Scholarly work by Kocku von Stuckrad.</p>...</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/texts/89.html">
+        <div class="card-title"><p>White Magic, Black Magic in the European Renaissance</p></div>
+        <div class="card-meta">COMMENTARY</div>
+        <div class="card-desc"><p>Scholarly work by Paola Zambelli.</p>...</div>
+    </a>
+    </div></main>
+    <footer style="text-align:center; padding: 6rem 2rem; color: var(--text-muted); border-top: 1px solid var(--border); background: #08080a">
+        &copy; 2026 The Hermetic Knowledge Portal<br/>
+        <span style="font-size: 0.7rem; opacity: 0.5; margin-top: 1rem; display: block">Curated Scholar-Synthesized Narrative Database</span>
+    </footer>
+</body>
+</html>

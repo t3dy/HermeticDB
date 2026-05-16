@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Timeline - HermeticDB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        
+:root {
+    --bg: #0a0a0c;
+    --bg-card: #141418;
+    --accent: #d4af37;
+    --accent-light: #f1d37e;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --border: rgba(212, 175, 55, 0.2);
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.site-nav {
+    background: rgba(10, 10, 12, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.title-large {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: var(--accent-light);
+    margin-bottom: 1rem;
+}
+
+.text-subtitle {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--accent-light);
+    margin-bottom: 0.5rem;
+}
+
+.card-meta {
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.card-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.prose-content {
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    font-size: 1.15rem;
+    color: #d8d8d8;
+}
+
+.prose-content h2 {
+    font-family: var(--font-display);
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+}
+
+.prose-content p {
+    margin-bottom: 1.5rem;
+}
+
+.back-link {
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.scholarly-fragment {
+    border-left: 3px solid var(--accent);
+    background: rgba(212, 175, 55, 0.05);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.fragment-source {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    font-style: normal;
+    color: var(--accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+    .theme-tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.theme-tag:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+</style>
+</head>
+<body>
+    
+<nav class="site-nav">
+    <div class="nav-container">
+        <a class="nav-logo" href="/HermeticDB">HERMETICDB</a>
+        <div class="nav-links">
+            <a class="nav-link" href="/HermeticDB/eras/late-antiquity.html">Late Antiquity</a>
+            <a class="nav-link" href="/HermeticDB/eras/medieval.html">Medieval</a>
+            <a class="nav-link" href="/HermeticDB/eras/renaissance.html">Renaissance</a>
+            <div style="width:1px;height:20px;background:rgba(255,255,255,0.1)"></div>
+            <a class="nav-link" href="/HermeticDB/corpus.html" style="color:var(--accent-light); font-weight:bold">Corpus Map</a>
+            <a class="nav-link" href="/HermeticDB/texts.html">Texts</a>
+            <a class="nav-link" href="/HermeticDB/biographies.html">Biographies</a>
+            <a class="nav-link" href="/HermeticDB/scholars.html">Scholars</a>
+            <a class="nav-link" href="/HermeticDB/dictionary.html">Dictionary</a>
+            <a class="nav-link" href="/HermeticDB/debates.html">Debates</a>
+            <a class="nav-link" href="/HermeticDB/timeline.html">Timeline</a>
+            <a class="nav-link" href="/HermeticDB/map.html">Interactive Map</a>
+            <a class="nav-link" href="/HermeticDB/graph.html" style="color:var(--accent); font-weight:bold">Relationship Graph</a>
+            <a class="nav-link" href="/HermeticDB/about.html">Methodology</a>
+        </div>
+    </div>
+</nav>
+
+    <main class="page-container"><h1 class="title-large">Timeline of Hermeticism</h1><p class="text-subtitle">Key events, publications, and movements.</p><div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Composition of the Corpus Hermeticum</div>
+            <div class="card-meta">150 - 250 · COMPOSITION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>The core philosophical treatises (CH I-XVIII) are composed in Roman Egypt, blending Greek philosophy with Egyptian temple traditions.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Peak of Hermetic Composition</div>
+            <div class="card-meta">200 - 300 · COMPOSITION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>The period in which the majority of the Greek Corpus Hermeticum was likely composed in Roman Egypt.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Zosimos of Panopolis cites the Hermetica</div>
+            <div class="card-meta">300 - 310 · SCHOLARSHIP</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Zosimos, a practicing alchemist and Hermetic priest, provides the first clear evidence of the Hermetica being used in a ritual-internalization context.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Stobaeus compiles his Anthology</div>
+            <div class="card-meta">450 - 450 · COMPOSITION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>John of Stobi preserves massive fragments of the "Way of Hermes," including the Kore Kosmou (Virgin of the World), which would otherwise be lost.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Closure of the Platonic Academy</div>
+            <div class="card-meta">529 - 529 · SCHOLARSHIP</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Justinian closes the Academy in Athens; Damascius and other Neoplatonists (some carrying Hermetic texts) flee to the Sassanid court.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Composition of the Sirr al-Khaliqa</div>
+            <div class="card-meta">750 - 800 · COMPOSITION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>The earliest Arabic Hermetic synthesis, containing the Emerald Tablet, is attributed to Balinas.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">The Sabians of Harran identified as Hermeticists</div>
+            <div class="card-meta">830 - 830 · SCHOLARSHIP</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>The community at Harran adopts the name "Sabians" and identifies Hermes (Idris) as their prophet to achieve "People of the Book" status under Al-Ma'mun.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Epistles of the Brethren of Purity</div>
+            <div class="card-meta">950 - 980 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>The Ikhwan al-Safa (Brethren of Purity) compile their encyclopedia, synthesizing Neoplatonism, Pythagoreanism, and Hermeticism.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">The Emerald Tablet enters the Latin West</div>
+            <div class="card-meta">1050 - 1100 · TRANSLATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>The first Latin translations of the Tabula Smaragdina appear, marking the beginning of the Medieval Hermetic tradition in Europe.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Ficino translates Corpus Hermeticum</div>
+            <div class="card-meta">1471 · TRANSLATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Commissioned by Cosimo de' Medici, Marsilio Ficino translated the Greek manuscript of the Corpus Hermeticum (Pimander) into Latin, sparking the Renaissance revival of Hermetic philosophy.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Ficino translates Corpus Hermeticum</div>
+            <div class="card-meta">1471 · TRANSLATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Commissioned by Cosimo de' Medici, Marsilio Ficino translated the Greek manuscript of the Corpus Hermeticum (Pimander) into Latin, sparking the Renaissance revival of Hermetic philosophy.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Ficino: Pimander</div>
+            <div class="card-meta">1471 - 1471 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Marsilio Ficino publishes the first Latin translation of the Corpus Hermeticum (CH I-XIV), initiating the Renaissance Hermetic revival.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Ficino: Pimander</div>
+            <div class="card-meta">1471 - 1471 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Marsilio Ficino publishes the first Latin translation of the Corpus Hermeticum (CH I-XIV), initiating the Renaissance Hermetic revival.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Publication of Monas Hieroglyphica</div>
+            <div class="card-meta">1564 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>John Dee publishes the <i>Monas Hieroglyphica</i> in Antwerp, a complex mystical treatise explaining his unified symbol of the cosmos.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Publication of Monas Hieroglyphica</div>
+            <div class="card-meta">1564 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>John Dee publishes the <i>Monas Hieroglyphica</i> in Antwerp, a complex mystical treatise explaining his unified symbol of the cosmos.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Publication of Fama Fraternitatis</div>
+            <div class="card-meta">1614 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>The publication of the <i>Fama Fraternitatis</i> catalyzed the Rosicrucian movement, proclaiming a general reformation of divine and human understanding.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Publication of Fama Fraternitatis</div>
+            <div class="card-meta">1614 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>The publication of the <i>Fama Fraternitatis</i> catalyzed the Rosicrucian movement, proclaiming a general reformation of divine and human understanding.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Casaubon: Redating of the Hermetica</div>
+            <div class="card-meta">1614 - 1614 · SCHOLARSHIP</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Isaac Casaubon demonstrates that the Hermetica are not ancient Egyptian but post-Christian, utilizing philological evidence.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Casaubon: Redating of the Hermetica</div>
+            <div class="card-meta">1614 - 1614 · SCHOLARSHIP</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Isaac Casaubon demonstrates that the Hermetica are not ancient Egyptian but post-Christian, utilizing philological evidence.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Publication of Chymical Wedding</div>
+            <div class="card-meta">1616 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Johann Valentin Andreae is believed to have authored this allegorical alchemical romance, serving as the third and final foundational Rosicrucian text.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Publication of Chymical Wedding</div>
+            <div class="card-meta">1616 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Johann Valentin Andreae is believed to have authored this allegorical alchemical romance, serving as the third and final foundational Rosicrucian text.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Publication of Theatrum Chemicum Britannicum</div>
+            <div class="card-meta">1652 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Ashmole's work systematically gathered the scattered manuscript traditions of English alchemy, ensuring their survival for later generations.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Publication of Theatrum Chemicum Britannicum</div>
+            <div class="card-meta">1652 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Ashmole's work systematically gathered the scattered manuscript traditions of English alchemy, ensuring their survival for later generations.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Digby's Discourse on the Powder of Sympathy</div>
+            <div class="card-meta">1658 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Digby argued for the efficacy of weapon-salve and sympathetic magic based on a naturalistic philosophy of effluvia and atomic action, blending hermetic ideas with the new mechanical philosophy.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Digby's Discourse on the Powder of Sympathy</div>
+            <div class="card-meta">1658 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Digby argued for the efficacy of weapon-salve and sympathetic magic based on a naturalistic philosophy of effluvia and atomic action, blending hermetic ideas with the new mechanical philosophy.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Reitzenstein: Poimandres</div>
+            <div class="card-meta">1906 - 1906 · SCHOLARSHIP</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Richard Reitzenstein publishes Poimandres: Studien zur griechisch-agyptischen und fruhchristlichen Literatur, founding modern philological research.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Reitzenstein: Poimandres</div>
+            <div class="card-meta">1906 - 1906 · SCHOLARSHIP</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Richard Reitzenstein publishes Poimandres: Studien zur griechisch-agyptischen und fruhchristlichen Literatur, founding modern philological research.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Jung publishes Psychology and Alchemy</div>
+            <div class="card-meta">1944 · SCHOLARSHIP</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Jung argued that the alchemical process of transmuting base matter into gold was an allegory for the psychological process of individuation.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Jung publishes Psychology and Alchemy</div>
+            <div class="card-meta">1944 · SCHOLARSHIP</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Jung argued that the alchemical process of transmuting base matter into gold was an allegory for the psychological process of individuation.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Festugière: La Révélation</div>
+            <div class="card-meta">1945 - 1954 · SCHOLARSHIP</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>A.-J. Festugière publishes his four-volume masterpiece La Révélation d'Hermès Trismégiste, providing a comprehensive "Greek" reading.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Festugière: La Révélation</div>
+            <div class="card-meta">1945 - 1954 · SCHOLARSHIP</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>A.-J. Festugière publishes his four-volume masterpiece La Révélation d'Hermès Trismégiste, providing a comprehensive "Greek" reading.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Yates publishes Giordano Bruno and the Hermetic Tradition</div>
+            <div class="card-meta">1964 · SCHOLARSHIP</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Yates's book firmly established the importance of the 'Hermetic tradition' as a major intellectual force in the early modern period, profoundly influencing subsequent scholarship.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Yates publishes Giordano Bruno and the Hermetic Tradition</div>
+            <div class="card-meta">1964 · SCHOLARSHIP</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Yates's book firmly established the importance of the 'Hermetic tradition' as a major intellectual force in the early modern period, profoundly influencing subsequent scholarship.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Yates: Giordano Bruno</div>
+            <div class="card-meta">1964 - 1964 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Frances Yates publishes Giordano Bruno and the Hermetic Tradition, bringing Hermeticism into the mainstream of intellectual history.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Yates: Giordano Bruno</div>
+            <div class="card-meta">1964 - 1964 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Frances Yates publishes Giordano Bruno and the Hermetic Tradition, bringing Hermeticism into the mainstream of intellectual history.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Fowden: The Egyptian Hermes</div>
+            <div class="card-meta">1986 - 1986 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Garth Fowden publishes The Egyptian Hermes, arguing for the local Egyptian context of the tradition.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Fowden: The Egyptian Hermes</div>
+            <div class="card-meta">1986 - 1986 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Garth Fowden publishes The Egyptian Hermes, arguing for the local Egyptian context of the tradition.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Hanegraaff: DGWE</div>
+            <div class="card-meta">2005 - 2005 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>The Dictionary of Gnosis and Western Esotericism is published, establishing the field as a formal academic discipline.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Hanegraaff: DGWE</div>
+            <div class="card-meta">2005 - 2005 · PUBLICATION</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>The Dictionary of Gnosis and Western Esotericism is published, establishing the field as a formal academic discipline.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Hanegraaff publishes Esotericism and the Academy</div>
+            <div class="card-meta">2012 · SCHOLARSHIP</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Hanegraaff traces the invention of 'esotericism' as a polemical category, showing how it was excluded from standard academic disciplines during the Enlightenment.</p></div>
+        </div>
+        
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-title">Hanegraaff publishes Esotericism and the Academy</div>
+            <div class="card-meta">2012 · SCHOLARSHIP</div>
+            <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);"><p>Hanegraaff traces the invention of 'esotericism' as a polemical category, showing how it was excluded from standard academic disciplines during the Enlightenment.</p></div>
+        </div>
+        </div></main>
+    <footer style="text-align:center; padding: 6rem 2rem; color: var(--text-muted); border-top: 1px solid var(--border); background: #08080a">
+        &copy; 2026 The Hermetic Knowledge Portal<br/>
+        <span style="font-size: 0.7rem; opacity: 0.5; margin-top: 1rem; display: block">Curated Scholar-Synthesized Narrative Database</span>
+    </footer>
+</body>
+</html>
