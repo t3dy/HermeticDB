@@ -268,7 +268,23 @@ BASE_TEMPLATE = """<!DOCTYPE html>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
         {{css}}
-    </style>
+    .theme-tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.theme-tag:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+</style>
 </head>
 <body>
     {{nav}}
@@ -292,14 +308,24 @@ def generate_entity_card(title, meta, desc, link):
     """
 
 def get_fragments(cursor, entity_id, entity_type):
-    """Fetch corpus fragments that mention the entity."""
-    col = "persons_mentioned" if entity_type == "PERSON" else "concepts_mentioned"
-    cursor.execute(f"""
-        SELECT s.text_content, d.title as doc_title 
-        FROM corpus_segments s
-        JOIN corpus_documents d ON s.doc_id = d.id
-        WHERE s.{col} LIKE ?
-    """, (f"%{entity_id}%",))
+    """Fetch corpus fragments that mention the entity or are part of the document."""
+    if entity_type == "TEXT":
+        # For texts, we fetch segments where the document matches
+        cursor.execute("""
+            SELECT s.text_content, d.title as doc_title 
+            FROM corpus_segments s
+            JOIN corpus_documents d ON s.doc_id = d.id
+            WHERE d.doc_id = ?
+            LIMIT 5
+        """, (entity_id,))
+    else:
+        col = "persons_mentioned" if entity_type == "PERSON" else "concepts_mentioned"
+        cursor.execute(f"""
+            SELECT s.text_content, d.title as doc_title 
+            FROM corpus_segments s
+            JOIN corpus_documents d ON s.doc_id = d.id
+            WHERE s.{col} LIKE ?
+        """, (f"%{entity_id}%",))
     
     html = ""
     rows = cursor.fetchall()
@@ -358,8 +384,28 @@ def deploy_to(target_dir, cursor):
     # 3. TEXTS
     cursor.execute("SELECT * FROM texts")
     for row in cursor.fetchall():
-        tid, title, content = row['text_id'], italicize_terms(row['title']), italicize_terms(row['analysis_html'] or f"<p>{row['description']}</p>")
-        html = BASE_TEMPLATE.replace("{{title}}", title).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container"><a href="{REPO_URL}/texts.html" class="back-link">← Return to Library</a><h1 class="title-large">{title}</h1><div class="card-meta" style="margin-bottom:3rem">{row["text_type"]}</div><div class="prose-content">{content}</div></main>')
+        tid = row['text_id']
+        title = row['title']
+        summary = row['analysis_html'] or row['description'] or ""
+        
+        # Fetch related themes
+        cursor.execute("""
+            SELECT c.label, c.slug FROM concepts c
+            JOIN concept_text_refs r ON c.id = r.concept_id
+            WHERE r.text_id = ?
+        """, (row['id'],))
+        themes = cursor.fetchall()
+        themes_html = ""
+        if themes:
+            themes_html = '<div class="themes-container" style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border)">'
+            themes_html += '<span style="color:var(--text-muted); font-size:0.9rem; margin-right:1rem">KEY THEMES:</span>'
+            themes_html += " ".join([f'<a href="{REPO_URL}/concepts/{t[1]}.html" class="theme-tag">{t[0]}</a>' for t in themes])
+            themes_html += '</div>'
+
+        content = italicize_terms(summary)
+        fragments = get_fragments(cursor, tid, "TEXT")
+        
+        html = BASE_TEMPLATE.replace("{{title}}", title).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container"><a href="{REPO_URL}/texts.html" class="back-link">← Return to Library</a><h1 class="title-large">{title}</h1><div class="card-meta" style="margin-bottom:3rem">{row["text_type"]}</div><div class="prose-content">{content}{themes_html}{fragments}</div></main>')
         with open(target_dir / "texts" / f"{tid}.html", "w", encoding="utf-8") as f: f.write(html)
 
     # 4. CONCEPTS
