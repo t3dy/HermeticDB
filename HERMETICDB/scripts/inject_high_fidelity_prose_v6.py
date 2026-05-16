@@ -1,0 +1,77 @@
+import sqlite3
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+DB_PATH = BASE_DIR.parent / "db" / "emerald_tablet.db"
+
+PROSE_DATA = {
+    # Persons
+    "iamblichus": "<p>Iamblichus of Chalcis (c. 245–c. 325 AD) was the founder of Syrian Neoplatonism and the chief theoretical architect of theurgy.</p><h2>Scholarly Significance</h2><p>He argued against Porphyry that the soul is fully descended into matter and therefore cannot achieve salvation through mere intellectual contemplation, necessitating ritual action.</p>",
+    "porphyry": "<p>Porphyry of Tyre (c. 234–c. 305 AD) was a Neoplatonic philosopher and the editor of Plotinus's <i>Enneads</i>.</p><h2>Scholarly Significance</h2><p>Porphyry represents the austere intellectualist wing of Neoplatonism. His <i>Letter to Anebo</i> famously criticized the magical and ritualistic practices of Egyptian priests, prompting Iamblichus's defense of theurgy in the <i>De Mysteriis</i>.</p>",
+    "plotinus": "<p>Plotinus (c. 204/5–270 AD) is generally regarded as the founder of Neoplatonism.</p><h2>Scholarly Significance</h2><p>While not a Hermeticist himself, his metaphysical architecture—the procession of the One, the Intellect (Nous), and the Soul—provided the necessary framework that later Hermetic philosophers used to structure their cosmologies.</p>",
+    "proclus": "<p>Proclus Lycaeus (412–485 AD) was the head of the Platonic Academy in Athens and the great systematizer of late Neoplatonism.</p><h2>Scholarly Significance</h2><p>His massive commentaries synthesized Platonic theology, Orphic hymns, and the Chaldean Oracles into a highly structured, hierarchical universe, deeply influencing later medieval and Renaissance esoteric systems.</p>",
+    "balinas": "<p>Apollonius of Tyana, known in the Arabic tradition as Balinas, is a legendary Neopythagorean sage and the purported discoverer of the Emerald Tablet.</p><h2>Historical Context</h2><p>In the <i>Sirr al-Khaliqa</i>, Balinas discovers the Tablet clutched in the hands of an ancient statue of Hermes inside a hidden cave beneath Tyana.</p>",
+    "stephen_of_alexandria": "<p>Stephen of Alexandria (fl. 7th century) was a Byzantine polymath, astrologer, and alchemist.</p><h2>Scholarly Significance</h2><p>He serves as a crucial link between the late antique Greco-Egyptian alchemical tradition (like Zosimos) and the emerging Islamic golden age, composing lectures on the Great Work.</p>",
+    "julian_the_apostate": "<p>Julian the Apostate (331–363 AD) was the last non-Christian Roman Emperor, famous for his attempt to revive traditional paganism.</p><h2>Historical Context</h2><p>Deeply influenced by Iamblichan Neoplatonism and theurgy, Julian sought to create a unified philosophical religion combining Hellenic philosophy with mystery cults.</p>",
+    "al_razi": "<p>Abū Bakr al-Rāzī (Rhazes) (c. 865–925) was a Persian polymath and physician.</p><h2>Historical Context</h2><p>Unlike the highly symbolic and mystical alchemy of Jabir or Ibn Umayl, al-Razi's <i>Secret of Secrets</i> is renowned for its systematic, practical, and heavily laboratory-based approach to chemical substances and apparatus.</p>",
+    "ibn_umayl": "<p>Muḥammad ibn Umayl al-Tamīmī (c. 900–960) was a highly influential early Islamic alchemist.</p><h2>Scholarly Significance</h2><p>His major work, <i>Kitāb al-mā' al-waraqī wa'l-arḍ al-najmiyya</i> (The Book of the Silvery Water and the Starry Earth), is a cornerstone of symbolic alchemy, interpreting ancient Egyptian monuments as encoded chemical treatises.</p>",
+    "khalid_ibn_yazid": "<p>Khalid ibn Yazid (d. 704) was an Umayyad prince legendary for being the first Muslim to study alchemy.</p><h2>Scholarly Significance</h2><p>While historically debated, the legend of Khalid commissioning Greek monks to translate alchemical texts from Greek and Coptic into Arabic marks the mythic foundation of the Arabic alchemical tradition.</p>",
+    "thomas_aquinas": "<p>Thomas Aquinas (1225–1274) was the preeminent Dominican philosopher and theologian.</p><h2>Scholarly Significance</h2><p>Though strictly an Aristotelian, numerous alchemical treatises (such as the <i>Aurora Consurgens</i>) were pseudonymously attributed to him to grant theological legitimacy to the 'divine art'.</p>",
+    "petrus_bonus": "<p>Petrus Bonus of Ferrara was a 14th-century physician and alchemist.</p><h2>Scholarly Significance</h2><p>His <i>Pretiosa Margarita Novella</i> (1330) attempted a grand synthesis of alchemy and scholastic philosophy, defending the art against Aristotelian critiques by arguing that alchemy operates partly via natural principles and partly via divine miracle.</p>",
+    "nicolas_flamel": "<p>Nicolas Flamel (c. 1330–1418) was a successful Parisian scribe.</p><h2>Scholarly Significance</h2><p>Centuries after his death, a mythos developed claiming he achieved immortality and immense wealth by decoding the <i>Book of Abramelin</i>. Modern scholarship views the alchemical Flamel as a 17th-century pseudepigraphical invention.</p>",
+    "bernard_of_trevisan": "<p>Bernard of Trevisan (1406–1490) was an aristocratic Italian alchemist.</p><h2>Historical Context</h2><p>He represents the 'wandering seeker' archetype, famously spending his family fortune traveling Europe and the Near East in search of the true secret of the Philosopher's Stone.</p>",
+    "giovanni_pico": "<p>Giovanni Pico della Mirandola (1463–1494) was an Italian Renaissance philosopher.</p><h2>Scholarly Significance</h2><p>In his <i>Oration on the Dignity of Man</i>, Pico famously synthesized Hermeticism with Christian Kabbalah and Neoplatonism, arguing that magic and Kabbalah were the highest validations of the Christian faith.</p>",
+    "lodovico_lazzarelli": "<p>Lodovico Lazzarelli (1447–1500) was a Renaissance humanist and poet.</p><h2>Scholarly Significance</h2><p>Unlike Ficino, who kept Hermeticism subordinate to Christianity, Lazzarelli fully embraced an operative, initiatory Hermeticism in his <i>Crater Hermetis</i>, emphasizing spiritual regeneration through divine breath.</p>",
+    "basil_valentine": "<p>Basil Valentine was a legendary 15th-century Benedictine monk and alchemist.</p><h2>Scholarly Significance</h2><p>Now understood as a 16th-century pseudepigraphic creation (likely by Johann Thölde), the works of 'Valentine' introduced the crucial Paracelsian concept of antimony to the alchemical lexicon.</p>",
+    "andreas_libavius": "<p>Andreas Libavius (1555–1616) was a German physician and chemist.</p><h2>Scholarly Significance</h2><p>Famous for writing <i>Alchemia</i>, often considered the first chemistry textbook. He fiercely opposed Paracelsian mysticism and Rosicrucianism, seeking to strip alchemy of its occult philosophy while preserving its practical laboratory techniques.</p>",
+    
+    # Modern Scholars
+    "garth_fowden": "<p>Garth Fowden is a leading historian of Late Antiquity.</p><h2>Scholarly Significance</h2><p>His work <i>The Egyptian Hermes</i> fundamentally reshaped the academic understanding of the Hermetica, arguing against earlier views that they were merely Hellenistic philosophy by demonstrating their deep roots in indigenous Egyptian priestly traditions.</p>",
+    "florian_ebeling": "<p>Florian Ebeling is a modern historian of esotericism.</p><h2>Scholarly Significance</h2><p>His research traces the reception history of the Hermetic tradition, demonstrating how the myth of Hermes Trismegistus continually evolved to serve the changing intellectual needs of the Middle Ages, Renaissance, and Enlightenment.</p>",
+    "peter_forshaw": "<p>Peter J. Forshaw is a leading academic expert on early modern occult philosophy.</p><h2>Scholarly Significance</h2><p>Forshaw has done ground-breaking work on Heinrich Khunrath, Michael Maier, and the intricate intersection of alchemy, Christian Cabala, and magic in the 'amphitheatrical' traditions of the 16th and 17th centuries.</p>",
+    "didier_kahn": "<p>Didier Kahn is a prominent French historian of science.</p><h2>Scholarly Significance</h2><p>He specializes in the history of Paracelsianism in France and the broader chemical philosophy of the early modern period, meticulously tracking manuscript transmissions and the bitter disputes between traditional Galenists and Paracelsians.</p>",
+    "hereward_tilton": "<p>Hereward Tilton is a specialist in early modern German esotericism.</p><h2>Scholarly Significance</h2><p>His rigorous historical work on Michael Maier has demystified the origins of the Rosicrucian movement, framing it within the complex courtly politics and alchemical networks of the Holy Roman Empire.</p>",
+    "marco_pasi": "<p>Marco Pasi is a prominent academic in the field of Western Esotericism.</p><h2>Scholarly Significance</h2><p>Pasi focuses on the modern occult revival, the relationship between esotericism and politics, and the historiographical boundaries that define 'magic' in contemporary scholarship.</p>",
+    "christian_bull": "<p>Christian H. Bull is a scholar of ancient religion.</p><h2>Scholarly Significance</h2><p>His work on the 'Tradition of Hermes Trismegistus' expands upon Fowden's thesis, proving that the figure of Hermes represents the Hellenized face of the Egyptian god Thoth, operating within specific ritual and priestly contexts in Roman Egypt.</p>",
+    "david_litwa": "<p>M. David Litwa is a scholar of ancient Christianity and Greco-Roman religions.</p><h2>Scholarly Significance</h2><p>Litwa has significantly advanced the field through his translation and commentary on <i>Hermetica II</i>, bringing obscure papyrus fragments and Stobaean excerpts into modern academic discourse.</p>",
+
+    # Texts
+    "asclepius": "<p>The <i>Asclepius</i> is a Latin translation of a lost Greek Hermetic dialogue (the <i>Perfect Discourse</i>).</p><h2>Historical Context</h2><p>It is famous for the 'God-Making' passage, detailing how Egyptian priests animated statues by drawing down celestial souls, and its apocalyptic prophecy concerning the fall of Egyptian religion. It survived throughout the Middle Ages and profoundly influenced Renaissance magic.</p>",
+    "kitab_sirr_al_khaliqa": "<p>The <i>Kitāb Sirr al-Khalīqa</i> (Book of the Secret of Creation) is a foundational Arabic text attributed to Balinas.</p><h2>Scholarly Significance</h2><p>Edited by Ursula Weisser, it is recognized as the earliest known source of the Emerald Tablet, blending late antique cosmology, Galenic medicine, and alchemy into a unified philosophy of nature.</p>",
+    "aurora_consurgens": "<p>The <i>Aurora Consurgens</i> is an extraordinary 15th-century alchemical manuscript.</p><h2>Scholarly Significance</h2><p>It synthesizes biblical wisdom literature (specifically the Song of Solomon) with alchemical processes. Famously analyzed by Marie-Louise von Franz, it represents a deep integration of chemical operations with Christian mysticism and the psychology of the unconscious.</p>",
+    "rosarium_philosophorum": "<p>The <i>Rosarium Philosophorum</i> (Rose Garden of the Philosophers) is a 16th-century alchemical compilation.</p><h2>Scholarly Significance</h2><p>Best known for its series of twenty woodcuts illustrating the alchemical wedding of the King and Queen, it provides a highly psychological and symbolic roadmap for the union of opposites (<i>coniunctio oppositorum</i>).</p>",
+    "de_occulta_philosophia": "<p><i>De Occulta Philosophia Libri Tres</i> is the definitive encyclopedia of Renaissance magic.</p><h2>Scholarly Significance</h2><p>Written by Agrippa, it categorizes magic into Natural, Celestial, and Ceremonial spheres, serving as the core reference manual for Western occultism for centuries by synthesizing Neoplatonism, Hermeticism, and Kabbalah.</p>",
+    "amphitheatrum_sapientiae": "<p>The <i>Amphitheatrum Sapientiae Aeternae</i> by Heinrich Khunrath is a masterpiece of early modern theosophy.</p><h2>Scholarly Significance</h2><p>Combining Christian Kabbalah, Paracelsian alchemy, and magic, its elaborate circular engravings serve as meditative mandalas designed to lead the viewer to spiritual and material perfection.</p>",
+    "theatrum_chem_britannicum": "<p>The <i>Theatrum Chemicum Britannicum</i> (1652) is Elias Ashmole's monumental compilation.</p><h2>Scholarly Significance</h2><p>Ashmole preserved the indigenous English alchemical tradition by publishing obscure verse manuscripts from figures like Thomas Norton and George Ripley, preventing the destruction of this heritage during the English Civil War.</p>",
+
+    # Concepts
+    "spagyrics": "<p>Spagyrics is the Paracelsian practice of 'separating and reuniting' (<i>solve et coagula</i>).</p><h2>Scholarly Significance</h2><p>Distinct from the chrysopoeian quest for gold, spagyrics focuses on extracting the spiritual essences of plants and minerals to create powerful medicinal tinctures, heavily influencing modern herbalism and homeopathy.</p>",
+    "ascent": "<p>The Cosmic Ascent is the journey of the soul back to its divine origin.</p><h2>Scholarly Significance</h2><p>In the Hermetic tradition (specifically the <i>Poimandres</i>), the soul ascends through the planetary spheres, stripping off its material vices at each level until it enters the Ogdoad, joining the divine choir in praising the Father.</p>",
+    "tria_prima": "<p>The Tria Prima consists of Salt, Sulfur, and Mercury.</p><h2>Scholarly Significance</h2><p>Introduced by Paracelsus, this triad replaced the Aristotelian four elements as the primary conceptual tool of chemistry. Mercury represents the fluid/spiritual, Sulfur the combustible/soul, and Salt the solid/body.</p>",
+    "monad": "<p>The Monad is the Neoplatonic and Pythagorean concept of ultimate unity.</p><h2>Scholarly Significance</h2><p>It represents the source from which all reality emanates and returns. John Dee expanded this concept in his <i>Monas Hieroglyphica</i>, claiming it contained the entire mathematical, astronomical, and alchemical blueprint of creation.</p>",
+    "correspondence": "<p>The Doctrine of Correspondence is encapsulated by the Emerald Tablet's maxim: 'As above, so below.'</p><h2>Scholarly Significance</h2><p>This principle asserts a sympathetic resonance between the macrocosm (the universe) and the microcosm (the human being), providing the theoretical foundation for all Hermetic magic and astrology.</p>",
+    "quintessence": "<p>The Quintessence (the Fifth Element) is the subtle, ethereal substance that permeates the universe.</p><h2>Scholarly Significance</h2><p>Unlike the four corruptible earthly elements, the quintessence is eternal and incorruptible. Alchemists sought to extract it from matter (often starting with wine to produce alcohol) as a universal panacea.</p>"
+}
+
+def main():
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+
+    print("Injecting comprehensive prose (v6)...")
+    
+    for slug, prose in PROSE_DATA.items():
+        # Try updating persons
+        cursor.execute("UPDATE persons SET bio_html = ? WHERE person_id = ?", (prose, slug))
+        if cursor.rowcount == 0:
+            # Try updating texts
+            cursor.execute("UPDATE texts SET analysis_html = ? WHERE text_id = ?", (prose, slug))
+            if cursor.rowcount == 0:
+                # Try updating concepts
+                cursor.execute("UPDATE concepts SET definition_long = ? WHERE slug = ?", (prose, slug))
+    
+    conn.commit()
+    conn.close()
+    print("Agent swarm encyclopedia expansion complete.")
+
+if __name__ == "__main__":
+    main()

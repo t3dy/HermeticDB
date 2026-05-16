@@ -1,0 +1,304 @@
+import sqlite3
+import os
+import sys
+from pathlib import Path
+
+# Force UTF-8 for Windows console
+if sys.stdout.encoding.lower() != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except AttributeError:
+        pass
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+DB_PATH = BASE_DIR.parent / "db" / "emerald_tablet.db"
+
+# SHARED STYLES AND NAV
+CSS = """
+:root {
+    --bg: #0a0a0c;
+    --bg-card: #141418;
+    --accent: #d4af37;
+    --accent-light: #f1d37e;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --border: rgba(212, 175, 55, 0.2);
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.site-nav {
+    background: rgba(10, 10, 12, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.title-large {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--accent-light);
+    margin-bottom: 1rem;
+}
+
+.text-subtitle {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    transition: transform 0.3s, border-color 0.3s;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+}
+
+.card-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--accent-light);
+    margin-bottom: 0.5rem;
+}
+
+.card-meta {
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.card-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+"""
+
+NAV_BAR = """
+<nav class="site-nav">
+    <div class="nav-container">
+        <a class="nav-logo" href="/HermeticDB">HERMETICDB</a>
+        <div class="nav-links">
+            <a class="nav-link" href="/HermeticDB/eras/late-antiquity">Late Antiquity</a>
+            <a class="nav-link" href="/HermeticDB/eras/medieval">Medieval</a>
+            <a class="nav-link" href="/HermeticDB/eras/renaissance">Renaissance</a>
+            <div style="width:1px;height:20px;background:rgba(255,255,255,0.1)"></div>
+            <a class="nav-link" href="/HermeticDB/texts">Texts</a>
+            <a class="nav-link" href="/HermeticDB/biographies">Biographies</a>
+            <a class="nav-link" href="/HermeticDB/scholars">Scholars</a>
+            <a class="nav-link" href="/HermeticDB/dictionary">Dictionary</a>
+        </div>
+    </div>
+</nav>
+"""
+
+BASE_TEMPLATE = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{title} - HermeticDB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        {css}
+        {custom_css}
+    </style>
+</head>
+<body>
+    {nav}
+    {content}
+    <footer style="text-align:center; padding: 4rem; color: var(--text-muted); border-top: 1px solid var(--border)">
+        &copy; 2026 The Hermetic Knowledge Portal
+    </footer>
+</body>
+</html>
+"""
+
+def generate_entity_card(title, meta, desc, link):
+    return f"""
+    <a class="card" href="{link}">
+        <div class="card-title">{title}</div>
+        <div class="card-meta">{meta}</div>
+        <div class="card-desc">{desc}</div>
+    </a>
+    """
+
+def main():
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    # 1. GENERATE ENTITY PAGES (already done but integration here)
+    # 2. GENERATE INDEX PAGES (Texts, Scholars, Biographies)
+    
+    # TEXTS INDEX
+    cursor.execute("SELECT * FROM texts ORDER BY title")
+    text_cards = ""
+    for row in cursor.fetchall():
+        text_cards += generate_entity_card(row['title'], row['text_type'], row['description'], f"/HermeticDB/texts/{row['text_id']}")
+    
+    texts_content = f"""
+    <main class="page-container">
+        <h1 class="title-large">Hermetic Texts</h1>
+        <p class="text-subtitle">Foundational treatises and commentaries of the tradition.</p>
+        <div class="grid">{text_cards}</div>
+    </main>
+    """
+    with open(BASE_DIR / "texts.html", "w", encoding="utf-8") as f:
+        f.write(BASE_TEMPLATE.format(title="Hermetic Texts", css=CSS, custom_css="", nav=NAV_BAR, content=texts_content))
+
+    # BIOGRAPHIES INDEX
+    cursor.execute("SELECT * FROM persons WHERE role_primary != 'SCHOLAR' OR role_primary IS NULL ORDER BY name")
+    bio_cards = ""
+    for row in cursor.fetchall():
+        bio_cards += generate_entity_card(row['name'], f"{row['era']} · {row['role_primary']}", row['description'], f"/HermeticDB/biographies/{row['person_id']}")
+    
+    bio_content = f"""
+    <main class="page-container">
+        <h1 class="title-large">Historical Biographies</h1>
+        <p class="text-subtitle">Authors, alchemists, and philosophers of the Hermetic lineage.</p>
+        <div class="grid">{bio_cards}</div>
+    </main>
+    """
+    with open(BASE_DIR / "biographies.html", "w", encoding="utf-8") as f:
+        f.write(BASE_TEMPLATE.format(title="Historical Biographies", css=CSS, custom_css="", nav=NAV_BAR, content=bio_content))
+
+    # SCHOLARS INDEX
+    cursor.execute("SELECT * FROM persons WHERE role_primary = 'SCHOLAR' ORDER BY name")
+    scholar_cards = ""
+    for row in cursor.fetchall():
+        scholar_cards += generate_entity_card(row['name'], "Scholarly Authority", row['description'], f"/HermeticDB/scholars/{row['person_id']}")
+    
+    scholar_content = f"""
+    <main class="page-container">
+        <h1 class="title-large">Modern Scholars</h1>
+        <p class="text-subtitle">Academic authorities defining the field of Hermetic studies.</p>
+        <div class="grid">{scholar_cards}</div>
+    </main>
+    """
+    with open(BASE_DIR / "scholars.html", "w", encoding="utf-8") as f:
+        f.write(BASE_TEMPLATE.format(title="Modern Scholars", css=CSS, custom_css="", nav=NAV_BAR, content=scholar_content))
+
+    # ERAS
+    for era_id, era_name in [("late-antiquity", "Late Antiquity"), ("medieval", "Medieval"), ("renaissance", "Renaissance")]:
+        db_era = era_id.upper().replace("-", "_")
+        cursor.execute("SELECT * FROM persons WHERE era = ? ORDER BY name", (db_era,))
+        era_cards = ""
+        for row in cursor.fetchall():
+            era_cards += generate_entity_card(row['name'], row['role_primary'], row['description'], f"/HermeticDB/biographies/{row['person_id']}")
+        
+        era_content = f"""
+        <main class="page-container">
+            <h1 class="title-large">{era_name} Archives</h1>
+            <p class="text-subtitle">Figures and documents from the {era_name} period.</p>
+            <div class="grid">{era_cards}</div>
+        </main>
+        """
+        dest_path = BASE_DIR / "eras" / f"{era_id}.html"
+        dest_path.parent.mkdir(exist_ok=True)
+        with open(dest_path, "w", encoding="utf-8") as f:
+            f.write(BASE_TEMPLATE.format(title=era_name, css=CSS, custom_css="", nav=NAV_BAR, content=era_content))
+
+    # DICTIONARY INDEX (Static for now, but following the new style)
+    # I'll just hardcode the concepts from the current dictionary for consistency
+    concepts = [
+        ("Anthropos (Primal Human)", "PHILOSOPHICAL", "Original archetypal human containing the microcosm of all creation."),
+        ("Barbarous Names", "LINGUISTIC", "Foreign, non-Greek sacred names carrying inherent divine energy."),
+        ("Decknamen (Cover Names)", "LINGUISTIC", "Systematic use of symbolic cover names in alchemical texts."),
+        ("Demiurge", "COSMOLOGICAL", "Second-order creative deity responsible for shaping the material world."),
+        ("Gnosis", "THEOLOGICAL", "Experiential knowledge of divine nature and cosmic structure."),
+        ("Logos", "PHILOSOPHICAL", "Rational principle of creation; divine utterance structuring reality."),
+        ("Magnum Opus", "ALCHEMICAL", "The alchemical process of creating the Philosopher's Stone."),
+        ("Nous", "PHILOSOPHICAL", "The supreme intellect; consciousness as cosmic principle."),
+        ("Theurgy", "THEOLOGICAL", "Sacred ritual designed to enact union with the divine.")
+    ]
+    dict_cards = ""
+    for cname, cmeta, cdesc in concepts:
+        dict_cards += generate_entity_card(cname, cmeta, cdesc, "#") # Links to be added
+    
+    dict_content = f"""
+    <main class="page-container">
+        <h1 class="title-large">Hermetic Dictionary</h1>
+        <p class="text-subtitle">Encyclopedic index of philosophical, alchemical, and theological concepts.</p>
+        <div class="grid">{dict_cards}</div>
+    </main>
+    """
+    with open(BASE_DIR / "dictionary.html", "w", encoding="utf-8") as f:
+        f.write(BASE_TEMPLATE.format(title="Hermetic Dictionary", css=CSS, custom_css="", nav=NAV_BAR, content=dict_content))
+
+    conn.close()
+    print("Full index and era page rebuild complete.")
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>The Hermetic Lineage - HermeticDB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        
+:root {
+    --bg: #0a0a0c;
+    --bg-card: #141418;
+    --accent: #d4af37;
+    --accent-light: #f1d37e;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --border: rgba(212, 175, 55, 0.2);
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.site-nav {
+    background: rgba(10, 10, 12, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.title-large {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: var(--accent-light);
+    margin-bottom: 1rem;
+}
+
+.text-subtitle {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--accent-light);
+    margin-bottom: 0.5rem;
+}
+
+.card-meta {
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.card-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.prose-content {
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    font-size: 1.15rem;
+    color: #d8d8d8;
+}
+
+.prose-content h2 {
+    font-family: var(--font-display);
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+}
+
+.prose-content p {
+    margin-bottom: 1.5rem;
+}
+
+.back-link {
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.scholarly-fragment {
+    border-left: 3px solid var(--accent);
+    background: rgba(212, 175, 55, 0.05);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.fragment-source {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    font-style: normal;
+    color: var(--accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+    </style>
+</head>
+<body>
+    
+<nav class="site-nav">
+    <div class="nav-container">
+        <a class="nav-logo" href="/HermeticDB">HERMETICDB</a>
+        <div class="nav-links">
+            <a class="nav-link" href="/HermeticDB/eras/late-antiquity.html">Late Antiquity</a>
+            <a class="nav-link" href="/HermeticDB/eras/medieval.html">Medieval</a>
+            <a class="nav-link" href="/HermeticDB/eras/renaissance.html">Renaissance</a>
+            <div style="width:1px;height:20px;background:rgba(255,255,255,0.1)"></div>
+            <a class="nav-link" href="/HermeticDB/texts.html">Texts</a>
+            <a class="nav-link" href="/HermeticDB/biographies.html">Biographies</a>
+            <a class="nav-link" href="/HermeticDB/scholars.html">Scholars</a>
+            <a class="nav-link" href="/HermeticDB/dictionary.html">Dictionary</a>
+            <a class="nav-link" href="/HermeticDB/timeline.html">Timeline</a>
+            <a class="nav-link" href="/HermeticDB/about.html">Methodology</a>
+        </div>
+    </div>
+</nav>
+
+    <main class="page-container"><h1 class="title-large">The Hermetic Lineage</h1><p class="text-subtitle">Sages, alchemists, and philosophers of the Thrice-Greatest.</p><div class="grid">
+    <a class="card" href="/HermeticDB/biographies/11.html">
+        <div class="card-title">Abū Bakr al-Rāzī (Rhazes)</div>
+        <div class="card-meta">MEDIEVAL · PHILOSOPHER</div>
+        <div class="card-desc">Persian polymath and experimental alchemist....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/74.html">
+        <div class="card-title">Al-Kindi</div>
+        <div class="card-meta">MEDIEVAL · PHILOSOPHER</div>
+        <div class="card-desc">Arab philosopher whose <em>De Radiis Stellarum</em> theorized celestial influence....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/7.html">
+        <div class="card-title">Apollonius of Tyana (Balinas)</div>
+        <div class="card-meta">LATE ANTIQUITY · MYTHICAL_FIGURE</div>
+        <div class="card-desc">Legendary sage associated with the Emerald Tablet discovery....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/29.html">
+        <div class="card-title">Basil Valentine</div>
+        <div class="card-meta">RENAISSANCE · MYTHICAL_FIGURE</div>
+        <div class="card-desc">Legendary monk-alchemist behind the 'Twelve Keys'....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/19.html">
+        <div class="card-title">Bernard of Trevisan</div>
+        <div class="card-meta">MEDIEVAL · AUTHOR</div>
+        <div class="card-desc">Aristocratic alchemist who wrote the 'Livre de la Philosophie Naturelle des Metaux'....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/9.html">
+        <div class="card-title">Emperor Julian</div>
+        <div class="card-meta">LATE ANTIQUITY · AUTHOR</div>
+        <div class="card-desc">Roman emperor who attempted a Neoplatonic restoration....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/63.html">
+        <div class="card-title">Francesco Patrizi</div>
+        <div class="card-meta">RENAISSANCE · PHILOSOPHER</div>
+        <div class="card-desc">Attempted to replace Aristotle with Hermes Trismegistus in Catholic university curricula....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/71.html">
+        <div class="card-title">Francis Mercury van Helmont</div>
+        <div class="card-meta">EARLY MODERN · PHILOSOPHER</div>
+        <div class="card-desc">Flemish Christian Kabbalist and key bridge figure to Enlightenment thought....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/26.html">
+        <div class="card-title">Giordano Bruno</div>
+        <div class="card-meta">RENAISSANCE · PHILOSOPHER</div>
+        <div class="card-desc">Hermetic philosopher and cosmological visionary....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/21.html">
+        <div class="card-title">Giovanni Pico della Mirandola</div>
+        <div class="card-meta">RENAISSANCE · PHILOSOPHER</div>
+        <div class="card-desc">Synthesized Hermetism, Kabbalah, and Platonism....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/69.html">
+        <div class="card-title">Heinrich Cornelius Agrippa</div>
+        <div class="card-meta">RENAISSANCE · PHILOSOPHER</div>
+        <div class="card-desc">Author of the encyclopedic '<em>De Occulta Philosophia</em>'....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/30.html">
+        <div class="card-title">Heinrich Khunrath</div>
+        <div class="card-meta">RENAISSANCE · AUTHOR</div>
+        <div class="card-desc">Author of the 'Amphitheatrum Sapientiae Aeternae'....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/1.html">
+        <div class="card-title">Hermes Trismegistus</div>
+        <div class="card-meta">LATE ANTIQUITY · MYTHICAL_FIGURE</div>
+        <div class="card-desc">Progenitor of the Hermetic arts....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/3.html">
+        <div class="card-title">Iamblichus of Chalcis</div>
+        <div class="card-meta">LATE ANTIQUITY · PHILOSOPHER</div>
+        <div class="card-desc">Founder of theurgical Neoplatonism....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/72.html">
+        <div class="card-title">Jacob Boehme</div>
+        <div class="card-meta">EARLY MODERN · PHILOSOPHER</div>
+        <div class="card-desc">German Christian mystic and foundational figure of Christian Theosophy....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/67.html">
+        <div class="card-title">Johann Valentin Andreae</div>
+        <div class="card-meta">EARLY MODERN · AUTHOR</div>
+        <div class="card-desc">Lutheran theologian and putative author of the Rosicrucian manifestos....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/48.html">
+        <div class="card-title">John of Stobi (Stobaeus)</div>
+        <div class="card-meta">LATE ANTIQUITY · COMPILER</div>
+        <div class="card-desc">5th-century compiler who preserved the Hermetic Excerpts....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/10.html">
+        <div class="card-title">Jābir ibn Ḥayyān (Geber)</div>
+        <div class="card-meta">MEDIEVAL · PHILOSOPHER</div>
+        <div class="card-desc">The most influential figure in Arabic alchemy....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/13.html">
+        <div class="card-title">Khalid ibn Yazid</div>
+        <div class="card-meta">MEDIEVAL · MYTHICAL_FIGURE</div>
+        <div class="card-desc">Umayyad prince often credited as the 'first' Islamic alchemist....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/22.html">
+        <div class="card-title">Lodovico Lazzarelli</div>
+        <div class="card-meta">RENAISSANCE · AUTHOR</div>
+        <div class="card-desc">Hermetic poet and author of the 'Crater Hermetis'....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/28.html">
+        <div class="card-title">Michael Maier</div>
+        <div class="card-meta">RENAISSANCE · AUTHOR</div>
+        <div class="card-desc">Alchemist and physician to Rudolf II; author of 'Atalanta Fugiens'....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/12.html">
+        <div class="card-title">Muḥammad ibn Umayl</div>
+        <div class="card-meta">MEDIEVAL · PHILOSOPHER</div>
+        <div class="card-desc">Major author of symbolic Arabic alchemical poetry....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/73.html">
+        <div class="card-title">Nicholas of Cusa</div>
+        <div class="card-meta">MEDIEVAL · PHILOSOPHER</div>
+        <div class="card-desc">German cardinal, philosopher of the <em>coincidentia oppositorum</em>....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/18.html">
+        <div class="card-title">Nicolas Flamel</div>
+        <div class="card-meta">MEDIEVAL · MYTHICAL_FIGURE</div>
+        <div class="card-desc">Parisian scribe legendary for creating the Philosopher's Stone....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/17.html">
+        <div class="card-title">Petrus Bonus</div>
+        <div class="card-meta">MEDIEVAL · PHILOSOPHER</div>
+        <div class="card-desc">Author of the 'Pretiosa Margarita Novella'....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/75.html">
+        <div class="card-title">Plato</div>
+        <div class="card-meta">ANCIENT · PHILOSOPHER</div>
+        <div class="card-desc">Athenian philosopher whose Timaeus provided the cosmological framework for all later Hermeticism....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/5.html">
+        <div class="card-title">Plotinus</div>
+        <div class="card-meta">LATE ANTIQUITY · PHILOSOPHER</div>
+        <div class="card-desc">Founder of Neoplatonism....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/4.html">
+        <div class="card-title">Porphyry of Tyre</div>
+        <div class="card-meta">LATE ANTIQUITY · PHILOSOPHER</div>
+        <div class="card-desc">Student of Plotinus and critic of theurgy....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/6.html">
+        <div class="card-title">Proclus Lycaeus</div>
+        <div class="card-meta">LATE ANTIQUITY · PHILOSOPHER</div>
+        <div class="card-desc">The last great major figure of Neoplatonism....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/70.html">
+        <div class="card-title">Ramon Llull</div>
+        <div class="card-meta">MEDIEVAL · PHILOSOPHER</div>
+        <div class="card-desc">Catalan mystic and inventor of the <em>Ars Magna</em> combinatory system....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/59.html">
+        <div class="card-title">Shihab al-Din Suhrawardi</div>
+        <div class="card-meta">MEDIEVAL · PHILOSOPHER</div>
+        <div class="card-desc">Founder of Illuminationist (Ishraqi) philosophy who integrated Hermetic sages into Islamic prophecy....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/8.html">
+        <div class="card-title">Stephen of Alexandria</div>
+        <div class="card-meta">LATE ANTIQUITY · PHILOSOPHER</div>
+        <div class="card-desc">7th-century scholar-alchemist in the Byzantine court....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/24.html">
+        <div class="card-title">Theophrastus Paracelsus</div>
+        <div class="card-meta">RENAISSANCE · PHILOSOPHER</div>
+        <div class="card-desc">Swiss-German physician and alchemist; founder of Iatrochemistry....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/58.html">
+        <div class="card-title">Thomas Vaughan</div>
+        <div class="card-meta">EARLY MODERN · PHILOSOPHER</div>
+        <div class="card-desc">Welsh alchemist and Christian theosopher writing under the pseudonym Eugenius Philalethes....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/61.html">
+        <div class="card-title">Tommaso Campanella</div>
+        <div class="card-meta">RENAISSANCE · PHILOSOPHER</div>
+        <div class="card-desc">Dominican friar and author of 'The City of the Sun', imprisoned for magic and heresy....</div>
+    </a>
+    
+    <a class="card" href="/HermeticDB/biographies/2.html">
+        <div class="card-title">Zosimos of Panopolis</div>
+        <div class="card-meta">LATE ANTIQUITY · PHILOSOPHER</div>
+        <div class="card-desc">Pivotal Greco-Egyptian alchemist of the 3rd century....</div>
+    </a>
+    </div></main>
+    <footer style="text-align:center; padding: 6rem 2rem; color: var(--text-muted); border-top: 1px solid var(--border); background: #08080a">
+        &copy; 2026 The Hermetic Knowledge Portal<br/>
+        <span style="font-size: 0.7rem; opacity: 0.5; margin-top: 1rem; display: block">Curated Scholar-Synthesized Narrative Database</span>
+    </footer>
+</body>
+</html>

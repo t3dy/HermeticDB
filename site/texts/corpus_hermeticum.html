@@ -1,57 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corpus Hermeticum — EmeraldTablet</title>
-    <link rel="stylesheet" href="../style.css">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title><em>Corpus Hermeticum</em> - HermeticDB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        
+:root {
+    --bg: #0a0a0c;
+    --bg-card: #141418;
+    --accent: #d4af37;
+    --accent-light: #f1d37e;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --border: rgba(212, 175, 55, 0.2);
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.site-nav {
+    background: rgba(10, 10, 12, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.title-large {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: var(--accent-light);
+    margin-bottom: 1rem;
+}
+
+.text-subtitle {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--accent-light);
+    margin-bottom: 0.5rem;
+}
+
+.card-meta {
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.card-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.prose-content {
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    font-size: 1.15rem;
+    color: #d8d8d8;
+}
+
+.prose-content h2 {
+    font-family: var(--font-display);
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+}
+
+.prose-content p {
+    margin-bottom: 1.5rem;
+}
+
+.back-link {
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.scholarly-fragment {
+    border-left: 3px solid var(--accent);
+    background: rgba(212, 175, 55, 0.05);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.fragment-source {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    font-style: normal;
+    color: var(--accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+    </style>
 </head>
 <body>
+    
 <nav class="site-nav">
-  <span class="site-title">EmeraldTablet</span>
-  <a href="../index.html">Home</a>
-  <a href="../texts/index.html" class="active">Texts</a>
-  <a href="../persons/index.html">Persons</a>
-  <a href="../translations/index.html">Translations</a>
-  <a href="../concepts/index.html">Concepts</a>
-  <a href="../timeline.html">Timeline</a>
-  <a href="../bibliography.html">Bibliography</a>
-  <a href="../manuscripts/index.html">Manuscripts</a>
-  <a href="../about.html">About</a>
+    <div class="nav-container">
+        <a class="nav-logo" href="/HermeticDB">HERMETICDB</a>
+        <div class="nav-links">
+            <a class="nav-link" href="/HermeticDB/eras/late-antiquity.html">Late Antiquity</a>
+            <a class="nav-link" href="/HermeticDB/eras/medieval.html">Medieval</a>
+            <a class="nav-link" href="/HermeticDB/eras/renaissance.html">Renaissance</a>
+            <div style="width:1px;height:20px;background:rgba(255,255,255,0.1)"></div>
+            <a class="nav-link" href="/HermeticDB/texts.html">Texts</a>
+            <a class="nav-link" href="/HermeticDB/biographies.html">Biographies</a>
+            <a class="nav-link" href="/HermeticDB/scholars.html">Scholars</a>
+            <a class="nav-link" href="/HermeticDB/dictionary.html">Dictionary</a>
+            <a class="nav-link" href="/HermeticDB/timeline.html">Timeline</a>
+            <a class="nav-link" href="/HermeticDB/about.html">Methodology</a>
+        </div>
+    </div>
 </nav>
 
-<div class="page-content">
-<a href="index.html" class="back-link">&larr; All Texts</a>
-<h1>Corpus Hermeticum <span class="badge" style="background:#c0392b">PRIMARY_SOURCE</span></h1>
-<div class="detail-body">
-<p class="meta" style="color:#6b5d4d;margin-bottom:1rem">GREEK  &middot;  <span style="display:inline-block;padding:0.15rem 0.5rem;background:#c0392b;color:white;border-radius:3px;font-size:0.75rem;font-weight:600;text-transform:uppercase;margin-left:0.3rem">PRIMARY_SOURCE</span>  &middot;  100&ndash;300 CE</p>
-<p>The Corpus Hermeticum is a collection of eighteen Greek philosophical and theological treatises attributed to Hermes Trismegistus, the legendary sage identified with the Egyptian god Thoth. The individual treatises were composed between approximately the first and third centuries CE in the Greco-Egyptian milieu, though the collection as we know it was likely assembled around the fourth century CE.</p><p>The treatises address fundamental questions of cosmogony, theology, soteriology, and the nature of divine mind (Nous). They present a distinctive spiritual philosophy in which the human soul, through knowledge (gnosis) of its divine origin, can ascend through the cosmic spheres to reunion with the supreme God. The collection opens with the Poimandres (CH I), a foundational cosmogonic vision, and includes treatises on rebirth (CH XIII), the properties of God, and the relationship between mind, soul, and matter. The philosophical orientation synthesizes Platonic, Stoic, and Egyptian religious elements.</p><p>The Corpus Hermeticum's historical impact was transformative. Brought to Florence from Macedonia around 1460, it was translated into Latin by Marsilio Ficino in 1463 at the request of Cosimo de' Medici, who reportedly prioritized it over Plato's dialogues. Ficino's translation, published as the Pimander, ignited the Renaissance Hermetic revival and established Hermes Trismegistus as a prisca theologia authority. Isaac Casaubon's 1614 redating of the texts to the post-Christian era challenged but did not eliminate their philosophical influence.</p><p>The Corpus Hermeticum remains the foundational text of the philosophical Hermetic tradition and is essential for understanding the interplay between Egyptian religion, Greek philosophy, and the Western esoteric tradition from antiquity through the Renaissance and beyond.</p>
-<h3 style="margin-top:1.5rem;font-size:1.1rem">Associated Persons</h3>
-<div style="margin:0.5rem 0;padding:0.5rem;background:#faf8f4;border-radius:4px"><a href="../persons/hermes_trismegistus.html" style="color:#8b4513;text-decoration:none">Hermes Trismegistus</a> <span style="display:inline-block;padding:0.15rem 0.5rem;background:#2ecc71;color:white;border-radius:3px;font-size:0.75rem;font-weight:600;text-transform:uppercase;margin-left:0.3rem">ATTRIBUTED_AUTHOR</span></div>
-<div style="margin:0.5rem 0;padding:0.5rem;background:#faf8f4;border-radius:4px"><a href="../persons/christian_bull.html" style="color:#8b4513;text-decoration:none">Christian H. Bull</a> <span style="display:inline-block;padding:0.15rem 0.5rem;background:#8e44ad;color:white;border-radius:3px;font-size:0.75rem;font-weight:600;text-transform:uppercase;margin-left:0.3rem">COMMENTATOR</span></div>
-<div style="margin:0.5rem 0;padding:0.5rem;background:#faf8f4;border-radius:4px"><a href="../persons/giordano_bruno.html" style="color:#8b4513;text-decoration:none">Giordano Bruno</a> <span style="display:inline-block;padding:0.15rem 0.5rem;background:#8e44ad;color:white;border-radius:3px;font-size:0.75rem;font-weight:600;text-transform:uppercase;margin-left:0.3rem">COMMENTATOR</span></div>
-<div style="margin:0.5rem 0;padding:0.5rem;background:#faf8f4;border-radius:4px"><a href="../persons/isaac_casaubon.html" style="color:#8b4513;text-decoration:none">Isaac Casaubon</a> <span style="display:inline-block;padding:0.15rem 0.5rem;background:#8e44ad;color:white;border-radius:3px;font-size:0.75rem;font-weight:600;text-transform:uppercase;margin-left:0.3rem">COMMENTATOR</span></div>
-<div style="margin:0.5rem 0;padding:0.5rem;background:#faf8f4;border-radius:4px"><a href="../persons/lactantius.html" style="color:#8b4513;text-decoration:none">Lactantius</a> <span style="display:inline-block;padding:0.15rem 0.5rem;background:#8e44ad;color:white;border-radius:3px;font-size:0.75rem;font-weight:600;text-transform:uppercase;margin-left:0.3rem">COMMENTATOR</span></div>
-<div style="margin:0.5rem 0;padding:0.5rem;background:#faf8f4;border-radius:4px"><a href="../persons/lodovico_lazzarelli.html" style="color:#8b4513;text-decoration:none">Lodovico Lazzarelli</a> <span style="display:inline-block;padding:0.15rem 0.5rem;background:#8e44ad;color:white;border-radius:3px;font-size:0.75rem;font-weight:600;text-transform:uppercase;margin-left:0.3rem">COMMENTATOR</span></div>
-<div style="margin:0.5rem 0;padding:0.5rem;background:#faf8f4;border-radius:4px"><a href="../persons/thomas_aquinas.html" style="color:#8b4513;text-decoration:none">Thomas Aquinas</a> <span style="display:inline-block;padding:0.15rem 0.5rem;background:#8e44ad;color:white;border-radius:3px;font-size:0.75rem;font-weight:600;text-transform:uppercase;margin-left:0.3rem">COMMENTATOR</span></div>
-<div style="margin:0.5rem 0;padding:0.5rem;background:#faf8f4;border-radius:4px"><a href="../persons/wouter_hanegraaff.html" style="color:#8b4513;text-decoration:none">Wouter J. Hanegraaff</a> <span style="display:inline-block;padding:0.15rem 0.5rem;background:#8e44ad;color:white;border-radius:3px;font-size:0.75rem;font-weight:600;text-transform:uppercase;margin-left:0.3rem">COMMENTATOR</span></div>
-<div style="margin:0.5rem 0;padding:0.5rem;background:#faf8f4;border-radius:4px"><a href="../persons/brian_copenhaver.html" style="color:#8b4513;text-decoration:none">Brian P. Copenhaver</a> <span style="display:inline-block;padding:0.15rem 0.5rem;background:#e67e22;color:white;border-radius:3px;font-size:0.75rem;font-weight:600;text-transform:uppercase;margin-left:0.3rem">EDITOR</span></div>
-<div style="margin:0.5rem 0;padding:0.5rem;background:#faf8f4;border-radius:4px"><a href="../persons/david_litwa.html" style="color:#8b4513;text-decoration:none">M. David Litwa</a> <span style="display:inline-block;padding:0.15rem 0.5rem;background:#e67e22;color:white;border-radius:3px;font-size:0.75rem;font-weight:600;text-transform:uppercase;margin-left:0.3rem">EDITOR</span></div>
-<div style="margin:0.5rem 0;padding:0.5rem;background:#faf8f4;border-radius:4px"><a href="../persons/marsilio_ficino.html" style="color:#8b4513;text-decoration:none">Marsilio Ficino</a> <span style="display:inline-block;padding:0.15rem 0.5rem;background:#2980b9;color:white;border-radius:3px;font-size:0.75rem;font-weight:600;text-transform:uppercase;margin-left:0.3rem">TRANSLATOR</span></div>
-<h3 style="margin-top:1.5rem;font-size:1.1rem">Related Texts</h3>
-<div style="margin:0.5rem 0;padding:0.5rem;background:#faf8f4;border-radius:4px"><a href="../texts/ch_xiii_on_rebirth.html" style="color:#8b4513;text-decoration:none">On Rebirth (Corpus Hermeticum XIII)</a> <span style="display:inline-block;padding:0.15rem 0.5rem;background:#7f8c8d;color:white;border-radius:3px;font-size:0.75rem;font-weight:600;text-transform:uppercase;margin-left:0.3rem">CONTAINS</span><br><span style="font-size:0.85rem;color:#6b5d4d">CH XIII — on regeneration</span></div>
-<div style="margin:0.5rem 0;padding:0.5rem;background:#faf8f4;border-radius:4px"><a href="../texts/de_mysteriis.html" style="color:#8b4513;text-decoration:none">De mysteriis (On the Mysteries)</a> <span style="display:inline-block;padding:0.15rem 0.5rem;background:#7f8c8d;color:white;border-radius:3px;font-size:0.75rem;font-weight:600;text-transform:uppercase;margin-left:0.3rem">RELATED_TO</span><br><span style="font-size:0.85rem;color:#6b5d4d">Iamblichus treats Hermetic texts as translations of Egyptian Books of Thoth</span></div>
-<div style="margin:0.5rem 0;padding:0.5rem;background:#faf8f4;border-radius:4px"><a href="../texts/ficino_platonic_theology.html" style="color:#8b4513;text-decoration:none">Platonic Theology (Theologia Platonica)</a> <span style="display:inline-block;padding:0.15rem 0.5rem;background:#7f8c8d;color:white;border-radius:3px;font-size:0.75rem;font-weight:600;text-transform:uppercase;margin-left:0.3rem">COMMENTARY_ON</span><br><span style="font-size:0.85rem;color:#6b5d4d">Ficino integrates Hermetic thought into his Platonic synthesis</span></div>
-<div style="margin:0.5rem 0;padding:0.5rem;background:#faf8f4;border-radius:4px"><a href="../texts/poimandres.html" style="color:#8b4513;text-decoration:none">Poimandres (Corpus Hermeticum I)</a> <span style="display:inline-block;padding:0.15rem 0.5rem;background:#7f8c8d;color:white;border-radius:3px;font-size:0.75rem;font-weight:600;text-transform:uppercase;margin-left:0.3rem">CONTAINS</span><br><span style="font-size:0.85rem;color:#6b5d4d">CH I — opening treatise</span></div>
-<h3 style="margin-top:1.5rem;font-size:1.1rem">Key Concepts</h3>
-<div style="display:flex;flex-wrap:wrap;gap:0.5rem">
-<a href="../concepts/gnosis.html" style="display:inline-block;padding:0.3rem 0.7rem;background:#c0392b22;border:1px solid #c0392b44;border-radius:4px;color:#c0392b;text-decoration:none;font-size:0.85rem">Gnosis (Saving Knowledge)</a>
-<a href="../concepts/logos.html" style="display:inline-block;padding:0.3rem 0.7rem;background:#2c3e5022;border:1px solid #2c3e5044;border-radius:4px;color:#2c3e50;text-decoration:none;font-size:0.85rem">Logos (Divine Word)</a>
-<a href="../concepts/nous.html" style="display:inline-block;padding:0.3rem 0.7rem;background:#2c3e5022;border:1px solid #2c3e5044;border-radius:4px;color:#2c3e50;text-decoration:none;font-size:0.85rem">Nous (Divine Mind)</a>
-</div>
-</div>
-<div class="provenance">Source: SEED_DATA &middot; Confidence: HIGH &middot; Status: DRAFT</div>
-</div>
-
+    <main class="page-container"><a href="/HermeticDB/texts.html" class="back-link">← Return to Library</a><h1 class="title-large"><em>Corpus Hermeticum</em></h1><div class="card-meta" style="margin-bottom:3rem">PRIMARY_SOURCE</div><div class="prose-content">
+        <p>The <i><em>Corpus Hermeticum</em></i> is the foundational collection of seventeen Greek treatises attributed to Hermes Trismegistus, dating from the 1st to the 3rd centuries CE. These texts—notably the <i>Poimandres</i>—contain the core philosophical and theological revelations of the "Way of Hermes," focusing on the nature of the divine, the structure of the cosmos, and the path to human salvation through Gnosis.</p>
+        <h2>Historical Context</h2>
+        <p>Emerging from the syncretism of Roman Egypt, the treatises reflect a unique fusion of Middle Platonism, Stoicism, and traditional Egyptian theology. They were preserved in the Byzantine world and famously rediscovered and translated by Marsilio Ficino in the 15th century, sparking the Renaissance Hermetic revival.</p>
+        <h2>Scholarly Significance</h2>
+        <p>Modern scholars analyze the <i>Corpus</i> as representing a shift from ritual practice to "philosophical religion." The texts address the fundamental Hermetic dilemma: how a "divine" human soul can exist within a material world. The <i>Corpus</i> provides the theoretical grammar for all subsequent Western Hermeticism, from medieval alchemy to modern occultism.</p>
+    </div></main>
+    <footer style="text-align:center; padding: 6rem 2rem; color: var(--text-muted); border-top: 1px solid var(--border); background: #08080a">
+        &copy; 2026 The Hermetic Knowledge Portal<br/>
+        <span style="font-size: 0.7rem; opacity: 0.5; margin-top: 1rem; display: block">Curated Scholar-Synthesized Narrative Database</span>
+    </footer>
 </body>
 </html>
