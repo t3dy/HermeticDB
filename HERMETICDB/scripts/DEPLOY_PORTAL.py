@@ -873,6 +873,10 @@ def deploy_to(target_dir, cursor):
 
             <h2 class="title-medium">5. The Casaubon Watershed</h2>
             <p>The 1614 dating of the <i>Corpus Hermeticum</i> by <b>Isaac Casaubon</b> effectively ended the <i>Prisca Theologia</i> narrative. This debate focuses on the <i>Reception History</i>: how did the Hermetic tradition survive as 'Rejected Knowledge' after its claims to ancient Egyptian antiquity were debunked?</p>
+
+            <h2 class="title-medium">6. The Immanence of Ratio</h2>
+            <p>A more recent historiographical debate, led by scholars like <b>Mark Damien Delp</b> and <b>David Porreca</b>, focuses on the role of Hermeticism in 12th-century Latin scholasticism. Delp argues that texts like <i>De sex rerum principiis</i> represent an 'immanence of ratio,' where Hermetic cosmology was not seen as external magic but as a rational framework for understanding the physical universe.</p>
+            <p><b>Scholastic Integration:</b> This challenges the traditional view that the medieval Church was uniformly hostile to 'pagan' Hermes, showing instead that he was often integrated as a source of legitimate natural philosophy.</p>
         </div>
     </main>
     """

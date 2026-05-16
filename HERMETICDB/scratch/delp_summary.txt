@@ -1,0 +1,179 @@
+ 169, 172, 177 Zerahiah b. Shealtiel Grazian : 394 Zetzner Lazarus, Thealrum Chemi- cum Zohar . Scfcr ha-Zohar Zoroaster: 545 Zosimus Panopolitanus: 8, 621 , 623 , 627, 638-639, 653, 662-666, 669-670, 685 Zwiercan, Marian: 580, 582-583
+
+
+
+--- PAGE 804 ---
+
+
+
+
+
+--- PAGE 805 ---
+
+TABVLA CONTENTORVM
+
+Praelatio
+
+[. L'ERMETISMO FILOSOFICO
+
+Jean-Pierre Mahé, Théorie el pralique dans [ Asclepius 5 Paolo Lucentini, Il problema del malc nell Asclepius 25 Ilaria Parri, Tempo ed elernilà nell Asclepius 45 Mark Damien Delp; The Immanence of Ralio in lhe Cosmology of lhe De ser rerum principiis 63 Francoise Hudry, Le Liber viginli qualluor philosophorum ella généralion en Dieu 81 Zénon Kaluza, Comme unc branche damandicr en flcurs. Dieu dans le Liber viginli qualluor philosophorum 99 Francesco Paparelle, La melafora del cerchio: Proclo il Liber viginli quatluor philosophorum 127
+
+II. L'ERMETISMO FILOSOFICO NEL MEDIOEVO € NEL RINASCIMENTO
+
+David Porreca, La réccplion d Hermcs Trismégisle par Alain de Lille el ses conlemporains 139 Isabelle Draelants, La "virlus universalis" - un concepl dorigine hermélique? Les Sowces dune nolion de   philosophic nalu- relle médiévale 157 Alessandro Palazzo, Le fonli  ermeliche nel De summo bono di Ulrico di Strasburgo 189 Antonella Sannino, Il concello ermelico di nalura in Berloldo di Moosburg 203 Pasquale Arfe, Ermele Trismegislo e Nicola Cusano 223 Martin Thurner , Erplikalion der Well und myslische  Verinner- lichung. Die hermelische Definilion des Menschen als 'se- cundus deus" bei Cusanus 245
+
+III. L'ERMETISMO ARABO ED EBRAICO
+
+Massimo Pappacena, La figura di Ermele Trismegislo nella Ira- dizione araba 263
+
+
+
+--- PAGE 806 ---
+
+796
+
+TABVLA CONTENTORVM
+
+Kevin van Bladel, Sources 0 Ihe Legend of Hermes in Arabic Carmela Balfioni, U'n esemplare arabo del Liber de qualluor confeclionibus Pinelle Travaglia, Asclepio la produzione arlificiale della vila nella Agricollura Nabalea Antonella Stralace, Simbolismo ermelico lelleralura religiosa shl'ila Annunziata Russo, Insegnamenli ermelici dollrine 'alawile Charles Burnett, The Arabic Hermes in lhe Works of Adclard o Balh Moshe Idel, Hermelicism and Kabbalah Fabrizio Lelli, Ermelismo pensicro ebraico: il conlribulo della Iradizione lesluale
+
+285
+
+295
+
+315
+
+339 355
+
+369 385
+
+429
+
+[V . L'ERMETISM() OPERATIVO: ASTROLOGIA , MAGIA , ALCHIMIA
+
+Paul Kunitzsch, Origin and Hislory of Liber de slellis beibeniis 449 Danielle Jacquart, L'opuscule sur le   jugemenl des urines allribue à Hermès 461 Vera Segre, Gli erbari di Ermele 477 Mariangela Monaca, Ermele Ia divinazione nei Papyri Grae- cac Magicae 491 Vittoria Perrone Compagni, 1 lesli magici di Ermele 505 Sophie Page, Hermelic Magic TeIls in a Monaslic Conlerl 535 Nicolas   Weill-Parot, Anlonio da Monlolmo el la magie her - mélique 545 Francesco Dall' Aglio, Magia e aslrologia in Nicela Coniala 569 Benedek Láng' The Krakow readers of Hermes 577 Concetta Pennuto, La formazione ermelica di Marsilio Ficino Ira filosofia mrdicina 601 Teodoro Katinis, Sulla sloria di due 'imagines' conlro veleni descrille da Ficino 613 Sylvain   Matton, Hermes   Trismegisle dans la lilleralure  alchi- mique médiévale 621 Michela  Pereira, 1 Seplem Trarlalus   Hermelis. Nole per una ricerca 651 Jean-Marc Mandosio, La Tabula   smaragdina nel Medioevo lalino, 1 La Tabula smaragdina suoi commenlari me- dievali 681
+
+
+
+--- PAGE 807 ---
+
+TABVLA CONTENTORVM
+
+797
+
+Irene Caiazzo, La Tabula smaragdina nel Medioevo latino; [L Nole sulla forluna della Tabula smaragdina nel Medioevo lalino
+
+697
+
+APPENDICES
+
+Paolo Lucentini Vittoria Perrone Compagni, [ manoscrilli dei lesli ermelici lalini Ilaria Parri, Bibliografia ermelica
+
+715 747
+
+InDICES
+
+Index codicum Index operum Hermeti tributorum Index nominum
+
+763 769 777
+
+
+
+## Tool
+
+The file contents provided above are truncated/partial snippets. The complete content for these files IS accessible via querying.
+
+If the user asks a question related to these files, and the provided snippets do not clearly answer it, you **MUST** use the `file_search` tool to search the full document contents before responding.
+
+## How to invoke the file_search tool
+If the user's query isn't sufficiently answered by the provided snippets, parsed text, or images, you should invoke `file_search.msearch`.
+To search the full content of the available files, you **must** send one message with recipient `to=file_search.msearch` in the analysis channel. Your message should be structured exactly as follows:
+```
+{
+  'queries': ['Example query 1', 'Example query 2']  // List of up to five queries to search for.
+}
+```
+
+Carefully balance the number of `file_search` calls and the quality of your response with the latency incurred by `file_search` calls.
+
+Important guidelines for query formatting:
+- Your message must be a valid JSON object. Do not include any extraneous text, backticks, markdown formatting, or comments beyond what is shown.
+- The `queries` field must be a list of strings.
+- One of the queries **MUST** exactly match the user's original question, but stripped of any extraneous details, and with ambiguous references clearly resolved using context from the conversation. It **MUST** be a complete sentence.
+- Even if you suspect the user meant something else, one query **MUST** still be their original question.
+
+## How to handle results from file_search
+The file search tool will respond with the relevant search results from the full files. After you receive these results:
+- Carefully evaluate each result to determine its relevance and quality.
+- Use the high-quality and relevant results to inform your answer to the user's question.
+- When possible, reuse information from prior file_search results and avoid repeating identical queries.
+
+## Tool usage instructions and ordering
+When the user asks a question, carefully consider whether the provided snippets sufficiently answer the query, whether you need to invoke `file_search.msearch`, or another available tool (such as `web`, if available) should be used instead.
+
+Tool-ordering Guidelines:
+1. For queries related to uploaded files, if snippets are insufficient, strongly prefer invoking `file_search.msearch` over other tools.
+    - Avoid using `web.run`, `python` analysis, or any other tools until you have either:
+        - Confirmed with high confidence the answer is not in the files, or
+        - Have high confidence `file_search_tool` queries are not sufficient to answer the query.
+2. Avoid usage of `web_search/web.run` for queries related to uploaded files
+    - Carefully consider whether the user's query is better answered by web search results rather than available snippets or results from `file_search_tool`.
+    - Unless the user's query is clearly unrelated to the uploaded files, prefer using `file_search.msearch`. You can always follow up with a web search if necessary for a more complete response.
+3. Avoid using `python` unless necessary or requested by user.
+    - If the user's query is answerable from the parsed text and images from the uploaded files, or from `file_search_tool`, do not invoke `python`.
+
+Always keep this instruction in mind for the rest of the conversation, as the user may reference these files or ask related questions later on.
+
+## Assistant
+
+Pages 751–807 form the **scholarly apparatus** of the volume: a comprehensive census of Latin Hermetic manuscripts, an expanded research bibliography, multiple indices, and the full table of contents. These sections consolidate the historical argument of the book into documentary infrastructure. fileciteturn16file0 fileciteturn16file1
+
+I. “I manoscritti dei testi ermetici latini” (Appendix I)
+
+Pages 751–755 present an index of manuscripts transmitting Latin Hermetic texts. This is not a selective list; it is an exhaustive catalog of codices across Europe and beyond. The index records shelfmarks and often indicates whether multiple recensions or commentaries are present.
+
+The geographical distribution is striking:
+
+– Italy (Florence Laurenziana; Vatican; Naples; Padua; Venice; Modena; Palermo; Milan; Perugia; Treviso; Volterra; Viterbo; Bergamo; Fermo)  
+– France (Paris BnF; Arsenal; Sorbonne; Reims; Troyes; Tours; Laon; Limoges; Saint-Omer; Montpellier)  
+– Germany and Austria (Munich BSB; Wolfenbüttel HAB; Erfurt; Leipzig; Mainz; Karlsruhe; Göttingen; Halle; Kassel; Lübeck; Wiesbaden; Vienna ÖNB; Zwettl)  
+– England (London BL, Sloane, Harley, Royal, Arundel; Oxford Bodleian, Digby, Ashmole; Cambridge colleges; Durham; Edinburgh; Wellcome Library)  
+– Central Europe (Kraków BJ; Prague; Wrocław; Warsaw; Bernkastel-Kues; Brno; Budapest area; Klosterneuburg; Göttweig)  
+– Spain (Barcelona; Toledo; Escorial; Madrid; Sevilla)  
+– The Low Countries (Leiden; Haarlem; Utrecht; Ghent)  
+– Scandinavia (Copenhagen)  
+– United States (Harvard; Yale; Notre Dame; Washington Congress Library)  
+
+This census demonstrates that Latin Hermetica were not confined to a narrow region. Their transmission spanned monastic, university, courtly, and private collections from the 12th through the 16th centuries and into early modernity.
+
+The index also reveals clustering patterns. For example:
+
+– Numerous manuscripts preserve *Liber de stellis beibeniis* and related astral texts.  
+– Multiple witnesses of *Liber viginti quattuor philosophorum* appear.  
+– The Tabula smaragdina circulates in many codices across traditions.  
+– Magical collections (especially Sloane, Ashmole, Digby manuscripts in London and Oxford) show dense Hermetic presence.  
+
+The apparatus confirms the central historiographical thesis of the volume: medieval Hermetism was not marginal or sporadic; it was structurally embedded in manuscript culture.
+
+II. “Bibliografia ermetica” (Ilaria Parri) fileciteturn16file0  
+
+The bibliography is methodologically organized into three major sections:
+
+1. Manuscript Tradition  
+2. General Literature  
+3. Specialized Studies  
+
+Section I (Manuscript Tradition) gathers foundational philological resources:
+
+– Marie-Thérèse d’Alverny on *Liber XXIV philosophorum*  
+– Kristeller’s *Catalogus Translationum et Commentariorum*  
+– Dannenfeldt’s *Hermetica philosophica*  
+– Steinschneider on Arabic–Latin translations  
+– Zinner on astronomical manuscripts  
+– Lucentini and Perrone Compagni’s *Hermetica Mediaevalia*  
+
+These works establish the documentary basis of Latin Hermetism.
+
+Section II (General Literature) includes broader intellectual histories:
+
+– Bouche-Leclercq on Greek astrology  
+– Thorndike’s *Histor
