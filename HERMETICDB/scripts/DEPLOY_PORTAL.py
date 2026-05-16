@@ -265,6 +265,7 @@ NAV_BAR = f"""
             <a class="nav-link" href="{REPO_URL}/biographies.html">Biographies</a>
             <a class="nav-link" href="{REPO_URL}/scholars.html">Scholars</a>
             <a class="nav-link" href="{REPO_URL}/dictionary.html">Dictionary</a>
+            <a class="nav-link" href="{REPO_URL}/debates.html">Debates</a>
             <a class="nav-link" href="{REPO_URL}/timeline.html">Timeline</a>
             <a class="nav-link" href="{REPO_URL}/map.html">Interactive Map</a>
             <a class="nav-link" href="{REPO_URL}/graph.html" style="color:var(--accent); font-weight:bold">Relationship Graph</a>
@@ -847,6 +848,36 @@ def deploy_to(target_dir, cursor):
     """
     with open(target_dir / "index.html", "w", encoding="utf-8") as f:
         f.write(BASE_TEMPLATE.replace("{{title}}", "Home").replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", landing_content))
+
+    # 9. DEBATES PAGE
+    DEBATES_CONTENT = """
+    <main class="page-container">
+        <h1 class="title-large">Modern Historiographical Debates</h1>
+        <p class="text-subtitle">Core scholarly arguments and paradigm shifts in the study of Hermeticism.</p>
+        
+        <div class="prose-content">
+            <h2 class="title-medium">1. The Yates Paradigm: Magic and Science</h2>
+            <p>Perhaps the most famous debate in the field centers on <b>Frances Yates's</b> thesis that the Renaissance revival of Hermeticism was a primary catalyst for the Scientific Revolution. Yates proposed that the figures of the 'Magus' (Agrippa, Bruno, Dee) were the direct ancestors of the modern scientist.</p>
+            <p><b>The Critique:</b> While groundbreaking, later historians like <b>Brian Copenhaver</b> and <b>Edward Grant</b> have argued that the 'Yates Paradigm' overestimates the internal coherence of the 'tradition' and underestimates the role of medieval scholasticism and mechanical philosophy in the rise of science.</p>
+
+            <h2 class="title-medium">2. The Egyptian Hermes vs. The Greek Hermes</h2>
+            <p>For much of the 20th century, led by <b>A.J. Festugière</b>, the <i>Corpus Hermeticum</i> was viewed as purely 'Greek' philosophy (Platonic and Stoic) dressed in thin Egyptian costume. This 'Greek' reading saw no real connection to historical Egyptian religion.</p>
+            <p><b>The Re-Egyptianization:</b> Starting in the 1980s with <b>Garth Fowden</b> and <b>Jean-Pierre Mahé</b>, scholars began to demonstrate that the Hermetica were deeply rooted in the social and religious landscape of Roman Egypt, with significant links to the Egyptian priesthood and traditional temple cults.</p>
+
+            <h2 class="title-medium">3. The Problem of the 'Two Hermetisms'</h2>
+            <p>Scholars traditionally divided the Hermetica into two unrelated groups: the 'Philosophical' Hermetica (contemplative) and the 'Technical' Hermetica (astrology, alchemy, magic). It was assumed they belonged to different social classes or traditions.</p>
+            <p><b>The 'Way of Hermes':</b> Current scholarship (notably Fowden) argues for a unified 'Way of Hermes,' where the technical sciences were seen as the practical application of the philosophical principles. They were likely practiced by the same small <b>Hermetic Circles</b> under a master.</p>
+
+            <h2 class="title-medium">4. Gnosis: Dualistic or Monistic?</h2>
+            <p>Is Hermeticism a form of Gnosticism? <b>Hans Jonas</b> and others grouped them together as 'dualistic' systems that viewed the material world as evil. However, modern scholars like <b>Wouter Hanegraaff</b> emphasize that most Hermetic texts are 'cosmic-optimistic,' viewing the world as a beautiful manifestation of God.</p>
+
+            <h2 class="title-medium">5. The Casaubon Watershed</h2>
+            <p>The 1614 dating of the <i>Corpus Hermeticum</i> by <b>Isaac Casaubon</b> effectively ended the <i>Prisca Theologia</i> narrative. This debate focuses on the <i>Reception History</i>: how did the Hermetic tradition survive as 'Rejected Knowledge' after its claims to ancient Egyptian antiquity were debunked?</p>
+        </div>
+    </main>
+    """
+    with open(target_dir / "debates.html", "w", encoding="utf-8") as f:
+        f.write(BASE_TEMPLATE.replace("{{title}}", "Historiographical Debates").replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", DEBATES_CONTENT))
 
 def main():
     conn = sqlite3.connect(DB_PATH)
