@@ -441,11 +441,16 @@ def deploy_to(target_dir, cursor):
         
         era_groups = {}
         if table == "texts":
-            cursor.execute("SELECT * FROM texts ORDER BY transmission_notes, title")
+            # We will use two top-level groups: Primary and Secondary
+            era_groups["PRIMARY SOURCES"] = []
+            era_groups["MODERN SCHOLARSHIP"] = []
+            
+            cursor.execute("SELECT * FROM texts ORDER BY text_type, title")
             for row in cursor.fetchall():
-                era = (row['transmission_notes'] or "GENERAL").replace("_", " ")
-                if era not in era_groups: era_groups[era] = []
-                era_groups[era].append(row)
+                if row['text_type'] == 'COMMENTARY':
+                    era_groups["MODERN SCHOLARSHIP"].append(row)
+                else:
+                    era_groups["PRIMARY SOURCES"].append(row)
         elif table == "scholars":
             cursor.execute("SELECT * FROM persons WHERE role_primary = 'SCHOLAR' ORDER BY name")
             era_groups["MODERN"] = cursor.fetchall()
