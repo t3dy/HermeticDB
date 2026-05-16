@@ -1,0 +1,887 @@
+Circe, la «virtus loci», il determinismo  
+nel de incantationibus  di Pomponazzi
+Vittoria  Perrone  ComP agni
+this paper focuses on the threefold ‘physical’ explanation of the 
+homeric myth of Circe, which pomponazzi’s De incantationibus 
+opposed to Christian demonologists. pomponazzi aimed to prove 
+that men’s metamorphosis into animals as well as the so-called 
+‘miracles’ are not the effect of demons’ action, but depend on 
+the movements of the stars. Celestial bodies execute the ‘divine’ 
+(but impersonal) design of eternal preservation of all sublunary 
+species. the hierarchical submission of nature to universal cau
+-
+sality includes also human acts, being man’s soul forma materialis 
+(according to De immortalitate animae). therefore, determinism 
+was already accepted by pomponazzi since 1516.
+Keywords: metamorphosis, materialism, astrology, determinism
+1. Una consolidata tradizione storiografica individua nel pensiero 
+pomponazziano uno sviluppo significativo e radicale sul tema del libero 
+arbitrio. il punto di crisi si situerebbe all’interno del De incantationibus 
+(1520), dove pomponazzi riconosce che la libertà è privilegio del solo 
+sapiente, escludendo i vulgares dall’esercizio di una scelta autonoma e 
+consapevole. ma il nodo problematico si scioglierebbe soltanto nel De 
+fato con l’accettazione di una visione deterministica di ispirazione ‘stoica’; 
+e si tratterebbe di un’accettazione non priva di oscillazioni, lacerazioni 
+interne e ripensamenti, come sembra manifestare la teoria della libertà 
+come noluntas esposta nel iii libro. 1
+Questa lettura in chiave di evoluzione si scontra con una difficoltà 
+a mio parere insormontabile: alla data del De immortalitate animae  
+1  Una discussione delle posizioni più significative in v. perrone Compagni, Critica 
+e riforma del Cristianesimo nel «De fato» di Pomponazzi , in P. pomponazzi, Il fato, il 
+libero arbitrio, la predestinazione, trad. it. di v. perrone Compagni, Aragno, t orino 2004, 
+i, pp. ix -Cl Viii .
+Annali del dipartimento di Filosofia (nuova serie), xii (2006), pp. 5-32
+issn 1824-3770 (online)   © 2007 Firenze University press
+6 v ittoria perrone Compagni
+(1516) pomponazzi ha già fatto proprio uno schema esplicativo della 
+realtà interamente regolato dalla causalità stellare. per quanto il testo 
+eviti accuratamente di sfiorare il problema del libero arbitrio, l’orienta-
+mento determinista, implicito nella tesi dell’anima come forma materiale 
+e motore mosso dall’oggetto esterno, emerge con tutta evidenza nella 
+trattazione di un’altra questione. esaminando la casistica di «fatti accer-
+tati» che potrebbero essere invocati a prova dell’immortalità dell’anima 
+(sogni, apparizioni, profezie), 2 pomponazzi estende la discussione al 
+problema dell’azione dei demoni nel mondo sublunare. la questione 
+demonologica è pertinente: l’esistenza di demoni e angeli renderebbe 
+infatti inutilizzabile uno dei punti forti della confutazione antitomistica 
+del De immortalitate, ossia il rimando al principio aristotelico che limita il 
+numero delle sostanze immateriali alle intelligenze motrici delle sfere ed 
+esclude perciò la possibilità di una «folla infinitamente infinita» di anime 
+individuali disincarnate, che continuerebbero la loro esistenza in stato di 
+oziosità.3 l a solutio proposta da pomponazzi per spiegare i portenti senza 
+ricorrere alla demonologia cristiana (condivisa da «quasi tutte le altre re-
+ligioni», ma anche da «platone, Avicenna e molti altri») riconduce questi 
+experimenta alla ‘cura’ che le intelligenze separate esercitano mediante 
+i corpi celesti sul mondo sublunare. non solo il divenire fisico, ma la 
+stessa storia dell’uomo dipendono dalla provvidenza degli enti superiori, 
+che operano «in rapporto alle condizioni dei tempi e dei luoghi» per 
+portare a compimento il disegno impersonale della conservazione delle 
+specie.4 ma se ogni accadimento naturale e storico è regolato dall’ordi-
+nata rivoluzione degli astri, pomponazzi ha già messo in discussione il 
+fondamento della libertà, perché ha collocato la sfera del contingente nel 
+contesto teleologicamente disposto dalle cause superiori: anche l’anima 
+2  p. pomponazzi, Trattato sull’immortalità dell’anima, 13, trad. it. di v. perrone 
+Compagni, olschki, Firenze 1999, pp. 81-83 [pp. 158-162]. i rimandi sono a questa 
+traduzione; segnalo tra parentesi quadre le corrispondenti pagine della edizione latina 
+con traduzione tedesca, Abhandlung über die Unsterblichkeit der Seele , hrsg. von B. 
+mojsisch, meiner, Hamburg 1990. 
+3  ivi, 9, pp. 47, 51 [pp. 88, 96]. Cfr. Aristotele, Metafisica, xii, 8, 1074a13-15, 
+19-23.
+4  pomponazzi, Trattato, cit., 14, pp. 103-105 [pp. 202-218]. F . graiff, I prodigi e 
+l’astrologia nei commenti di Pietro Pomponazzi al  «De caelo», alla  «Meteora» e al «De 
+generatione», « medioevo. r ivista di storia della filosofia medioevale», ii , 1976, pp. 
+331-334, indica in questa risposta il nucleo dell’indagine successiva di pomponazzi. p. 
+zambelli, Di un’opera clandestina del Pomponazzi e del suo eclettismo, «giornale critico 
+della filosofia italiana», 24, 2004, pp. 286-287 (già apparso in versione inglese, «Bochumer 
+philosophisches Jahrbuch für Antike und mittelalter», 6, 2001, pp. 87-115), ne sottolinea 
+la continuità tematica con il De incantationibus, ma non rileva il suo collegamento anche 
+con il determinismo del De fato.
+7Circe, la «virtus loci», il determinismo
+razionale, come le altre forme materiali, è sottoposta alla stessa legge di 
+causalità che governa la natura. si potranno istituire legittime distinzioni 
+tra classi di anime, qualificando il comportamento dell’uomo come una 
+attività più complessa e più perfetta in rapporto all’agire degli animali 
+– nel rispetto del contenuto reale di quel secundum quid di immaterialità 
+che pomponazzi ha riconosciuto all’anima dell’uomo;5 ma una libertà 
+piena, nel senso indicato da certi passi della Nicomachea, da Alessandro 
+di Afrodisia e dai pensatori cristiani, non può più essere affermata. 
+se ne avvidero subito i primi obiettori dell’appena pubblicato De 
+immortalitate, che non si limitarono a sollevare perplessità e quesiti sulla 
+esegesi pomponazziana in materia di psicologia, ma seppero trarre tutte 
+le conseguenze che dal riconoscimento della materialità dell’anima si 
+riverberavano sull’autonomia della volontà umana. Basta scorrere il ii 
+libro dell’Apologia (1518), in cui pomponazzi espone, controbattendole, 
+le critiche mosse alla sua interpretazione mortalista di Aristotele: al pro-
+blema del libero arbitrio fa riferimento diretto la prima dubitatio di pietro 
+manna; vi ritorna indirettamente anche v irgilio g irardi, prendendo avvio 
+dal problema degli indemoniati.6 
+nella sua replica pomponazzi disegna un quadro cosmologico or -
+mai incompatibile con un’etica della libertà. la trasmissione di vita si 
+genera dalle intelligenze (gli ‘dei’) e si diversifica mediante il movimento 
+delle stelle, che regola l’eterna vicenda di generazione e corruzione delle 
+specie sublunari e di ogni altro ente venga all’essere.7 Questa struttura 
+cosmologica è effetto e insieme oggetto della cura che gli enti superiori 
+5  pomponazzi, Trattato, cit., 9, pp. 42-61 [pp. 78-116].
+6  p. pomponazzi, Apologia, ii, 4, in id., Tractatus acutissimi, utillimi et mere peripa-
+tetici, sumptibus haeredum o ctaviani s coti, v enetiis 1525 (ripr. anast. e urocart, Casarano 
+1995), f. 68vb: «petrus manna Cremonensis, vir acerrimi ingenii gravissimique iudicii, 
+cum tractatum nostrum legisset, haec ad me scripsit: “Circa ea quae dixisti in tuo tractatu 
+de animorum immortalitate, haec occurrunt dubitanda. primo, quoniam si corruptibilis 
+esset humana anima, difficile videtur posse salvare libertatem eius, cum sit subdita caelo 
+sicut et bruta”»; f. 69ra: «vergilius girardus Bononiensis, hic Bononiae logicam docens, 
+rationabiliter dubitavit. inquit enim: “si haec opera daemoniacorum reducuntur ad cor
+-
+poris dispositionem et motum astrorum veluti in causam, quum loquutio sit ad placitum 
+et redacta ad voluntatem nostram, veluti placet Aristoteli in primo Peri hermeneias, tunc 
+astra essent causa in nobis eorum quae sunt ad placitum et actuum liberi arbitrii; quo 
+concesso, aufertur omnis potestas liberi arbitrii”». la traduzione italiana dell’
+Apologia, 
+da me curata, è di prossima pubblicazione.
+7  ivi, ii, 5, f. 70ra: «cum iste mundus inferior de necessitate mundo superiori con-
+tiguetur, ut inde omnis virtus hic inferior gubernetur, sicuti in principio Metheororum 
+scribitur, ideo omnes effectus hic existentes dependent a d eo et intelligentiis, non quidem 
+agentibus sine medio in haec inferiora, sed mediantibus corporibus coelestibus, veluti 
+octavo Physicorum, secundo De generatione et duodecimo Metaphysicae traditur».
+8 v ittoria perrone Compagni
+esercitano in universali (ossia sulla specie),8 individualizzandosi poi nel 
+mondo inferiore in relazione alla disposizione del soggetto recipiente, 
+«allo stesso modo in cui la natura ha come fine la specie e tuttavia pro -
+duce soltanto l’individuo».9 l a concezione della provvidenza implica 
+una connessione tra volontà e causalità superiore che si definisce già 
+negli stessi termini del De fato: «quegli enti superiori concorrono […] 
+anche agli effetti prodotti da tutti gli enti razionali – sia che provengano 
+dall’intelletto, sia che provengano dalla volontà. perciò essi sono cause 
+anche di tutti gli effetti che avvengono per scelta e che sono soggetti al 
+comando della volontà».10
+n ella dichiarazione mortalista del 1516 sono dunque sottintesi i temi 
+fondamentali di un determinismo cosmologico ed etico che non verrà 
+‘scoperto’ negli anni successivi, ma soltanto esplorato e messo a punto 
+fino alla sua esposizione definitiva e nient’affatto aporetica nel De fato. 
+il nesso tra psicologia materialistica ed etica deterministica è indicato 
+senza equivoci dal iii libro del 
+De fato:
+la volontà segue sempre l’intelletto, sia che l’intelletto giudichi bene sia che giu-
+dichi male. Che poi l’intelletto giudichi bene o male […] dipende dalla buona 
+disposizione che l’intelletto ha contratto dal corpo al momento della generazione. 
+Infatti per Aristotele l’anima è mortale e, secondo lui, è inseparabile dal corpo, 
+come ho sostenuto nei tre trattati che ho dedicato all’immortalità dell’anima […]. 
+l ’intelletto poi ragiona bene o male grazie alle disposizioni esterne: per esempio, 
+gli influssi dei corpi celesti, il rapporto con uomini istruiti, la disponibilità del 
+necessario per mangiare e vestirsi e così via. ma tutte queste disposizioni sono 
+sottoposte al fato e in senso assoluto non sono in nostro potere.11
+8  Ibidem: «Cum autem illa abstracta haec inferiora gubernent intelligendo et volendo 
+habentque se ad haec inferiora sicut artifex ad artificiatum, ideo necesse est ut cognoscant 
+et curent ista inferiora, veluti sapienter Averrois et in libro De divinatione per somnium 
+et in decimo octavo, trigesimo sexto, quinquagesimo primo, quinquagesimo secundo 
+commentis duodecimi Methaphysicae scribit, […] secundum modum convenientem 
+ipsis intelligentiis. Qui modus […] dici tamen potest universalis cognitio, quoniam una 
+cognitio numero sufficit ad omnia individua secundum unam rationem et secundum 
+omne tempus. v erum in his inferioribus fit multiplicatio et diversitas secundum corporis 
+et materiae diversitatem».
+9  ivi, f. 69rb: «Quod namque in universali intelligitur, in particulari generatur, veluti 
+natura intendit speciem et tamen non producit nisi individuum». 
+10  ivi, f. 70ra: «Quapropter dicimus illa superiora non solum concurrere ad irra -
+tionabilium effectus, verum et omnium rationabilium, sive effectus illi procedant ab 
+intellectu, sive a voluntate. Quare et omnium eorum quae sunt secundum placitum et 
+voluntatis imperio subditorum causae sunt».
+11  pomponazzi, Il fato, cit., iii, 10, 11-14, pp. 553-555 [pp. 275-276]; il corsivo 
+è mio. Cito da questa traduzione, che riproduce a fronte il testo critico curato da r. 
+lemay; segnalo tra parentesi quadre anche le corrispondenti pagine di quella edizione,  
+Libri quinque de fato, de libero arbitrio et de praedestinatione , ed. r. lemay, thesaurus 
+9Circe, la «virtus loci», il determinismo
+2. l ’indagine posteriore al De immortalitate animae si era proposta 
+appunto di individuare le cause ‘esterne’ che influiscono sulla costituente 
+materiale del sinolo, determinandone le «disposizioni», premesse ine -
+ludibili per il funzionamento dell’intelletto e per lo svolgersi dell’atto 
+deliberativo. il problema è affrontato da una duplice prospettiva: da 
+una parte spostando l’attenzione sulla considerazione delle proprietà 
+accidentali dipendenti dalla materia, che condizionano le attività della 
+forma; dall’altra, ricostruendo la subordinazione gerarchica delle cause 
+prossime rispetto alle cause remote. 
+nel De incantationibus pomponazzi si interroga con sistematicità 
+sulla relazione che connette gli eventi sublunari ai corpi celesti, tentando 
+di coordinare in una struttura causale organica, compatta e rigorosa la 
+mondana varietas – tutti i fenomeni che accadono in deroga a quel ‘per 
+lo più’ che è quanto noi conosciamo della natura. la ricerca delle cause 
+naturali dei fatti straordinari non è frutto di semplice curiosità per le 
+infinite manifestazioni di una «natura maga»; 12 è invece una necessità 
+interna al sistema pomponazziano: se non sempre (o quasi mai) questi 
+eventi si lasciano classificare nell’ambito dell’ut in pluribus, si tratta di 
+mostrare che essi interrompono solo in apparenza la regolarità del corso 
+della natura, perché dipendono in realtà dalla connessione necessaria delle 
+leggi del cosmo e sono intenta per se dall’ordine delle cause universali. il 
+‘raro’ diviene perciò un frammento di conoscenza empirica, che aiuta a 
+ricostruire nella sua interezza il disegno unitario soggiacente a ogni fatto 
+della natura e della vita umana; diviene, insomma, ‘storia’, estensione 
+artificiale dell’esperienza inevitabilmente limitata dell’individuo, surro-
+gato di quella impossibile conoscenza completa della catena cause/effetti 
+che, se potesse realizzarsi, consentirebbe all’uomo di cogliere nella sua 
+interezza l’ordine armonico che governa il tutto.13 n el De incantationibus 
+mundi, lucani 1957. 
+12  su questo luogo comune nella letteratura rinascimentale, cfr. almeno m. Ficino, 
+El libro dell’amore, vi, 10, a c. di s. niccoli, olschki, Firenze 1987, pp. 144-145; id., In 
+Apologiam Socratis epitome, in Opera, ex officina henricpetrina, Basileae 1576, ii , p. 1388, 
+(réimpr. phénix editions, paris 2000); g. pico della mirandola, Oratio, ed. e trad. it. di 
+s. marchignoli, in p. C. Bori, Pluralità delle vie . Alle origini del «Discorso» sulla dignità 
+umana di Pico della Mirandola, Feltrinelli, milano 2000, p. 144. 
+13  Cfr. al-Kindi, De radiis, 2, éd. par m.th. d’Alverny - F . Hudry, «Archives d’Hi-
+stoire doctrinale et littéraire du moyen Âge», 41, 1974, p. 223: «si enim alicui datum 
+esset totam conditionem celestis armonie comprehendere, mundum elementorum cum 
+omnibus suis contentis in quocumque loco et quocumque tempore plene cognosceret 
+tanquam causatum per causam». sul De radiis, p. t ravaglia, Magic, causality and inten-
+tionality . The doctrine of the rays in al-Kindi, sismel-edizioni del galluzzo, Firenze 1999. 
+pomponazzi non cita mai il De radiis, che però è certamente una delle fonti del fatalismo 
+del De incantationibus e del De fato.
+10 v ittoria perrone Compagni
+l’uso delle fonti storiche costituisce quindi l’ossatura del procedimento 
+di ricerca scientifica. Contro l’ipotetico rimprovero di intrecciare inde-
+bitamente filosofia e storia pomponazzi rivendica il ruolo ausiliario della 
+storia nell’accertamento del quia: 
+il compito del filosofo è quello di individuare le cause degli effetti naturali; 
+e tuttavia egli non potrebbe adempiere a questo compito se non sapesse che 
+quel certo effetto esiste (ignorato ‘quia est’) […]. poiché effetti simili accadono 
+rarissimamente, era necessario renderli noti; e nessuna arte può farlo meglio e 
+più appropriatamente della storia.14 
+perciò pomponazzi può affermare che «senza la storia non è possibile 
+essere un buon filosofo naturale»,15 cioè non è possibile collocare i feno-
+meni relativi a un singolo tempo e a un singolo luogo nella prospettiva 
+della vicenda universale. 
+t ra i molti temi che il De incantationibus attinge dall’indistinto re-
+pertorio della tradizione storica, della erudizione letteraria e del folklore 
+popolare, uno dei più celebri è senza dubbio costituito dalla leggenda 
+della trasformazione di uomini in animali, che moralisti e mitografi ave-
+vano già esplorato in tutti i suoi possibili registri significanti. il problema 
+è avanzato nel capitolo 11, ove un ipotetico contraddittore raccoglie una 
+serie di considerazioni teoriche e di testimonianze autorevoli per denun-
+ciare l’insufficienza della spiegazione in via naturae proposta nei capitoli 
+precedenti. secondo la settima dubitatio, la riconduzione dei fenomeni 
+straordinari alla causalità esercitata dalle intelligenze e dai corpi celesti 
+non ne esaurisce tutte le possibili modalità:
+14  p. pomponazzi, De incantationibus, 12 [p. 296]: «cum philosophi sit causam 
+naturalium effectuum reddere, hoc autem fieri non potest ignorato ‘quia est’, ut Poste-
+riorum secundo scribitur. t ales autem effectus rarissime sunt; ideo fuit necessarium eos 
+declarare. nulla autem ars melius et accomodatius hoc facere potest ipsa historia. Hinc 
+est quod historia usi sumus; et quamvis multa modernorum occurrerent ad hoc negocium 
+pertinentia, tamen, ut maior fides adhibeatur, non adducere curavi nisi gravissimos et 
+approbatos historiae scriptores». Cfr. Aristotele, Secondi analitici , ii , 1, 89b33-35. il 
+De incantationibus, sottoscritto nel luglio del 1520, fu stampato solo nel 1556 a Basilea 
+con il titolo De naturalium effectuum causis sive De incantationibus, a cura di guglielmo 
+gratarol, che lo ristampò una seconda volta nel 1567 assieme al De fato. Cito dal testo 
+critico da me curato e tradotto di prossima pubblicazione, segnalando tra parentesi 
+quadre le corrispondenti pagine della seconda edizione g ratarol (ripr. anast. o lms, 
+Hildesheim-new y ork 1970). sui criteri editoriali del gratarol, cfr. m. doni, Il «De In-
+cantationibus» di Pietro Pomponazzi e l’edizione di Guglielmo Grataroli, «r inascimento», 
+15, 1975, pp. 183-230.
+15  pomponazzi, De incantationibus, cit., 10 [p. 121]. s ulla ‘esperienza’ come insieme 
+di astrologia e storia A. ingegno, Filosofia e religione nel Cinquecento italiano, sansoni, 
+Firenze 1977, pp. 42-43.
+11Circe, la «virtus loci», il determinismo
+l a settima obiezione riguarda il fatto che non risultano essere state ricordate 
+tutte le modalità in cui si realizza l’incantazione. v arrone infatti racconta che 
+sulla via del ritorno da t roia i compagni di diomede furono tramutati in uccelli, 
+che ancora molto tempo dopo volavano in prossimità del tempio di diomede; 
+racconta anche che la famosissima maga Circe «tramutò in bestie i compagni 
+di Ulisse» e che gli Arcadi si trasformavano in lupi se attraversavano un certo 
+stagno. t utti questi effetti non possono essere ricondotti a una qualche causa 
+naturale. perciò, oltre alle intelligenze e ai corpi celesti, bisogna ammettere che 
+dio agisce direttamente e che esistono angeli e demoni. 16 
+l ’obiezione è attinta letteralmente da un argomento esaminato dal De 
+potentia di t ommaso, che riproponeva episodi già ricordati dalla Città di 
+Dio di Agostino.17 la dipendenza da queste fonti dimostra che pompo-
+nazzi non si avventura nel malfermo territorio del mito metamorfico per 
+ingenua credulità o per acritica accettazione delle auctoritates;18 e neppure 
+per un astratto desiderio di cimentarsi con fatti particolarmente restii a 
+lasciarsi collocare nel contesto ordinato delle leggi naturali. A guidare 
+la ricerca delle cause fisiche di queste «dotte corbellerie» 19 è piuttosto 
+una esigenza esterna, storica e pratico-politica. Che pomponazzi creda 
+alla leggenda di Circe è dubbio e comunque ininfluente. la favola della 
+trasformazione di uomini in bestie aveva infatti trovato stabile colloca -
+zione nel dossier ‘sperimentale’ di demonologi e inquisitori: il Malleus 
+maleficarum, per citare l’esempio cronologicamente più vicino a pom-
+16  pomponazzi, De incantationibus, cit., 11 [pp. 217-218]: «septima dubitatio est 
+quoniam non omnes modi incantationis videntur esse rememorati. v arro namque narrat 
+socios diomedis, revertentes a t roia, in aves fuisse conversos, quae longo tempore post 
+circa templum diomedis volabant. narrat etiam quod Circe, famosissima maga, “socios 
+Ulixis mutavit in bestias” et quod Arcades, quodam stagno transito, vertebantur in lupos 
+Haec autem in aliquam causam naturalem non videntur posse referri: quare praeter in-
+telligentias et corpora coelestia necessarium est dare deum immediate agentem et dare 
+angelos et daemones». 
+17  t ommaso d’Aquino, De potentia Dei , q. 6, a. 4, arg. 6, ed. p. pession, in id., 
+Quaestiones disputatae, marietti, t orino-roma 1965, p. 170; Agostino, De civitate Dei, 
+xviii, 16-17, ed. B. dombart-A. Kalb, t urnhout, Brepols 1955, pp. 606-607. Cfr. v ir-
+gilio, Bucoliche, viii, 70. la leggenda dei compagni di diomede è registrata anche dallo 
+ps. Aristotele, De mirabilibus auscultationibus, 856a-857b, e plinio, Naturalis historia, x, 
+61, 127. le metamorfosi di Circe sono narrate in omero, Odissea, x, 230-243, e ovidio, 
+Metamorfosi, xiv , 248-307. sulla trasfigurazione degli Arcadi plinio, Naturalis historia, 
+viii, 34, 81. 
+18  Cfr. invece C. innocenti, in p. pomponazzi, Gli incantesimi, trad. it. di C. inno-
+centi, la nuova italia, Firenze 1996, p. 150, nota 369; ead., Il fondamento astrologico 
+della realtà nel «De incantationibus» e nel «De fato»  di Pietro Pomponazzi, «nouvelles 
+de la république des lettres», 1997-i, pp. 75-76, nota 79.
+19  Come bonariamente le definiva B. n ardi, Studi su Pietro Pomponazzi, l e monnier, 
+Firenze 1965, p. 317.
+12 v ittoria perrone Compagni
+ponazzi e storicamente più importante, riaffermava anche attraverso gli 
+incantesimi di Circe l’esistenza del demonio, il suo incessante intervento 
+nella vita dell’uomo e il ruolo di mediazione e difesa svolto dalla Chie -
+sa.20 pomponazzi scrive il De incantationibus proprio in opposizione 
+all’ideologia su cui si sostiene il Malleus – non per difendere le streghe, 
+ma se mai con l’intento di ricondurre ogni azione umana sul piano della 
+responsabilità individuale, socialmente perseguibile: offrendo una spie-
+gazione della realtà fisica libera da intrusioni soprannaturali, pomponazzi 
+crede di poter anche rifondare l’etica civile sulla base di quella terrena 
+eupraxia in cui già il De immortalitate animae individuava il nucleo della 
+vita sociale.21 smontare l’edificio della demonologia comporta l’obbligo 
+di passare in rassegna tutti gli aspetti del miracoloso, riconducendoli uno 
+per uno nell’ambito di una struttura causale accessibile e controllabile 
+dalla ragione: l’analisi dei luoghi comuni dell’immaginario collettivo cin-
+quecentesco è perciò imposta a pomponazzi dai suoi stessi obiettori, che 
+citano proprio questi ‘fatti’ per provare l’esistenza dei demoni. e nella 
+discussione sulle metamorfosi, apparentemente marginale e forse un po’ 
+stravagante, si possono cogliere non solo le convinzioni epistemologiche 
+di pomponazzi e certe sue idiosincrasie culturali e personali, ma soprat-
+tutto le linee portanti della sua riflessione sulle leggi del divenire naturale: 
+anche Circe, «veneficarum celeberrima»,22 contribuisce alla ricostruzione 
+teorica dell’ordinamento deterministico della realtà.
+la replica alla dubitatio è articolata in tre risposte progressivamente 
+più generali. da una parte il succedersi di soluzioni differenti si sviluppa 
+in armonia con l’orientamento complessivo del De incantationibus, in-
+teressato a spostare la riflessione circa le ‘meraviglie’ naturali dal piano 
+della causalità sublunare a quello della causalità stellare; dall’altra parte, 
+il procedere per accumulazione di ipotesi è coerente con la premessa 
+metodologica dell’indagine fisica pomponazziana: poiché le potenzialità 
+della natura ci sono in gran parte ancora ignote, il tentativo umano di 
+rintracciare le cause in rebus naturalibus giunge a formulare una serie di 
+congetture verosimili, ma non riesce a organizzarsi come scienza certa.23 
+la caratterizzazione del sapere naturale come ricerca inconclusa, che si 
+20  H. institoris (Kramer) - J. sprenger, Malleus maleficarum, i, q. 10; ii, q. 7, [peter 
+drach, speier, 1487], ff. d6ra-d7vb, h3vb-h5ra (Wiedergabe des erstdrucks von 1487, 
+hrsg. von A. schnyder, Kümmerle v erlag, göppingen 1991, pp. 59-61, 118-120).
+21  pomponazzi, Trattato, cit., 14, pp. 84-91[pp. 164-180]. 
+22  pomponazzi, De incantationibus, cit., 10 [p. 188].
+23  ivi, 4 [p. 60]: « Certe multa sunt naturalia, quorum causas nescimus reddere»; 
+10 [p. 174]: «et medici ponunt […] aliqua simplicia esse invicem componibilia et aliqua 
+non; quorum causas ignoramus, sed tantum in eis dicimus quoniam talia».
+13Circe, la «virtus loci», il determinismo
+muove tra supposizioni, incertezze, ripensamenti e sviluppi successivi,24 
+è dichiarata in più occasioni e trova sistematica applicazione anche sul 
+piano espressivo: costantemente il De incantationibus introduce le varie 
+solutiones facendo ricorso a una terminologia ‘congetturale’ («non ir -
+rationabile est», «verisimile est», «fortasse»). del resto, l’ultimo scritto 
+che pomponazzi vide stampato, il De nutritione et augmentatione (1522), 
+enuncerà il principio in modo esplicito: 
+dare un giudizio certo e fermo nell’ambito della natura è tipico dell’uomo 
+temerario e ignorante, che non sa dove risieda la difficoltà. Costui assomiglia 
+a un guerriero inesperto che si getta nella battaglia senza consapevolezza del 
+pericolo. perciò io credo che nell’ambito della natura abbiamo piuttosto a che 
+fare con congetture che con una scienza certa.25
+o ggetto di scienza certa è il quadro cosmologico e metafisico che regola 
+teleologicamente il divenire del mondo sublunare secondo la legge necessa-
+ria di un disegno impersonale superiore; oggetto di congettura è invece la 
+varietà delle disposizioni materiali nella loro relazione con le cause celesti. 
+in questa prospettiva, il De incantationibus, che è stato spesso considerato 
+l’opera più brillante di pomponazzi, rappresenta al contrario la sua opera 
+più ‘tormentata’, la più fitta di spiegazioni proposte come verosimili e ra-
+gionevoli, ma presto accantonate e superate da nuove ipotesi – un’opera, 
+tra l’altro, che forse era ancora in progress quando cominciò a circolare, 
+come sembra attestare la situazione intricatissima dei manoscritti.
+3. nella prima risposta pomponazzi riferisce la posizione di quanti 
+negano la veridicità dei fenomeni citati nell’obiezione e considerano le 
+metamorfosi una pura invenzione letteraria. plinio il v ecchio riteneva 
+che la leggenda dei compagni di diomede tramutati in uccelli fosse la 
+24  ivi, 9 [pp. 106-107]: «e t quamquam nos non existimemus ei dubitationi ad plenum 
+satisfacere, credimus tamen aliquos futuros post nos, qui ei magis satisfacient: scientiae 
+enim fiunt per additamenta, ut secundo Metaphysicae et in fine secundi Elenchorum 
+scribitur»; peror. [pp. 325-326]: «in his vero quae ad disciplinam peripateticam perti -
+nent, […] sic quoque ego servandum puto, ut nostrae responsiones tam diu teneantur, 
+donec meliores reperiantur. ego enim in hac materia verius nihil quam aliquid ab aliis 
+accepi. difficile est autem invenire et perficere: quare sat sit invenisse, si non perfecerim. 
+nam scientiae per additamenta fiunt; et “nisi phrinis fuisset, t imotheus non fuisset”, 
+ut scribitur secundo Metaphysicae». Cfr. Aristotele, Metafisica, ii, 1, 993b2-3, b11-18; 
+Confutazioni sofistiche, 34, 183b17-22. 
+25  p. pomponazzi, De nutritione et augmentatione libellus , i, 25, in id., Tractatus 
+acutissimi, cit., f. 130vb: «Ad haec dicendum quod in naturalibus firmum et certum iu-
+dicium dare est hominis temerarii et ignorantis, qui nescit ubi stat rei difficultas. et est 
+similis bellatori inexperto, qui se committit pugnae absque periculi cognitione. Quare 
+magis in naturalibus, ut opinor, sunt coniecturae quam certa scientia».
+14 v ittoria perrone Compagni
+trascrizione in linguaggio fantasioso di un’osservazione etologica: le 
+cataratte (o uccelli diomedei) non solo vivono esclusivamente nell’isola 
+dell’Adriatico dove sorge il tempio di diomede, ma sembrano addirit -
+tura capaci di distinguere i greci dai barbari, accogliendo festosamente 
+i primi e schiamazzando contro tutti gli altri, quasi rendessero omaggio 
+«alla stirpe a cui apparteneva diomede». pomponazzi aggiunge che for
+-
+se plinio avrebbe ricondotto a un qualche dato naturale analogo anche 
+l’origine del mito di Circe e della trasformazione degli Arcadi; ma non 
+sarebbe facile indovinare ( vaticinari) quale fenomeno abbia ispirato in 
+questi casi l’inventività dei poeti, perché dalla poesia non è possibile 
+ricavare conoscenze di ordine scientifico.26 
+il richiamo alle fabulae offre a pomponazzi l’occasione per ribadire 
+la propria insofferenza verso l’utilizzazione in sede filosofica di queste 
+presunte testimonianze di una antichissima sapienza: 
+in queste invenzioni e in questi apologhi gli uomini parlano infatti in molti 
+modi. perciò nel iii libro della Metafisica Aristotele ha detto che la metafora è 
+chiara soltanto a chi escogita la metafora; e quindi egli ha respinto assolutamente 
+questo modello di procedimento filosofico, considerandolo del tutto estraneo al 
+filosofo, anche se si addice particolarmente ai poeti e talvolta agli oratori, come 
+lo stesso Aristotele afferma nella Poetica e nella Retorica.27 
+l ’opposizione tra il linguaggio poetico e il rigoroso procedere del-
+l’argomentazione razionale sottintende in realtà la contrapposizione tra 
+26  pomponazzi, De incantationibus, cit., 12 [pp. 268-269]: «Credunt enim aliqui, 
+velut plinius secundus quadragesimo quarto capite decimi libri Naturalis historiae, illa 
+esse fabulosa et poetarum commenta, illudque de diomedis sociis in aves conversis ideo 
+confictum a poetis fuisse, quoniam aves diomedeae, sive cataractae dictae, in solo totius 
+orbis loco visuntur, in insula ubi tumulus et delubrum diomedis extant, contra Apuliae 
+oram, fulicarum similes; et quoniam advenas barbaros clangore infestant, graecis autem 
+tantum adulantur miro discrimine, velut generi diomedis hoc attribuunt. idemque exi-
+stimo plinium dixisse de sociis Ulixis et Arcadibus versis in bestias ex aliquo consimili; 
+quod difficile esset vaticinari, cum de hoc haberi scientia non possit». 
+27  ivi, 12 [p. 269]: «nam in istis figmentis et apologis homines multis modis lo -
+quuntur. Quare Aristoteles tertio Metaphysicae dixit metaforas notas esse solum illis qui 
+metaforas faciunt: quare hoc genus philosophandi penitus a se reicit tanquam omnino a 
+philosopho alienum, etsi poetis maxime conveniat et aliquando oratoribus, ut ipse Ari-
+stoteles in Poesi et Rhetorica dicit». Cfr. Aristotele, Metafisica, iii, 4, 1000a9-20; Poetica, 
+22, 1459a6-8; Retorica, iii, 2, 1405a; Averroè, In Metaphysicorum libros commentarii , 
+iii, comm. 15, in  Aristotele, Omnia quae extant opera cum Averrois commentariis, apud 
+iunctas, v enetiis 1562-1574 (ripr. anast. minerva, Frankfurt a. m. 1962), viii, f. 55B-d: 
+«omnes loquentes in Divinis etc .. e t intendit per loquentes in d ivinis loquentes sermonem 
+extra intellectum hominis; et ideo dixit quod isti in sermone suo sufficiunt sibi, non nobis, 
+quia ipsi intelligunt per apologos aliquas intentiones, per quas sunt contenti […] et ipsi 
+intelligunt intentiones, quas ipsi apologizaverunt in hoc». 
+15Circe, la «virtus loci», il determinismo
+platonismo e aristotelismo e implica tanto un giudizio sulla adeguatezza 
+dei due metodi nell’acquisizione della verità, quanto una valutazione di 
+ordine pratico, relativa alla loro capacità di persuasione. d al primo punto 
+di vista, pomponazzi rifiuta qualsiasi fondamento dimostrativo al parlare 
+platonico per apologhi, «omnino a philosopho alienum»; il giudizio è 
+ribadito in molti altri luoghi28 e toglie verosimiglianza all’interpretazione 
+di quanti ravvisano nelle ultime opere pomponazziane un progressivo 
+distacco da Aristotele e l’apertura verso il platonismo.29 l a constatazione 
+delle insufficienze dell’aristotelismo, frequente soprattutto nei corsi uni-
+versitari e solo su specifiche questioni, non si traduce mai in una dichia-
+razione di sfiducia e nell’abbandono dell’intero quadro concettuale, ma 
+è piuttosto la presa d’atto, libera da ogni miope ossequio all’auctoritas, 
+di uno sviluppo errato o incompleto dell’argomentazione di Aristotele, 
+che in quel particolare luogo è venuto meno al rigore dei princìpi della 
+sua filosofia – per limitatezza di esperienza, per umana debolezza o per 
+scelta di opportunità pratica;30 ma quando pomponazzi parla di princìpi 
+28  p. Pomponazzi, Quaestio de universalibus (1503), in id., Corsi inediti dell’inse-
+gnamento padovano, a c. di A. poppi, ii, Antenore, padova 1970, p. 97: «Utrum autem 
+ista fuerit mens platonis vel non, nolo pro nunc de hoc me intromittere; scientiam enim 
+platonis non callere posse me video, nam procedit per fabulas et apologos et aenigmata»; 
+Defensorium (1519), 11, in id., Tractatus acutissimi, cit., f. 88va: «Quid plato voluerit in 
+tanta re, non audeo ferre sententiam, eo etiam quoniam in parabolis et paradigmatibus 
+loquutus sit». 
+29  F . g raiff, Aspetti del pensiero di Pietro Pomponazzi nelle opere e nei corsi del perio-
+do bolognese, «Annali dell’istituto di Filosofia. Facoltà di lettere e Filosofia. Università 
+di Firenze», i, 1979, pp. 108-109: «Accanto all’insoddisfazione che il peretto provò nei 
+confronti di Aristotele e della tradizione aristotelica, non meno importante, a spiegarne 
+gli orientamenti, è l’interesse che egli nutrì nei confronti della cultura umanistica e pla-
+tonica»; zambelli, Di un’opera clandestina del Pomponazzi, cit., passim. riconducendo 
+la teoria profetica di pomponazzi alla lettura «fondamentale» dei testi platonici, graiff, 
+I prodigi e l’astrologia, cit., pp. 353-355, trascura la tradizione medioevale, che aveva già 
+articolato nel processo naturale la divinazione, come ha dimostrato t . g regory, Mundana 
+sapientia . Forme di conoscenza nella cultura medievale , edizioni di storia e letteratura, 
+roma 1992, pp. 347-382. 
+30  Cfr. p. pomponazzi, Quaestio de genitis ex putri materia (1518), paris, Bibiliothèque 
+nationale de France, ms. 6533, f. 519v: «ideo, domini, auctoritas Aristotelis est magna 
+et maxime in scolis peripateticorum; tamen dicam quod dicit ipse tertio De generatione 
+animalium, capitulo nono: non enim fuit ita fatuus et presumptuosus ut crederet se omnia 
+scire. ibi determinans de generatione apium, de quo est maxima difficultas, dicit: “di -
+cam illud quod mihi videtur verisimile; aut, si apparet oppositum, me remitto, quoniam 
+magis credendum est experimento quam rationi”, quoniam non possumus omnia scire. 
+[...] ideo Aristoteles fuit homo; ideo potuit errare. et experimentum est in oppositum; 
+ideo in hoc non est acceptandus»; Arezzo, Biblioteca della Città, Fraternita dei laici, 
+ms. 390, f. 277r. Cfr. Aristotele, Riproduzione degli animali, iii, 10, 760b31-32. dei due 
+mss. contenenti la quaestio ha dato notizia nardi, Studi su Pietro Pomponazzi , cit., pp. 
+305-319, che ha pubblicato alcuni brevi stralci del ms. Aretino. l ’edizione delle due 
+16 v ittoria perrone Compagni
+della ragione naturale, egli intende sempre i princìpi della filosofia di 
+Aristotele. la presenza di platone, d’altra parte, è limitata a un numero 
+abbastanza ristretto di citazioni concettualmente ininfluenti, sovente 
+scorrettamente identificate e arbitrariamente riportate, che pomponazzi 
+inserisce nel proprio testo in modo del tutto estrinseco: non ci sono ele-
+menti significativi che provino una riflessione seria e approfondita delle 
+opere platoniche o di quelle dei platonici, fiorentini e non.31 
+invece, dal punto di vista dell’applicazione pratica delle due filosofie, 
+la caratteristica affabulatoria del platonismo si presta maggiormente alla 
+costruzione di una ideologia pubblica, facendosi veicolo educativo dei 
+vulgares, mentre l’aristotelismo parla ai filosofi usando il linguaggio tec-
+nico del ragionamento sillogistico, cioè della verità. ma il riconoscimento 
+della maggiore fruibilità ‘politica’ del platonismo è modulato secondo 
+registri opposti: il De immortalitate sottolinea l’utilità pedagogica del mito 
+platonico dell’immortalità dell’anima, che consente di mettere a punto i 
+dispositivi di persuasione necessari alla costruzione di una etica pubblica 
+‘virtuosa’;32 il De incantationibus insiste piuttosto sul versante negativo 
+del platonismo, il cui linguaggio metaforico diviene sostegno di favole 
+perniciose come quella teologica dell’esistenza del demonio: 
+Aristotele era avverso all’uso di filosofare per enigmi, metafore e finzioni, 
+che platone praticava normalmente, e lo criticò, astenendosene del tutto: così 
+non c’è proprio da meravigliarsi se gli ignoranti e i sacerdoti hanno esaltato 
+platone e rifiutato e messo in cattiva luce Aristotele.33
+reportationes è in preparazione; cfr. infra, nota 67. sul topos ‘Aristotele fu un uomo e 
+potè sbagliare’, l. Bianchi, Saggi sull’aristotelismo del Rinascimento, il poligrafo, padova 
+2003, pp. 101-124. 
+31  Cfr. invece p. zambelli, «La metafora è conosciuta solo da chi fa la metafora» . 
+Pomponazzi, Bessarione e Platone, «nouvelles de la république des lettres», 1991-ii, pp. 
+75-88. i passi aristotelici discussi da Bessarione, la cui lettura avrebbe avuto su pompo-
+nazzi un impatto «travolgente» (p. 81), sono luoghi comuni della tradizione peripatetica 
+e scolastica. Cfr. Les Auctoritates Aristotelis . Un florilège médiéval . Étude historique et 
+édition critique , éd. J. Hamesse, publications Universitaires-Béatrice- n auwerlaerts, 
+louvain-paris 1974, p. 118, 35 (Aristotele, Metafisica, ii, 1, 993b9-11), p. 162, 34-35 (De 
+caelo, i, 10, 279b17-18, 33; 12, 281b25-26, 282a30-b1; t ommaso, In De caelo, i, lect. 
+28, n. 266); Averroè, In De generatione et corruptione commentarium , ii, comm. 52, in 
+Aristotele, Opera, cit., v, f. 384g. 
+32  pomponazzi, Trattato, cit., 14, pp. 98-100 [pp. 194-198]; 15, p. 118 [p. 236]. 
+ma cfr. anche 14, p. 103 [p. 204], ove è sottolineata la responsabilità di platone nella 
+diffusione delle credenze demonologiche.
+33  Pomponazzi, De incantationibus, cit., 10 [p. 205]: «g enus namque philosophandi 
+per aenigmata, metaforas et fictiones, maxime a platone usitatum, infensus damnavit 
+Aristoteles et ex toto a se reiecit. Quare nil mirum si plato a vulgaribus et sacerdotibus 
+fuerit exaltatus, Aristoteles autem repulsus et depressus». 
+17Circe, la «virtus loci», il determinismo
+4. l ’esposizione impersonale della prima solutio («Credunt enim 
+aliqui») sembrerebbe indicare un certo disinteresse di pomponazzi verso 
+la lettura pliniana. l ’impressione non è del tutto esatta, perché la risposta 
+viene parzialmente recuperata più avanti; ma l’apparente presa di distanza 
+è funzionale allo sviluppo dell’argomentazione. infatti, oltre a lasciare 
+irrisolta l’origine dei miti di Circe e degli Arcadi, l’interpretazione della 
+metamorfosi come travestimento favoloso di un normale fenomeno della 
+natura non rappresenterebbe da sola un’alternativa sufficientemente forte 
+alla spiegazione demonologica, che pomponazzi ritiene superabile soltan-
+to opponendole una ipotesi esplicativa più ragionevole ed ‘economica’, 
+fondata sulla natura.34 più in generale, ogni interpretazione che nega la 
+realtà dell’effetto straordinario comporta anche una messa in discussione 
+dell’attendibilità delle fonti storiche; e invece, per fondare la tesi centrale 
+e più ‘sovversiva’ del De incantationibus (quella dell’azione esercitata sul 
+mondo sublunare dai corpi celesti come strumenti necessari e sufficienti 
+delle intelligenze motrici), pomponazzi ha appunto bisogno della storia:
+35 
+solo dalla storia si può ricavare la conferma ‘per esperienza’ del costante 
+e ciclico ripetersi dei cosiddetti miracoli nell’imminenza di un grande 
+rivolgimento religioso o politico – e quindi della loro origine naturale e 
+della loro iscrizione in un piano provvidenziale impersonale, ma teleolo-
+gicamente orientato alla conservazione della specie umana.36 
+34  Questa posizione differenzia la prospettiva pomponazziana da quella dei libertini, 
+come osserva bene g. zanier, Ricerche sulla diffusione e fortuna del «De Incantationibus» 
+di Pomponazzi, l a n uova italia, Firenze 1975, pp. 14-15: «il libertinismo procede proprio 
+su quei binarî da pomponazzi avversati: nelle indagini particolari che mostrino l’infon-
+datezza di certi racconti, o pretesi miracoli, consiste il metodo proprio di questa forma 
+di razionalismo, che spesso si muove all’ombra di un neoepicureismo assai distante dalla 
+fisica “padovana”. […] d el miracolo si dà una spiegazione “naturale” quando capita, ma 
+in fondo non si ritiene davvero che qualcosa di simile sia accaduto».
+35  pomponazzi, De incantationibus, cit., 10 [pp. 113-115]: «mihi autem non videtur tu-
+tum neque sine verecundia dictum quod a plerisque dici solet, haec experimenta negantibus, 
+haec scilicet esse ab hominibus conficta […]. e go, inquam, hanc sententiam non approbo, 
+quandoquidem viri moribus gravissimi, doctrina eminentissimi et antiqui et veteres, tam 
+graeci quam latini ac barbari, haec verissima esse affirmant. Quare sic dicentes omnino 
+audiendi non sunt. v erum hi decipiuntur, quoniam, cum aliquando haec talia fabulosa 
+comperta sunt et aliquando visa sunt illusiones, ex particulari universale intulerunt; quod 
+ex logicae imperitia provenire manifestum est. n eque etenim si aliqua istorum talia sunt, 
+sunt falsa omnia; neque si aliqua eorum quae referuntur vera comperiantur, existimandum 
+est omnia esse vera. Utrumvis horum ex eadem deceptione procedit».
+36  ivi, 10 [pp. 168-169]: «multa enim sunt quae ex industria humana sciri non 
+possunt. Quare d eus et natura, non deficientes in necessariis, quae per causam et ingenio 
+humano perscrutari non possunt vel vix possunt, per signa diversa et instrumenta homines 
+admonefaciunt; et ea multiplicant ad maiorem certitudinem. Unde in nativitate Augusti 
+quasi omnia fuerunt coniuncta, utpote oracula, vaticinia, mathematicorum praenuntia -
+tiones, prodigia in bestiis, in elementis et reliquis huiusmodi generis. idem legimus de 
+18 v ittoria perrone Compagni
+perciò la seconda solutio, che pomponazzi presenta a proprio nome, 
+ammette come presupposto che il racconto rimandi a un qualche effetto 
+reale. spostandosi sul terreno dei teologi e degli inquisitori, il De incan-
+tationibus sottopone a esame la dottrina demonologica, ne individua il 
+punto critico, la conduce a contraddizione interna per poi offrirne una 
+radicale revisione in senso naturalistico. riprendendo la spiegazione di 
+Agostino e t ommaso, condivisa anche dal 
+Malleus maleficarum, pompo-
+nazzi afferma che non si trattò veramente di una metamorfosi, ma di un 
+fenomeno di suggestione: o una suggestione collettiva, indotta nell’organo 
+visivo degli astanti per mezzo di erbe o di altri ingredienti naturali (una 
+praestigiatio, insomma), come voleva Agostino; o una auto-suggestione, 
+indotta con gli stessi mezzi naturali nella fantasia del soggetto, secondo 
+una modalità operativa che pomponazzi ritiene «magis conveniens».
+37 l a 
+maggiore ‘congruenza’ dell’ipotesi pomponazziana risiede forse nella sua 
+maggiore ragionevolezza, poiché è più facile modificare la psiche di un 
+unico individuo piuttosto che la vista o la fantasia di un certo numero di 
+uomini; ma risiede anche nella sua coerenza con i dati dell’esperienza: 
+questa forma di allucinazione, provocata artificialmente nella mente di un 
+soggetto, causerebbe infatti la modificazione corporea allo stesso modo 
+in cui normalmente le passioni dell’anima determinano l’alterazione dei 
+tratti fisici.38
+Alcuni invece hanno sostenuto che queste storie devono essere intese sotto 
+il profilo dei costumi – nel senso che, per esempio, gli Arcadi furono trasformati 
+in lupi non perché realmente fossero lupi, né perché avessero davvero l’aspetto 
+magni Alexandri ortu, e vagorae et multorum aliorum apud plutarchum. imo in s alvatoris 
+nostri nativitate quot oracula, quot prodigia praecesserunt!»
+37  ivi, 12 [pp. 269-270]: «divus autem Augustinus decimo septimo capite decimi 
+octavi libri De civitate Dei  existimat haec arte demonum facta fuisse – non quidem 
+quod, dimittentes animam rationalem, sumpserint animam bestialem vel simul utramque 
+habuerint (haec enim omnino impossibilia sunt); sed tantum secundum apparentiam, 
+phantastico hominis secundum aliquam corporalem speciem immutato. Cui consentit 
+divus thomas in Quaestione de miraculis. […] secundum itaque hunc modum intelligi 
+posset haec miracula fuisse facta aut arte daemonum, ut dicit Augustinus, praestigiando 
+visus hominum, aut secundum secundum modum, immutando mentes ipsorum, ut 
+existimarent se esse bestias et more bestiarum viverent – et non quoniam sic viderentur 
+hominibus. et iste modus mihi magis videtur conveniens, salva tamen autoritate Augu
+-
+stini». Cfr. Agostino, De civitate Dei, xviii, 18, cit., pp. 608-610. 
+38  s ulla vis imaginationis pomponazzi era già intervenuto in una questione del 1515, 
+dove accoglieva la posizione tomistica. p. pomponazzi, Tractatus de reactione . Item quaestio 
+an actio realis immediate fieri potest per species spirituales, in id., Tractatus acutissimi, cit., 
+ff. 37v-40vb, su cui cfr. v. perrone Compagni, Mens, intellectus, ratio . Scala dell’essere e 
+modi di conoscenza in Pietro Pomponazzi, in Per una storia del concetto di mente, a c. di 
+e. Canone, olschki, Firenze, 2005, pp. 207-240. 
+19Circe, la «virtus loci», il determinismo
+di lupi, ma perché vivevano come lupi e avevano un aspetto simile ai lupi […]. 
+infatti, come l’aspetto inclina a certi costumi, allo stesso modo anche i costumi 
+modificano l’aspetto. osserviamo appunto che alcuni uomini prima sono man
+-
+sueti e si presentano con un volto d’agnello e poi, divenuti crudeli, assumono 
+un volto da leone o da lupo a seconda del diverso comportamento. […] t anto 
+grande è la forza dei costumi e delle passioni, come saggiamente hanno mostrato 
+Alberto e gli altri sapienti nel libro Sulla fisionomia.39
+pomponazzi propone una versione rigorosamente naturalistica del-
+l’interpretazione morale della metamorfosi, simbolica caduta del vizioso 
+nell’animalità. l o stesso De immortalitate aveva fatto cenno a questa 
+lettura di origine platonica, resa celebre dalle pagine della Consolazione 
+della filosofia (che l’aveva per l’appunto collegata alla leggenda di Circe) 
+e ancora centrale nei teorici della dignitas hominis.40 ma qui pomponazzi 
+adotta una prospettiva fisognomica che mette in massima evidenza – al 
+di fuori di ogni allegoria e coerentemente alla esegesi materialista del De 
+immortalitate animae – l’interazione e il reciproco condizionamento che 
+legano per natura il corpo e l’anima.
+Che la metamorfosi sia stata una collettiva oculorum deceptio o una 
+soggettiva mentis deceptio rimane comunque secondario ai fini della de-
+terminazione della causa. l a difficoltà della spiegazione demonologica 
+risiede invece nell’assunzione di due presupposti che si indeboliscono 
+vicendevolmente e lasciano aperta la possibilità di una spiegazione alter-
+nativa: da una parte, i teologi attribuiscono l’effetto ai demoni; dall’altra, 
+negano che i demoni possano compiere veri miracoli. il riferimento è senza 
+dubbio alla responsio che il De potentia di t ommaso dava alla questione 
+Utrum etiam daemones operentur ad miracula facienda: nessuna creatura 
+può causare una trasmutazione quidditativa, che rimane privilegio del 
+Creatore; il demone imprime soltanto un movimento locale, ossia ‘muove’ 
+i princìpi attivi e li accosta ai substrati passivi, provocando l’alterazione 
+39  pomponazzi, De incantationibus, cit., 12 [pp. 270-271]: «Aliqui autem dixerunt 
+haec intelligenda esse secundum mores, utpote Arcadas esse versos in lupos non quod 
+revera essent lupi neque haberent vere figuram luporum, sed viverent more luporum et 
+in effigie assimilarentur lupis […]. nam, veluti effigies inclinat ad mores, sic non minus 
+et mores variant effigies: nos enim videmus aliquos prius fuisse mansuetos et cum facie 
+agnina; et ipsos, mutatos in crudeles, facies habuisse leoninas, vel lupinas, secundum 
+diversitatem morum. […] t anta enim est vis morum et passionum, ut sapienter Alber
+-
+tus et reliqui sapientes in libro De phisiognomia declarant». Cfr. Alberto magno, De 
+animalibus, i, ii, 2.
+40  platone, Repubblica, x , 619e-620d; Boezio, De consolatione philosophiae, iv , 3 e 
+m. iii , ed. l . Bieler, Brepols, t urnhout 1957, pp. 71-73; m. Ficino, Theologia platonica de 
+immortalitate animorum, xvii , 3-4, éd. et trad. fr. par r . marcel, l es Belles l ettres, paris 
+1970, iii , pp. 158-174; g . pico della mirandola, Oratio, cit., pp. 104; pomponazzi, Trattato, 
+cit., 1, p. 6 [p.8]; 14, p. 113 [pp. 224-226]; Il fato, cit., v, 7, 8, pp. 853-855 [p. 430].
+20 v ittoria perrone Compagni
+«per modum artis» attraverso la mediazione di un ente naturale dotato 
+di tale virtù, che svolge il ruolo di agente diretto dell’effetto.41 s econdo 
+pomponazzi, la risposta dei teologi si scontra appunto con questa parziale 
+contraddizione; ciò gli consente di applicare anche alla metamorfosi la 
+strategia argomentativa già sperimentata nei primi capitoli del De incan-
+tationibus: partendo dall’accettazione della tesi cristiana circa la sostanza 
+dell’effetto e la modalità della sua produzione (‘cosa’ e ‘come’ è successo), 
+egli si limita a sostituire alla causa motrice sovrannaturale (il demone) un 
+motore naturale, cioè l’uomo. s e il demone produce l’effetto «per modum 
+artis», allora la stessa operazione è accessibile anche all’uomo, che può 
+ottenere l’identico risultato impiegando gli stessi mezzi e la stessa pro -
+cedura. l ’ipotesi «non è priva di credibilità»: è dunque inutile ricorrere 
+a enti fittizi, razionalmente indimostrabili, quando è possibile spiegare 
+l’effetto naturaliter riconducendolo all’attività dell’uomo «sine daemonum 
+praesidio».42 l a sostituzione si giustifica su un principio di economia:
+nelle questioni complesse e ignote si devono accogliere le soluzioni che 
+implicano un minor numero di contraddizioni e sono più consone ai dati del -
+41  t ommaso, De potentia, cit., q. 6, art. 5, resp., pp.169-172: «r espondeo. d icendum 
+quod, sicut Angeli boni per gratiam aliquid possunt ultra naturalem virtutem, ita Angeli 
+mali minus possunt, ex divina providentia eos reprimente, quam possint secundum natu-
+ralem virtutem […]. Ad huiusmodi autem quae sunt supra facultatem naturae ipsorum, 
+eis a deo nulla datur potestas, quia, – cum operatio miraculosa sit quoddam divinum 
+testimonium indicativum divinae virtutis et veritatis, – si daemonibus, quod quorum est 
+tota voluntas ad malum, aliqua potestas daretur faciendi miracula, deus falsitatis eorum 
+testis existeret; quod divinam bonitatem non decet. Unde ea tantum interdum opera 
+faciunt quae miracula hominibus videntur, quando permittuntur a deo, ad quae eorum 
+naturalis virtus se potest extendere. sicut etiam ex supra dictis patet, naturali virtute hos 
+solos effectus producere possunt per modum artis ad quos inveniuntur virtutes aliquae 
+naturales in corporibus, quae eis ad motum localem obediunt, ut sic ea possint ad aliquem 
+effectum celeriter applicare. Huiusmodi autem virtutibus verae transmutationes corporum 
+fieri possunt, sicut secundum naturalem cursum rerum videmus unum ex alio generari. 
+possunt nihilominus, aliqua mutatione corporali facta, quaedam quae non sunt in rerum 
+natura, in imaginatione facere apparere per commotionem organi phantasiae, secundum 
+diversitatem spirituum et humorum: ad quod etiam aliqua corpora exteriora efficaciam 
+habent, ut eis aliquo modo adhibitis, videatur esse aliquid alterius formae quam sit, sicut 
+patet in phreneticis et mente captis. […] neutra tamen operatio est miraculosa, sed est 
+per modum artis, ut supra diximus; et ideo simpliciter dicitur, quod per daemones vera 
+miracula fieri non possunt». 
+42  pomponazzi, De incantationibus, cit., 12 [pp. 271-272]: «v erum, insequendo quod 
+incohavimus, scilicet non admittendo daemones, pariter dicendum puto haec facta fuisse 
+ex procuratione hominum, utpote Circes vel cuiusvis alterius qui noverit sic praestigiantia 
+(ad modum Augustini), vel noverit sic immutantia mentes (ad modum nostrum, qui fuit 
+secundus). n eque istud videtur incredibile, quandoquidem si daemones talia faciunt non 
+alterando, sed solum applicando activa naturalia passivis, quin et homines possent sine 
+daemonum praesidio talia facere?».
+21Circe, la «virtus loci», il determinismo
+l’esperienza sensibile e alle conclusioni della ragione, piuttosto che le argomen-
+tazioni contrarie.43
+d i per sé, l’affermazione della equipollenza tra uomo e demone rive-
+ste valore più confutatorio che probatorio; ma trova il suo radicamento 
+teorico nella discussione del capitolo 1: lì pomponazzi ha argomentato 
+contro t ommaso che secondo i princìpi della filosofia naturale i demoni, 
+seppure esistessero, non potrebbero esercitare nessuna azione sul mon-
+do sublunare, poiché gli enti spirituali non conoscono il singolare. 44 la 
+dimostrazione che in via Aristotelis i demoni non esistono affatto è solo 
+rapidamente accennata, perché evidente dal testo della Metafisica già im-
+piegato nel De immortalitate; ma è senza dubbio la premessa concettuale 
+dalla quale prende avvio la ricerca pomponazziana delle cause naturali 
+degli effetti straordinari.45
+l ’implicito riconoscimento delle abilità ‘magiche’ dell’uomo non 
+è certamente l’obiettivo primario del De incantationibus: piuttosto che 
+innalzare il sapiente-mago al livello dei demoni, 46 mi pare se mai che 
+pomponazzi abbassi il demone al livello di un filosofo naturale ben infor-
+mato sulle virtù occulte – come prova del resto il suo disinteresse per una 
+discussione di quelle caratteristiche di subtilitas e celeritas dell’essenza 
+demonica, con cui la teologia ufficiale giustificava la maggiore capacità 
+operativa delle sostanze spirituali.47 il modesto elogio che il De incanta-
+tionibus riserva alla magia naturale, intendendola come mera utilizzazione 
+delle virtù occulte e degli influssi stellari, non è neppur lontanamente 
+comparabile all’ideologia antropologica e ‘teologica’ che pochi decenni 
+prima aveva sostenuto Ficino e da pico nel loro tentativo di rifondazione 
+della magia naturale (su basi concettuali non solo assolutamente diverse 
+rispetto a pomponazzi, ma addirittura fra loro alternative).
+48 Quando 
+43  ivi, 10 [p. 131]: «Ultimo supponitur quod in rebus difficilibus et occultis respon-
+siones magis remotae ab inconvenientibus et magis sensatis et rationibus consonae sunt 
+magis recipiendae quam oppositae rationes». 
+44  ivi, 1 [pp. 7-18]. la discussione era già affrontata in pomponazzi, Apologia, cit., 
+ii, ff. 69rb-vb.
+45  ivi, 1 [p. 7] e 10 [pp. 111-113]. 
+46  Cfr. invece Ficino, El libro dell’amore, cit., vi, 10, pp. 144-145: «l’arte [magica], 
+quando s’avede che in qualche parte non è intera convenientia tra le nature, supplisce a 
+questo in tempi debiti»; il mago, cioè, opera allo stesso modo dei demoni, ministri del -
+l’architetto divino, i quali «intendono qual sia la parentela delle cose naturali intra-loro, 
+e qual cosa con qual cosa consuoni, e come la concordia delle cose, dove manca, si possa 
+ristorare». ovviamente i demoni di Ficino non sono gli stessi della teologia. 
+47  Cfr. Agostino, De Trinitate, iii, 9, 16-18, ed. W . J. mountain-F . glorie, Brepols, 
+t urnhout 1968, i, pp. 143-145. 
+48  Astrologico-demonologiche quelle ficiniane, solo cabalistiche quelle pichiane. 
+22 v ittoria perrone Compagni
+pomponazzi parla della magia come «scienza in sé vera, di tipo fattivo, 
+dipendente dalla filosofia naturale e dall’astrologia, […] perfezionamento 
+dell’intelletto», forse ha in mente la definizione pichiana, «absoluta con-
+sumatio scientiae naturalis»;49 di certo però non condivide nessuno dei 
+suoi presupposti filosofici. e se è vero che il De incantationibus contiene 
+anche una riconsiderazione della magia ficiniana, questo ripensamento 
+avviene con intenzioni affatto polemiche: gli ironici rimandi al «nostro 
+marsilio» lasciano sempre intendere che la concezione ficiniana non riesce 
+a costituirsi come adeguata spiegazione del modo di azione della natura, 
+ma ne resta soltanto una descrittiva, a cui non può essere attribuito alcun 
+valore scientifico.50 
+5. la retorica ‘fiorentina’ dell’uomo-mago è estranea a pomponazzi; 
+né la ricollocazione degli effetti magici e dei cosiddetti miracoli all’in -
+terno della natura costituisce l’interesse esclusivo o principale del De 
+incantationibus, anche se proprio questo aspetto rappresenta la più con-
+sistente eredità raccolta dai libertini. e  infatti alle due precedenti risposte 
+pomponazzi ne fa seguire una terza, che definisce non impossibilis, ma 
+anzi ampiamente argomentabile (multum persuasibilis). È una soluzione 
+avanzata in via congetturale, «ad ingenia exercenda»; ma l’ipotesi, oltre a 
+dimostrare l’interesse per una esplorazione teorica delle possibilità della 
+Cfr. v. perrone Compagni, Pico sulla magia: problemi di causalità , in Nello specchio del 
+cielo . Giovanni Pico della Mirandola e le «Disputationes» contro l’astrologia divinatrice, 
+Atti del Convegno di mirandola-Ferrara, 16-17 aprile 2004, olschki, Firenze (in corso 
+di stampa), pp. 99-115; ead., Ficino e la magia naturale, in Il pensiero di Marsilio Ficino, 
+Atti del Convegno di Figline v aldarno, 19 maggio 2006, «Cahiers Accademica», vii, 
+2007, pp. 69-83.
+49  pomponazzi, De incantationibus, 6 [pp. 73-74]: «in tali modo [magico] est duo 
+considerare, videlicet operationem provenientem naturaliter ab herbis, lapidibus et 
+reliquis concurrentibus ad talem operationem, consimiliter et accomodatum tempus 
+et debitam applicationem ad talem operationem; est etiam considerare quomodo ab 
+hominibus acquiritur talis cognitio, videlicet an ex industria sua, utpote vel ex studio vel 
+experimentis, sine adminiculo superiorum, sive sint boni angeli, sive sint mali. s i loquamur 
+secundum primum modum, nemini dubium est ipsam in se esse veram scientiam factivam 
+et subalternatam philosophiae naturali et astrologiae, sicut est medicina et multae aliae 
+scientiae. et est in se bona et intellectus perfectio; et habens eam dicitur secundum eam 
+perfici». Cfr. pico, 
+Oratio, cit., p. 140. 
+50  insistono sulla dipendenza da Ficino e da pico, senza prendere in dovuta conside-
+razione Alberto magno e pietro d’Abano, g raiff, I prodigi e l’astrologia, cit., pp. 336-337; 
+C. innocenti, Una fonte neoplatonica nel «De incantationibus» di Pietro Pomponazzi: Mar-
+silio Ficino, «interpres. rivista di studi quattrocenteschi», xv , 1995-1996, pp. 439-471. 
+su questo rapporto mi pare più equilibrata e condivisibile la posizione di n. Weill-parot, 
+Les «images astrologiques» au Moyen Âge et à la Renaissance . Spéculations intellectuelles 
+et pratiques magiques (XIIe-XVe siècle), Champion, paris 2002, p. 733.
+23Circe, la «virtus loci», il determinismo
+natura, sposta la riflessione sul punto che costituisce il nucleo della visione 
+pomponazziana della causalità: la preminenza della causalità celeste, che 
+qualche volta può ‘eccedere’ o ‘agire in deroga’ rispetto al normale corso 
+della causalità naturale, senza però sostituirsi a essa. la considerazione 
+si innalza dal piano delle cause fisiche a quello delle cause universali, 
+chiudendo così il cerchio che era stato aperto dalla risposta alla quinta 
+obiezione nel De immortalitate.
+l a metamorfosi, suggerisce pomponazzi, potrebbe essere effetto 
+della virtus loci, che ha causato la repentina trasmutazione della mate -
+ria, determinando la distruzione della forma sostanziale precedente e 
+l’istantanea acquisizione della nuova forma. il fenomeno si collochereb
+-
+be «contro il comune corso della natura» soltanto per la sua rapidità; 
+la sua eccezionalità potrebbe dipendere dall’azione particolarmente 
+efficace dell’agente trasmutante, sia esso il locus continens  o qualche 
+altro alterante.51 l ’ipotesi è avanzata sulla base di un lungo passo del De 
+mineralibus di Alberto magno, che riferisce alcuni ‘esperimenti’ circa la 
+vis lapidificativa di certe acque, capaci di pietrificare qualunque cosa vi 
+venisse immersa.52 ma è anche confermata da un malizioso a fortiori su 
+base biblica: poiché le verghe dei maghi del Faraone si trasformarono in 
+serpenti per azione dei demoni, che secondo Agostino operarono «ap -
+51  pomponazzi, De incantationibus, cit., 12 [pp. 275-276]: «Haec autem pro tanto 
+adducta sunt, ut videas contra communem cursum aliquid in aliud transmutari. nam, 
+quamquam animal secundum communem cursum transmutetur in cadaver, si vera sunt 
+quae adducta sunt, tamen in aliud quam in cadaver transmutari contingit. [...]. Haec autem 
+ideo facta sunt ex virtute forti transmutantis, sive illud sit locus continens, sive aliud alte-
+rans. Quibus stantibus, nihil, ut opinor, videtur repugnare homines ex vi continentis vel 
+ex aliquo alio, utpote ex vi herbarum vel mineralium vel quidquid fuerit illud, conversos 
+in lupos vel porcos vel aves […] – non quidem quod ex homine aliquod factum sit lupus, 
+sic quod anima hominis transiverit in animam lupi (hoc enim inintelligibile est); sed quod 
+materia quae fuerat sub forma hominis immediate transmutata est in formam lupi. Unde 
+sicut homo, ex uno climate in aliud clima transmutatus, secundum mores variatur (utpote 
+ex humano more in lupinum, […]), sic materia substantialiter transmutatur ex vi agentis. 
+nam avis, de qua Avicenna et Albertus loquuntur, ex ave in lapidem transmutata est 
+ex vi continentis. Hoc autem multum persuasibile videtur, quoniam avis et lapis magis 
+secundum transmutationem videntur distare quam duo animalia specie distincta inter 
+se. sed est dare primum per concessa: ergo et secundum».
+52  ivi, 12 [pp. 273-275]; Alberto magno, De mineralibus, i, i, 7; i, ii, 8, in id., 
+Opera omnia, v, paris, v ives, 1890, pp. 10ab, 21b. Cfr. il commento di pietro d’Abano 
+al problema «propter quam causam nani fiunt», in Aristotele, Problemata cum duplici 
+translatione antiqua versione et nova, scilicet Theodori Gazae, cum expositione Petri Aponi, 
+x, 12, per Bonetum locatellum, v enetiis 1501, f. 101vb: «Contingit etiam hoc praeci -
+pue propter virtutem alicuius constellationis occulta imprimentis illum aërem. propter 
+quod redditur mirabilis loci natura in tantum quod Avicenna dicit quarto Methaurorum: 
+“non est longe quin sit vis mineralis vertens aquas in lapides; et ideo in multis lapidibus 
+inveniuntur quaedam partes animalium”». 
+24 v ittoria perrone Compagni
+plicando activa naturalia passivis», la generazione di un serpente da un 
+bastone di legno rientra nelle possibilità della natura, essendo gli agenti 
+enti naturali. Allora nulla vieta che la materia che era sub forma hominis 
+acquisisca immediatamente e secondo natura la forma del lupo; anzi, la 
+trasmutazione sarebbe meno difficile, in quanto le materie che ricevono 
+le forme di animali distinti per specie sono fra loro molto simili e minus 
+distant, mentre nel caso ricordato dall’Esodo e commentato da Agostino 
+le rispettive materie hanno una disposizione maggiormente dissimile.53 
+pomponazzi non nomina le sue fonti; ma si sta riferendo a una no -
+zione comune nella tradizione fisico-astrologica e medica. Alberto magno 
+enunciava il principio in apertura del De natura loci  per giustificare la 
+necessità dello studio del luogo nella scienza fisica: «transmutatio omnis 
+contenti est per continens; locus autem continens est; et ideo ex ipso 
+principium est transmutationis».54 già la Fisica aristotelica riconosceva 
+al luogo il possesso di una propria dynamis: 
+inoltre, anche lo spostamento dei corpi naturali e semplici […] non solo 
+dimostra che il luogo è qualcosa, ma anche che ha una potenza. […] mera -
+vigliosa dovrebbe essere e anteriore a tutto la potenza del luogo: difatti, ciò 
+che è indispensabile per l’esistenza delle altre cose e che esiste senza le altre, è 
+necessariamente il primo: ché il luogo non perisce, mentre le cose che sono in 
+esso si distruggono.55
+nel suo commento al testo aristotelico Alberto magno definiva il 
+luogo come agente «formativo, perfettivo e conservativo» dei locata.56 
+punto di contatto tra influssi celesti e corpi terrestri, il continens da una 
+parte svolge il ruolo di ricettore su cui si imprime la virtus formativa del 
+53  ivi, 12 [pp. 276-277]: « Quod etiam firmatur secundum Augustinum Super 
+Genesim ad litteram : “magi pharaonis ex virgis virtute daemonum fecerunt serpentes 
+eiusdem speciei cum his quos ex virgis divina virtute fecit moyses”. v erum daemones 
+per eundem Augustinum non operati sunt nisi applicando activa naturalia passivis: ergo 
+agentia sunt naturalia; quae ex virgis possunt generare serpentes. sed videtur difficilius 
+ex virgis generare serpentes quam ex uno animali alterum animal, cum materiae magis 
+distent; ergo non inconvenit ex homine naturaliter generari lupum». Cfr. Agostino, De 
+Genesi ad litteram, xi , 29, 37; ma pomponazzi attinge da t ommaso, De potentia, cit., q. 6, 
+a. 5, ad 8, p. 172. sul ruolo della materia ‘propria’ nei processi di generazione spontanea, 
+pomponazzi, Quaestio de genitis ex putri materia, cit., ms. paris 6533, ff. 517r-518v; ms. 
+Arezzo 390, ff. 275v-276vr. 
+54  Alberto magno, De natura loci , i, 1, ed. p. Hossfeld, Aschendorff, monasterii 
+Westfalorum 1980, p. 1.
+55  Aristotele, Fisica, iv , 1, 208b9-10, 208b35-209a1, trad. it. di A. russo, laterza, 
+roma-Bari 1991, pp. 73-74. 
+56  Alberto magno, Physica, iv , i, 10, ed. p. Hossfeld, Aschendorff, monasterii 
+Westfalorum 1987, pp. 219-220.
