@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS texts (
     title               TEXT NOT NULL,
     title_original      TEXT,
     language            TEXT CHECK(language IN ('ARABIC','LATIN','GREEK','SYRIAC','GERMAN','ENGLISH','PERSIAN','HEBREW') OR language IS NULL),
-    text_type           TEXT CHECK(text_type IN ('PRIMARY_SOURCE','COMMENTARY','COMPILATION','TREATISE','ENCYCLOPEDIA','TRANSLATION','PSEUDO_EPIGRAPHA') OR text_type IS NULL),
+    text_type           TEXT CHECK(text_type IN ('PRIMARY_SOURCE','COMMENTARY','COMPILATION','TREATISE','ENCYCLOPEDIA','TRANSLATION','PSEUDO_EPIGRAPHA','SCHOLARSHIP','MANIFESTO') OR text_type IS NULL),
     date_composed_start INTEGER,
     date_composed_end   INTEGER,
     description         TEXT,

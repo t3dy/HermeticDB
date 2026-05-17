@@ -19,6 +19,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 DB_PATH = BASE_DIR / "db" / "emerald_tablet.db"
 SITE_DIR = BASE_DIR / "site"
+SITE_NAME = "HermeticDB"
 
 
 def check_fk_integrity(conn):
@@ -40,7 +41,7 @@ def check_enum_values(conn):
 
     checks = [
         ("texts", "language", ['ARABIC','LATIN','GREEK','SYRIAC','GERMAN','ENGLISH','PERSIAN','HEBREW', None]),
-        ("texts", "text_type", ['PRIMARY_SOURCE','COMMENTARY','COMPILATION','TREATISE','ENCYCLOPEDIA','TRANSLATION','PSEUDO_EPIGRAPHA', None]),
+        ("texts", "text_type", ['PRIMARY_SOURCE','COMMENTARY','COMPILATION','TREATISE','ENCYCLOPEDIA','TRANSLATION','PSEUDO_EPIGRAPHA','SCHOLARSHIP','MANIFESTO', None]),
         ("texts", "review_status", ['DRAFT','REVIEWED','VERIFIED']),
         ("texts", "confidence", ['HIGH','MEDIUM','LOW']),
         ("persons", "role_primary", ['AUTHOR','TRANSLATOR','COMMENTATOR','SCHOLAR','MYTHICAL_FIGURE','COMPILER','EDITOR','PHILOSOPHER', None]),
@@ -198,8 +199,17 @@ def check_site_links():
                 # Skip external links
                 if ref.startswith(('http://', 'https://', 'mailto:', '//')):
                     continue
+                root_relative = False
+                if ref == f"/{SITE_NAME}":
+                    ref = "index.html"
+                    root_relative = True
+                elif ref.startswith(f"/{SITE_NAME}/"):
+                    ref = ref[len(SITE_NAME) + 2:]
+                    root_relative = True
+                elif ref.startswith("/"):
+                    continue
                 # Resolve relative path
-                target = (html_file.parent / ref).resolve()
+                target = (SITE_DIR / ref).resolve() if root_relative else (html_file.parent / ref).resolve()
                 if not target.exists():
                     rel_html = html_file.relative_to(SITE_DIR)
                     errors.append(f"Broken link: {rel_html} → {ref}")

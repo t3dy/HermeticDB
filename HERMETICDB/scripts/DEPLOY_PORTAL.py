@@ -26,6 +26,21 @@ ITALIC_TERMS = [
 
 def clean_prose(text):
     if not text: return ""
+    replacements = {
+        "Â·": "·",
+        "â†": "←",
+        "â€“": "-",
+        "â€”": "-",
+        "Ã©": "é",
+        "Ã¨": "è",
+        "Ã§": "ç",
+        "Ã¼": "ü",
+        "Ã¶": "ö",
+    }
+    for bad, good in replacements.items():
+        text = text.replace(bad, good)
+    text = re.sub(r'</?(?:ol|ul)[^>]*>', '', text)
+    text = re.sub(r'<li[^>]*>\s*(.*?)\s*</li>', r'<p>\1</p>', text, flags=re.IGNORECASE | re.DOTALL)
     # Strip hashtags, brackets, and other code-like artifacts
     text = re.sub(r'[#\[\]{}*]', '', text)
     # Ensure it's treated as a single block of prose
@@ -363,6 +378,7 @@ def get_fragments(cursor, entity_id, entity_type):
             content = row['text_content'].strip()
             # Clean possible markdown headers in content
             content = re.sub(r'#+\s+', '', content)
+            content = re.sub(r'(?m)^\s*[-*]\s+', '', content)
             html += f"""
             <div class="scholarly-fragment">
                 {content}
@@ -460,7 +476,7 @@ def deploy_to(target_dir, cursor):
             
             cursor.execute("SELECT * FROM texts ORDER BY text_type, title")
             for row in cursor.fetchall():
-                if row['text_type'] == 'COMMENTARY':
+                if row['text_type'] in ('COMMENTARY', 'SCHOLARSHIP'):
                     era_groups["MODERN SCHOLARSHIP"].append(row)
                 else:
                     era_groups["PRIMARY SOURCES"].append(row)
@@ -543,7 +559,8 @@ def deploy_to(target_dir, cursor):
         cursor.execute("SELECT * FROM persons WHERE era = ? ORDER BY name", (db_era,))
         era_cards = ""
         for row in cursor.fetchall():
-            era_cards += generate_entity_card(row['name'], row['role_primary'], row['description'], f"{REPO_URL}/biographies/{row['person_id']}.html")
+            person_folder = "scholars" if row['role_primary'] == "SCHOLAR" else "biographies"
+            era_cards += generate_entity_card(row['name'], row['role_primary'], row['description'], f"{REPO_URL}/{person_folder}/{row['person_id']}.html")
         
         # Texts
         date_query = ""
