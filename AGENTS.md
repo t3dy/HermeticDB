@@ -1,8 +1,12 @@
 # Codex Instructions — EmeraldTablet / HermeticDB
 
-## MANDATORY FIRST STEP
+## MANDATORY FIRST STEPS (in order)
 
-**Before writing any prose for the database, read `STYLEGUIDE.md` in full.** It governs all `bio_html`, `analysis_html`, `definition_long`, and `description` fields. Violations — including hashtags, brackets, markdown symbols, bullet lists, or placeholder text — will corrupt the portal. The standard is encyclopedia-level scholarly prose.
+1. **Read `PROMPTS.md` in full.** This is the canonical record of the project vision, scholarly framework, agent operating rules, and vocabulary lock. Non-negotiable — it prevents redoing work and eliminates direction errors.
+
+2. **Read `STYLEGUIDE.md` in full.** It governs all `bio_html`, `analysis_html`, `definition_long`, and `description` fields with precise word counts and required section structures. The minimum for dictionary encyclopedia pages is 1,500 words; for biographies, 1,200 words; for text analyses, 1,000 words. Stubs, bullets, hashtags, or placeholder text will corrupt the portal. The model is the *Dictionary of Gnosis and Western Esotericism*.
+
+3. **You cannot run Bash.** All output must go to `staging/` as JSON files. The main session will validate and load into the database. See `PROMPTS.md` Part VI for the three agent types (Dictionary Encyclopedia Writer, Biography Enricher, Relational Auditor) and their exact input/output contracts.
 
 ---
 

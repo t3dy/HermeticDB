@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Vittoria Perrone Compagni - HermeticDB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        
+:root {
+    --bg: #0a0a0c;
+    --bg-card: #141418;
+    --accent: #d4af37;
+    --accent-light: #f1d37e;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --border: rgba(212, 175, 55, 0.2);
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.site-nav {
+    background: rgba(10, 10, 12, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.title-large {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: var(--accent-light);
+    margin-bottom: 1rem;
+}
+
+.text-subtitle {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--accent-light);
+    margin-bottom: 0.5rem;
+}
+
+.card-meta {
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.card-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.prose-content {
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    font-size: 1.15rem;
+    color: #d8d8d8;
+}
+
+.prose-content h2 {
+    font-family: var(--font-display);
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+}
+
+.prose-content p {
+    margin-bottom: 1.5rem;
+}
+
+.back-link {
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.scholarly-fragment {
+    border-left: 3px solid var(--accent);
+    background: rgba(212, 175, 55, 0.05);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.fragment-source {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    font-style: normal;
+    color: var(--accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+    .theme-tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.theme-tag:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+</style>
+</head>
+<body>
+    
+<nav class="site-nav">
+    <div class="nav-container">
+        <a class="nav-logo" href="/HermeticDB">HERMETICDB</a>
+        <div class="nav-links">
+            <a class="nav-link" href="/HermeticDB/eras/late-antiquity.html">Late Antiquity</a>
+            <a class="nav-link" href="/HermeticDB/eras/medieval.html">Medieval</a>
+            <a class="nav-link" href="/HermeticDB/eras/renaissance.html">Renaissance</a>
+            <div style="width:1px;height:20px;background:rgba(255,255,255,0.1)"></div>
+            <a class="nav-link" href="/HermeticDB/corpus.html" style="color:var(--accent-light); font-weight:bold">Corpus Map</a>
+            <a class="nav-link" href="/HermeticDB/texts.html">Texts</a>
+            <a class="nav-link" href="/HermeticDB/biographies.html">Biographies</a>
+            <a class="nav-link" href="/HermeticDB/scholars.html">Scholars</a>
+            <a class="nav-link" href="/HermeticDB/dictionary.html">Dictionary</a>
+            <a class="nav-link" href="/HermeticDB/debates.html">Debates</a>
+            <a class="nav-link" href="/HermeticDB/timeline.html">Timeline</a>
+            <a class="nav-link" href="/HermeticDB/map.html">Interactive Map</a>
+            <a class="nav-link" href="/HermeticDB/graph.html" style="color:var(--accent); font-weight:bold">Relationship Graph</a>
+            <a class="nav-link" href="/HermeticDB/about.html">Methodology</a>
+        </div>
+    </div>
+</nav>
+
+    <main class="page-container"><a href="/HermeticDB/scholars.html" class="back-link">← Return to Faculty</a><h1 class="title-large">Vittoria Perrone Compagni</h1><div class="card-meta" style="margin-bottom:3rem">Scholarly Authority</div><div class="prose-content"><p>Vittoria Perrone Compagni (born c. 1946) is an Italian historian of philosophy affiliated with the University of Florence, where she has taught the history of medieval and Renaissance philosophy for several decades. Her scholarship concentrates on the intersection of Aristotelian natural philosophy, learned magic, and the occult sciences in the Latin West from the thirteenth through the sixteenth centuries. She is best known internationally for her critical edition of Heinrich Cornelius Agrippa von Nettesheim's <i>De occulta philosophia libri tres</i>, published by Brill in 1992, and for her sustained engagement with the naturalistic philosophy of Pietro Pomponazzi, particularly Pomponazzi's controversial treatise on incantations and apparent magical effects. Perrone Compagni's work belongs to a tradition of rigorous Italian philological scholarship that insists on situating magical and occult texts within the mainstream of Renaissance intellectual life rather than cordoning them off as heterodox curiosities. Her methodological orientation places her in productive dialogue — and occasional tension — with Anglo-American historians of Renaissance Hermeticism, including Frances Yates, D. P. Walker, and Brian Copenhaver, whose broader cultural and philosophical syntheses she tends to subject to precise textual scrutiny.</p>
+
+<h2>Critical Edition of Agrippa</h2>
+<p>Perrone Compagni's 1992 Brill edition of Agrippa's <i>De occulta philosophia libri tres</i> (originally composed c. 1509–1510, substantially revised and published 1531–1533) remains the authoritative Latin critical edition of the work. The edition collates the principal manuscript and early printed witnesses to establish a reliable text, and its apparatus criticus documents the sources that Agrippa drew on — a task of extraordinary complexity, since Agrippa compiled his encyclopedic synthesis of natural magic, celestial magic, and ceremonial magic from hundreds of classical, Neoplatonic, Kabbalistic, and magical sources without attribution. Perrone Compagni's source-tracing apparatus makes clear the degree to which Agrippa was a highly disciplined compiler whose apparent eclecticism rested on deliberate intellectual choices about how to organize knowledge of the occult sciences into a coherent tripartite structure: natural magic in Book I, celestial magic in Book II, and ceremonial or divine magic in Book III.</p>
+
+<p>The edition's introduction provides a careful account of the composition history of the work, distinguishing the early manuscript version of 1510 — which Agrippa circulated in manuscript and which Johannes Trithemius famously praised — from the substantially expanded printed edition of 1531. This distinction matters because the 1531 version incorporates new material, including a more sophisticated integration of Kabbalistic doctrine in Book III, and reflects Agrippa's engagement with subsequent decades of humanist and reformist thought. Earlier scholarship, including the treatments of Agrippa by Charles Nauert in his 1965 study <i>Agrippa and the Crisis of Renaissance Thought</i>, had addressed the composition history without the benefit of a systematic collation of witnesses. Perrone Compagni's edition corrects several errors of attribution and provides the philological grounding that later intellectual-historical arguments about Agrippa require.</p>
+
+<p>In her 2000 article in <i>Early Science and Medicine</i>, "Dispersa intentio: Alchemy, Magic and Skepticism in Agrippa," Perrone Compagni extended her analysis of the <i>De occulta philosophia</i> to argue that the work's relationship to Agrippa's later skeptical treatise <i>De incertitudine et vanitate scientiarum</i> (1530) is more complex than a simple contradiction. Rather than reading the two works as a recantation — Agrippa's magic followed by Agrippa's repudiation of magic — Perrone Compagni proposes that both works reflect a consistent underlying epistemological skepticism about the limits of natural knowledge, including magical knowledge. This reading challenges the older portrait of Agrippa as an unstable intellectual who lurched between credulity and cynicism, a portrait that had influenced scholars from Walker to Yates.</p>
+
+<h2>Pomponazzi and Natural Magic</h2>
+<p>Alongside her work on Agrippa, Perrone Compagni has produced substantial scholarship on Pietro Pomponazzi (1462–1525), the Paduan Aristotelian philosopher whose <i>De incantationibus</i> — composed around 1520 but not published until 1556, posthumously — offers the most sustained Renaissance philosophical argument for a naturalistic account of magical effects. Pomponazzi's central claim in the <i>De incantationibus</i> is that the apparent miracles, healing rituals, and oracular phenomena attributed to supernatural agents — demons, angels, or divine intervention — can be explained entirely through natural causes, specifically through the influence of celestial bodies and the hidden properties of terrestrial substances and places. This position was not atheistic in any simple sense, but it systematically reduced the domain of the supernatural in a way that the ecclesiastical authorities of his day found threatening.</p>
+
+<p>Perrone Compagni's 2007 article on <i>virtus loci</i> in the context of Pomponazzi's <i>De incantationibus</i> represents a close reading of one of the treatise's most philosophically suggestive arguments. The concept of <i>virtus loci</i> — the inherent power or operative force of a specific place — appears in Pomponazzi's discussion of why certain locations are associated with oracular pronouncements, miraculous cures, or seemingly magical transformations. Pomponazzi's explanation draws on the Aristotelian doctrine that celestial bodies exercise differential influence over terrestrial localities, producing concentrations of natural force in certain sites that are not shared by adjacent areas. The myth of Circe's island, for instance, which Pomponazzi treats directly in the <i>De incantationibus</i>, can be understood on this account not as testimony to a witch's supernatural powers but as a garbled record of a geographically specific natural phenomenon: a place whose celestial configuration produced unusual pharmacological or psychological effects on human beings who entered it.</p>
+
+<p>This naturalistic reduction is at the heart of what makes Pomponazzi's treatise philosophically significant, and Perrone Compagni's analysis is valuable precisely because she traces the specific Aristotelian and Arabic sources that Pomponazzi was drawing on — including the astral magic tradition mediated through the Latin <i>Picatrix</i> — rather than treating his argument as an anticipation of modern scientific naturalism. Pomponazzi himself does not use the language of modernity; he is working within the framework of Aristotelian natural philosophy as it had been developed at Padua over two centuries, and his innovation consists in systematically applying that framework to phenomena that most of his contemporaries assigned to the supernatural rather than to natural causation.</p>
+
+<h2>Methodological Approach</h2>
+<p>Perrone Compagni's scholarly method is fundamentally philological. Her starting point is always the Latin text — its manuscript transmission, its sources, its internal argument — and her interpretive claims are disciplined by what the text can actually be shown to say rather than by the demands of a larger synthetic thesis about Renaissance culture. This orientation distinguishes her from historians like Yates, whose <i>Giordano Bruno and the Hermetic Tradition</i> (1964) constructs a grand narrative about the role of Hermetic magic in the Renaissance by sometimes sacrificing philological precision to rhetorical sweep. It also distinguishes her from Walker, whose <i>Spiritual and Demonic Magic from Ficino to Campanella</i> (1958) is more careful but still operates primarily at the level of ideas rather than texts.</p>
+
+<p>The practical consequence of this methodological orientation is that Perrone Compagni's work tends to complicate rather than confirm existing narratives. Her Agrippa edition, by making clear the specific sources from which each passage of the <i>De occulta philosophia</i> was drawn, reveals a figure whose eclecticism was more disciplined and whose intellectual debts were more precisely calibrated than earlier accounts had suggested. Her work on Pomponazzi, by situating the <i>De incantationibus</i> firmly within the Paduan Aristotelian tradition rather than treating it as an isolated act of rationalist audacity, shows that Pomponazzi's naturalism was not a sui generis innovation but the culmination of a long tradition of Aristotelian commentary on Averroes's claim that natural causes were sufficient to account for prophetic and miraculous phenomena.</p>
+
+<p>This insistence on situating magical texts within mainstream intellectual traditions rather than treating them as marginal or heterodox is itself a methodological position with significant implications. It means that <i>magia naturalis</i> — the Actor Term used by Agrippa, Ficino, and their contemporaries to describe the drawing of natural forces through the aid of celestial sympathies — cannot be simply quarantined as an esoteric sidebar to Renaissance philosophy. It was, in the analysis of scholars like Perrone Compagni, a serious attempt to extend Aristotelian natural philosophy to cover the full range of phenomena that the tradition had always recognized as real but had not adequately theorized. The boundary between natural philosophy and magic, in this account, was contested and permeable, not fixed.</p>
+
+<h2>Scholarly Significance and Disputes</h2>
+<p>Perrone Compagni's work intersects with several major debates in the historiography of Renaissance philosophy and the occult sciences. Her relationship to the Yates Paradigm is critical without being dismissive. Yates argued that Renaissance Hermeticism — the complex of ideas associated with Ficino's translation of the <i>Corpus Hermeticum</i>, the revival of Neoplatonic magic, and the figure of Hermes Trismegistus — played a decisive role in the scientific revolution by legitimating the mathematical and operative approach to nature. This thesis, elaborated in <i>Giordano Bruno and the Hermetic Tradition</i> (1964) and subsequent works, has been substantially contested. Perrone Compagni's contribution to this contest is indirect but important: by showing that the most rigorous philosophical defenses of natural magic in the Renaissance were grounded in Aristotelian rather than Hermetic-Neoplatonic frameworks, she implicitly limits the explanatory scope of the Yates Paradigm. Pomponazzi, the most philosophically sophisticated defender of naturalistic magic in the early sixteenth century, was not a Hermetist in any meaningful sense; he was an Aristotelian who used the same resources his tradition had always used.</p>
+
+<p>Her relationship to D. P. Walker is more nuanced. Walker's <i>Spiritual and Demonic Magic</i> (1958) traced the development of a tradition of pneumatic or spiritual magic from Ficino through Campanella, arguing that the animating concern of this tradition was the manipulation of the <i>spiritus mundi</i> — the subtle intermediary substance believed to connect the celestial and terrestrial worlds — through music, image, and ritual. Perrone Compagni shares Walker's emphasis on the philosophical seriousness of Renaissance magic but tends to be more skeptical of his synthetic framework, preferring to show how specific arguments in specific texts draw on specific sources rather than tracing a continuous tradition of pneumatic magic across a century and a half.</p>
+
+<p>Brian Copenhaver, whose 1992 Cambridge translation of the <i>Corpus Hermeticum</i> and <i>Asclepius</i> established the standard English-language text of the primary Hermetic sources, has engaged with Perrone Compagni's work on Agrippa in the context of broader debates about the relationship between Hermeticism and Renaissance natural philosophy. Copenhaver has argued, against Yates, that the Hermetic texts themselves do not straightforwardly support the magical and operative reading that Yates placed upon them, a position that converges with Perrone Compagni's more cautious philological approach. On the question of Pomponazzi and the naturalistic tradition, Perrone Compagni's work complements Charles Schmitt's extensive studies of Paduan Aristotelianism, collected in <i>Aristotle and the Renaissance</i> (1983), which established the intellectual context within which Pomponazzi's arguments make sense.</p>
+
+<p>Paola Zambelli, whose work on Agrippa and the occult sciences represents another strand of Italian philological scholarship on Renaissance magic, provides a useful point of comparison. Zambelli's 1965 article on the composition of the <i>De occulta philosophia</i> was an important precursor to Perrone Compagni's critical edition, and the two scholars have occasionally engaged with the same primary materials from different angles. Where Zambelli tends toward the broader history of ideas, Perrone Compagni remains more strictly anchored to the text.</p>
+
+<h2>Literature</h2>
+<p>Perrone Compagni, Vittoria (ed.). Henricus Cornelius Agrippa von Nettesheim. <i>De occulta philosophia libri tres</i>. Leiden: Brill, 1992.<br>
+Perrone Compagni, Vittoria. "Dispersa intentio: Alchemy, Magic and Skepticism in Agrippa." <i>Early Science and Medicine</i> 5 (2000): 160–177.<br>
+Pomponazzi, Pietro. <i>De naturalium effectuum causis sive de incantationibus</i>. Basel: Henricpetri, 1567 posthumous; composed c. 1520. Ed. Vittoria Perrone Compagni. Florence: Olschki, 2011.<br>
+Walker, D. P. <i>Spiritual and Demonic Magic from Ficino to Campanella</i>. London: Warburg Institute, 1958.<br>
+Yates, Frances A. <i>Giordano Bruno and the Hermetic Tradition</i>. London: Routledge and Kegan Paul, 1964.<br>
+Copenhaver, Brian P. (trans.). <i>Hermetica: The Greek Corpus Hermeticum and the Latin Asclepius in a New English Translation with Notes and Introduction</i>. Cambridge: Cambridge University Press, 1992.<br>
+Schmitt, Charles B. <i>Aristotle and the Renaissance</i>. Cambridge, MA: Harvard University Press, 1983.<br>
+Zambelli, Paola. "Cornelio Agrippa, Erasmo da Rotterdam e la teologia umanistica." <i>Rinascimento</i> 10 (1970): 29–88.</p></div></main>
+    <footer style="text-align:center; padding: 6rem 2rem; color: var(--text-muted); border-top: 1px solid var(--border); background: #08080a">
+        &copy; 2026 The Hermetic Knowledge Portal<br/>
+        <span style="font-size: 0.7rem; opacity: 0.5; margin-top: 1rem; display: block">Curated Scholar-Synthesized Narrative Database</span>
+    </footer>
+</body>
+</html>

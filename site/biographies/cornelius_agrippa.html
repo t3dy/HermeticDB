@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Heinrich Cornelius Agrippa - HermeticDB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        
+:root {
+    --bg: #0a0a0c;
+    --bg-card: #141418;
+    --accent: #d4af37;
+    --accent-light: #f1d37e;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --border: rgba(212, 175, 55, 0.2);
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.site-nav {
+    background: rgba(10, 10, 12, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.title-large {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: var(--accent-light);
+    margin-bottom: 1rem;
+}
+
+.text-subtitle {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--accent-light);
+    margin-bottom: 0.5rem;
+}
+
+.card-meta {
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.card-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.prose-content {
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    font-size: 1.15rem;
+    color: #d8d8d8;
+}
+
+.prose-content h2 {
+    font-family: var(--font-display);
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+}
+
+.prose-content p {
+    margin-bottom: 1.5rem;
+}
+
+.back-link {
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.scholarly-fragment {
+    border-left: 3px solid var(--accent);
+    background: rgba(212, 175, 55, 0.05);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.fragment-source {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    font-style: normal;
+    color: var(--accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+    .theme-tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.theme-tag:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+</style>
+</head>
+<body>
+    
+<nav class="site-nav">
+    <div class="nav-container">
+        <a class="nav-logo" href="/HermeticDB">HERMETICDB</a>
+        <div class="nav-links">
+            <a class="nav-link" href="/HermeticDB/eras/late-antiquity.html">Late Antiquity</a>
+            <a class="nav-link" href="/HermeticDB/eras/medieval.html">Medieval</a>
+            <a class="nav-link" href="/HermeticDB/eras/renaissance.html">Renaissance</a>
+            <div style="width:1px;height:20px;background:rgba(255,255,255,0.1)"></div>
+            <a class="nav-link" href="/HermeticDB/corpus.html" style="color:var(--accent-light); font-weight:bold">Corpus Map</a>
+            <a class="nav-link" href="/HermeticDB/texts.html">Texts</a>
+            <a class="nav-link" href="/HermeticDB/biographies.html">Biographies</a>
+            <a class="nav-link" href="/HermeticDB/scholars.html">Scholars</a>
+            <a class="nav-link" href="/HermeticDB/dictionary.html">Dictionary</a>
+            <a class="nav-link" href="/HermeticDB/debates.html">Debates</a>
+            <a class="nav-link" href="/HermeticDB/timeline.html">Timeline</a>
+            <a class="nav-link" href="/HermeticDB/map.html">Interactive Map</a>
+            <a class="nav-link" href="/HermeticDB/graph.html" style="color:var(--accent); font-weight:bold">Relationship Graph</a>
+            <a class="nav-link" href="/HermeticDB/about.html">Methodology</a>
+        </div>
+    </div>
+</nav>
+
+    <main class="page-container"><a href="/HermeticDB/biographies.html" class="back-link">← Return to Archives</a><h1 class="title-large">Heinrich Cornelius Agrippa</h1><div class="card-meta" style="margin-bottom:3rem">RENAISSANCE · PHILOSOPHER</div><div class="prose-content"><p>Heinrich Cornelius Agrippa von Nettesheim (1486–1535) was a German polymath, physician, legal scholar, and theologian born in Cologne, whose restless career carried him across the courts and universities of the Holy Roman Empire, France, Italy, England, and the Low Countries. He served as court secretary, military officer, physician, and occasional lecturer, always in tension with ecclesiastical authorities suspicious of his learning, and he died in poverty and disgrace at Grenoble. Yet his intellectual legacy proved enduring: his <i>De occulta philosophia libri tres</i> — completed in draft by 1510, substantially revised and finally printed in Cologne in 1531–1533 — stands as the most ambitious synthetic account of Renaissance magical theory ever produced, drawing together natural magic, celestial or mathematical magic, and ceremonial or ritual magic into a single encyclopedic framework grounded in Neoplatonic metaphysics, Kabbalistic symbolism, and the broad scholarly tradition reaching from Marsilio Ficino and Pico della Mirandola through the Arabic astrological corpus. The paradox that has fascinated scholars since Charles Nauert's foundational study — that Agrippa published his sweeping skeptical treatise <i>De incertitudine et vanitate scientiarum et artium</i> (Antwerp, 1530) a year before <i>De occulta</i> appeared, subjecting all human knowledge, including magic, to devastating satirical attack — has generated a persistent interpretive debate about the coherence of his thought and the sincerity of his various positions.</p><h2>Hermetic Significance</h2><p>Agrippa's significance for the Hermetic tradition is twofold. First, his <i>De occulta philosophia</i> served as the principal encyclopedia through which Renaissance magical theory — including its heavily Hermetic dimensions — was transmitted to sixteenth and seventeenth-century Europe. The work's three-book structure maps directly onto Agrippa's hierarchy of worlds: the elemental world governed by natural magic, the celestial world governed by mathematical and astrological magic, and the intellectual world governed by ceremonial and religious magic. Each level of this hierarchy draws on a different stratum of the Hermetic and Neoplatonic tradition. Book One on natural magic draws extensively on the tradition of <i>magia naturalis</i> — the manipulation of sympathies and antipathies in the natural world — which Agrippa traces through Ficino's theory of <i>spiritus</i> and the medical and astrological tradition of Arabic scholarship, including al-Kindi's <i>De radiis</i>. Book Two on celestial magic develops a theory of how the magus can draw on stellar influences through talismans, images, and numerical relationships — a tradition with deep roots in the Hermetic <i>Picatrix</i> and in Ficino's <i>De Vita Coelitus Comparanda</i>. Book Three on ceremonial magic, which deals with angels, demons, divine names, and the ritual conditions for invoking intelligences above the sublunary sphere, draws explicitly on the Kabbalistic tradition Agrippa had encountered through Pico della Mirandola and Johann Reuchlin. Throughout all three books, the figure of Hermes Trismegistus appears repeatedly as an authoritative source, and Agrippa cites the <i>Asclepius</i> and what he understood to be Hermetic texts on multiple occasions. Second, and more broadly, Agrippa's work shaped the intellectual context within which the Hermetic texts were received and interpreted throughout the sixteenth century. By embedding Hermetic materials within the systematic framework of <i>De occulta</i>, he gave those materials a new coherence and accessibility that the isolated reading of Ficino's <i>Pimander</i> translation could not achieve. The synthesis he constructed — Hermetic, Neoplatonic, Kabbalistic, and broadly magical — defined for generations of readers what the tradition of learned magic looked like and how its various components related to one another.</p><h2>Key Works</h2><p><i>De occulta philosophia libri tres</i> was drafted in its first form around 1510, when Agrippa sent a copy to the Benedictine abbot and polymath Johannes Trithemius, who responded with cautious encouragement. The text underwent substantial revision over the following two decades, and the printed version that appeared from Heinrich Petrus in Cologne in 1531–1533 differs significantly from the early draft in scope, structure, and the degree to which Agrippa had absorbed subsequent scholarly developments. Vittoria Perrone Compagni's critical edition (Brill, 1992), based on a comprehensive collation of manuscripts and early editions, has superseded all previous texts and made possible a new generation of scholarly work on the work's sources and intellectual structure. <i>De incertitudine et vanitate scientiarum et artium atque excellentia verbi Dei declamatio</i> (Antwerp: Michael Hillen, 1530) is the companion paradox: a rhetorically brilliant satirical attack on every branch of human learning, from philosophy and theology to alchemy, astrology, and magic, arguing that all human knowledge is corrupt, uncertain, and potentially dangerous except for the revealed word of God. The work was condemned by the Louvain theologians and placed on the Index, but it also found enthusiastic readers across Europe and went through numerous editions. Agrippa also left shorter works including <i>De nobilitate et praecellentia foeminei sexus</i> (On the Nobility and Preeminence of the Female Sex, 1529), a humanist defense of women's intellectual and spiritual equality, and a substantial correspondence preserved in the posthumous Opera omnia (Lyons, 1600).</p><h2>Historical Context and Reception</h2><p>Agrippa worked in the shadow of Ficino's Neoplatonic synthesis and Pico della Mirandola's bold integration of Kabbalah and magic with Platonic philosophy, and his <i>De occulta</i> is in many ways the systematic expansion of suggestions those predecessors had made. His connection to Trithemius — himself a major figure in the tradition of learned magic and cryptography — gave him access to networks of occult scholarship that extended across German-speaking Europe. His English sojourn (c. 1510) brought him into contact with John Colet and Thomas More, and his years in France brought him close to Margaret of Austria's court at Mechelen. The reception of <i>De occulta philosophia</i> was extensive and surprisingly positive given the ecclesiastical suspicions Agrippa faced in life: the work was read and cited by John Dee, who annotated his personal copy and integrated Agrippan materials into his own angelic magic; by Christopher Marlowe, whose <i>Doctor Faustus</i> engages with the Agrippan tradition of the magus who seeks forbidden knowledge; and by figures across the English, German, and Italian learned worlds throughout the sixteenth and seventeenth centuries. The scholarly debate initiated by Frances Yates's treatment of Agrippa in <i>Giordano Bruno and the Hermetic Tradition</i> (1964) — which read him as a representative of a coherent Hermetic-magical tradition flowing from Ficino through Bruno — has been complicated by subsequent scholarship. Charles Nauert's <i>Agrippa and the Crisis of Renaissance Thought</i> (University of Illinois Press, 1965) argued for the fundamental incoherence of Agrippa's position, treating the tension between <i>De occulta</i> and <i>De vanitate</i> as evidence of a genuine skeptical crisis. Perrone Compagni's philological work has shifted attention toward the textual history and sources of <i>De occulta</i>, while D. P. Walker's account in <i>Spiritual and Demonic Magic from Ficino to Campanella</i> (1958) remains essential for understanding Agrippa's place in the broader history of Renaissance magical theory.</p><h2>Literature</h2><p>Agrippa von Nettesheim, Heinrich Cornelius. <i>De occulta philosophia libri tres</i>. Ed. Vittoria Perrone Compagni. Leiden: Brill, 1992.<br>Agrippa von Nettesheim, Heinrich Cornelius. <i>Three Books of Occult Philosophy</i>. Trans. James Freake (1651), ed. Donald Tyson. St. Paul: Llewellyn, 1993.<br>Hanegraaff, Wouter J. (ed.). <i>Dictionary of <i>Gnosis</i> and Western Esotericism</i>. Leiden: Brill, 2006. S.v. "Agrippa von Nettesheim" (Perrone Compagni).<br>Nauert, Charles G. <i>Agrippa and the Crisis of Renaissance Thought</i>. Urbana: University of Illinois Press, 1965.<br>Perrone Compagni, Vittoria. "Dispersa intentio: Alchemy, Magic and Scepticism in Agrippa." <i>Early Science and Medicine</i> 5 (2000): 160–177.<br>Walker, D. P. <i>Spiritual and Demonic Magic from Ficino to Campanella</i>. London: Warburg Institute, 1958.<br>Yates, Frances A. <i>Giordano Bruno and the Hermetic Tradition</i>. London: Routledge and Kegan Paul, 1964.</p></div></main>
+    <footer style="text-align:center; padding: 6rem 2rem; color: var(--text-muted); border-top: 1px solid var(--border); background: #08080a">
+        &copy; 2026 The Hermetic Knowledge Portal<br/>
+        <span style="font-size: 0.7rem; opacity: 0.5; margin-top: 1rem; display: block">Curated Scholar-Synthesized Narrative Database</span>
+    </footer>
+</body>
+</html>

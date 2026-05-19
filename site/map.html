@@ -247,45 +247,119 @@ body {
     
     <main class="page-container">
         <h1 class="title-large">Interactive Geography of Hermeticism</h1>
-        <p class="text-subtitle">Major centers of transmission, translation, and practice.</p>
+        <p class="text-subtitle">Major centers of transmission, translation, and practice across the ancient and medieval world. Click any marker for detailed information; hover for a quick label.</p>
+
+        <div id="map-info-panel" style="display:none; margin-bottom:1rem; padding:1.5rem 2rem; background:var(--bg-card); border:1px solid var(--border); border-radius:12px; border-left:4px solid var(--accent);">
+            <div id="map-info-title" style="font-family:var(--font-display); font-size:1.4rem; color:var(--accent-light); margin-bottom:0.5rem;"></div>
+            <div id="map-info-body" style="font-size:0.95rem; line-height:1.7; color:var(--text-main);"></div>
+        </div>
+
         <div id="map" style="height: 600px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-card);"></div>
-        
+
+        <div style="margin-top:1.5rem; padding:1rem 2rem; background:var(--bg-card); border:1px solid var(--border); border-radius:8px; font-size:0.85rem; color:var(--text-muted);">
+            <strong style="color:var(--accent)">How to use:</strong> Hover over a marker for the location name. Click for full details including key figures, primary texts, and manuscript archives associated with each site.
+        </div>
+
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-        
+
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                const map = L.map('map').setView([35, 20], 3);
+                const map = L.map('map').setView([35, 25], 4);
                 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                    maxZoom: 18
                 }).addTo(map);
 
-                const locations = [{ "label": "Akhmim (Panopolis)", "lat": 26.5667, "lng": 31.7333, "desc": "A center of Upper Egyptian culture where Zosimos and other Hermeticists were active." },{ "label": "Hermopolis Magna", "lat": 27.7811, "lng": 30.8033, "desc": "The ancient Egyptian city dedicated to Thoth, identified as the spiritual home of Hermes Trismegistus." },{ "label": "Alexandria, Egypt", "lat": 31.2001, "lng": 29.9187, "desc": "The intellectual cradle of the philosophical Hermetica and the center of the Greco-Egyptian synthesis." },{ "label": "Panopolis (Akhmim), Egypt", "lat": 26.5667, "lng": 31.7333, "desc": "The hometown of Zosimos of Panopolis, where technical Hermeticism (alchemy) was deeply rooted." },{ "label": "Harran, Turkey", "lat": 36.8617, "lng": 39.0306, "desc": "Home of the Sabians, who preserved Hermetic and Neoplatonic traditions into the Islamic era." },{ "label": "Baghdad, Iraq", "lat": 33.3152, "lng": 44.3661, "desc": "The heart of the Abbasid translation movement, where Hermetic texts were translated into Arabic." },{ "label": "Florence, Italy", "lat": 43.7696, "lng": 11.2558, "desc": "The site of Marsilio Ficino's 1463 translation of the Corpus Hermeticum, sparking the Renaissance revival." },{ "label": "Prague, Czech Republic", "lat": 50.0755, "lng": 14.4378, "desc": "The 'Alchemical Capital' of Europe under the patronage of Emperor Rudolf II." },{ "label": "London, United Kingdom", "lat": 51.5074, "lng": -0.1278, "desc": "A major center for early modern Hermetic and Rosicrucian studies, home to John Dee and Robert Fludd." }];
-                
+                const locations = [{ "label": 'Akhmim (Panopolis)', "lat": 26.5667, "lng": 31.7333, "desc": 'A center of Upper Egyptian culture where Zosimos and other Hermeticists were active.', "popup": "A center of Upper Egyptian culture where Zosimos and other Hermeticists were active.<br><b style='color:#d4af37'>Key Figures:</b> Zosimos of Panopolis (c. 300 CE); Theosebia (correspondent of Zosimos)<br><b style='color:#d4af37'>Key Texts:</b> Zosimos's alchemical treatises; Cheirokmeta (On the Effects of Craft)<br><br><em style='color:#a0a0a0'>Akhmim (ancient Panopolis) in Upper Egypt was the home of Zosimos, the most important alchemical writer of Late Antiquity, whose works blend practical chemistry with Hermetic spiritual symbolism.</em>" },
+{ "label": 'Hermopolis Magna', "lat": 27.7811, "lng": 30.8033, "desc": 'The ancient Egyptian city dedicated to Thoth, identified as the spiritual home of Hermes Trismegistus.', "popup": "The ancient Egyptian city dedicated to Thoth, identified as the spiritual home of Hermes Trismegistus.<br><b style='color:#d4af37'>Key Figures:</b> Thoth (mythological patron); Hermes Trismegistus (legendary home)<br><b style='color:#d4af37'>Key Texts:</b> Book of Thoth (legendary); Early Egyptian priestly literature<br><br><em style='color:#a0a0a0'>Hermopolis Magna (Egyptian: Khmun) was the cult center of Thoth and was identified by ancient and modern scholars alike as the mythological home of Hermetic wisdom.</em>" },
+{ "label": 'Alexandria, Egypt', "lat": 31.2001, "lng": 29.9187, "desc": 'The intellectual cradle of the philosophical Hermetica and the center of the Greco-Egyptian synthesis.', "popup": "The intellectual cradle of the philosophical Hermetica and the center of the Greco-Egyptian synthesis.<br><b style='color:#d4af37'>Key Figures:</b> Zosimos of Panopolis; Clement of Alexandria; Cyril of Alexandria; Plotinus (studied here); Iamblichus (visited)<br><b style='color:#d4af37'>Key Texts:</b> Corpus Hermeticum (composed here, c. 100–300 CE); Stobaean Fragments; Nag Hammadi texts (nearby)<br><b style='color:#d4af37'>Manuscript Archives:</b> Bibliotheca Alexandrina (modern reconstruction); Various Coptic monasteries preserve related manuscripts<br><br><em style='color:#a0a0a0'>The intellectual cradle of Greco-Egyptian syncretism and the probable site of composition of the philosophical Hermetica.</em>" },
+{ "label": 'Panopolis (Akhmim), Egypt', "lat": 26.5667, "lng": 31.7333, "desc": 'The hometown of Zosimos of Panopolis, where technical Hermeticism (alchemy) was deeply rooted.', "popup": "The hometown of Zosimos of Panopolis, where technical Hermeticism (alchemy) was deeply rooted.<br><b style='color:#d4af37'>Key Figures:</b> Zosimos of Panopolis<br><b style='color:#d4af37'>Key Texts:</b> Zosimos's alchemical corpus<br><br><em style='color:#a0a0a0'>Alternative name for Akhmim. See Akhmim entry.</em>" },
+{ "label": 'Harran, Turkey', "lat": 36.8617, "lng": 39.0306, "desc": 'Home of the Sabians, who preserved Hermetic and Neoplatonic traditions into the Islamic era.', "popup": "Home of the Sabians, who preserved Hermetic and Neoplatonic traditions into the Islamic era.<br><b style='color:#d4af37'>Key Figures:</b> Thabit ibn Qurra; The Sabian community (8th–13th c.); Al-Battani<br><b style='color:#d4af37'>Key Texts:</b> Arabic Hermetic treatises preserved by the Sabians; Astronomical works<br><br><em style='color:#a0a0a0'>Harran (modern southeastern Turkey) was home to the Sabian community who maintained Neoplatonic and Hermetic traditions well into the Islamic period, serving as a crucial bridge between Late Antique and medieval Hermeticism.</em>" },
+{ "label": 'Baghdad, Iraq', "lat": 33.3152, "lng": 44.3661, "desc": 'The heart of the Abbasid translation movement, where Hermetic texts were translated into Arabic.', "popup": "The heart of the Abbasid translation movement, where Hermetic texts were translated into Arabic.<br><b style='color:#d4af37'>Key Figures:</b> Hunayn ibn Ishaq (translator); Al-Kindi; Abu Ma'shar; Jabir ibn Hayyan (associated)<br><b style='color:#d4af37'>Key Texts:</b> Arabic translations of Greek Hermetic texts; Kitab Sirr al-Khaliqa (Book of the Secret of Creation); Picatrix (compiled nearby)<br><b style='color:#d4af37'>Manuscript Archives:</b> Dar al-Hikma (House of Wisdom) — key transmission site<br><br><em style='color:#a0a0a0'>Baghdad under the Abbasid caliphate was the central site of Arabic Hermetic transmission. The translation movement (8th–10th c.) brought Greek Hermetic texts into Arabic, often with commentary and expansion.</em>" },
+{ "label": 'Florence, Italy', "lat": 43.7696, "lng": 11.2558, "desc": "The site of Marsilio Ficino's 1463 translation of the Corpus Hermeticum, sparking the Renaissance revival.", "popup": "The site of Marsilio Ficino's 1463 translation of the Corpus Hermeticum, sparking the Renaissance revival.<br><b style='color:#d4af37'>Key Figures:</b> Marsilio Ficino; Giovanni Pico della Mirandola; Lorenzo de' Medici; Cosimo de' Medici<br><b style='color:#d4af37'>Key Texts:</b> Corpus Hermeticum (Latin Pimander, 1463); Theologia Platonica; De Vita Libri Tres<br><b style='color:#d4af37'>Manuscript Archives:</b> Biblioteca Medicea Laurenziana — holds key Hermetic manuscripts including the Greek CH codex<br><br><em style='color:#a0a0a0'>The epicenter of Renaissance Hermeticism. Cosimo de' Medici commissioned Ficino to translate the Corpus Hermeticum here in 1460–63, prioritizing it over his Plato translation.</em>" },
+{ "label": 'Prague, Czech Republic', "lat": 50.0755, "lng": 14.4378, "desc": "The 'Alchemical Capital' of Europe under the patronage of Emperor Rudolf II.", "popup": "The 'Alchemical Capital' of Europe under the patronage of Emperor Rudolf II." },
+{ "label": 'London, United Kingdom', "lat": 51.5074, "lng": -0.1278, "desc": 'A major center for early modern Hermetic and Rosicrucian studies, home to John Dee and Robert Fludd.', "popup": 'A major center for early modern Hermetic and Rosicrucian studies, home to John Dee and Robert Fludd.' }];
+
                 const hermeticIcon = L.divIcon({
                     className: 'hermetic-marker',
-                    html: '<div style="width:12px; height:12px; background:var(--accent); border:2px solid #fff; border-radius:50%; box-shadow: 0 0 10px var(--accent);"></div>',
-                    iconSize: [12, 12]
+                    html: '<div class="hm-dot"></div>',
+                    iconSize: [16, 16],
+                    iconAnchor: [8, 8]
                 });
 
+                const infoPanel = document.getElementById('map-info-panel');
+                const infoTitle = document.getElementById('map-info-title');
+                const infoBody = document.getElementById('map-info-body');
+
                 locations.forEach(loc => {
-                    L.marker([loc.lat, loc.lng], {icon: hermeticIcon})
-                        .addTo(map)
-                        .bindPopup(`<b>${loc.label}</b><br><br>${loc.desc}`, {
-                            className: 'hermetic-popup'
-                        });
+                    const marker = L.marker([loc.lat, loc.lng], {icon: hermeticIcon}).addTo(map);
+
+                    // Hover tooltip (lightweight)
+                    marker.bindTooltip(loc.label, {
+                        permanent: false,
+                        direction: 'top',
+                        offset: [0, -10],
+                        className: 'hermetic-tooltip'
+                    });
+
+                    // Click: show info panel AND popup
+                    marker.on('click', function() {
+                        infoTitle.textContent = loc.label;
+                        infoBody.innerHTML = loc.popup;
+                        infoPanel.style.display = 'block';
+                        infoPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    });
+
+                    marker.bindPopup(`<b style="font-size:1.05rem; color:#d4af37">${loc.label}</b><br><br>${loc.desc}<br><br><em style="font-size:0.8rem; color:#888">Click marker or scroll up for full details</em>`, {
+                        className: 'hermetic-popup',
+                        maxWidth: 320
+                    });
                 });
             });
         </script>
         <style>
+            .hm-dot {
+                width: 14px; height: 14px;
+                background: #d4af37;
+                border: 2px solid #fff;
+                border-radius: 50%;
+                box-shadow: 0 0 12px #d4af37, 0 0 4px rgba(212,175,55,0.8);
+                transition: transform 0.15s;
+                cursor: pointer;
+            }
+            .hermetic-marker:hover .hm-dot {
+                transform: scale(1.5);
+                box-shadow: 0 0 20px #d4af37;
+            }
             .hermetic-popup .leaflet-popup-content-wrapper {
-                background: var(--bg-card);
-                color: var(--text-main);
-                border: 1px solid var(--border);
-                font-family: var(--font-body);
+                background: #141418;
+                color: #e0e0e0;
+                border: 1px solid rgba(212,175,55,0.4);
+                border-radius: 10px;
+                font-family: 'Inter', sans-serif;
+                font-size: 0.9rem;
+                line-height: 1.6;
             }
             .hermetic-popup .leaflet-popup-tip {
-                background: var(--bg-card);
+                background: #141418;
+            }
+            .hermetic-popup .leaflet-popup-close-button {
+                color: #a0a0a0 !important;
+            }
+            .hermetic-tooltip {
+                background: #141418;
+                border: 1px solid rgba(212,175,55,0.6);
+                color: #f1d37e;
+                font-family: 'Outfit', sans-serif;
+                font-size: 0.85rem;
+                padding: 0.3rem 0.7rem;
+                border-radius: 6px;
+                font-weight: 600;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            }
+            .hermetic-tooltip::before {
+                border-top-color: rgba(212,175,55,0.6) !important;
             }
         </style>
     </main>

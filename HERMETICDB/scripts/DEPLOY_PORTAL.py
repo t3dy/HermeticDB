@@ -333,15 +333,256 @@ BASE_TEMPLATE = """<!DOCTYPE html>
 </html>
 """
 
-def generate_entity_card(title, meta, desc, link):
-    desc_text = clean_inline(" ".join(desc.split()[:25]) if desc else "No short definition available") + "..."
+def generate_entity_card(title, meta, desc, link, data_attrs=None):
+    if not desc or len(desc.strip()) < 20:
+        desc_text = "<em style='color:var(--text-muted)'>Entry in progress — check back soon.</em>"
+    else:
+        desc_text = clean_inline(" ".join(desc.split()[:30])) + "…"
+    attrs_str = ""
+    if data_attrs:
+        attrs_str = " ".join(f'data-{k}="{v}"' for k, v in data_attrs.items())
     return f"""
-    <a class="card" href="{link}">
+    <a class="card" href="{link}" {attrs_str}>
         <div class="card-title">{clean_inline(title)}</div>
         <div class="card-meta">{meta}</div>
         <div class="card-desc">{desc_text}</div>
     </a>
     """
+
+
+FILTER_CSS = """
+.filter-bar {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+}
+.filter-bar-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    margin-right: 0.5rem;
+}
+.filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+.filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 20px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.78rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+.filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+    font-weight: 600;
+}
+.filter-search {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    border-radius: 8px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    flex: 1;
+    min-width: 180px;
+    max-width: 300px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.filter-search:focus { border-color: var(--accent); }
+.filter-search::placeholder { color: var(--text-muted); }
+.sort-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 6px;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.75rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.sort-btn:hover, .sort-btn.active { border-color: var(--accent); color: var(--accent); }
+.filter-count {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-left: auto;
+    white-space: nowrap;
+}
+.section-header { transition: opacity 0.2s; }
+.section-header.hidden { display: none; }
+"""
+
+FILTER_JS = """
+(function() {
+    var cards = Array.from(document.querySelectorAll('.card'));
+    var countEl = document.querySelector('.filter-count');
+    var activeFilters = {};
+
+    function updateCount() {
+        var vis = cards.filter(function(c) { return c.style.display !== 'none'; }).length;
+        if (countEl) countEl.textContent = vis + ' of ' + cards.length + ' entries';
+    }
+
+    function applyFilters() {
+        var searchVal = (document.querySelector('.filter-search') || {value:''}).value.toLowerCase().trim();
+        cards.forEach(function(card) {
+            var show = true;
+            // text search
+            if (searchVal) {
+                var text = (card.querySelector('.card-title') || {textContent:''}).textContent.toLowerCase()
+                         + ' ' + (card.querySelector('.card-desc') || {textContent:''}).textContent.toLowerCase();
+                if (text.indexOf(searchVal) === -1) show = false;
+            }
+            // attribute filters — each filter group: OR within group, AND across groups
+            Object.keys(activeFilters).forEach(function(attr) {
+                if (activeFilters[attr].length === 0) return;
+                var val = (card.getAttribute('data-' + attr) || '').toLowerCase();
+                var match = activeFilters[attr].some(function(f) { return val === f.toLowerCase(); });
+                if (!match) show = false;
+            });
+            card.style.display = show ? '' : 'none';
+        });
+        // hide/show section headers
+        document.querySelectorAll('.section-header').forEach(function(h) {
+            var grid = h.nextElementSibling;
+            if (!grid) return;
+            var visible = Array.from(grid.querySelectorAll('.card')).some(function(c) { return c.style.display !== 'none'; });
+            h.classList.toggle('hidden', !visible);
+        });
+        updateCount();
+    }
+
+    // Wire filter buttons
+    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+        var attr = btn.getAttribute('data-filter-attr');
+        var val = btn.getAttribute('data-filter-val');
+        if (!activeFilters[attr]) activeFilters[attr] = [];
+        btn.addEventListener('click', function() {
+            btn.classList.toggle('active');
+            if (btn.classList.contains('active')) {
+                activeFilters[attr].push(val);
+            } else {
+                activeFilters[attr] = activeFilters[attr].filter(function(v) { return v !== val; });
+            }
+            applyFilters();
+        });
+    });
+
+    // Wire search
+    var searchEl = document.querySelector('.filter-search');
+    if (searchEl) {
+        var timer;
+        searchEl.addEventListener('input', function() {
+            clearTimeout(timer);
+            timer = setTimeout(applyFilters, 180);
+        });
+    }
+
+    // Wire sort buttons
+    document.querySelectorAll('.sort-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.sort-btn').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            var mode = btn.getAttribute('data-sort');
+            document.querySelectorAll('.grid').forEach(function(grid) {
+                var items = Array.from(grid.querySelectorAll('.card'));
+                items.sort(function(a, b) {
+                    if (mode === 'az') return (a.querySelector('.card-title') || {textContent:''}).textContent.localeCompare((b.querySelector('.card-title') || {textContent:''}).textContent);
+                    if (mode === 'za') return (b.querySelector('.card-title') || {textContent:''}).textContent.localeCompare((a.querySelector('.card-title') || {textContent:''}).textContent);
+                    return 0;
+                });
+                items.forEach(function(item) { grid.appendChild(item); });
+            });
+        });
+    });
+
+    updateCount();
+})();
+"""
+
+
+def build_filter_bar(table, era_groups):
+    """Build a filter bar appropriate for the given section."""
+    buttons_html = ""
+
+    if table == "persons":
+        eras = ["ANTIQUITY", "MEDIEVAL", "RENAISSANCE", "EARLY MODERN", "MODERN"]
+        roles = sorted(set(r['role_primary'] for rows in era_groups.values() for r in rows if ('role_primary' in r.keys() and r['role_primary']) and r['role_primary'] != 'SCHOLAR'))
+        buttons_html += '<span class="filter-bar-label">Era</span><div class="filter-group">'
+        for e in eras:
+            buttons_html += f'<button class="filter-btn" data-filter-attr="era" data-filter-val="{e}">{e.replace("_"," ").title()}</button>'
+        buttons_html += '</div>'
+        if roles:
+            buttons_html += '<span class="filter-bar-label" style="margin-left:1rem">Role</span><div class="filter-group">'
+            for role in roles:
+                buttons_html += f'<button class="filter-btn" data-filter-attr="role" data-filter-val="{role}">{role.replace("_"," ").title()}</button>'
+            buttons_html += '</div>'
+
+    elif table == "scholars":
+        groups = sorted(era_groups.keys())
+        buttons_html += '<span class="filter-bar-label">Focus Area</span><div class="filter-group">'
+        for g in groups:
+            safe = g.replace('"', '')
+            buttons_html += f'<button class="filter-btn" data-filter-attr="group" data-filter-val="{safe}">{safe}</button>'
+        buttons_html += '</div>'
+
+    elif table == "texts":
+        ttypes = sorted(set(r['text_type'] for rows in era_groups.values() for r in rows if ('text_type' in r.keys() and r['text_type'])))
+        buttons_html += '<span class="filter-bar-label">Type</span><div class="filter-group">'
+        for t in ttypes:
+            buttons_html += f'<button class="filter-btn" data-filter-attr="type" data-filter-val="{t}">{t.replace("_"," ").title()}</button>'
+        buttons_html += '</div>'
+
+    elif table == "concepts":
+        cats = sorted(set(r['category'] for rows in era_groups.values() for r in rows if ('category' in r.keys() and r['category'])))
+        ctypes = ["ACTOR_TERM", "ANALYST_TERM", "HYBRID"]
+        buttons_html += '<span class="filter-bar-label">Category</span><div class="filter-group">'
+        for cat in cats:
+            buttons_html += f'<button class="filter-btn" data-filter-attr="cat" data-filter-val="{cat}">{cat.replace("_"," ").title()}</button>'
+        buttons_html += '</div>'
+        buttons_html += '<span class="filter-bar-label" style="margin-left:1rem">Term Type</span><div class="filter-group">'
+        for ct in ctypes:
+            label = ct.replace("_", " ").title().replace("Term", "Term")
+            buttons_html += f'<button class="filter-btn" data-filter-attr="termtype" data-filter-val="{ct}">{label}</button>'
+        buttons_html += '</div>'
+
+    sort_bar = ('<div class="filter-group" style="margin-left:auto">'
+                '<span class="filter-bar-label">Sort</span>'
+                '<button class="sort-btn active" data-sort="default">Default</button>'
+                '<button class="sort-btn" data-sort="az">A–Z</button>'
+                '<button class="sort-btn" data-sort="za">Z–A</button>'
+                '</div>')
+
+    return (f'<style>{FILTER_CSS}</style>'
+            f'<div class="filter-bar">'
+            f'<input class="filter-search" type="text" placeholder="Search entries…">'
+            f'{buttons_html}'
+            f'{sort_bar}'
+            f'<span class="filter-count"></span>'
+            f'</div>'
+            f'<script>{FILTER_JS}</script>')
 
 def slug_for_row(table, row):
     if table == "texts":
@@ -404,6 +645,7 @@ def deploy_to(target_dir, cursor):
     (target_dir / "texts").mkdir(exist_ok=True)
     (target_dir / "eras").mkdir(exist_ok=True)
     (target_dir / "concepts").mkdir(exist_ok=True)
+    (target_dir / "dictionary").mkdir(exist_ok=True)
 
     # PAGE GENERATION LOGIC
     # ... (similar to previous version but with fragments integrated)
@@ -462,6 +704,55 @@ def deploy_to(target_dir, cursor):
         html = BASE_TEMPLATE.replace("{{title}}", label).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container"><a href="{REPO_URL}/dictionary.html" class="back-link">← Return to Dictionary</a><h1 class="title-large">{label}</h1><div class="card-meta" style="margin-bottom:3rem">{meta_label}</div><div class="prose-content">{content}{fragments}</div></main>')
         with open(target_dir / "concepts" / f"{slug}.html", "w", encoding="utf-8") as f: f.write(html)
 
+    # 4B. DICTIONARY PAGES (Full Encyclopedia Entries)
+    cursor.execute("SELECT * FROM concepts ORDER BY label")
+    for row in cursor.fetchall():
+        slug = row['slug']
+        label = italicize_terms(row['label'])
+
+        # Main content: definition_long (encyclopedia entry)
+        definition = italicize_terms(row['definition_long']) if row['definition_long'] else f"<p><em>No full encyclopedia entry yet. See brief definition:</em></p><p>{row['definition_short']}</p>"
+
+        # Related concepts (concept_links)
+        related_html = ""
+        cursor.execute("""
+            SELECT c2.slug, c2.label, cl.relationship
+            FROM concept_links cl
+            JOIN concepts c2 ON cl.to_concept_id = c2.id
+            WHERE cl.from_concept_id = (SELECT id FROM concepts WHERE slug = ?)
+            ORDER BY c2.label
+        """, (slug,))
+        related = cursor.fetchall()
+        if related:
+            related_html = '<div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border)"><h2 class="title-medium">Related Concepts</h2><ul style="list-style: none; padding: 0">'
+            for rslug, rlabel, rel_type in related:
+                related_html += f'<li style="margin-bottom: 0.5rem"><a href="{REPO_URL}/dictionary/{rslug}.html" class="nav-link">{rlabel}</a> <span style="color: var(--text-muted); font-size: 0.85rem">({rel_type.replace("_", " ")})</span></li>'
+            related_html += '</ul></div>'
+
+        # Literature: texts that reference this concept
+        lit_html = ""
+        cursor.execute("""
+            SELECT DISTINCT t.text_id, t.title, t.text_type
+            FROM concept_text_refs ctr
+            JOIN texts t ON ctr.text_id = t.id
+            WHERE ctr.concept_id = (SELECT id FROM concepts WHERE slug = ?)
+            ORDER BY t.title
+        """, (slug,))
+        texts = cursor.fetchall()
+        if texts:
+            lit_html = '<div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border)"><h2 class="title-medium">In the Literature</h2><ul style="list-style: none; padding: 0">'
+            for text_id, ttitle, ttype in texts:
+                lit_html += f'<li style="margin-bottom: 0.5rem"><a href="{REPO_URL}/texts/{text_id}.html" class="nav-link">{ttitle}</a> <span style="color: var(--text-muted); font-size: 0.85rem">[{ttype}]</span></li>'
+            lit_html += '</ul></div>'
+
+        cat_type = row['category_type'] if 'category_type' in row.keys() and row['category_type'] else 'HYBRID'
+        meta_label = f"{row['category'] or 'General'} Concept · {cat_type.replace('_', ' ')}"
+
+        content_html = f'<main class="page-container"><a href="{REPO_URL}/dictionary/index.html" class="back-link">← Dictionary Index</a><h1 class="title-large">{label}</h1><div class="card-meta" style="margin-bottom:3rem">{meta_label}</div><div class="prose-content">{definition}{related_html}{lit_html}</div></main>'
+        html = BASE_TEMPLATE.replace("{{title}}", row['label']).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", content_html)
+
+        with open(target_dir / "dictionary" / f"{slug}.html", "w", encoding="utf-8") as f: f.write(html)
+
     # 5. INDEXES
     for table, title, sub, target in [("texts", "The Emerald Library", "Canonical treatises and manuscript lineages.", "texts"),
                                       ("persons", "The Hermetic Lineage", "Sages, alchemists, and philosophers of the Thrice-Greatest.", "biographies"),
@@ -511,23 +802,46 @@ def deploy_to(target_dir, cursor):
                 cat_type = ""
                 if table == "concepts" and 'category_type' in row.keys() and row['category_type']:
                     cat_type = f" · {row['category_type'].replace('_', ' ')}"
-                
+
                 meta = row['text_type'] if 'text_type' in row.keys() else (f"{(row['era'] or 'Unknown').replace('_',' ')} · {row['role_primary'] or 'Figure'}" if 'era' in row.keys() else f"{row['category']}{cat_type}")
                 desc = row['description'] if 'description' in row.keys() else row['definition_short']
-                # CLEAN PROSE
                 desc = clean_prose(desc)
 
-                target_folder = target if target != "dictionary" else "concepts"
+                target_folder = target
                 link = f"{REPO_URL}/{target_folder}/{slug_for_row(table, row)}.html"
-                cards += generate_entity_card(name, meta, desc, link)
+
+                # Build data attributes for filtering
+                data_attrs = {"name": name.replace('"', '')}
+                if 'era' in row.keys() and row['era']:
+                    data_attrs['era'] = row['era'].replace('_', ' ')
+                if 'role_primary' in row.keys() and row['role_primary']:
+                    data_attrs['role'] = row['role_primary']
+                if 'text_type' in row.keys() and row['text_type']:
+                    data_attrs['type'] = row['text_type']
+                if 'category' in row.keys() and row['category']:
+                    data_attrs['cat'] = row['category']
+                if 'category_type' in row.keys() and row['category_type']:
+                    data_attrs['termtype'] = row['category_type']
+                if 'scholar_group' in row.keys() and row['scholar_group']:
+                    data_attrs['group'] = row['scholar_group'].replace('"', '')
+
+                cards += generate_entity_card(name, meta, desc, link, data_attrs)
                 era_links.append(f'<a href="{link}" class="nav-link" style="font-size:0.9rem; padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:4px">{name}</a>')
-            
-            sections_html += f'<h2 class="title-medium" style="margin-top:4rem; border-bottom: 2px solid var(--accent); display:inline-block">{era}</h2><div class="grid">{cards}</div>'
+
+            sections_html += (f'<h2 class="title-medium section-header" style="margin-top:4rem; border-bottom: 2px solid var(--accent); display:inline-block">{era}</h2>'
+                              f'<div class="grid">{cards}</div>')
             compact_list_html += f'<div style="width:100%; margin-top:1rem; font-weight:bold; color:var(--text-muted); font-size:0.8rem">{era}</div>'
             compact_list_html += "".join(era_links)
 
         compact_list_html += '</div></div>'
-        content = f'<main class="page-container"><h1 class="title-large">{title}</h1><p class="text-subtitle" style="margin-bottom:3rem">{sub}</p>{compact_list_html}{sections_html}</main>'
+        filter_bar = build_filter_bar(table, era_groups)
+        content = (f'<main class="page-container">'
+                   f'<h1 class="title-large">{title}</h1>'
+                   f'<p class="text-subtitle" style="margin-bottom:2rem">{sub}</p>'
+                   f'{filter_bar}'
+                   f'{compact_list_html}'
+                   f'{sections_html}'
+                   f'</main>')
         with open(target_dir / f"{target}.html", "w", encoding="utf-8") as f: f.write(BASE_TEMPLATE.replace("{{title}}", title).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", content))
 
     # 6. ERAS
@@ -655,54 +969,204 @@ def deploy_to(target_dir, cursor):
     # 6.8 INTERACTIVE MAP
     cursor.execute("SELECT * FROM locations")
     locs = cursor.fetchall()
+
+    # Augment locations with associated persons and texts from the DB
+    cursor.execute("SELECT person_id, name, era FROM persons ORDER BY era, name")
+    all_persons = cursor.fetchall()
+    cursor.execute("SELECT text_id, title, text_type FROM texts WHERE text_type IN ('PRIMARY_SOURCE','TREATISE') ORDER BY title")
+    all_texts = cursor.fetchall()
+
+    # Extended location data with scholarly context
+    LOCATION_EXTRAS = {
+        "alexandria": {
+            "figures": ["Zosimos of Panopolis", "Clement of Alexandria", "Cyril of Alexandria", "Plotinus (studied here)", "Iamblichus (visited)"],
+            "texts": ["Corpus Hermeticum (composed here, c. 100–300 CE)", "Stobaean Fragments", "Nag Hammadi texts (nearby)"],
+            "archives": ["Bibliotheca Alexandrina (modern reconstruction)", "Various Coptic monasteries preserve related manuscripts"],
+            "note": "The intellectual cradle of Greco-Egyptian syncretism and the probable site of composition of the philosophical Hermetica."
+        },
+        "hermopolis": {
+            "figures": ["Thoth (mythological patron)", "Hermes Trismegistus (legendary home)"],
+            "texts": ["Book of Thoth (legendary)", "Early Egyptian priestly literature"],
+            "archives": [],
+            "note": "Hermopolis Magna (Egyptian: Khmun) was the cult center of Thoth and was identified by ancient and modern scholars alike as the mythological home of Hermetic wisdom."
+        },
+        "florence": {
+            "figures": ["Marsilio Ficino", "Giovanni Pico della Mirandola", "Lorenzo de' Medici", "Cosimo de' Medici"],
+            "texts": ["Corpus Hermeticum (Latin Pimander, 1463)", "Theologia Platonica", "De Vita Libri Tres"],
+            "archives": ["Biblioteca Medicea Laurenziana — holds key Hermetic manuscripts including the Greek CH codex"],
+            "note": "The epicenter of Renaissance Hermeticism. Cosimo de' Medici commissioned Ficino to translate the Corpus Hermeticum here in 1460–63, prioritizing it over his Plato translation."
+        },
+        "harran": {
+            "figures": ["Thabit ibn Qurra", "The Sabian community (8th–13th c.)", "Al-Battani"],
+            "texts": ["Arabic Hermetic treatises preserved by the Sabians", "Astronomical works"],
+            "archives": [],
+            "note": "Harran (modern southeastern Turkey) was home to the Sabian community who maintained Neoplatonic and Hermetic traditions well into the Islamic period, serving as a crucial bridge between Late Antique and medieval Hermeticism."
+        },
+        "baghdad": {
+            "figures": ["Hunayn ibn Ishaq (translator)", "Al-Kindi", "Abu Ma'shar", "Jabir ibn Hayyan (associated)"],
+            "texts": ["Arabic translations of Greek Hermetic texts", "Kitab Sirr al-Khaliqa (Book of the Secret of Creation)", "Picatrix (compiled nearby)"],
+            "archives": ["Dar al-Hikma (House of Wisdom) — key transmission site"],
+            "note": "Baghdad under the Abbasid caliphate was the central site of Arabic Hermetic transmission. The translation movement (8th–10th c.) brought Greek Hermetic texts into Arabic, often with commentary and expansion."
+        },
+        "akhmim": {
+            "figures": ["Zosimos of Panopolis (c. 300 CE)", "Theosebia (correspondent of Zosimos)"],
+            "texts": ["Zosimos's alchemical treatises", "Cheirokmeta (On the Effects of Craft)"],
+            "archives": [],
+            "note": "Akhmim (ancient Panopolis) in Upper Egypt was the home of Zosimos, the most important alchemical writer of Late Antiquity, whose works blend practical chemistry with Hermetic spiritual symbolism."
+        },
+        "panopolis": {
+            "figures": ["Zosimos of Panopolis"],
+            "texts": ["Zosimos's alchemical corpus"],
+            "archives": [],
+            "note": "Alternative name for Akhmim. See Akhmim entry."
+        },
+        "toledo": {
+            "figures": ["Herman the German", "Gerard of Cremona", "Dominicus Gundissalinus", "Hugo of Santalla"],
+            "texts": ["Latin translations of Arabic Hermetic texts", "Picatrix (Latin, c. 1256)", "Liber de causis"],
+            "archives": ["Cathedral of Toledo library — medieval translation center"],
+            "note": "Toledo was the primary center of the 12th-century translation movement, where Arabic Hermetic and philosophical texts were translated into Latin by a school of translators working under Archbishop Raymond."
+        },
+        "rome": {
+            "figures": ["Athanasius Kircher (worked here)", "G.R.S. Mead (visited)", "Pico della Mirandola (debated here)"],
+            "texts": ["Kircher's Oedipus Aegyptiacus (1652–54)", "Various Rosicrucian publications"],
+            "archives": ["Vatican Library — Reg. Lat. 1290 (Corpus Hermeticum manuscript)", "Biblioteca Nazionale Centrale"],
+            "note": "Rome was a significant center for early modern Hermeticism, especially through Kircher's Egyptological projects and the Jesuit engagement with Hermetic symbolism."
+        },
+    }
+
     loc_js_objects = []
     for l in locs:
-        loc_js_objects.append(f'{{ "label": "{l["label"]}", "lat": {l["lat"]}, "lng": {l["lng"]}, "desc": "{l["description"]}" }}')
-    
-    loc_js_array = "[" + ",".join(loc_js_objects) + "]"
-    
+        slug = l["slug"] if "slug" in l.keys() else ""
+        desc = (l["description"] or "").replace('"', "'").replace('\n', ' ')
+        extras = LOCATION_EXTRAS.get(slug, {})
+        figures_html = ""
+        if extras.get("figures"):
+            figures_html = "<br><b style='color:#d4af37'>Key Figures:</b> " + "; ".join(extras["figures"])
+        texts_html = ""
+        if extras.get("texts"):
+            texts_html = "<br><b style='color:#d4af37'>Key Texts:</b> " + "; ".join(extras["texts"])
+        archives_html = ""
+        if extras.get("archives"):
+            archives_html = "<br><b style='color:#d4af37'>Manuscript Archives:</b> " + "; ".join(extras["archives"])
+        note_html = ""
+        if extras.get("note"):
+            note_html = f"<br><br><em style='color:#a0a0a0'>{extras['note']}</em>"
+        full_popup = f"{desc}{figures_html}{texts_html}{archives_html}{note_html}"
+        loc_js_objects.append(
+            f'{{ "label": {repr(l["label"])}, "lat": {l["lat"]}, "lng": {l["lng"]}, '
+            f'"desc": {repr(l["description"] or "")}, "popup": {repr(full_popup)} }}'
+        )
+
+    loc_js_array = "[" + ",\n".join(loc_js_objects) + "]"
+
     map_content = f"""
     <main class="page-container">
         <h1 class="title-large">Interactive Geography of Hermeticism</h1>
-        <p class="text-subtitle">Major centers of transmission, translation, and practice.</p>
+        <p class="text-subtitle">Major centers of transmission, translation, and practice across the ancient and medieval world. Click any marker for detailed information; hover for a quick label.</p>
+
+        <div id="map-info-panel" style="display:none; margin-bottom:1rem; padding:1.5rem 2rem; background:var(--bg-card); border:1px solid var(--border); border-radius:12px; border-left:4px solid var(--accent);">
+            <div id="map-info-title" style="font-family:var(--font-display); font-size:1.4rem; color:var(--accent-light); margin-bottom:0.5rem;"></div>
+            <div id="map-info-body" style="font-size:0.95rem; line-height:1.7; color:var(--text-main);"></div>
+        </div>
+
         <div id="map" style="height: 600px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-card);"></div>
-        
+
+        <div style="margin-top:1.5rem; padding:1rem 2rem; background:var(--bg-card); border:1px solid var(--border); border-radius:8px; font-size:0.85rem; color:var(--text-muted);">
+            <strong style="color:var(--accent)">How to use:</strong> Hover over a marker for the location name. Click for full details including key figures, primary texts, and manuscript archives associated with each site.
+        </div>
+
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-        
+
         <script>
             document.addEventListener('DOMContentLoaded', function() {{
-                const map = L.map('map').setView([35, 20], 3);
+                const map = L.map('map').setView([35, 25], 4);
                 L.tileLayer('https://{{s}}.basemaps.cartocdn.com/dark_all/{{z}}/{{x}}/{{y}}{{r}}.png', {{
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                    maxZoom: 18
                 }}).addTo(map);
 
                 const locations = {loc_js_array};
-                
+
                 const hermeticIcon = L.divIcon({{
                     className: 'hermetic-marker',
-                    html: '<div style="width:12px; height:12px; background:var(--accent); border:2px solid #fff; border-radius:50%; box-shadow: 0 0 10px var(--accent);"></div>',
-                    iconSize: [12, 12]
+                    html: '<div class="hm-dot"></div>',
+                    iconSize: [16, 16],
+                    iconAnchor: [8, 8]
                 }});
 
+                const infoPanel = document.getElementById('map-info-panel');
+                const infoTitle = document.getElementById('map-info-title');
+                const infoBody = document.getElementById('map-info-body');
+
                 locations.forEach(loc => {{
-                    L.marker([loc.lat, loc.lng], {{icon: hermeticIcon}})
-                        .addTo(map)
-                        .bindPopup(`<b>${{loc.label}}</b><br><br>${{loc.desc}}`, {{
-                            className: 'hermetic-popup'
-                        }});
+                    const marker = L.marker([loc.lat, loc.lng], {{icon: hermeticIcon}}).addTo(map);
+
+                    // Hover tooltip (lightweight)
+                    marker.bindTooltip(loc.label, {{
+                        permanent: false,
+                        direction: 'top',
+                        offset: [0, -10],
+                        className: 'hermetic-tooltip'
+                    }});
+
+                    // Click: show info panel AND popup
+                    marker.on('click', function() {{
+                        infoTitle.textContent = loc.label;
+                        infoBody.innerHTML = loc.popup;
+                        infoPanel.style.display = 'block';
+                        infoPanel.scrollIntoView({{ behavior: 'smooth', block: 'nearest' }});
+                    }});
+
+                    marker.bindPopup(`<b style="font-size:1.05rem; color:#d4af37">${{loc.label}}</b><br><br>${{loc.desc}}<br><br><em style="font-size:0.8rem; color:#888">Click marker or scroll up for full details</em>`, {{
+                        className: 'hermetic-popup',
+                        maxWidth: 320
+                    }});
                 }});
             }});
         </script>
         <style>
+            .hm-dot {{
+                width: 14px; height: 14px;
+                background: #d4af37;
+                border: 2px solid #fff;
+                border-radius: 50%;
+                box-shadow: 0 0 12px #d4af37, 0 0 4px rgba(212,175,55,0.8);
+                transition: transform 0.15s;
+                cursor: pointer;
+            }}
+            .hermetic-marker:hover .hm-dot {{
+                transform: scale(1.5);
+                box-shadow: 0 0 20px #d4af37;
+            }}
             .hermetic-popup .leaflet-popup-content-wrapper {{
-                background: var(--bg-card);
-                color: var(--text-main);
-                border: 1px solid var(--border);
-                font-family: var(--font-body);
+                background: #141418;
+                color: #e0e0e0;
+                border: 1px solid rgba(212,175,55,0.4);
+                border-radius: 10px;
+                font-family: 'Inter', sans-serif;
+                font-size: 0.9rem;
+                line-height: 1.6;
             }}
             .hermetic-popup .leaflet-popup-tip {{
-                background: var(--bg-card);
+                background: #141418;
+            }}
+            .hermetic-popup .leaflet-popup-close-button {{
+                color: #a0a0a0 !important;
+            }}
+            .hermetic-tooltip {{
+                background: #141418;
+                border: 1px solid rgba(212,175,55,0.6);
+                color: #f1d37e;
+                font-family: 'Outfit', sans-serif;
+                font-size: 0.85rem;
+                padding: 0.3rem 0.7rem;
+                border-radius: 6px;
+                font-weight: 600;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            }}
+            .hermetic-tooltip::before {{
+                border-top-color: rgba(212,175,55,0.6) !important;
             }}
         </style>
     </main>

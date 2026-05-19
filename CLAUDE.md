@@ -1,8 +1,12 @@
 # Claude Code Instructions — EmeraldTablet / HermeticDB
 
-## MANDATORY FIRST STEP
+## MANDATORY FIRST STEPS (in order)
 
-**Before writing any prose for the database, read `STYLEGUIDE.md` in full.** It governs all `bio_html`, `analysis_html`, `definition_long`, and `description` fields. Violations — including hashtags, brackets, markdown symbols, bullet lists, or placeholder text — will corrupt the portal. The standard is encyclopedia-level scholarly prose.
+1. **Read `PROMPTS.md` in full.** It is the canonical record of the user's vision, scholarly framework, agent rules, and all accumulated project decisions. It prevents 90% of direction errors.
+
+2. **Read `STYLEGUIDE.md` in full.** It governs all `bio_html`, `analysis_html`, `definition_long`, and `description` fields with **precise word counts and required section structures**. Violations — including hashtags, brackets, markdown symbols, bullet lists, placeholder text, or entries below minimum length — corrupt the portal. The model is the *Dictionary of Gnosis and Western Esotericism* (Brill, 2006).
+
+3. **Do not write entries shorter than the minimums in STYLEGUIDE.md.** Stubs are not acceptable. Minimum: 1,500 words for dictionary encyclopedia pages; 1,200 for biographies; 1,000 for text analyses.
 
 ---
 
@@ -16,14 +20,15 @@ The portal has three constituencies: (1) scholars researching the Hermetic tradi
 
 ## Current Phase
 
-**SCHOLARLY SYNTHESIS / ONGOING ENRICHMENT**
+**PHASE 4: DICTIONARY ARCHITECTURE + CONTENT DEPTH**
 
-The infrastructure is built. The database is relational and populated. The static site deploys correctly. The current priority is:
+The infrastructure is built and the database is populated. The current priority is making the content *deep enough to be useful* and the site *navigable enough to be delightful*:
 
-1. Ensuring all significant scholars, figures, and texts are in the database with full encyclopedia-quality prose
-2. Fixing any entries with style violations (artifacts, hashtags, stubs)
-3. Strengthening the relational graph (person → text → concept links)
-4. Expanding the timeline with granular event data
+1. **Dictionary two-level architecture**: Build `/dictionary/[slug].html` encyclopedia pages alongside the existing `/concepts/` relational pages. Both sections must cross-link.
+2. **Content depth**: Expand all `definition_short` fields (currently mostly empty) to meet the 60–120 word index card standard; expand all `definition_long` fields to meet the 1,500–2,500 word encyclopedia standard.
+3. **Relational browsing**: Render the `concept_links` table in concept and dictionary pages — this table is populated but completely unused in the current deploy script.
+4. **Biography and text analysis depth**: Expand all `bio_html` and `analysis_html` to meet the word count minimums. Many are currently under 300 words — they must reach 1,200+ and 1,000+ respectively.
+5. **Bibliography sections**: Add `<h2>Literature</h2>` sections to all encyclopedia-length entries.
 
 ---
 
@@ -38,17 +43,56 @@ SQLite → Python pipeline → static HTML/CSS/JS → GitHub Pages. No framework
 
 ---
 
+## Task Routing — Read This File First
+
+| I need to... | Read this first |
+|---|---|
+| Understand the full project vision | `PROMPTS.md` ← START HERE |
+| Write any prose content | `STYLEGUIDE.md` (word counts, structure, bibliography) |
+| Know what's built vs. planned | `PHASESTATUS.md` |
+| Know the database schema | `docs/ONTOLOGY.md` |
+| Know the pipeline order | `docs/PIPELINE.md` |
+| Know lessons from other projects | `TAKEAWAYS1.md` |
+| Know the architecture | `docs/SYSTEM.md` |
+| Know the corpus | `HERMETICSEARCH.md` |
+| Add a person entry | `STYLEGUIDE.md` → bio_html section → `docs/ONTOLOGY.md` persons table |
+| Add a dictionary entry | `STYLEGUIDE.md` → Dictionary section → two-level spec |
+| Add a text entry | `STYLEGUIDE.md` → Texts section |
+| Run agent swarms | `PROMPTS.md` → Part VI: Agent Operating Rules |
+
 ## Key Files
 
 | Purpose | File |
 |---------|------|
-| **Style mandate** | `STYLEGUIDE.md` ← READ FIRST |
-| Entry point | This file (`CLAUDE.md`) |
+| **Canonical vision** | `PROMPTS.md` ← READ FIRST |
+| **Style mandate** | `STYLEGUIDE.md` ← READ SECOND |
+| Entry point (this file) | `CLAUDE.md` |
 | Phase status | `PHASESTATUS.md` |
 | Data ontology | `docs/ONTOLOGY.md` |
 | Architecture | `docs/SYSTEM.md` |
 | Database | `db/emerald_tablet.db` |
 | Deploy | `HERMETICDB/scripts/DEPLOY_PORTAL.py` |
+
+## Dictionary Architecture
+
+The portal has **two complementary sections** for concept entries, which must both be built and cross-linked:
+
+**`/dictionary/[slug].html`** — The scholarly reference section:
+- Full encyclopedia-length entries (1,500–2,500 words)
+- DGWE-style structure: opening paragraph → Historical Usage → Scholarly Significance → Transmission (optional) → Related Concepts → Literature
+- Serves constituencies 1 (scholars) and 3 (independent researchers)
+- Generated from `definition_long` field of the `concepts` table
+
+**`/concepts/[slug].html`** — The relational browsing section:
+- Shows what texts mention this concept, what persons worked with it, concept-to-concept links
+- Renders the `concept_links` table (currently populated but NOT rendered — this is a major gap)
+- Serves all three constituencies as the primary navigation hub
+- Cross-links: each concept page has a "Read the full dictionary entry →" link to `/dictionary/[slug].html`
+
+**`/dictionary/index.html`** — The browsable directory:
+- Alphabetical index showing Level 1 index cards (60–120 words from `definition_short`)
+- Filterable by category (ACTOR_TERM / ANALYST_TERM) and by the 6 concept categories
+- Each card links to both the dictionary page and the concepts page
 
 ---
 
