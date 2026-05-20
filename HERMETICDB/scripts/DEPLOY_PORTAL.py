@@ -727,7 +727,12 @@ def deploy_to(target_dir, cursor):
         fragments = italicize_terms(get_fragments(cursor, slug, "CONCEPT"))
         cat_type = row['category_type'] if 'category_type' in row.keys() and row['category_type'] else 'HYBRID'
         meta_label = f"{row['category']} Concept · {cat_type.replace('_', ' ')}"
-        html = BASE_TEMPLATE.replace("{{title}}", label).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container"><a href="{REPO_URL}/dictionary.html" class="back-link">← Return to Dictionary</a><h1 class="title-large">{label}</h1><div class="card-meta" style="margin-bottom:3rem">{meta_label}</div><div class="prose-content">{content}{fragments}</div></main>')
+        dict_crosslink = (f'<div style="margin-bottom:2rem;padding:1rem 1.5rem;background:rgba(212,175,55,0.06);'
+                          f'border:1px solid var(--border);border-radius:8px;display:flex;justify-content:space-between;align-items:center">'
+                          f'<span style="color:var(--text-muted);font-size:0.9rem">Relational connections for <strong style="color:var(--text-main)">{row["label"]}</strong></span>'
+                          f'<a href="{REPO_URL}/dictionary/{slug}.html" class="nav-link" style="color:var(--accent);font-size:0.9rem;font-weight:600">'
+                          f'Read full encyclopedia entry →</a></div>')
+        html = BASE_TEMPLATE.replace("{{title}}", label).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container"><a href="{REPO_URL}/dictionary.html" class="back-link">← Return to Dictionary</a><h1 class="title-large">{label}</h1><div class="card-meta" style="margin-bottom:1.5rem">{meta_label}</div>{dict_crosslink}<div class="prose-content">{content}{fragments}</div></main>')
         with open(target_dir / "concepts" / f"{slug}.html", "w", encoding="utf-8") as f: f.write(html)
 
     # 4B. DICTIONARY PAGES (Full Encyclopedia Entries)
@@ -774,7 +779,12 @@ def deploy_to(target_dir, cursor):
         cat_type = row['category_type'] if 'category_type' in row.keys() and row['category_type'] else 'HYBRID'
         meta_label = f"{row['category'] or 'General'} Concept · {cat_type.replace('_', ' ')}"
 
-        content_html = f'<main class="page-container"><a href="{REPO_URL}/dictionary/index.html" class="back-link">← Dictionary Index</a><h1 class="title-large">{label}</h1><div class="card-meta" style="margin-bottom:3rem">{meta_label}</div><div class="prose-content">{definition}{related_html}{lit_html}</div></main>'
+        concepts_crosslink = (f'<div style="margin-bottom:2rem;padding:1rem 1.5rem;background:rgba(212,175,55,0.06);'
+                              f'border:1px solid var(--border);border-radius:8px;display:flex;justify-content:space-between;align-items:center">'
+                              f'<span style="color:var(--text-muted);font-size:0.9rem">Encyclopedia entry for <strong style="color:var(--text-main)">{row["label"]}</strong></span>'
+                              f'<a href="{REPO_URL}/concepts/{slug}.html" class="nav-link" style="color:var(--accent);font-size:0.9rem;font-weight:600">'
+                              f'← Browse relational connections</a></div>')
+        content_html = f'<main class="page-container"><a href="{REPO_URL}/dictionary.html" class="back-link">← Dictionary Index</a><h1 class="title-large">{label}</h1><div class="card-meta" style="margin-bottom:1.5rem">{meta_label}</div>{concepts_crosslink}<div class="prose-content">{definition}{related_html}{lit_html}</div></main>'
         html = BASE_TEMPLATE.replace("{{title}}", row['label']).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", content_html)
 
         with open(target_dir / "dictionary" / f"{slug}.html", "w", encoding="utf-8") as f: f.write(html)
@@ -928,23 +938,54 @@ def deploy_to(target_dir, cursor):
         with open(target_dir / "eras" / f"{era_id}.html", "w", encoding="utf-8") as f: f.write(BASE_TEMPLATE.replace("{{title}}", era_name).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", content))
 
     # 6.5. TIMELINE
+    def year_to_era(year):
+        if year is None: return "UNKNOWN"
+        y = int(year)
+        if y < 600: return "ANTIQUITY"
+        if y < 1400: return "MEDIEVAL"
+        if y < 1600: return "RENAISSANCE"
+        if y < 1850: return "EARLY_MODERN"
+        return "MODERN"
+
     cursor.execute("SELECT * FROM timeline_events ORDER BY year ASC")
     timeline_cards = ""
     for row in cursor.fetchall():
         year_str = str(row['year'])
         if row['year_end']:
             year_str += f" - {row['year_end']}"
-        meta = f"{year_str} · {row['event_type'] or 'EVENT'}"
+        era = year_to_era(row['year'])
+        era_label = era.replace("_", " ").title()
+        meta = f"{year_str} · {row['event_type'] or 'EVENT'} · {era_label}"
         desc = row['description_long'] or f"<p>{row['description']}</p>"
-        
+
         timeline_cards += f"""
-        <div class="card" style="margin-bottom: 1rem;">
+        <div class="card" data-era="{era}" style="margin-bottom: 1rem;">
             <div class="card-title">{row['title']}</div>
             <div class="card-meta">{meta}</div>
             <div class="prose-content" style="padding: 1rem; margin-top: 1rem; border: none; background: rgba(0,0,0,0.2);">{desc}</div>
         </div>
         """
-    content = f'<main class="page-container"><h1 class="title-large">Timeline of Hermeticism</h1><p class="text-subtitle">Key events, publications, and movements.</p><div style="display:flex;flex-direction:column;gap:1rem;">{timeline_cards}</div></main>'
+
+    timeline_filter = (f'<style>{FILTER_CSS}</style>'
+                       f'<div class="filter-bar">'
+                       f'<span class="filter-bar-label">Era</span>'
+                       f'<div class="filter-group">'
+                       f'<button class="filter-btn" data-filter-attr="era" data-filter-val="ANTIQUITY">Antiquity</button>'
+                       f'<button class="filter-btn" data-filter-attr="era" data-filter-val="MEDIEVAL">Medieval</button>'
+                       f'<button class="filter-btn" data-filter-attr="era" data-filter-val="RENAISSANCE">Renaissance</button>'
+                       f'<button class="filter-btn" data-filter-attr="era" data-filter-val="EARLY_MODERN">Early Modern</button>'
+                       f'<button class="filter-btn" data-filter-attr="era" data-filter-val="MODERN">Modern</button>'
+                       f'</div>'
+                       f'<span class="filter-count"></span>'
+                       f'</div>'
+                       f'<script>{FILTER_JS}</script>')
+
+    content = (f'<main class="page-container">'
+               f'<h1 class="title-large">Timeline of Hermeticism</h1>'
+               f'<p class="text-subtitle">Key events, publications, and movements.</p>'
+               f'{timeline_filter}'
+               f'<div style="display:flex;flex-direction:column;gap:1rem;">{timeline_cards}</div>'
+               f'</main>')
     with open(target_dir / "timeline.html", "w", encoding="utf-8") as f: f.write(BASE_TEMPLATE.replace("{{title}}", "Timeline").replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", content))
 
     # 6.6 ABOUT / METHODOLOGY PAGE
@@ -1168,17 +1209,17 @@ def deploy_to(target_dir, cursor):
         },
     }
 
-    # Build person_locations lookup: slug -> list of (name, role)
+    # Build person_locations lookup: slug -> list of (person_id, name, role, role_primary)
     person_loc_lookup = {}
     try:
         cursor.execute("""
-            SELECT pl.location_slug, p.name, pl.role
+            SELECT pl.location_slug, p.person_id, p.name, pl.role, p.role_primary
             FROM person_locations pl
             JOIN persons p ON pl.person_id = p.person_id
             ORDER BY pl.location_slug, p.name
         """)
-        for loc_slug, pname, prole in cursor.fetchall():
-            person_loc_lookup.setdefault(loc_slug, []).append((pname, prole))
+        for loc_slug, pid, pname, prole, role_primary in cursor.fetchall():
+            person_loc_lookup.setdefault(loc_slug, []).append((pid, pname, prole, role_primary))
     except Exception:
         pass
 
@@ -1187,10 +1228,14 @@ def deploy_to(target_dir, cursor):
         slug = l["slug"] if "slug" in l.keys() else ""
         desc = (l["description"] or "").replace('"', "'").replace('\n', ' ')
         extras = LOCATION_EXTRAS.get(slug, {})
-        # Enrich figures from person_locations DB
-        db_figures = [f"{pname} ({prole.lower()})" for pname, prole in person_loc_lookup.get(slug, [])]
+        # Enrich figures from person_locations DB — build hyperlinks
+        db_figure_links = []
+        for pid, pname, prole, role_primary in person_loc_lookup.get(slug, []):
+            folder = "scholars" if role_primary == "SCHOLAR" else "biographies"
+            link = f"{REPO_URL}/{folder}/{pid}.html"
+            db_figure_links.append(f"<a href='{link}' style='color:#d4af37;text-decoration:underline;text-decoration-color:rgba(212,175,55,0.4)'>{pname}</a> ({prole.lower()})")
         extra_figures = extras.get("figures", [])
-        all_figures = db_figures if db_figures else extra_figures
+        all_figures = db_figure_links if db_figure_links else extra_figures
         figures_html = ""
         if all_figures:
             figures_html = "<br><b style='color:#d4af37'>Key Figures:</b> " + "; ".join(all_figures)
@@ -1332,17 +1377,18 @@ def deploy_to(target_dir, cursor):
     # 1. PERSONS
     cursor.execute("SELECT person_id, name, role_primary FROM persons")
     for r in cursor.fetchall():
-        nodes.append({ "id": r[0], "label": r[1], "group": "PERSON", "role": r[2] })
-    
+        folder = "scholars" if r[2] == "SCHOLAR" else "biographies"
+        nodes.append({ "id": r[0], "label": r[1], "group": "PERSON", "role": r[2], "url": f"{REPO_URL}/{folder}/{r[0]}.html" })
+
     # 2. TEXTS
     cursor.execute("SELECT text_id, title, text_type FROM texts")
     for r in cursor.fetchall():
-        nodes.append({ "id": r[0], "label": r[1], "group": "TEXT", "role": r[2] })
-    
+        nodes.append({ "id": r[0], "label": r[1], "group": "TEXT", "role": r[2], "url": f"{REPO_URL}/texts/{r[0]}.html" })
+
     # 3. CONCEPTS
     cursor.execute("SELECT slug, label, category FROM concepts")
     for r in cursor.fetchall():
-        nodes.append({ "id": r[0], "label": r[1], "group": "CONCEPT", "role": r[2] })
+        nodes.append({ "id": r[0], "label": r[1], "group": "CONCEPT", "role": r[2], "url": f"{REPO_URL}/dictionary/{r[0]}.html" })
     
     # 4. EDGES (Person <-> Text)
     cursor.execute("SELECT person_id, text_id, rel_type FROM person_text_refs")
@@ -1439,6 +1485,16 @@ def deploy_to(target_dir, cursor):
                     link.style("stroke", "rgba(255,255,255,0.1)").style("stroke-opacity", 0.6);
                 }});
 
+            node.on("click", (event, d) => {{
+                if (d.url) {{
+                    if (event.ctrlKey || event.metaKey) {{
+                        window.open(d.url, "_blank");
+                    }} else {{
+                        window.location.href = d.url;
+                    }}
+                }}
+            }});
+
             node.append("circle")
                 .attr("r", d => d.group === "PERSON" ? 8 : (d.group === "TEXT" ? 6 : 4))
                 .attr("fill", d => {{
@@ -1447,7 +1503,8 @@ def deploy_to(target_dir, cursor):
                     return "#20c997";
                 }})
                 .attr("stroke", "#fff")
-                .attr("stroke-width", 1.5);
+                .attr("stroke-width", 1.5)
+                .style("cursor", d => d.url ? "pointer" : "default");
 
             node.append("text")
                 .attr("x", 12)
