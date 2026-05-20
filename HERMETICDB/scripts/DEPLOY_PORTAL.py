@@ -290,6 +290,11 @@ NAV_BAR = f"""
             <a class="nav-link" href="{REPO_URL}/map.html">Interactive Map</a>
             <a class="nav-link" href="{REPO_URL}/graph.html" style="color:var(--accent); font-weight:bold">Relationship Graph</a>
             <a class="nav-link" href="{REPO_URL}/about.html">Methodology</a>
+            <button id="gs-btn" title="Search (press /)"
+                style="background:none;border:1px solid var(--border);color:var(--text-muted);border-radius:6px;
+                       padding:0.3rem 0.7rem;font-size:1rem;cursor:pointer;transition:all 0.2s;line-height:1"
+                onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'"
+                onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">⌕</button>
         </div>
     </div>
 </nav>
@@ -329,9 +334,200 @@ BASE_TEMPLATE = """<!DOCTYPE html>
         &copy; 2026 The Hermetic Knowledge Portal<br/>
         <span style="font-size: 0.7rem; opacity: 0.5; margin-top: 1rem; display: block">Curated Scholar-Synthesized Narrative Database</span>
     </footer>
+
+    <!-- Back-to-top -->
+    <button id="btt" onclick="window.scrollTo({{top:0,behavior:'smooth'}})"
+        style="display:none;position:fixed;bottom:2rem;right:2rem;z-index:500;background:var(--bg-card);
+               border:1px solid var(--border);color:var(--accent);border-radius:50%;width:44px;height:44px;
+               font-size:1.2rem;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 16px rgba(0,0,0,0.4)">↑</button>
+    <script>
+    (function(){{
+        var btn = document.getElementById('btt');
+        window.addEventListener('scroll', function(){{
+            btn.style.display = window.scrollY > 400 ? 'block' : 'none';
+        }}, {{passive:true}});
+    }})();
+    </script>
+
+    <!-- Global search overlay -->
+    <div id="gs-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.87);backdrop-filter:blur(6px);padding:8vh 2rem 2rem">
+        <div style="max-width:680px;margin:0 auto">
+            <div style="position:relative;margin-bottom:1.2rem">
+                <span style="position:absolute;left:1.1rem;top:50%;transform:translateY(-50%);color:var(--accent);font-size:1.2rem;pointer-events:none">⌕</span>
+                <input id="gs-input" type="text" placeholder="Search persons, texts, concepts…" autocomplete="off"
+                    style="width:100%;box-sizing:border-box;background:#141418;border:1px solid rgba(212,175,55,0.5);
+                           color:#e0e0e0;font-size:1.2rem;padding:0.9rem 3rem 0.9rem 3rem;border-radius:12px;
+                           font-family:Inter,sans-serif;outline:none">
+                <button onclick="gsClose()" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);
+                    background:none;border:none;color:#a0a0a0;font-size:1.3rem;cursor:pointer;line-height:1">✕</button>
+            </div>
+            <div id="gs-results" style="max-height:58vh;overflow-y:auto;border-radius:8px"></div>
+            <div style="margin-top:0.8rem;font-size:0.75rem;color:#444;text-align:center">Press <kbd style="background:#222;border:1px solid #444;padding:0.1rem 0.4rem;border-radius:3px">/</kbd> to open &nbsp;·&nbsp; <kbd style="background:#222;border:1px solid #444;padding:0.1rem 0.4rem;border-radius:3px">Esc</kbd> to close</div>
+        </div>
+    </div>
+
+    <!-- Hover preview card -->
+    <div id="hc-card" style="display:none;position:fixed;z-index:8888;max-width:310px;background:#141418;
+        border:1px solid rgba(212,175,55,0.35);border-radius:10px;padding:1rem 1.2rem;
+        pointer-events:none;box-shadow:0 8px 32px rgba(0,0,0,0.65)">
+        <div id="hc-label" style="font-family:Outfit,sans-serif;font-size:1rem;color:#f1d37e;font-weight:600;margin-bottom:0.25rem"></div>
+        <div id="hc-meta" style="font-size:0.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem"></div>
+        <div id="hc-desc" style="font-size:0.85rem;color:#a8a8a8;line-height:1.5"></div>
+        <div style="margin-top:0.6rem;font-size:0.72rem;color:#444;font-style:italic">click for full entry</div>
+    </div>
+
+    <script>
+    (function(){{
+        var REPO = '{REPO_URL}';
+        var idx = null;
+
+        function loadIdx(cb) {{
+            if (idx) return cb(idx);
+            fetch(REPO + '/search_index.json')
+                .then(function(r){{ return r.json(); }})
+                .then(function(d){{ idx = d; cb(d); }})
+                .catch(function(){{ idx = []; cb([]); }});
+        }}
+
+        // --- GLOBAL SEARCH ---
+        var overlay = document.getElementById('gs-overlay');
+        var gsInput = document.getElementById('gs-input');
+        var gsResults = document.getElementById('gs-results');
+        var TYPE_COLOR = {{ PERSON: '#4a9eff', TEXT: '#d4af37', CONCEPT: '#20c997' }};
+
+        window.gsClose = function() {{ overlay.style.display = 'none'; }};
+        function gsOpen() {{ overlay.style.display = 'block'; gsInput.focus(); gsInput.select(); }}
+
+        document.addEventListener('keydown', function(e){{
+            if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {{
+                e.preventDefault(); gsOpen();
+            }}
+            if (e.key === 'Escape') gsClose();
+        }});
+        overlay.addEventListener('click', function(e){{ if (e.target === overlay) gsClose(); }});
+
+        var gsBtn = document.getElementById('gs-btn');
+        if (gsBtn) gsBtn.addEventListener('click', gsOpen);
+
+        function renderResults(items) {{
+            if (!items.length) {{
+                gsResults.innerHTML = '<p style="color:#555;text-align:center;padding:2rem 0">No matches found</p>';
+                return;
+            }}
+            gsResults.innerHTML = items.slice(0, 14).map(function(r){{
+                var c = TYPE_COLOR[r.type] || '#888';
+                return '<a href="' + r.url + '" onclick="gsClose()" style="display:block;padding:0.8rem 1rem;margin-bottom:0.3rem;background:#1a1a20;'
+                    + 'border:1px solid rgba(255,255,255,0.05);border-radius:8px;text-decoration:none;transition:border-color 0.15s" '
+                    + 'onmouseover="this.style.borderColor=\'rgba(212,175,55,0.4)\'" onmouseout="this.style.borderColor=\'rgba(255,255,255,0.05)\'">'
+                    + '<span style="display:inline-block;padding:0.12rem 0.45rem;background:' + c + '22;color:' + c + ';border-radius:4px;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.07em;margin-right:0.4rem">' + r.type + '</span>'
+                    + '<strong style="color:#e0e0e0">' + r.label + '</strong>'
+                    + '<span style="display:block;color:#777;font-size:0.8rem;margin-top:0.25rem">' + (r.desc || '').slice(0, 100) + (r.desc && r.desc.length > 100 ? '…' : '') + '</span>'
+                    + '</a>';
+            }}).join('');
+        }}
+
+        var gsTimer;
+        gsInput.addEventListener('input', function(){{
+            clearTimeout(gsTimer);
+            var q = this.value.trim().toLowerCase();
+            if (!q) {{ gsResults.innerHTML = ''; return; }}
+            gsTimer = setTimeout(function(){{
+                loadIdx(function(data){{
+                    var hits = data.filter(function(r){{
+                        return r.label.toLowerCase().indexOf(q) !== -1 || (r.desc && r.desc.toLowerCase().indexOf(q) !== -1);
+                    }}).sort(function(a, b){{
+                        var al = a.label.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+                        var bl = b.label.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+                        return al - bl;
+                    }});
+                    renderResults(hits);
+                }});
+            }}, 150);
+        }});
+
+        // --- HOVER PREVIEW ---
+        var hcCard = document.getElementById('hc-card');
+        var hcLabel = document.getElementById('hc-label');
+        var hcMeta = document.getElementById('hc-meta');
+        var hcDesc = document.getElementById('hc-desc');
+        var hcTimer;
+        var PATHS = ['/biographies/', '/scholars/', '/dictionary/', '/concepts/', '/texts/'];
+
+        function slugFromHref(href) {{
+            var m = href.match(/\\/([^\\/]+)\\.html$/);
+            return m ? m[1] : null;
+        }}
+
+        document.addEventListener('mouseover', function(e){{
+            var a = e.target.closest('a[href]');
+            if (!a) return;
+            var href = a.getAttribute('href') || '';
+            if (!PATHS.some(function(p){{ return href.indexOf(p) !== -1; }})) return;
+            var slug = slugFromHref(href);
+            if (!slug) return;
+            clearTimeout(hcTimer);
+            hcTimer = setTimeout(function(){{
+                loadIdx(function(data){{
+                    var entry = null;
+                    for (var i = 0; i < data.length; i++) {{
+                        if (data[i].id === slug) {{ entry = data[i]; break; }}
+                    }}
+                    if (!entry) return;
+                    hcLabel.textContent = entry.label;
+                    hcMeta.textContent = entry.meta;
+                    hcDesc.textContent = (entry.desc || '').slice(0, 130) + ((entry.desc && entry.desc.length > 130) ? '…' : '');
+                    var rect = a.getBoundingClientRect();
+                    var left = Math.min(rect.left + window.scrollX, window.innerWidth - 330);
+                    hcCard.style.left = Math.max(8, left) + 'px';
+                    hcCard.style.top = (rect.bottom + window.scrollY + 8) + 'px';
+                    hcCard.style.display = 'block';
+                }});
+            }}, 280);
+        }});
+
+        document.addEventListener('mouseout', function(e){{
+            var a = e.target.closest('a[href]');
+            if (!a) return;
+            clearTimeout(hcTimer);
+            hcCard.style.display = 'none';
+        }});
+    }})();
+    </script>
 </body>
 </html>
 """
+
+ERA_STRIPE = {
+    "ANTIQUITY": "#d4af37",
+    "MEDIEVAL": "#20c997",
+    "RENAISSANCE": "#e67e22",
+    "EARLY MODERN": "#9b59b6",
+    "MODERN": "#4a9eff",
+}
+
+SOURCE_BADGE = {
+    "PRIMARY_SOURCE": ('<span style="display:inline-block;padding:0.15rem 0.5rem;background:rgba(212,175,55,0.15);'
+                       'color:#d4af37;border-radius:4px;font-size:0.7rem;font-weight:600;text-transform:uppercase;'
+                       'letter-spacing:0.06em;margin-bottom:0.5rem">Primary Source</span><br>'),
+    "SCHOLARSHIP":    ('<span style="display:inline-block;padding:0.15rem 0.5rem;background:rgba(74,158,255,0.15);'
+                       'color:#4a9eff;border-radius:4px;font-size:0.7rem;font-weight:600;text-transform:uppercase;'
+                       'letter-spacing:0.06em;margin-bottom:0.5rem">Scholarship</span><br>'),
+    "COMMENTARY":     ('<span style="display:inline-block;padding:0.15rem 0.5rem;background:rgba(74,158,255,0.12);'
+                       'color:#4a9eff;border-radius:4px;font-size:0.7rem;font-weight:600;text-transform:uppercase;'
+                       'letter-spacing:0.06em;margin-bottom:0.5rem">Commentary</span><br>'),
+}
+
+TERM_BADGE = {
+    "ACTOR_TERM":   ('<span style="display:inline-block;padding:0.15rem 0.5rem;background:rgba(32,201,151,0.15);'
+                     'color:#20c997;border-radius:4px;font-size:0.7rem;font-weight:600;text-transform:uppercase;'
+                     'letter-spacing:0.06em;margin-bottom:0.5rem">Actor Term</span><br>'),
+    "ANALYST_TERM": ('<span style="display:inline-block;padding:0.15rem 0.5rem;background:rgba(155,89,182,0.15);'
+                     'color:#9b59b6;border-radius:4px;font-size:0.7rem;font-weight:600;text-transform:uppercase;'
+                     'letter-spacing:0.06em;margin-bottom:0.5rem">Analyst Term</span><br>'),
+    "HYBRID":       ('<span style="display:inline-block;padding:0.15rem 0.5rem;background:rgba(149,165,166,0.15);'
+                     'color:#95a5a6;border-radius:4px;font-size:0.7rem;font-weight:600;text-transform:uppercase;'
+                     'letter-spacing:0.06em;margin-bottom:0.5rem">Hybrid</span><br>'),
+}
 
 def generate_entity_card(title, meta, desc, link, data_attrs=None):
     if not desc or len(desc.strip()) < 20:
@@ -339,11 +535,19 @@ def generate_entity_card(title, meta, desc, link, data_attrs=None):
     else:
         desc_text = clean_inline(" ".join(desc.split()[:30])) + "…"
     attrs_str = ""
+    badge = ""
+    era_color = None
     if data_attrs:
+        term_type = data_attrs.get("termtype", "")
+        text_type = data_attrs.get("type", "")
+        era_val = data_attrs.get("era", "")
+        badge = TERM_BADGE.get(term_type, "") or SOURCE_BADGE.get(text_type, "")
+        era_color = ERA_STRIPE.get(era_val)
         attrs_str = " ".join(f'data-{k}="{v}"' for k, v in data_attrs.items())
+    stripe = f'border-left-color:{era_color}' if era_color else ''
     return f"""
-    <a class="card" href="{link}" {attrs_str}>
-        <div class="card-title">{clean_inline(title)}</div>
+    <a class="card" href="{link}" {attrs_str} style="{stripe}">
+        {badge}<div class="card-title">{clean_inline(title)}</div>
         <div class="card-meta">{meta}</div>
         <div class="card-desc">{desc_text}</div>
     </a>
@@ -647,8 +851,139 @@ def deploy_to(target_dir, cursor):
     (target_dir / "concepts").mkdir(exist_ok=True)
     (target_dir / "dictionary").mkdir(exist_ok=True)
 
+    # --- Build search index (used by global search overlay + hover cards) ---
+    search_index = []
+    cursor.execute("SELECT person_id, name, role_primary, era, description FROM persons")
+    for r in cursor.fetchall():
+        folder = "scholars" if r["role_primary"] == "SCHOLAR" else "biographies"
+        search_index.append({
+            "id": r["person_id"], "label": r["name"], "type": "PERSON",
+            "meta": f"{(r['era'] or '').replace('_',' ')} · {r['role_primary'] or 'Figure'}",
+            "desc": (r["description"] or "")[:130],
+            "url": f"{REPO_URL}/{folder}/{r['person_id']}.html"
+        })
+    cursor.execute("SELECT text_id, title, text_type, description FROM texts")
+    for r in cursor.fetchall():
+        search_index.append({
+            "id": r["text_id"], "label": r["title"], "type": "TEXT",
+            "meta": r["text_type"] or "TEXT",
+            "desc": (r["description"] or "")[:130],
+            "url": f"{REPO_URL}/texts/{r['text_id']}.html"
+        })
+    cursor.execute("SELECT slug, label, category, definition_short FROM concepts")
+    for r in cursor.fetchall():
+        search_index.append({
+            "id": r["slug"], "label": r["label"], "type": "CONCEPT",
+            "meta": r["category"] or "CONCEPT",
+            "desc": (r["definition_short"] or "")[:130],
+            "url": f"{REPO_URL}/dictionary/{r['slug']}.html"
+        })
+    import json as _json
+    with open(target_dir / "search_index.json", "w", encoding="utf-8") as _f:
+        _json.dump(search_index, _f, ensure_ascii=False)
+
+    # --- Build entity link map for timeline auto-linking ---
+    entity_link_map = {}
+    cursor.execute("SELECT person_id, name, role_primary FROM persons ORDER BY length(name) DESC")
+    for r in cursor.fetchall():
+        folder = "scholars" if r["role_primary"] == "SCHOLAR" else "biographies"
+        entity_link_map[r["name"]] = f"{REPO_URL}/{folder}/{r['person_id']}.html"
+    cursor.execute("SELECT text_id, title FROM texts ORDER BY length(title) DESC")
+    for r in cursor.fetchall():
+        entity_link_map[r["title"]] = f"{REPO_URL}/texts/{r['text_id']}.html"
+
+    def auto_link_entities(html_text):
+        """Link first occurrence of each person/text name in prose HTML, skipping existing tags."""
+        if not html_text:
+            return html_text
+        parts = re.split(r'(<[^>]+>)', html_text)
+        linked = set()
+        result = []
+        for i, part in enumerate(parts):
+            if i % 2 == 1:
+                result.append(part)
+            else:
+                for name, url in entity_link_map.items():
+                    if name in linked or name not in part:
+                        continue
+                    part = part.replace(
+                        name,
+                        f'<a href="{url}" class="nav-link" style="color:var(--accent)">{name}</a>',
+                        1
+                    )
+                    linked.add(name)
+                result.append(part)
+        return "".join(result)
+
+    # --- Helper: key figures for a concept (persons linked via shared texts) ---
+    def get_concept_figures_html(cursor, slug):
+        try:
+            cursor.execute("""
+                SELECT DISTINCT p.person_id, p.name, p.role_primary, p.era
+                FROM concept_text_refs ctr
+                JOIN concepts c ON ctr.concept_id = c.id
+                JOIN texts t ON ctr.text_id = t.id
+                JOIN person_text_refs ptr ON ptr.text_id = t.text_id
+                JOIN persons p ON ptr.person_id = p.person_id
+                WHERE c.slug = ?
+                ORDER BY p.era, p.name
+                LIMIT 10
+            """, (slug,))
+            rows = cursor.fetchall()
+        except Exception:
+            return ""
+        if not rows:
+            return ""
+        actors = [(r["person_id"], r["name"], r["role_primary"]) for r in rows if r["role_primary"] != "SCHOLAR"]
+        analysts = [(r["person_id"], r["name"], r["role_primary"]) for r in rows if r["role_primary"] == "SCHOLAR"]
+        html = '<div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border)">'
+        html += '<h2 style="font-family:var(--font-display);color:var(--accent);margin-bottom:1rem">Key Figures</h2>'
+        if actors:
+            html += '<p style="font-size:0.8rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.7rem">Historical Actors</p>'
+            html += '<ul style="list-style:none;padding:0;margin-bottom:1.5rem">'
+            for pid, name, role in actors:
+                html += f'<li style="margin-bottom:0.4rem"><a href="{REPO_URL}/biographies/{pid}.html" class="nav-link">{name}</a> <span style="color:var(--text-muted);font-size:0.82rem">({(role or "figure").lower().replace("_"," ")})</span></li>'
+            html += '</ul>'
+        if analysts:
+            html += '<p style="font-size:0.8rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.7rem">Modern Scholars</p>'
+            html += '<ul style="list-style:none;padding:0">'
+            for pid, name, role in analysts:
+                html += f'<li style="margin-bottom:0.4rem"><a href="{REPO_URL}/scholars/{pid}.html" class="nav-link">{name}</a></li>'
+            html += '</ul>'
+        html += '</div>'
+        return html
+
+    # --- Helper: key concepts for a person (via shared texts) ---
+    def get_person_concepts_html(cursor, pid):
+        try:
+            cursor.execute("""
+                SELECT DISTINCT c.slug, c.label, c.category_type
+                FROM person_text_refs ptr
+                JOIN texts t ON ptr.text_id = t.text_id
+                JOIN concept_text_refs ctr ON ctr.text_id = t.id
+                JOIN concepts c ON ctr.concept_id = c.id
+                WHERE ptr.person_id = ?
+                ORDER BY c.label
+                LIMIT 12
+            """, (pid,))
+            rows = cursor.fetchall()
+        except Exception:
+            return ""
+        if not rows:
+            return ""
+        html = '<div style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border)">'
+        html += '<h2 style="font-family:var(--font-display);font-size:1.1rem;color:var(--accent);margin-bottom:1rem">Key Concepts</h2>'
+        html += '<div style="display:flex;flex-wrap:wrap;gap:0.5rem">'
+        for slug, label, cat_type in rows:
+            badge_color = "rgba(32,201,151,0.15)" if cat_type == "ACTOR_TERM" else "rgba(74,158,255,0.15)"
+            border_color = "rgba(32,201,151,0.4)" if cat_type == "ACTOR_TERM" else "rgba(74,158,255,0.4)"
+            html += (f'<a href="{REPO_URL}/dictionary/{slug}.html" '
+                     f'style="padding:0.25rem 0.7rem;background:{badge_color};border:1px solid {border_color};'
+                     f'border-radius:20px;color:var(--text-main);font-size:0.82rem;text-decoration:none">{label}</a>')
+        html += '</div></div>'
+        return html
+
     # PAGE GENERATION LOGIC
-    # ... (similar to previous version but with fragments integrated)
     
     def get_person_locations_html(cursor, pid):
         """Return an HTML block showing key locations for a person, if any."""
@@ -680,8 +1015,16 @@ def deploy_to(target_dir, cursor):
         pid, name, content = row['person_id'], row['name'], italicize_terms(row['bio_html'] or f"<p>{row['description']}</p>")
         fragments = italicize_terms(get_fragments(cursor, pid, "PERSON"))
         locs_html = get_person_locations_html(cursor, pid)
-        meta = f"{(row['era'] or 'Unknown').replace('_',' ')} · {row['role_primary'] or 'Figure'}"
-        html = BASE_TEMPLATE.replace("{{title}}", name).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container"><a href="{REPO_URL}/biographies.html" class="back-link">← Return to Archives</a><h1 class="title-large">{name}</h1><div class="card-meta" style="margin-bottom:3rem">{meta}</div><div class="prose-content">{content}{locs_html}{fragments}</div></main>')
+        concepts_html = get_person_concepts_html(cursor, pid)
+        era = (row['era'] or 'Unknown').replace('_', ' ')
+        role = row['role_primary'] or 'Figure'
+        meta = f"{era} · {role}"
+        era_stripe_color = {"ANTIQUITY": "#d4af37", "MEDIEVAL": "#20c997", "RENAISSANCE": "#e67e22", "EARLY MODERN": "#9b59b6", "MODERN": "#4a9eff"}.get(era, "var(--accent)")
+        header = (f'<div style="border-left:4px solid {era_stripe_color};padding-left:1.5rem;margin-bottom:3rem">'
+                  f'<a href="{REPO_URL}/biographies.html" class="back-link" style="display:block;margin-bottom:0.75rem">← Return to Archives</a>'
+                  f'<h1 class="title-large" style="margin-bottom:0.5rem">{name}</h1>'
+                  f'<div class="card-meta">{meta}</div></div>')
+        html = BASE_TEMPLATE.replace("{{title}}", name).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container">{header}<div class="prose-content">{content}{locs_html}{concepts_html}{fragments}</div></main>')
         with open(target_dir / "biographies" / f"{pid}.html", "w", encoding="utf-8") as f: f.write(html)
 
     # 2. SCHOLARS
@@ -690,7 +1033,8 @@ def deploy_to(target_dir, cursor):
         pid, name, content = row['person_id'], row['name'], italicize_terms(row['bio_html'] or f"<p>{row['description']}</p>")
         fragments = italicize_terms(get_fragments(cursor, pid, "PERSON"))
         locs_html = get_person_locations_html(cursor, pid)
-        html = BASE_TEMPLATE.replace("{{title}}", name).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container"><a href="{REPO_URL}/scholars.html" class="back-link">← Return to Faculty</a><h1 class="title-large">{name}</h1><div class="card-meta" style="margin-bottom:3rem">Scholarly Authority</div><div class="prose-content">{content}{locs_html}{fragments}</div></main>')
+        concepts_html = get_person_concepts_html(cursor, pid)
+        html = BASE_TEMPLATE.replace("{{title}}", name).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container"><a href="{REPO_URL}/scholars.html" class="back-link">← Return to Faculty</a><h1 class="title-large">{name}</h1><div class="card-meta" style="margin-bottom:3rem">Scholarly Authority</div><div class="prose-content">{content}{locs_html}{concepts_html}{fragments}</div></main>')
         with open(target_dir / "scholars" / f"{pid}.html", "w", encoding="utf-8") as f: f.write(html)
 
     # 3. TEXTS
@@ -732,7 +1076,8 @@ def deploy_to(target_dir, cursor):
                           f'<span style="color:var(--text-muted);font-size:0.9rem">Relational connections for <strong style="color:var(--text-main)">{row["label"]}</strong></span>'
                           f'<a href="{REPO_URL}/dictionary/{slug}.html" class="nav-link" style="color:var(--accent);font-size:0.9rem;font-weight:600">'
                           f'Read full encyclopedia entry →</a></div>')
-        html = BASE_TEMPLATE.replace("{{title}}", label).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container"><a href="{REPO_URL}/dictionary.html" class="back-link">← Return to Dictionary</a><h1 class="title-large">{label}</h1><div class="card-meta" style="margin-bottom:1.5rem">{meta_label}</div>{dict_crosslink}<div class="prose-content">{content}{fragments}</div></main>')
+        figures_html = get_concept_figures_html(cursor, slug)
+        html = BASE_TEMPLATE.replace("{{title}}", label).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container"><a href="{REPO_URL}/dictionary.html" class="back-link">← Return to Dictionary</a><h1 class="title-large">{label}</h1><div class="card-meta" style="margin-bottom:1.5rem">{meta_label}</div>{dict_crosslink}<div class="prose-content">{content}{figures_html}{fragments}</div></main>')
         with open(target_dir / "concepts" / f"{slug}.html", "w", encoding="utf-8") as f: f.write(html)
 
     # 4B. DICTIONARY PAGES (Full Encyclopedia Entries)
@@ -784,7 +1129,8 @@ def deploy_to(target_dir, cursor):
                               f'<span style="color:var(--text-muted);font-size:0.9rem">Encyclopedia entry for <strong style="color:var(--text-main)">{row["label"]}</strong></span>'
                               f'<a href="{REPO_URL}/concepts/{slug}.html" class="nav-link" style="color:var(--accent);font-size:0.9rem;font-weight:600">'
                               f'← Browse relational connections</a></div>')
-        content_html = f'<main class="page-container"><a href="{REPO_URL}/dictionary.html" class="back-link">← Dictionary Index</a><h1 class="title-large">{label}</h1><div class="card-meta" style="margin-bottom:1.5rem">{meta_label}</div>{concepts_crosslink}<div class="prose-content">{definition}{related_html}{lit_html}</div></main>'
+        dict_figures_html = get_concept_figures_html(cursor, slug)
+        content_html = f'<main class="page-container"><a href="{REPO_URL}/dictionary.html" class="back-link">← Dictionary Index</a><h1 class="title-large">{label}</h1><div class="card-meta" style="margin-bottom:1.5rem">{meta_label}</div>{concepts_crosslink}<div class="prose-content">{definition}{dict_figures_html}{related_html}{lit_html}</div></main>'
         html = BASE_TEMPLATE.replace("{{title}}", row['label']).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", content_html)
 
         with open(target_dir / "dictionary" / f"{slug}.html", "w", encoding="utf-8") as f: f.write(html)
@@ -956,7 +1302,7 @@ def deploy_to(target_dir, cursor):
         era = year_to_era(row['year'])
         era_label = era.replace("_", " ").title()
         meta = f"{year_str} · {row['event_type'] or 'EVENT'} · {era_label}"
-        desc = row['description_long'] or f"<p>{row['description']}</p>"
+        desc = auto_link_entities(row['description_long'] or f"<p>{row['description']}</p>")
 
         timeline_cards += f"""
         <div class="card" data-era="{era}" style="margin-bottom: 1rem;">
@@ -1448,13 +1794,58 @@ def deploy_to(target_dir, cursor):
                 .force("x", d3.forceX(width / 2).strength(0.1))
                 .force("y", d3.forceY(height / 2).strength(0.1));
 
-            const link = svg.append("g")
-                .attr("stroke", "rgba(255,255,255,0.1)")
-                .attr("stroke-opacity", 0.6)
+            const edgeColors = {{
+                'DERIVED_FROM': '#9b59b6', 'EXPLAINS': '#27ae60', 'SUBSET_OF': '#3498db',
+                'OPPOSED_TO': '#e74c3c', 'RELATED': '#95a5a6', 'THEME': '#d4af37',
+                'AUTHORED': '#4a9eff', 'TRANSLATED': '#e67e22', 'INFLUENCED': '#1abc9c',
+                'QUOTED': '#f39c12', 'COMMENTED': '#e91e63', 'CRITICIZED': '#ff6b6b',
+                'TEACHER_OF': '#f39c12', 'STUDENT_OF': '#a8d8ea', 'CONTEMPORARY': '#888'
+            }};
+            function edgeColor(d) {{
+                return edgeColors[d.type] || 'rgba(255,255,255,0.15)';
+            }}
+
+            // Edge hit area (invisible thick line for easier hover)
+            const linkHit = svg.append("g")
                 .selectAll("line")
                 .data(data.links)
                 .join("line")
-                .attr("stroke-width", d => Math.sqrt(d.value));
+                .attr("stroke", "transparent")
+                .attr("stroke-width", 10)
+                .style("cursor", "default");
+
+            // Hover tooltip element
+            const edgeTip = d3.select("body").append("div")
+                .style("position", "fixed")
+                .style("display", "none")
+                .style("background", "#141418")
+                .style("border", "1px solid rgba(212,175,55,0.5)")
+                .style("color", "#e0e0e0")
+                .style("font-size", "0.8rem")
+                .style("padding", "0.4rem 0.8rem")
+                .style("border-radius", "6px")
+                .style("pointer-events", "none")
+                .style("z-index", "9999");
+
+            linkHit.on("mouseover", (event, d) => {{
+                const src = typeof d.source === 'object' ? d.source.label : d.source;
+                const tgt = typeof d.target === 'object' ? d.target.label : d.target;
+                edgeTip.style("display", "block")
+                    .html(`<span style="color:${{edgeColors[d.type] || '#aaa'}};font-weight:600">${{d.type || 'RELATED'}}</span><br>${{src}} → ${{tgt}}`);
+            }})
+            .on("mousemove", event => {{
+                edgeTip.style("left", (event.clientX + 14) + "px").style("top", (event.clientY - 10) + "px");
+            }})
+            .on("mouseout", () => edgeTip.style("display", "none"));
+
+            const link = svg.append("g")
+                .selectAll("line")
+                .data(data.links)
+                .join("line")
+                .attr("stroke", d => edgeColor(d))
+                .attr("stroke-opacity", 0.5)
+                .attr("stroke-width", d => Math.sqrt(d.value))
+                .style("pointer-events", "none");
 
             const node = svg.append("g")
                 .selectAll("g")
@@ -1477,12 +1868,11 @@ def deploy_to(target_dir, cursor):
                     d3.select("#info-desc").html(`<ul style="list-style:none; padding:0; margin:1rem 0">${{connections}}</ul>`);
 
                     // Highlight connections
-                    link.style("stroke", l => (l.source.id === d.id || l.target.id === d.id) ? "var(--accent)" : "rgba(255,255,255,0.1)")
+                    link.style("stroke", l => (l.source.id === d.id || l.target.id === d.id) ? edgeColor(l) : "rgba(255,255,255,0.05)")
                         .style("stroke-opacity", l => (l.source.id === d.id || l.target.id === d.id) ? 1 : 0.1);
                 }})
                 .on("mouseout", () => {{
-                    // d3.select("#graph-info").style("display", "none");
-                    link.style("stroke", "rgba(255,255,255,0.1)").style("stroke-opacity", 0.6);
+                    link.style("stroke", d => edgeColor(d)).style("stroke-opacity", 0.5);
                 }});
 
             node.on("click", (event, d) => {{
@@ -1516,14 +1906,13 @@ def deploy_to(target_dir, cursor):
                 .style("opacity", 0.7);
 
             simulation.on("tick", () => {{
-                link
+                [link, linkHit].forEach(sel => sel
                     .attr("x1", d => d.source.x)
                     .attr("y1", d => d.source.y)
                     .attr("x2", d => d.target.x)
-                    .attr("y2", d => d.target.y);
-
-                node
-                    .attr("transform", d => `translate(${{d.x}}, ${{d.y}})`);
+                    .attr("y2", d => d.target.y)
+                );
+                node.attr("transform", d => `translate(${{d.x}}, ${{d.y}})`);
             }});
 
             function drag(simulation) {{
