@@ -650,13 +650,38 @@ def deploy_to(target_dir, cursor):
     # PAGE GENERATION LOGIC
     # ... (similar to previous version but with fragments integrated)
     
+    def get_person_locations_html(cursor, pid):
+        """Return an HTML block showing key locations for a person, if any."""
+        try:
+            cursor.execute("""
+                SELECT l.slug, l.label, pl.role, pl.note
+                FROM person_locations pl
+                JOIN locations l ON pl.location_slug = l.slug
+                WHERE pl.person_id = ?
+                ORDER BY pl.role, l.label
+            """, (pid,))
+            locs = cursor.fetchall()
+        except Exception:
+            return ""
+        if not locs:
+            return ""
+        items = "".join(
+            f'<li style="margin-bottom:0.4rem"><a href="{REPO_URL}/map.html" class="nav-link">{lslug_label}</a>'
+            f' <span style="color:var(--text-muted);font-size:0.85rem">({role.lower()})</span></li>'
+            for _, lslug_label, role, note in locs
+        )
+        return (f'<div style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border)">'
+                f'<h2 style="font-family:var(--font-display);font-size:1.1rem;color:var(--accent);margin-bottom:1rem">Key Locations</h2>'
+                f'<ul style="list-style:none;padding:0">{items}</ul></div>')
+
     # 1. BIOGRAPHIES
     cursor.execute("SELECT * FROM persons WHERE role_primary != 'SCHOLAR' OR role_primary IS NULL")
     for row in cursor.fetchall():
         pid, name, content = row['person_id'], row['name'], italicize_terms(row['bio_html'] or f"<p>{row['description']}</p>")
         fragments = italicize_terms(get_fragments(cursor, pid, "PERSON"))
+        locs_html = get_person_locations_html(cursor, pid)
         meta = f"{(row['era'] or 'Unknown').replace('_',' ')} · {row['role_primary'] or 'Figure'}"
-        html = BASE_TEMPLATE.replace("{{title}}", name).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container"><a href="{REPO_URL}/biographies.html" class="back-link">← Return to Archives</a><h1 class="title-large">{name}</h1><div class="card-meta" style="margin-bottom:3rem">{meta}</div><div class="prose-content">{content}{fragments}</div></main>')
+        html = BASE_TEMPLATE.replace("{{title}}", name).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container"><a href="{REPO_URL}/biographies.html" class="back-link">← Return to Archives</a><h1 class="title-large">{name}</h1><div class="card-meta" style="margin-bottom:3rem">{meta}</div><div class="prose-content">{content}{locs_html}{fragments}</div></main>')
         with open(target_dir / "biographies" / f"{pid}.html", "w", encoding="utf-8") as f: f.write(html)
 
     # 2. SCHOLARS
@@ -664,7 +689,8 @@ def deploy_to(target_dir, cursor):
     for row in cursor.fetchall():
         pid, name, content = row['person_id'], row['name'], italicize_terms(row['bio_html'] or f"<p>{row['description']}</p>")
         fragments = italicize_terms(get_fragments(cursor, pid, "PERSON"))
-        html = BASE_TEMPLATE.replace("{{title}}", name).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container"><a href="{REPO_URL}/scholars.html" class="back-link">← Return to Faculty</a><h1 class="title-large">{name}</h1><div class="card-meta" style="margin-bottom:3rem">Scholarly Authority</div><div class="prose-content">{content}{fragments}</div></main>')
+        locs_html = get_person_locations_html(cursor, pid)
+        html = BASE_TEMPLATE.replace("{{title}}", name).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container"><a href="{REPO_URL}/scholars.html" class="back-link">← Return to Faculty</a><h1 class="title-large">{name}</h1><div class="card-meta" style="margin-bottom:3rem">Scholarly Authority</div><div class="prose-content">{content}{locs_html}{fragments}</div></main>')
         with open(target_dir / "scholars" / f"{pid}.html", "w", encoding="utf-8") as f: f.write(html)
 
     # 3. TEXTS
@@ -1142,14 +1168,32 @@ def deploy_to(target_dir, cursor):
         },
     }
 
+    # Build person_locations lookup: slug -> list of (name, role)
+    person_loc_lookup = {}
+    try:
+        cursor.execute("""
+            SELECT pl.location_slug, p.name, pl.role
+            FROM person_locations pl
+            JOIN persons p ON pl.person_id = p.person_id
+            ORDER BY pl.location_slug, p.name
+        """)
+        for loc_slug, pname, prole in cursor.fetchall():
+            person_loc_lookup.setdefault(loc_slug, []).append((pname, prole))
+    except Exception:
+        pass
+
     loc_js_objects = []
     for l in locs:
         slug = l["slug"] if "slug" in l.keys() else ""
         desc = (l["description"] or "").replace('"', "'").replace('\n', ' ')
         extras = LOCATION_EXTRAS.get(slug, {})
+        # Enrich figures from person_locations DB
+        db_figures = [f"{pname} ({prole.lower()})" for pname, prole in person_loc_lookup.get(slug, [])]
+        extra_figures = extras.get("figures", [])
+        all_figures = db_figures if db_figures else extra_figures
         figures_html = ""
-        if extras.get("figures"):
-            figures_html = "<br><b style='color:#d4af37'>Key Figures:</b> " + "; ".join(extras["figures"])
+        if all_figures:
+            figures_html = "<br><b style='color:#d4af37'>Key Figures:</b> " + "; ".join(all_figures)
         texts_html = ""
         if extras.get("texts"):
             texts_html = "<br><b style='color:#d4af37'>Key Texts:</b> " + "; ".join(extras["texts"])
