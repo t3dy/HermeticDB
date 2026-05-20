@@ -1032,6 +1032,114 @@ def deploy_to(target_dir, cursor):
             "archives": ["Vatican Library — Reg. Lat. 1290 (Corpus Hermeticum manuscript)", "Biblioteca Nazionale Centrale"],
             "note": "Rome was a significant center for early modern Hermeticism, especially through Kircher's Egyptological projects and the Jesuit engagement with Hermetic symbolism."
         },
+        "memphis": {
+            "figures": ["Ptah (patron deity)", "Egyptian priests of Memphis", "Hermes Trismegistus (legendary connection)"],
+            "texts": ["Memphite creation theology", "Hermetic texts derived from Memphis tradition", "Egyptian priestly literature"],
+            "archives": [],
+            "note": "According to Christian Bull's thesis, the Hermetic priesthood rooted themselves in the Memphite theological tradition, translating the cosmology of Ptah into Greek philosophical language."
+        },
+        "thebes": {
+            "figures": ["Egyptian priesthood of Amun", "Amun-Ra devotees"],
+            "texts": ["Theban temple inscriptions", "Amun theology", "Egyptian priestly hymns"],
+            "archives": [],
+            "note": "Thebes was the great religious capital of Upper Egypt and a primary center of priesthood and theological learning that influenced Hermetic synthesis."
+        },
+        "coptos": {
+            "figures": ["Hermetic merchants", "Pilgrimage communities"],
+            "texts": ["Trade route texts", "Coptic Christian manuscripts"],
+            "archives": [],
+            "note": "A crucial trading hub where commerce, religious practice, and philosophical transmission intersected along the Red Sea route."
+        },
+        "assuan": {
+            "figures": ["Nubian priesthood", "Egyptian priests", "Southern temple communities"],
+            "texts": ["Nubian-Egyptian syncretic texts", "Temple inscriptions"],
+            "archives": [],
+            "note": "The southern border city of Egypt, home to significant temple traditions that preserved Egyptian religious knowledge."
+        },
+        "akhmim_expanded": {
+            "figures": ["Zosimos of Panopolis (fl. 300 CE)", "Theosebia (correspondent)", "Upper Egyptian alchemists"],
+            "texts": ["Zosimos's Visiones", "Cheirokmeta (On the Effects of Craft)", "Zosimos's alchemical corpus"],
+            "archives": ["Byzantine Greek manuscripts", "Arabic recensions and commentaries"],
+            "note": "Home of Zosimos, the most important surviving alchemical author of Late Antiquity. His vision-narratives integrate Hermetic principle of correspondence with laboratory practice."
+        },
+        "antioch": {
+            "figures": ["John Chrysostom", "Later Neoplatonic philosophers", "Christian theologians"],
+            "texts": ["Syriac philosophical translations", "Neoplatonic commentaries", "Christian-Hermetic synthesis texts"],
+            "archives": [],
+            "note": "A major center of late antique synthesis between Christian theology, Neoplatonism, and Hermetic cosmology."
+        },
+        "constantinople": {
+            "figures": ["Byzantine scholars", "Photios (Patriarch)", "Psellus", "Neoplatonic commentators"],
+            "texts": ["Corpus Hermeticum Greek manuscripts", "Byzantine commentaries", "Philosophical translations"],
+            "archives": ["Patriarchal Library (partially surviving manuscripts)", "Imperial libraries"],
+            "note": "The Byzantine capital and primary custodian of Greek learning. Constantinople preserved Hermetic texts and hosted detailed scholarly engagement with the Hermetica."
+        },
+        "damascus": {
+            "figures": ["Al-Kindi's circle", "Islamic philosophers", "Sabian scholars"],
+            "texts": ["Arabic Hermetic translations", "Neoplatonic philosophical texts", "Occult sciences treatises"],
+            "archives": [],
+            "note": "A major Islamic intellectual center where Hermetic texts were preserved, translated, and studied."
+        },
+        "cairo": {
+            "figures": ["Islamic alchemists", "Natural philosophers", "Sufi scholars"],
+            "texts": ["Hermetic alchemical corpus", "Arabic translations", "Technical treatises"],
+            "archives": [],
+            "note": "The great Islamic capital maintaining continuity with ancient Egyptian Hermetic tradition and serving as a center for alchemical transmission."
+        },
+        "cordoba": {
+            "figures": ["Al-Majriti", "Ibn Sina (Avicenna)", "Islamic-Andalusian scholars"],
+            "texts": ["Picatrix (in Arabic)", "Neoplatonic philosophical works", "Alchemical treatises"],
+            "archives": [],
+            "note": "A major center of Islamic-Andalusian learning where Greek philosophical and Hermetic texts were preserved and studied."
+        },
+        "toledo": {
+            "figures": ["Gerard of Cremona", "Herman the German", "Dominicus Gundissalinus", "Hugo of Santalla"],
+            "texts": ["Picatrix (Latin translation, c. 1256)", "Liber de causis", "Arabic Hermetic texts in Latin"],
+            "archives": ["Cathedral of Toledo library — medieval translation center"],
+            "note": "The primary site of the 12th-century translation movement where Arabic Hermetic texts entered medieval Christian Europe in Latin translation."
+        },
+        "venice": {
+            "figures": ["Renaissance collectors", "Greek manuscript traders", "Aldus Manutius"],
+            "texts": ["Greek Hermetic manuscripts", "Neoplatonic texts", "Renaissance printed editions"],
+            "archives": ["Biblioteca Marciana — holds Renaissance Hermetic manuscripts"],
+            "note": "A major trading hub with connections to Byzantine and Islamic worlds, serving as a crucial source of Greek manuscripts during the Renaissance."
+        },
+        "mantua": {
+            "figures": ["Giambattista della Porta", "Renaissance magicians", "Gonzaga patrons"],
+            "texts": ["Hermetic philosophical works", "Alchemical treatises", "Magic and natural philosophy texts"],
+            "archives": [],
+            "note": "The court of the Gonzaga family, a major center of Renaissance humanism and Hermetic scholarship under ducal patronage."
+        },
+        "prague_hermetic": {
+            "figures": ["Emperor Rudolf II", "John Dee", "Edward Kelley", "Tycho Brahe"],
+            "texts": ["Alchemical manuscripts and printed works", "Hermetic philosophical treatises", "Occult and astrological texts"],
+            "archives": ["Kunstkammer collection (Alchemical and occult manuscripts)", "Imperial libraries"],
+            "note": "The alchemical capital of 16th-17th century Europe, where Rudolf II's patronage attracted the most significant alchemists and Hermetic practitioners."
+        },
+        "strasbourg": {
+            "figures": ["Renaissance alchemists", "Paracelsians", "Early modern printers"],
+            "texts": ["Alchemical texts", "Paracelsian works", "Hermetic philosophical treatises"],
+            "archives": [],
+            "note": "A major center of Renaissance alchemy and Hermetic studies, hosting important alchemists and publishers."
+        },
+        "paris": {
+            "figures": ["Nicolas Flamel", "Medieval scholars", "Later Renaissance philosophers"],
+            "texts": ["Hermetic and alchemical texts", "Philosophical treatises", "Occult knowledge books"],
+            "archives": ["Bibliothèque Nationale de France"],
+            "note": "A major center of medieval learning where Hermetic and alchemical texts circulated among scholars."
+        },
+        "oxford": {
+            "figures": ["Roger Bacon", "Robert Grosseteste", "Later natural philosophers"],
+            "texts": ["Hermetic and alchemical treatises", "Natural philosophy texts", "Occult sciences works"],
+            "archives": ["Bodleian Library"],
+            "note": "A center of medieval and early modern Hermetic learning where scholars engaged with alchemical and Hermetic philosophical ideas."
+        },
+        "basra": {
+            "figures": ["Ikhwan al-Safa (Brethren of Purity)", "Islamic philosophers", "Al-Kindi's associates"],
+            "texts": ["Epistles of the Brethren of Purity", "Neoplatonic philosophical works", "Hermetic texts in Arabic"],
+            "archives": [],
+            "note": "Home of the Ikhwan al-Safa, whose Epistles synthesized Neoplatonic, Hermetic, and Islamic theology into a comprehensive philosophical encyclopedia."
+        },
     }
 
     loc_js_objects = []
