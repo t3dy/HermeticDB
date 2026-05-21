@@ -1,35 +1,70 @@
-# HermeticDB: The Zero-Loss Knowledge Portal
+# HermeticDB — The Hermetic Knowledge Portal
 
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
-**Live Site:** [https://t3dy.github.io/HermeticDB](https://t3dy.github.io/HermeticDB)
 
-HermeticDB is a structured, deterministically-grounded repository and web portal for tracking Hermetic, Alchemical, and Neoplatonic textual transmission.
+**Live site:** [https://t3dy.github.io/HermeticDB](https://t3dy.github.io/HermeticDB)
 
----
-
-## 🏗️ The Zero-Loss Pipeline
-
-Our primary data ingestion involves a multi-pass autonomous structure:
-
-1. **Pre-Processing**: Parsing 70+ academic volumes into 10,000+ atomic segments.
-2. **Open Discovery**: Swarm extraction identifies historical figures, manuscripts, and concepts mentioned in the scholarship.
-3. **Fact Ingestion**: 7,003 atomic claims harvested with verbatim citations and provenance tooltips.
-4. **Narrative Synthesis**: Woven into Wikipedia-style scholarly articles.
+HermeticDB is a rigorously sourced, statically generated scholarly reference portal for the history of Hermeticism — the textual tradition centred on the figure of Hermes Trismegistus from Late Antiquity through the early modern period. It is built to the historiographical standards of Wouter J. Hanegraaff and the *Dictionary of Gnosis and Western Esotericism* (Brill, 2006).
 
 ---
 
-## 🌐 The Next.js Portal
+## What's in the portal
 
-The frontend is a modern **Next.js 15** application statically generated (SSG). It features:
-- **Chronological Era Navigation** (Antiquity, Medieval, Renaissance)
-- **Relational Browsing**: Bidi-links between scholars, concepts, and primary source texts.
-- **Provenance Tooltips**: Instant verification of every claim back to the source document.
+| Section | Contents |
+|---------|----------|
+| **Biographies** | 90 historical figures and modern scholars with full encyclopedia-length entries |
+| **Texts** | 84 primary sources and works of scholarship, each with transmission analysis |
+| **Dictionary** | 77 concepts — actor terms (*prisca theologia*, *gnosis*) and analyst terms (*Hermeticism*, *Yates Paradigm*) — with full encyclopedia entries |
+| **Interactive Map** | 28 Hermetic centres from Alexandria to Prague, with key figures, associated texts, and manuscript archive notes; alphabetical sidebar navigation and marker clustering |
+| **Relationship Graph** | D3.js force-directed graph of persons, texts, and concepts with colour-coded edges, node search/highlight, and click-through navigation |
+| **Timeline** | Era-filtered chronological view (Antiquity → Early Modern) with entity auto-links |
+| **Global Search** | Full-text overlay (`/` shortcut) across all 275+ entities |
 
 ---
 
-## 🛠️ Repository Organization
+## Architecture
 
-* `docs/` — Final static site export (served via GitHub Pages).
-* `scripts/` — The deterministic python pipeline.
-* `db/` — Target path for the `emerald_tablet.db` SQLite truth state.
-* `data/` — Curated seed data and JSON concepts.
+```
+SQLite database (db/emerald_tablet.db)
+        │
+        ▼
+Python deploy script (HERMETICDB/scripts/DEPLOY_PORTAL.py)
+        │  stdlib only — no frameworks, no Node
+        ▼
+Static HTML/CSS/JS (docs/)
+        │
+        ▼
+GitHub Pages → https://t3dy.github.io/HermeticDB
+```
+
+- **Database**: `db/emerald_tablet.db` — SQLite, single source of truth
+- **Deploy**: `python HERMETICDB/scripts/DEPLOY_PORTAL.py` — regenerates `docs/` in full from the database
+- **Ingestion scripts**: `scripts/` — all data added via idempotent `INSERT OR IGNORE` Python scripts
+- **Output**: `docs/` served by GitHub Pages
+
+No build step, no Node.js, no framework. The entire site is regenerated from the database on every deploy.
+
+---
+
+## Scholarly framework
+
+The portal maintains the actor/analyst distinction central to Hanegraaff's methodology:
+
+- **Actor terms** — concepts used by historical figures themselves (*prisca theologia*, *magia naturalis*, *gnosis*, *nous*)
+- **Analyst terms** — retrospective scholarly categories (*Hermeticism*, *Rejected Knowledge*, *Yates Paradigm*)
+
+These are never collapsed. All claims are traceable to named scholarly sources.
+
+---
+
+## Repository layout
+
+| Path | Purpose |
+|------|---------|
+| `db/emerald_tablet.db` | SQLite database |
+| `HERMETICDB/scripts/DEPLOY_PORTAL.py` | Site generator |
+| `scripts/` | Data ingestion scripts |
+| `docs/` | Generated site (GitHub Pages root) |
+| `PROMPTS.md` | Canonical project vision and agent rules |
+| `STYLEGUIDE.md` | Prose word counts and structure requirements |
+| `CLAUDE.md` | Development instructions |

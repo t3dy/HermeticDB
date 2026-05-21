@@ -151,6 +151,10 @@ body {
 .card-desc {
     font-size: 0.95rem;
     color: var(--text-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .prose-content {
@@ -259,14 +263,23 @@ body {
             <div id="map-info-body" style="font-size:0.95rem; line-height:1.7; color:var(--text-main);"></div>
         </div>
 
-        <div id="map" style="height: 600px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-card);"></div>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" crossorigin=""/>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js" crossorigin=""></script>
 
-        <div style="margin-top:1.5rem; padding:1rem 2rem; background:var(--bg-card); border:1px solid var(--border); border-radius:8px; font-size:0.85rem; color:var(--text-muted);">
-            <strong style="color:var(--accent)">How to use:</strong> Hover over a marker for the location name. Click for full details including key figures, primary texts, and manuscript archives associated with each site.
+        <div style="display:flex; gap:1rem; align-items:flex-start; margin-top:1rem">
+            <div style="width:185px; flex-shrink:0; background:var(--bg-card); border:1px solid var(--border); border-radius:8px; height:600px; overflow:hidden; display:flex; flex-direction:column;">
+                <div style="font-size:0.72rem; font-weight:700; color:var(--accent); padding:0.55rem 0.8rem; border-bottom:1px solid var(--border); letter-spacing:0.1em; text-transform:uppercase; flex-shrink:0;">Locations</div>
+                <div id="sidebar-list" style="flex:1; overflow-y:auto; padding:0.2rem 0;"></div>
+            </div>
+            <div id="map" style="flex:1; height:600px; border-radius:0 12px 12px 0; border:1px solid var(--border); background:var(--bg-card);"></div>
         </div>
 
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <div style="margin-top:1.5rem; padding:1rem 2rem; background:var(--bg-card); border:1px solid var(--border); border-radius:8px; font-size:0.85rem; color:var(--text-muted);">
+            <strong style="color:var(--accent)">How to use:</strong> Hover over a marker for the location name. Click for full details including key figures, primary texts, and manuscript archives associated with each site. Use the sidebar to jump directly to any location.
+        </div>
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -315,11 +328,41 @@ body {
                 const infoPanel = document.getElementById('map-info-panel');
                 const infoTitle = document.getElementById('map-info-title');
                 const infoBody = document.getElementById('map-info-body');
+                const sidebarList = document.getElementById('sidebar-list');
+
+                const clusterGroup = L.markerClusterGroup({
+                    maxClusterRadius: 40,
+                    iconCreateFunction: function(cluster) {
+                        return L.divIcon({
+                            className: 'hermetic-cluster',
+                            html: '<div class="hc-dot">' + cluster.getChildCount() + '</div>',
+                            iconSize: [34, 34],
+                            iconAnchor: [17, 17]
+                        });
+                    }
+                });
+
+                const markerRefs = {};
+
+                // Build sidebar (sorted alphabetically)
+                const sortedLocs = [...locations].sort((a, b) => a.label.localeCompare(b.label));
+                sortedLocs.forEach(loc => {
+                    const btn = document.createElement('button');
+                    btn.textContent = loc.label;
+                    btn.dataset.label = loc.label;
+                    btn.className = 'sidebar-loc-btn';
+                    btn.addEventListener('click', function() {
+                        document.querySelectorAll('.sidebar-loc-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        const ref = markerRefs[loc.label];
+                        if (ref) clusterGroup.zoomToShowLayer(ref, () => ref.fire('click'));
+                    });
+                    sidebarList.appendChild(btn);
+                });
 
                 locations.forEach(loc => {
-                    const marker = L.marker([loc.lat, loc.lng], {icon: hermeticIcon}).addTo(map);
+                    const marker = L.marker([loc.lat, loc.lng], {icon: hermeticIcon});
 
-                    // Hover tooltip (lightweight)
                     marker.bindTooltip(loc.label, {
                         permanent: false,
                         direction: 'top',
@@ -327,19 +370,26 @@ body {
                         className: 'hermetic-tooltip'
                     });
 
-                    // Click: show info panel AND popup
                     marker.on('click', function() {
                         infoTitle.textContent = loc.label;
                         infoBody.innerHTML = loc.popup;
                         infoPanel.style.display = 'block';
                         infoPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        document.querySelectorAll('.sidebar-loc-btn').forEach(b => {
+                            b.classList.toggle('active', b.dataset.label === loc.label);
+                        });
                     });
 
                     marker.bindPopup(`<b style="font-size:1.05rem; color:#d4af37">${loc.label}</b><br><br>${loc.desc}<br><br><em style="font-size:0.8rem; color:#888">Click marker or scroll up for full details</em>`, {
                         className: 'hermetic-popup',
                         maxWidth: 320
                     });
+
+                    markerRefs[loc.label] = marker;
+                    clusterGroup.addLayer(marker);
                 });
+
+                clusterGroup.addTo(map);
             });
         </script>
         <style>
@@ -355,6 +405,17 @@ body {
             .hermetic-marker:hover .hm-dot {
                 transform: scale(1.5);
                 box-shadow: 0 0 20px #d4af37;
+            }
+            .hc-dot {
+                width: 30px; height: 30px;
+                background: rgba(212,175,55,0.15);
+                border: 2px solid #d4af37;
+                border-radius: 50%;
+                display: flex; align-items: center; justify-content: center;
+                color: #d4af37;
+                font-size: 11px;
+                font-weight: 700;
+                box-shadow: 0 0 10px rgba(212,175,55,0.35);
             }
             .hermetic-popup .leaflet-popup-content-wrapper {
                 background: #141418;
@@ -384,6 +445,24 @@ body {
             }
             .hermetic-tooltip::before {
                 border-top-color: rgba(212,175,55,0.6) !important;
+            }
+            .sidebar-loc-btn {
+                display: block;
+                width: 100%;
+                text-align: left;
+                padding: 0.38rem 0.8rem;
+                background: none;
+                border: none;
+                border-bottom: 1px solid rgba(255,255,255,0.04);
+                color: var(--text-main);
+                font-size: 0.78rem;
+                cursor: pointer;
+                transition: background 0.12s, color 0.12s;
+                line-height: 1.3;
+            }
+            .sidebar-loc-btn:hover, .sidebar-loc-btn.active {
+                background: rgba(212,175,55,0.12);
+                color: #d4af37;
             }
         </style>
     </main>
