@@ -2,6 +2,7 @@ import sqlite3
 import os
 import shutil
 import re
+import json
 from pathlib import Path
 
 ITALIC_TERMS = [
@@ -1653,10 +1654,147 @@ def deploy_to(target_dir, cursor):
 
     loc_js_array = "[" + ",\n".join(loc_js_objects) + "]"
 
+    # ── PEREGRINATIONS DATA ────────────────────────────────────────────────────
+    JOURNEYS = {
+        "giordano_bruno": {
+            "name": "Giordano Bruno",
+            "life": "Philosopher & Cosmologist, 1548–1600",
+            "stops": [
+                {"label": "Nola / Naples", "lat": 40.85, "lng": 14.27, "year": "1548–1576",
+                 "bullets": ["Born at Nola, near Naples, c. 1548, son of a soldier", "Entered the Dominican Order at the convent of San Domenico Maggiore, Naples, 1565", "Absorbed Hermetic philosophy, the art of memory, and Lullian combinatorics", "Suspected of heresy for concealing forbidden books; fled the order in 1576"]},
+                {"label": "Rome", "lat": 41.90, "lng": 12.50, "year": "1576",
+                 "bullets": ["Brief stop in Rome, where his troubles with the Church followed him", "Left Italy for good, crossing the Alps into Protestant Europe", "Began the wandering life that would define the rest of his career"]},
+                {"label": "Geneva", "lat": 46.20, "lng": 6.14, "year": "1578–1579",
+                 "bullets": ["Joined the Calvinist community but quickly attacked a professor's logic in print", "Arrested and forced to recant; excommunicated by the Calvinist consistory", "Remarked that he had merely moved from one Inquisition to another"]},
+                {"label": "Paris", "lat": 48.86, "lng": 2.35, "year": "1579–1583",
+                 "bullets": ["Lectured at the Sorbonne on Aristotle; won the favour of Henri III", "Demonstrated his extraordinary artificial memory system before the king", "Published De umbris idearum (1582) and the comedy Il Candelaio", "Entered the household of the French ambassador Michel de Castelnau"]},
+                {"label": "London", "lat": 51.51, "lng": -0.13, "year": "1583–1585",
+                 "bullets": ["Lived at the French embassy in London under Castelnau's protection", "Moved in circles around Philip Sidney, Fulke Greville, and John Florio", "Wrote his six major Italian Hermetic dialogues: La cena de le ceneri, De la causa, De l'infinito", "His Copernican cosmology and infinite-universe metaphysics scandalised Oxford scholars"]},
+                {"label": "Frankfurt", "lat": 50.11, "lng": 8.68, "year": "1590–1591",
+                 "bullets": ["Lodged with a Carmelite convent while using Frankfurt's printers", "Published his Latin metaphysical trilogy: De monade, De minimo, De immenso", "These works elaborate his Hermetic-Neoplatonic vision of the One and the infinite", "Accepted a fatal invitation from the Venetian nobleman Giovanni Mocenigo"]},
+                {"label": "Venice", "lat": 45.44, "lng": 12.32, "year": "1591–1592",
+                 "bullets": ["Invited by Mocenigo to teach him the art of memory and secret philosophy", "Mocenigo, disappointed by the instruction, denounced him to the Inquisition, May 1592", "Arrested by the Venetian Inquisition; transferred to Rome and imprisoned in Castel Sant'Angelo"]},
+                {"label": "Rome", "lat": 41.90, "lng": 12.50, "year": "1593–1600",
+                 "bullets": ["Eight years of imprisonment and interrogation by the Roman Inquisition", "Refused to recant his cosmological and metaphysical positions despite sustained pressure", "Burned at the stake at Campo de' Fiori, 17 February 1600", "Became a martyr of free thought for Enlightenment and Hermetic traditions alike"]},
+            ]
+        },
+        "pico_della_mirandola": {
+            "name": "Giovanni Pico della Mirandola",
+            "life": "Philosopher & Kabbalist, 1463–1494",
+            "stops": [
+                {"label": "Mirandola", "lat": 44.88, "lng": 11.06, "year": "1463–1477",
+                 "bullets": ["Born 24 February 1463, scion of the ruling dynasty of Mirandola", "Prodigious child; reportedly memorised the Psalter by age ten", "Destined for a Church career and sent to Bologna to study canon law"]},
+                {"label": "Bologna", "lat": 44.50, "lng": 11.34, "year": "1477–1479",
+                 "bullets": ["Studies canon law at the University of Bologna", "Quickly abandons law for philosophy and theology", "Begins intensive study of Greek, Latin, Hebrew, and Arabic"]},
+                {"label": "Ferrara", "lat": 44.84, "lng": 11.62, "year": "1479–1480",
+                 "bullets": ["Studies at the University of Ferrara under distinguished humanists", "Extends knowledge of Arabic philosophy through Averroist commentaries", "First encounters with Kabbalistic texts, transmitted by Jewish scholars"]},
+                {"label": "Padua", "lat": 45.41, "lng": 11.88, "year": "1480–1482",
+                 "bullets": ["Studies Averroist Aristotelianism at the leading Italian philosophical centre", "Meets Elia del Medigo, who teaches him Hebrew and opens the Kabbalistic tradition", "Acquires manuscripts of Jewish mystical texts that will shape his later synthesis"]},
+                {"label": "Florence", "lat": 43.77, "lng": 11.26, "year": "1484–1485",
+                 "bullets": ["Meets Marsilio Ficino; immerses in the Neoplatonic circle of the Medici", "Reads the freshly translated Corpus Hermeticum alongside Ficino's Theologia Platonica", "Lorenzo de' Medici becomes his patron, protector, and close friend"]},
+                {"label": "Paris", "lat": 48.86, "lng": 2.35, "year": "1485–1486",
+                 "bullets": ["Studies theology at the University of Paris", "Acquires deeper knowledge of Kabbalistic texts from Jewish scholars in France", "Plans his audacious 900 Theses, to be defended before all of Christendom in Rome"]},
+                {"label": "Rome", "lat": 41.90, "lng": 12.50, "year": "1486–1488",
+                 "bullets": ["Proposes 900 Theses from all branches of philosophy for open public disputation", "Writes the Oratio de dignitate hominis (Oration on the Dignity of Man) as the introduction", "Thirteen of his theses condemned by Pope Innocent VIII; he publishes an Apology", "Arrested at Vincennes on papal orders; released through Medici diplomatic pressure"]},
+                {"label": "Florence", "lat": 43.77, "lng": 11.26, "year": "1488–1494",
+                 "bullets": ["Returns under Lorenzo de' Medici's protection; the Pope eventually grants a pardon", "Writes Heptaplus (seven-fold allegorical commentary on Genesis) and De ente et uno", "Falls increasingly under the influence of the fiery Dominican Savonarola", "Dies 17 November 1494, aged 31, on the very day Charles VIII of France entered Florence"]},
+            ]
+        },
+        "cornelius_agrippa": {
+            "name": "Heinrich Cornelius Agrippa",
+            "life": "Philosopher & Occultist, 1486–1535",
+            "stops": [
+                {"label": "Cologne", "lat": 50.94, "lng": 6.96, "year": "1486–c.1506",
+                 "bullets": ["Born at Nettesheim near Cologne, 14 September 1486", "Educated at the University of Cologne in the arts and humanities", "Enters the secretarial service of Maximilian I's imperial court", "Begins forming a circle of friends devoted to occult philosophy"]},
+                {"label": "Paris", "lat": 48.86, "lng": 2.35, "year": "c.1506–1507",
+                 "bullets": ["Studies in Paris; forms a secret philosophical society", "Absorbs the full range of Neoplatonic, Hermetic, and Kabbalistic literature", "Begins drafting the project that will become De Occulta Philosophia"]},
+                {"label": "Dole, Burgundy", "lat": 47.10, "lng": 5.49, "year": "1509",
+                 "bullets": ["Lectures publicly on Johann Reuchlin's De verbo mirifico", "A Franciscan friar accuses him of Judaizing before Margaret of Austria", "Forced to leave Dole; first of many collisions with ecclesiastical authority"]},
+                {"label": "Würzburg", "lat": 49.80, "lng": 9.94, "year": "1509–1510",
+                 "bullets": ["Visits the Abbot Trithemius, the greatest living authority on ceremonial magic", "Presents his manuscript of De Occulta Philosophia; Trithemius responds with enthusiasm", "Trithemius urges him to communicate the work only to the learned and worthy", "The visit is the defining mentorship of Renaissance Hermetic philosophy"]},
+                {"label": "Pavia", "lat": 45.19, "lng": 9.16, "year": "1512–1515",
+                 "bullets": ["Lectures at the University of Pavia on Hermes Trismegistus and the Pauline epistles", "Marries his first wife; develops his Hermetic theology in dialogue with colleagues", "Loses his position when French forces sack Pavia; begins wandering again"]},
+                {"label": "Metz", "lat": 49.12, "lng": 6.18, "year": "1518–1520",
+                 "bullets": ["Serves as city advocate (syndic) of Metz", "Famously defends a woman accused of witchcraft, attacking the Malleus Maleficarum", "His defence enrages the Dominican inquisitor Nicolas Savin; he is forced to leave"]},
+                {"label": "Lyon", "lat": 45.75, "lng": 4.83, "year": "1524–1527",
+                 "bullets": ["Serves as personal physician to Louise of Savoy, mother of Francis I", "Writes De incertitudine et vanitate scientiarum (On the Vanity of the Arts and Sciences)", "Falls from royal favour; Louise refuses to pay his salary; leaves in bitter poverty"]},
+                {"label": "Antwerp", "lat": 51.22, "lng": 4.40, "year": "1528–1530",
+                 "bullets": ["Appointed court historian and archivist to Margaret of Austria", "Prepares De Occulta Philosophia for its definitive revision and eventual publication", "Writes defences of women's learning and dignity; advocates for imprisoned debtors"]},
+                {"label": "Cologne", "lat": 50.94, "lng": 6.96, "year": "1531",
+                 "bullets": ["Publishes De Occulta Philosophia libri tres — the most ambitious synthesis of Renaissance magic", "Also publishes De incertitudine et vanitate scientiarum", "Immediately attacked by Dominican theologians across Europe", "Arrested briefly in Bonn (1532); releases a bitter defence of his work"]},
+            ]
+        },
+        "john_dee": {
+            "name": "John Dee",
+            "life": "Mathematician, Astrologer & Angelic Philosopher, 1527–1608",
+            "stops": [
+                {"label": "London", "lat": 51.51, "lng": -0.13, "year": "1527–1542",
+                 "bullets": ["Born 13 July 1527 in Tower Ward, London, son of a minor royal official", "Early genius for mathematics and natural philosophy", "Enters St John's College, Cambridge, aged 15"]},
+                {"label": "Cambridge", "lat": 52.21, "lng": 0.12, "year": "1542–1546",
+                 "bullets": ["Studies at St John's College; studies 18 hours a day, sleeps only four", "Becomes one of the original Fellows of the newly founded Trinity College", "Passionate about mathematics, astronomy, and navigation"]},
+                {"label": "Louvain", "lat": 50.88, "lng": 4.70, "year": "1547–1550",
+                 "bullets": ["Studies with the cartographer Gerardus Mercator and mathematician Gemma Frisius", "Acquires rare mathematical instruments, globes, and manuscripts", "Develops world-leading expertise in navigation, practical mathematics, and astronomy"]},
+                {"label": "Paris", "lat": 48.86, "lng": 2.35, "year": "1550",
+                 "bullets": ["Lectures on Euclid's Elements at the Collège de Reims to reportedly overflowing audiences", "Offered prestigious permanent positions by the French court; declines all of them", "Returns to England laden with instruments and books"]},
+                {"label": "Mortlake, London", "lat": 51.51, "lng": -0.13, "year": "1551–1583",
+                 "bullets": ["Builds one of Europe's greatest private libraries at his Mortlake home: over 3,000 volumes", "Serves as astrologer and advisor to Elizabeth I; selects her coronation date", "Begins angelic conversations (the 'actions') with the medium Edward Kelley using a crystal stone", "The Enochian language, revealed by the angels, becomes central to Western esoteric tradition"]},
+                {"label": "Kraków", "lat": 50.06, "lng": 19.94, "year": "1583–1584",
+                 "bullets": ["Departs England with Kelley under the patronage of Polish nobleman Albert Łaski", "Continues the angel conversations; Uriel and other spirits deliver extensive instructions", "Moves toward the Habsburg imperial court seeking a royal audience"]},
+                {"label": "Prague", "lat": 50.08, "lng": 14.44, "year": "1584–1585",
+                 "bullets": ["Granted audience with Emperor Rudolf II at Prague Castle", "Presents the angels' cosmological messages to the Emperor; Rudolf II is intrigued but cautious", "Expelled from Bohemia by the papal nuncio after eight months"]},
+                {"label": "Třeboň, Bohemia", "lat": 49.01, "lng": 14.77, "year": "1586–1589",
+                 "bullets": ["Hosted by the Bohemian nobleman Wilhelm von Rosenberg at Třeboň Castle", "The angels command Dee and Kelley to share their wives — a crisis that fractures their partnership", "Kelley (now a celebrated alchemist) parts ways with Dee permanently", "Dee resolves to return to England after years of fruitless wandering"]},
+                {"label": "Mortlake, London", "lat": 51.51, "lng": -0.13, "year": "1589–1608",
+                 "bullets": ["Returns to Mortlake to find his library plundered of some 800 books and instruments", "Appointed Warden of Christ's College, Manchester (1595–1604); meets local hostility", "Falls into poverty and obscurity; his supernatural claims discredited by the new generation", "Dies in his home at Mortlake, December 1608/9"]},
+            ]
+        },
+        "johannes_trithemius": {
+            "name": "Johannes Trithemius",
+            "life": "Abbot, Encyclopedist & Cryptographer, 1462–1516",
+            "stops": [
+                {"label": "Trittenheim", "lat": 49.84, "lng": 6.89, "year": "1462–c.1479",
+                 "bullets": ["Born 1 February 1462 at Trittenheim on the Moselle River", "Childhood marked by poverty and a harsh stepfather; intellectual gifts appear early", "Escapes by walking to Heidelberg to find education and a better life"]},
+                {"label": "Heidelberg", "lat": 49.40, "lng": 8.69, "year": "c.1479–1482",
+                 "bullets": ["Studies at the University of Heidelberg: logic, rhetoric, Latin poetry, philosophy", "Seeks out the most learned teachers of his generation", "Embraces the ideals of the Rhenish Humanists; dreams of a great scholarly library"]},
+                {"label": "Sponheim", "lat": 49.89, "lng": 7.57, "year": "1483–1506",
+                 "bullets": ["Arrives at the Benedictine monastery of Sponheim almost by accident during a snowstorm", "Elected Abbot aged 21; the community had only ten monks and forty-eight books", "Builds the library from forty-eight to over 2,000 volumes through relentless acquisition", "Writes Liber de scriptoribus ecclesiasticis (1494) — the first printed bio-bibliography", "Writes the Steganographia, a controversial system of angelic cryptography"]},
+                {"label": "Frankfurt", "lat": 50.11, "lng": 8.68, "year": "c.1490s–1506",
+                 "bullets": ["Attends the Frankfurt Book Fair annually to acquire manuscripts and printed books", "Establishes correspondence with Erasmus, Reuchlin, and the leading humanists of Europe", "Becomes the most widely connected German scholar of his generation"]},
+                {"label": "Würzburg", "lat": 49.80, "lng": 9.94, "year": "1506–1516",
+                 "bullets": ["Forced from Sponheim by his own monks after disputes over his strict rule", "Appointed Abbot of the Scots Monastery (St James) in Würzburg by the Bishop", "Receives Agrippa's visit in 1509–10; approves the manuscript of De Occulta Philosophia", "Writes the Polygraphia (on ciphers and secret writing), presented to Maximilian I", "Dies at Würzburg, 13 December 1516; epitaph honours him as 'a most learned man'"]},
+            ]
+        },
+        "kenelm_digby": {
+            "name": "Sir Kenelm Digby",
+            "life": "Natural Philosopher, Alchemist & Founding Fellow of the Royal Society, 1603–1665",
+            "stops": [
+                {"label": "Gayhurst, Bucks.", "lat": 52.07, "lng": -0.74, "year": "1603–1618",
+                 "bullets": ["Born 11 July 1603 at Gayhurst (then called Gothurst), Buckinghamshire", "Father executed for the Gunpowder Plot (1606); Digby raised a Catholic in Protestant England", "Recognised as a prodigy in mathematics and languages from childhood"]},
+                {"label": "Oxford", "lat": 51.75, "lng": -1.25, "year": "1618",
+                 "bullets": ["Matriculates at Gloucester Hall (later Worcester College), Oxford", "Leaves without a degree, as was customary for Catholic gentlemen", "Begins tours of France and Spain in the company of his guardian, the diplomat Sir John Digby"]},
+                {"label": "Florence", "lat": 43.77, "lng": 11.26, "year": "c.1620",
+                 "bullets": ["Tours Italy with Sir John Digby's diplomatic entourage", "Reconverts fully to Catholicism in Florence", "Encounters Italian natural philosophy, Neoplatonism, and the memory of the Hermetic tradition"]},
+                {"label": "London", "lat": 51.51, "lng": -0.13, "year": "1623–1627",
+                 "bullets": ["Secretly marries the celebrated beauty Venetia Stanley in 1625", "Serves at court; involved in diplomatic intrigues on behalf of Charles I", "Begins experiments in chemistry and natural philosophy in his private laboratory"]},
+                {"label": "Scanderoon (Iskenderun)", "lat": 36.60, "lng": 36.17, "year": "1627–1628",
+                 "bullets": ["Commands a royal naval expedition to the Eastern Mediterranean", "Battle of Scanderoon, June 1628: defeats a combined Venetian and French fleet", "The victory makes him famous across Europe; he returns to England a celebrated hero"]},
+                {"label": "Paris", "lat": 48.86, "lng": 2.35, "year": "1636–1637",
+                 "bullets": ["Venetia dies suddenly in May 1633; Digby retires to Paris in grief and study", "Meets René Descartes; they hold extended philosophical conversations", "Attends Mersenne's circle; meets Hobbes, Gassendi, and the leading natural philosophers of Europe", "Begins systematic chemical experiments that will result in his major works"]},
+                {"label": "London", "lat": 51.51, "lng": -0.13, "year": "1643",
+                 "bullets": ["Returns briefly to England during the Civil War", "Experiments with the 'powder of sympathy' (weapon salve) for wound-healing by action at a distance", "His theory draws on Paracelsian and Helmontian natural philosophy"]},
+                {"label": "Paris", "lat": 48.86, "lng": 2.35, "year": "1644–1660",
+                 "bullets": ["Long Royalist exile; continues chemical experiments and philosophical writing", "Discourse on the Vegetation of Plants (delivered at the Montmor Academy, 1658) — landmark in natural philosophy", "Maintains the Hartlib correspondence network as a bridge between English and Continental learning"]},
+                {"label": "London", "lat": 51.51, "lng": -0.13, "year": "1660–1665",
+                 "bullets": ["Returns with the Restoration of Charles II", "Among the founding Fellows of the Royal Society (1660) — linking Hermetic natural philosophy to the new science", "Gives famous demonstrations of the 'powder of sympathy' before the Royal Society", "Dies 11 June 1665; remembered as an eccentric genius at the crossroads of two intellectual worlds"]},
+            ]
+        },
+    }
+    journeys_json = json.dumps(JOURNEYS, ensure_ascii=False)
+
     map_content = f"""
     <main class="page-container">
         <h1 class="title-large">Interactive Geography of Hermeticism</h1>
-        <p class="text-subtitle">Major centers of transmission, translation, and practice across the ancient and medieval world. Click any marker for detailed information; hover for a quick label.</p>
+        <p class="text-subtitle">Major centres of transmission, translation, and practice across the ancient and medieval world.</p>
 
         <div id="map-info-panel" style="display:none; margin-bottom:1rem; padding:1.5rem 2rem; background:var(--bg-card); border:1px solid var(--border); border-radius:12px; border-left:4px solid var(--accent);">
             <div id="map-info-title" style="font-family:var(--font-display); font-size:1.4rem; color:var(--accent-light); margin-bottom:0.5rem;"></div>
@@ -1669,186 +1807,388 @@ def deploy_to(target_dir, cursor):
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
         <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js" crossorigin=""></script>
 
-        <div style="display:flex; gap:1rem; align-items:flex-start; margin-top:1rem">
-            <div style="width:185px; flex-shrink:0; background:var(--bg-card); border:1px solid var(--border); border-radius:8px; height:600px; overflow:hidden; display:flex; flex-direction:column;">
-                <div style="font-size:0.72rem; font-weight:700; color:var(--accent); padding:0.55rem 0.8rem; border-bottom:1px solid var(--border); letter-spacing:0.1em; text-transform:uppercase; flex-shrink:0;">Locations</div>
-                <div id="sidebar-list" style="flex:1; overflow-y:auto; padding:0.2rem 0;"></div>
-            </div>
-            <div id="map" style="flex:1; height:600px; border-radius:0 12px 12px 0; border:1px solid var(--border); background:var(--bg-card);"></div>
+        <!-- Mode switcher -->
+        <div class="hm-mode-bar">
+            <button id="btn-explore-mode" class="hm-mode-btn hm-mode-active">&#9711; Map</button>
+            <button id="btn-journey-mode" class="hm-mode-btn">&#10022; Peregrinations</button>
         </div>
 
-        <div style="margin-top:1.5rem; padding:1rem 2rem; background:var(--bg-card); border:1px solid var(--border); border-radius:8px; font-size:0.85rem; color:var(--text-muted);">
-            <strong style="color:var(--accent)">How to use:</strong> Hover over a marker for the location name. Click for full details including key figures, primary texts, and manuscript archives associated with each site. Use the sidebar to jump directly to any location.
+        <!-- Main flex row: left panel | map | journey slides -->
+        <div id="map-flex-row" style="display:flex; gap:0; align-items:flex-start;">
+
+            <!-- Left panel (185px) -->
+            <div id="map-left-col" style="width:185px; flex-shrink:0; background:var(--bg-card); border:1px solid var(--border); border-radius:8px 0 0 8px; height:600px; overflow:hidden; display:flex; flex-direction:column;">
+                <!-- Explore mode: location list -->
+                <div id="panel-explore" style="display:flex; flex-direction:column; height:100%;">
+                    <div class="hm-panel-hdr">Locations</div>
+                    <div id="sidebar-list" style="flex:1; overflow-y:auto; padding:0.2rem 0;"></div>
+                </div>
+                <!-- Journey mode: figure selector -->
+                <div id="panel-journey" style="display:none; flex-direction:column; height:100%;">
+                    <div class="hm-panel-hdr">Select figure</div>
+                    <div id="journey-figure-list" style="flex:1; overflow-y:auto; padding:0.2rem 0;"></div>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div id="map" style="flex:1; height:600px; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:var(--bg-card);"></div>
+
+            <!-- Journey slide panel (hidden until a figure is selected) -->
+            <div id="journey-slides" style="display:none; width:275px; flex-shrink:0; height:600px; background:var(--bg-card); border:1px solid var(--border); border-radius:0 8px 8px 0; flex-direction:column; overflow:hidden;">
+                <div style="padding:1rem 1rem 0.75rem; border-bottom:1px solid var(--border); background:rgba(212,175,55,0.05); flex-shrink:0;">
+                    <div id="js-figure-name" style="font-family:var(--font-display); font-size:1rem; color:var(--accent-light); line-height:1.3; font-weight:600;"></div>
+                    <div id="js-figure-life" style="font-size:0.72rem; color:var(--text-muted); margin-top:0.2rem;"></div>
+                </div>
+                <div style="padding:0.7rem 1rem 0.5rem; border-bottom:1px solid rgba(255,255,255,0.05); flex-shrink:0;">
+                    <div style="display:flex; align-items:baseline; gap:0.5rem; margin-bottom:0.15rem;">
+                        <span id="js-stop-num" style="font-size:0.68rem; font-weight:700; color:var(--accent); background:rgba(212,175,55,0.14); padding:0.1rem 0.4rem; border-radius:3px; white-space:nowrap;"></span>
+                        <span id="js-stop-city" style="font-size:0.92rem; font-weight:600; color:var(--text-main);"></span>
+                    </div>
+                    <div id="js-stop-year" style="font-size:0.75rem; color:var(--text-muted); font-style:italic;"></div>
+                </div>
+                <ul id="js-bullets" style="flex:1; overflow-y:auto; margin:0; padding:0.7rem 1rem 0.7rem 1.6rem; font-size:0.8rem; line-height:1.65; color:var(--text-main); list-style:disc;"></ul>
+                <div style="padding:0.6rem 0.8rem; border-top:1px solid var(--border); display:flex; align-items:center; gap:0.4rem; flex-shrink:0;">
+                    <button id="js-prev" class="jp-ctrl-btn" title="Previous stop">&#9664;</button>
+                    <button id="js-play" class="jp-ctrl-btn jp-play-btn" title="Play / Pause">&#9646;&#9646;</button>
+                    <button id="js-next" class="jp-ctrl-btn" title="Next stop">&#9654;</button>
+                    <span id="js-progress" style="font-size:0.7rem; color:var(--text-muted); margin-left:auto;"></span>
+                </div>
+            </div>
+
+        </div><!-- end flex row -->
+
+        <div id="explore-footer" style="margin-top:1.5rem; padding:1rem 2rem; background:var(--bg-card); border:1px solid var(--border); border-radius:8px; font-size:0.85rem; color:var(--text-muted);">
+            <strong style="color:var(--accent)">Map:</strong> Hover a marker for its tagline. Click for full details — key figures, texts, archives. Use the sidebar to jump to any location. &nbsp;|&nbsp;
+            <strong style="color:var(--accent)">Peregrinations:</strong> Select a philosopher to animate their journey across the map, stop by stop.
         </div>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function() {{
-                // Bounds: North Africa → Northern Europe, Iberia → Mesopotamia
-                const HERMETIC_BOUNDS = [[19, -16], [58, 56]];
-                const map = L.map('map', {{
-                    maxBounds: HERMETIC_BOUNDS,
-                    maxBoundsViscosity: 0.85,
-                    minZoom: 3
-                }}).fitBounds([[23, -6], [53, 50]]);
-                L.tileLayer('https://{{s}}.basemaps.cartocdn.com/dark_all/{{z}}/{{x}}/{{y}}{{r}}.png', {{
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-                    maxZoom: 18
-                }}).addTo(map);
+        document.addEventListener('DOMContentLoaded', function() {{
 
-                const locations = {loc_js_array};
+            // ── MAP SETUP ──────────────────────────────────────────────────
+            const HERMETIC_BOUNDS = [[19, -16], [58, 56]];
+            const map = L.map('map', {{
+                maxBounds: HERMETIC_BOUNDS,
+                maxBoundsViscosity: 0.85,
+                minZoom: 3
+            }}).fitBounds([[23, -6], [53, 50]]);
+            L.tileLayer('https://{{s}}.basemaps.cartocdn.com/dark_all/{{z}}/{{x}}/{{y}}{{r}}.png', {{
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                maxZoom: 18
+            }}).addTo(map);
 
-                const hermeticIcon = L.divIcon({{
-                    className: 'hermetic-marker',
-                    html: '<div class="hm-dot"></div>',
-                    iconSize: [16, 16],
-                    iconAnchor: [8, 8]
-                }});
+            const locations = {loc_js_array};
+            const journeys  = {journeys_json};
 
-                const infoPanel = document.getElementById('map-info-panel');
-                const infoTitle = document.getElementById('map-info-title');
-                const infoBody = document.getElementById('map-info-body');
-                const sidebarList = document.getElementById('sidebar-list');
-
-                const clusterGroup = L.markerClusterGroup({{
-                    maxClusterRadius: 40,
-                    iconCreateFunction: function(cluster) {{
-                        return L.divIcon({{
-                            className: 'hermetic-cluster',
-                            html: '<div class="hc-dot">' + cluster.getChildCount() + '</div>',
-                            iconSize: [34, 34],
-                            iconAnchor: [17, 17]
-                        }});
-                    }}
-                }});
-
-                const markerRefs = {{}};
-
-                // Build sidebar (sorted alphabetically)
-                const sortedLocs = [...locations].sort((a, b) => a.label.localeCompare(b.label));
-                sortedLocs.forEach(loc => {{
-                    const btn = document.createElement('button');
-                    btn.textContent = loc.label;
-                    btn.dataset.label = loc.label;
-                    btn.className = 'sidebar-loc-btn';
-                    btn.addEventListener('click', function() {{
-                        document.querySelectorAll('.sidebar-loc-btn').forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        const ref = markerRefs[loc.label];
-                        if (ref) clusterGroup.zoomToShowLayer(ref, () => ref.fire('click'));
-                    }});
-                    sidebarList.appendChild(btn);
-                }});
-
-                locations.forEach(loc => {{
-                    const marker = L.marker([loc.lat, loc.lng], {{icon: hermeticIcon}});
-
-                    const tooltipHtml = loc.tagline
-                        ? `<b style="font-size:0.88rem">${{loc.label}}</b><br><span style="font-size:0.78rem; color:#c8a84b; font-weight:400">${{loc.tagline}}</span>`
-                        : `<b>${{loc.label}}</b>`;
-                    marker.bindTooltip(tooltipHtml, {{
-                        permanent: false,
-                        direction: 'top',
-                        offset: [0, -10],
-                        className: 'hermetic-tooltip'
-                    }});
-
-                    marker.on('click', function() {{
-                        infoTitle.textContent = loc.label;
-                        infoBody.innerHTML = loc.popup;
-                        infoPanel.style.display = 'block';
-                        infoPanel.scrollIntoView({{ behavior: 'smooth', block: 'nearest' }});
-                        document.querySelectorAll('.sidebar-loc-btn').forEach(b => {{
-                            b.classList.toggle('active', b.dataset.label === loc.label);
-                        }});
-                    }});
-
-                    marker.bindPopup(`<b style="font-size:1.05rem; color:#d4af37">${{loc.label}}</b><br><br>${{loc.desc}}<br><br><em style="font-size:0.8rem; color:#888">Click marker or scroll up for full details</em>`, {{
-                        className: 'hermetic-popup',
-                        maxWidth: 320
-                    }});
-
-                    markerRefs[loc.label] = marker;
-                    clusterGroup.addLayer(marker);
-                }});
-
-                clusterGroup.addTo(map);
+            const hermeticIcon = L.divIcon({{
+                className: 'hermetic-marker',
+                html: '<div class="hm-dot"></div>',
+                iconSize: [16, 16], iconAnchor: [8, 8]
             }});
+
+            const infoPanel = document.getElementById('map-info-panel');
+            const infoTitle = document.getElementById('map-info-title');
+            const infoBody  = document.getElementById('map-info-body');
+
+            const clusterGroup = L.markerClusterGroup({{
+                maxClusterRadius: 40,
+                iconCreateFunction: function(cluster) {{
+                    return L.divIcon({{
+                        className: 'hermetic-cluster',
+                        html: '<div class="hc-dot">' + cluster.getChildCount() + '</div>',
+                        iconSize: [34, 34], iconAnchor: [17, 17]
+                    }});
+                }}
+            }});
+            const markerRefs = {{}};
+
+            // Build explore sidebar
+            const sidebarList = document.getElementById('sidebar-list');
+            [...locations].sort((a,b) => a.label.localeCompare(b.label)).forEach(loc => {{
+                const btn = document.createElement('button');
+                btn.textContent = loc.label;
+                btn.dataset.label = loc.label;
+                btn.className = 'sidebar-loc-btn';
+                btn.addEventListener('click', function() {{
+                    document.querySelectorAll('.sidebar-loc-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const ref = markerRefs[loc.label];
+                    if (ref) clusterGroup.zoomToShowLayer(ref, () => ref.fire('click'));
+                }});
+                sidebarList.appendChild(btn);
+            }});
+
+            // Add explore markers
+            locations.forEach(loc => {{
+                const marker = L.marker([loc.lat, loc.lng], {{icon: hermeticIcon}});
+                const ttHtml = loc.tagline
+                    ? `<b style="font-size:0.88rem">${{loc.label}}</b><br><span style="font-size:0.78rem;color:#c8a84b;font-weight:400">${{loc.tagline}}</span>`
+                    : `<b>${{loc.label}}</b>`;
+                marker.bindTooltip(ttHtml, {{permanent:false, direction:'top', offset:[0,-10], className:'hermetic-tooltip'}});
+                marker.on('click', function() {{
+                    infoTitle.textContent = loc.label;
+                    infoBody.innerHTML = loc.popup;
+                    infoPanel.style.display = 'block';
+                    infoPanel.scrollIntoView({{behavior:'smooth', block:'nearest'}});
+                    document.querySelectorAll('.sidebar-loc-btn').forEach(b => b.classList.toggle('active', b.dataset.label === loc.label));
+                }});
+                marker.bindPopup(`<b style="font-size:1.05rem;color:#d4af37">${{loc.label}}</b><br><br>${{loc.desc}}<br><br><em style="font-size:0.8rem;color:#888">Click marker or scroll up for full details</em>`, {{className:'hermetic-popup', maxWidth:320}});
+                markerRefs[loc.label] = marker;
+                clusterGroup.addLayer(marker);
+            }});
+            clusterGroup.addTo(map);
+
+            // ── PEREGRINATIONS ─────────────────────────────────────────────
+            let currentJourney = null;
+            let currentStop    = 0;
+            let journeyTimer   = null;
+            let isPlaying      = false;
+            let jMarkers       = [];
+            let jLines         = [];
+            const STOP_INTERVAL = 5000; // ms per stop when auto-playing
+
+            // Build figure list in the journey panel
+            const figListEl = document.getElementById('journey-figure-list');
+            Object.entries(journeys).forEach(([id, j]) => {{
+                const btn = document.createElement('button');
+                btn.textContent = j.name;
+                btn.dataset.figId = id;
+                btn.className = 'jp-figure-btn';
+                btn.addEventListener('click', () => selectJourney(id));
+                figListEl.appendChild(btn);
+            }});
+
+            function selectJourney(figId) {{
+                clearJourney();
+                currentJourney = journeys[figId];
+                if (!currentJourney) return;
+
+                // Highlight selected button
+                document.querySelectorAll('.jp-figure-btn').forEach(b => b.classList.remove('active'));
+                document.querySelector(`[data-fig-id="${{figId}}"]`)?.classList.add('active');
+
+                // Populate figure header
+                document.getElementById('js-figure-name').textContent = currentJourney.name;
+                document.getElementById('js-figure-life').textContent = currentJourney.life;
+
+                // Show slide panel
+                const slides = document.getElementById('journey-slides');
+                slides.style.display = 'flex';
+                slides.style.flexDirection = 'column';
+
+                // Draw faint full route
+                const coords = currentJourney.stops.map(s => [s.lat, s.lng]);
+                const routeLine = L.polyline(coords, {{color:'rgba(212,175,55,0.25)', weight:1.5, dashArray:'4,7'}}).addTo(map);
+                jLines.push(routeLine);
+
+                // Add numbered stop markers
+                currentJourney.stops.forEach((stop, i) => {{
+                    const m = L.marker([stop.lat, stop.lng], {{
+                        icon: L.divIcon({{
+                            className: 'hm-journey-stop',
+                            html: `<div class="hjm-dot" id="hjm-${{i}}">${{i+1}}</div>`,
+                            iconSize: [26, 26], iconAnchor: [13, 13]
+                        }}),
+                        zIndexOffset: 900
+                    }}).addTo(map);
+                    m.on('click', () => {{ pausePlay(); goToStop(i, true); }});
+                    jMarkers.push(m);
+                }});
+
+                map.fitBounds(routeLine.getBounds(), {{padding:[50, 50]}});
+                goToStop(0, false);
+                startPlay();
+            }}
+
+            function goToStop(i, fly) {{
+                if (!currentJourney) return;
+                currentStop = i;
+                const stop  = currentJourney.stops[i];
+                const total = currentJourney.stops.length;
+
+                // Active marker style
+                document.querySelectorAll('.hjm-dot').forEach((el, j) => el.classList.toggle('active', j === i));
+
+                // Slide content
+                document.getElementById('js-stop-num').textContent  = `Stop ${{i+1}} of ${{total}}`;
+                document.getElementById('js-stop-city').textContent = stop.label;
+                document.getElementById('js-stop-year').textContent = stop.year;
+                document.getElementById('js-bullets').innerHTML = stop.bullets.map(b => `<li>${{b}}</li>`).join('');
+                document.getElementById('js-progress').textContent  = `${{i+1}} / ${{total}}`;
+                document.getElementById('js-prev').disabled = i === 0;
+                document.getElementById('js-next').disabled = i === total - 1;
+
+                // Draw progress line (golden, up to current stop)
+                jLines.filter(l => l._jp).forEach(l => map.removeLayer(l));
+                jLines = jLines.filter(l => !l._jp);
+                if (i > 0) {{
+                    const prog = L.polyline(
+                        currentJourney.stops.slice(0, i+1).map(s => [s.lat, s.lng]),
+                        {{color:'#d4af37', weight:2.5, opacity:0.9}}
+                    ).addTo(map);
+                    prog._jp = true;
+                    jLines.push(prog);
+                }}
+
+                // Pan map
+                if (fly) map.flyTo([stop.lat, stop.lng], 6, {{duration:1.4, easeLinearity:0.25}});
+            }}
+
+            function startPlay() {{
+                pausePlay();
+                isPlaying = true;
+                document.getElementById('js-play').innerHTML = '&#9646;&#9646;';
+                journeyTimer = setInterval(() => {{
+                    if (currentStop < currentJourney.stops.length - 1) {{
+                        goToStop(currentStop + 1, true);
+                    }} else {{
+                        pausePlay();
+                    }}
+                }}, STOP_INTERVAL);
+            }}
+
+            function pausePlay() {{
+                isPlaying = false;
+                clearInterval(journeyTimer);
+                document.getElementById('js-play').innerHTML = '&#9654;';
+            }}
+
+            function clearJourney() {{
+                pausePlay();
+                jMarkers.forEach(m => map.removeLayer(m));
+                jLines.forEach(l => map.removeLayer(l));
+                jMarkers = []; jLines = [];
+                currentJourney = null;
+                document.getElementById('journey-slides').style.display = 'none';
+            }}
+
+            // Mode switching
+            function setMode(m) {{
+                if (m === 'explore') {{
+                    clearJourney();
+                    clusterGroup.addTo(map);
+                    infoPanel.style.display = 'none';
+                    document.getElementById('panel-explore').style.display  = 'flex';
+                    document.getElementById('panel-journey').style.display  = 'none';
+                    document.getElementById('explore-footer').style.display = '';
+                    document.getElementById('btn-explore-mode').classList.add('hm-mode-active');
+                    document.getElementById('btn-journey-mode').classList.remove('hm-mode-active');
+                    map.fitBounds([[23,-6],[53,50]]);
+                }} else {{
+                    clusterGroup.remove();
+                    infoPanel.style.display = 'none';
+                    document.getElementById('panel-explore').style.display  = 'none';
+                    document.getElementById('panel-journey').style.display  = 'flex';
+                    document.getElementById('explore-footer').style.display = 'none';
+                    document.getElementById('btn-explore-mode').classList.remove('hm-mode-active');
+                    document.getElementById('btn-journey-mode').classList.add('hm-mode-active');
+                }}
+            }}
+
+            document.getElementById('btn-explore-mode').addEventListener('click', () => setMode('explore'));
+            document.getElementById('btn-journey-mode').addEventListener('click', () => setMode('journey'));
+            document.getElementById('js-prev').addEventListener('click', () => {{ pausePlay(); if (currentStop > 0) goToStop(currentStop-1, true); }});
+            document.getElementById('js-next').addEventListener('click', () => {{ pausePlay(); if (currentJourney && currentStop < currentJourney.stops.length-1) goToStop(currentStop+1, true); }});
+            document.getElementById('js-play').addEventListener('click', () => isPlaying ? pausePlay() : startPlay());
+
+        }});
         </script>
         <style>
+            /* ── explore markers ── */
             .hm-dot {{
-                width: 14px; height: 14px;
-                background: #d4af37;
-                border: 2px solid #fff;
-                border-radius: 50%;
-                box-shadow: 0 0 12px #d4af37, 0 0 4px rgba(212,175,55,0.8);
-                transition: transform 0.15s;
-                cursor: pointer;
+                width:14px; height:14px;
+                background:#d4af37; border:2px solid #fff; border-radius:50%;
+                box-shadow:0 0 12px #d4af37, 0 0 4px rgba(212,175,55,0.8);
+                transition:transform 0.15s; cursor:pointer;
             }}
-            .hermetic-marker:hover .hm-dot {{
-                transform: scale(1.5);
-                box-shadow: 0 0 20px #d4af37;
-            }}
+            .hermetic-marker:hover .hm-dot {{ transform:scale(1.5); box-shadow:0 0 20px #d4af37; }}
             .hc-dot {{
-                width: 30px; height: 30px;
-                background: rgba(212,175,55,0.15);
-                border: 2px solid #d4af37;
-                border-radius: 50%;
-                display: flex; align-items: center; justify-content: center;
-                color: #d4af37;
-                font-size: 11px;
-                font-weight: 700;
-                box-shadow: 0 0 10px rgba(212,175,55,0.35);
+                width:30px; height:30px;
+                background:rgba(212,175,55,0.15); border:2px solid #d4af37; border-radius:50%;
+                display:flex; align-items:center; justify-content:center;
+                color:#d4af37; font-size:11px; font-weight:700;
+                box-shadow:0 0 10px rgba(212,175,55,0.35);
             }}
+            /* ── popups & tooltips ── */
             .hermetic-popup .leaflet-popup-content-wrapper {{
-                background: #141418;
-                color: #e0e0e0;
-                border: 1px solid rgba(212,175,55,0.4);
-                border-radius: 10px;
-                font-family: 'Inter', sans-serif;
-                font-size: 0.9rem;
-                line-height: 1.6;
+                background:#141418; color:#e0e0e0;
+                border:1px solid rgba(212,175,55,0.4); border-radius:10px;
+                font-family:'Inter',sans-serif; font-size:0.9rem; line-height:1.6;
             }}
-            .hermetic-popup .leaflet-popup-tip {{
-                background: #141418;
-            }}
-            .hermetic-popup .leaflet-popup-close-button {{
-                color: #a0a0a0 !important;
-            }}
+            .hermetic-popup .leaflet-popup-tip {{ background:#141418; }}
+            .hermetic-popup .leaflet-popup-close-button {{ color:#a0a0a0 !important; }}
             .hermetic-tooltip {{
-                background: #141418;
-                border: 1px solid rgba(212,175,55,0.6);
-                color: #f1d37e;
-                font-family: 'Outfit', sans-serif;
-                font-size: 0.85rem;
-                padding: 0.4rem 0.85rem;
-                border-radius: 6px;
-                font-weight: 600;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-                max-width: 280px;
-                line-height: 1.4;
-                white-space: normal;
+                background:#141418; border:1px solid rgba(212,175,55,0.6); color:#f1d37e;
+                font-family:'Outfit',sans-serif; font-size:0.85rem;
+                padding:0.4rem 0.85rem; border-radius:6px; font-weight:600;
+                box-shadow:0 4px 12px rgba(0,0,0,0.5);
+                max-width:280px; line-height:1.4; white-space:normal;
             }}
-            .hermetic-tooltip::before {{
-                border-top-color: rgba(212,175,55,0.6) !important;
-            }}
+            .hermetic-tooltip::before {{ border-top-color:rgba(212,175,55,0.6) !important; }}
+            /* ── explore sidebar buttons ── */
             .sidebar-loc-btn {{
-                display: block;
-                width: 100%;
-                text-align: left;
-                padding: 0.38rem 0.8rem;
-                background: none;
-                border: none;
-                border-bottom: 1px solid rgba(255,255,255,0.04);
-                color: var(--text-main);
-                font-size: 0.78rem;
-                cursor: pointer;
-                transition: background 0.12s, color 0.12s;
-                line-height: 1.3;
+                display:block; width:100%; text-align:left;
+                padding:0.38rem 0.8rem; background:none; border:none;
+                border-bottom:1px solid rgba(255,255,255,0.04);
+                color:var(--text-main); font-size:0.78rem; cursor:pointer;
+                transition:background 0.12s,color 0.12s; line-height:1.3;
             }}
             .sidebar-loc-btn:hover, .sidebar-loc-btn.active {{
-                background: rgba(212,175,55,0.12);
-                color: #d4af37;
+                background:rgba(212,175,55,0.12); color:#d4af37;
             }}
+            /* ── mode bar ── */
+            .hm-mode-bar {{
+                display:flex; gap:0.5rem; margin:1rem 0 0;
+            }}
+            .hm-mode-btn {{
+                padding:0.45rem 1.1rem; border-radius:6px 6px 0 0;
+                background:var(--bg-card); border:1px solid var(--border); border-bottom:none;
+                color:var(--text-muted); font-size:0.85rem; cursor:pointer;
+                font-family:'Outfit',sans-serif; font-weight:600; letter-spacing:0.03em;
+                transition:color 0.15s, background 0.15s;
+            }}
+            .hm-mode-btn.hm-mode-active {{
+                color:var(--accent); background:rgba(212,175,55,0.08);
+            }}
+            .hm-panel-hdr {{
+                font-size:0.72rem; font-weight:700; color:var(--accent);
+                padding:0.55rem 0.8rem; border-bottom:1px solid var(--border);
+                letter-spacing:0.1em; text-transform:uppercase; flex-shrink:0;
+            }}
+            /* ── journey figure buttons ── */
+            .jp-figure-btn {{
+                display:block; width:100%; text-align:left;
+                padding:0.5rem 0.8rem; background:none; border:none;
+                border-bottom:1px solid rgba(255,255,255,0.04);
+                color:var(--text-main); font-size:0.78rem; cursor:pointer;
+                transition:background 0.12s,color 0.12s; line-height:1.35;
+            }}
+            .jp-figure-btn:hover, .jp-figure-btn.active {{
+                background:rgba(212,175,55,0.12); color:#d4af37;
+            }}
+            /* ── journey stop markers ── */
+            .hjm-dot {{
+                width:24px; height:24px;
+                background:#1a1a20; border:2px solid rgba(212,175,55,0.6); border-radius:50%;
+                display:flex; align-items:center; justify-content:center;
+                color:#d4af37; font-size:10px; font-weight:700; cursor:pointer;
+                transition:all 0.2s; box-shadow:0 0 6px rgba(212,175,55,0.3);
+            }}
+            .hjm-dot.active {{
+                background:#d4af37; color:#0a0a0e; border-color:#fff;
+                box-shadow:0 0 18px #d4af37, 0 0 6px rgba(212,175,55,0.9);
+                transform:scale(1.35);
+            }}
+            /* ── slide panel controls ── */
+            .jp-ctrl-btn {{
+                padding:0.35rem 0.7rem; border-radius:5px;
+                background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.35);
+                color:#d4af37; cursor:pointer; font-size:0.8rem;
+                transition:background 0.12s;
+            }}
+            .jp-ctrl-btn:hover {{ background:rgba(212,175,55,0.25); }}
+            .jp-ctrl-btn:disabled {{ opacity:0.3; cursor:default; }}
+            .jp-play-btn {{ min-width:3.5rem; }}
         </style>
     </main>
     """
@@ -1899,7 +2239,6 @@ def deploy_to(target_dir, cursor):
     for r in cursor.fetchall():
         links.append({ "source": r[0], "target": r[1], "value": 3, "type": r[2] })
 
-    import json
     graph_data = { "nodes": nodes, "links": links }
     
     graph_content = f"""
