@@ -1557,6 +1557,51 @@ def deploy_to(target_dir, cursor):
             "archives": [],
             "note": "Home of the Ikhwan al-Safa, whose Epistles synthesized Neoplatonic, Hermetic, and Islamic theology into a comprehensive philosophical encyclopedia."
         },
+        "cologne": {
+            "figures": ["Heinrich Cornelius Agrippa (born here)", "Albertus Magnus (Dominican studium)", "Johannes Duns Scotus (buried here)"],
+            "texts": ["De Occulta Philosophia libri tres (Agrippa, 1531 — published here)", "Albertus Magnus's natural philosophy commentaries"],
+            "archives": ["Cologne Cathedral archive", "Historical Archive of the City of Cologne"],
+            "note": "Agrippa's birthplace and publishing centre. Albertus Magnus led the Dominican studium here, shaping the scholastic reception of Arabic natural philosophy and Hermetic cosmology. The final edition of De Occulta Philosophia (1531), the most ambitious synthesis of Renaissance Hermetic and magical philosophy, was printed in Cologne."
+        },
+        "wurzburg": {
+            "figures": ["Johannes Trithemius (Abbot of St James, 1506–16)", "Heinrich Cornelius Agrippa (visitor, 1509–10)"],
+            "texts": ["De Occulta Philosophia (first draft completed here, 1510)", "Trithemius, Steganographia (written here)", "Trithemius, Antipalus Maleficiorum"],
+            "archives": ["Würzburg University Library — Trithemius manuscripts"],
+            "note": "Würzburg was the seat of Trithemius's abbey of St James and the site of one of the defining encounters in Renaissance Hermetic history: Agrippa visited Trithemius in 1509–10, showed him the manuscript of De Occulta Philosophia, and refined it under the abbot's guidance before its eventual publication."
+        },
+    }
+
+    LOCATION_TAGLINES = {
+        "alexandria":        "Probable site of the philosophical Hermetica; cradle of Greco-Egyptian syncretism",
+        "hermopolis":        "Cult city of Thoth; mythological homeland of Hermetic wisdom",
+        "florence":          "Ficino's 1463 Corpus Hermeticum translation; heart of Renaissance Hermeticism",
+        "harran":            "Sabian community maintaining Neoplatonic and Hermetic traditions into the Islamic period",
+        "baghdad":           "Central site of Arabic Hermetic transmission under the Abbasid caliphate",
+        "akhmim":            "Birthplace of Zosimos, Late Antiquity's foremost alchemical author",
+        "akhmim_expanded":   "Home of Zosimos; site of Hermetic alchemical and visionary literature, c. 300 CE",
+        "panopolis":         "Panopolis / Akhmim — home of Zosimos of Panopolis (fl. c. 300 CE)",
+        "toledo":            "12th-century translation centre; Arabic Hermetic texts enter Latin Europe",
+        "rome":              "Neoplatonic philosophy; Kircher's Egyptology; Bruno's martyrdom (1600)",
+        "memphis":           "Memphite theology of Ptah as a source of Hermetic cosmology",
+        "thebes":            "Great temple city whose Amun theology informed Hermetic religious synthesis",
+        "coptos":            "Crossroads of Hermetic pilgrimage routes and trans-Egyptian commerce",
+        "assuan":            "Southern Egyptian temple traditions preserving ancient priestly knowledge",
+        "antioch":           "Base of Iamblichus's Neoplatonic-theurgic school, c. 300–325 CE",
+        "constantinople":    "Byzantine custodian of the Greek Hermetic manuscript tradition",
+        "damascus":          "Major Islamic centre for preservation and study of Hermetic texts",
+        "cairo":             "Arabic alchemical synthesis; Khalid ibn Yazid's circle; Fatimid learning",
+        "cordoba":           "Islamic Andalusia: Picatrix tradition and Hermetic natural philosophy",
+        "venice":            "Gateway for Greek manuscripts; Renaissance Hermetic printing centre",
+        "mantua":            "Gonzaga court patronage of Renaissance humanism and Hermetic scholarship",
+        "prague_hermetic":   "Alchemical capital of Europe under Rudolf II, r. 1576–1612",
+        "prague":            "Prague: centre of Rudolf II's court alchemy and occult patronage",
+        "strasbourg":        "Centre of Paracelsian medicine and early Rosicrucian activity",
+        "paris":             "Scholastic and alchemical learning; major Hermetic manuscript centre",
+        "oxford":            "Medieval natural philosophy; Roger Bacon; Newton's alchemical studies",
+        "basra":             "Home of the Ikhwan al-Safa, synthesisers of Hermetic and Islamic thought",
+        "london":            "English alchemy, Rosicrucian debate, and Royal Society natural philosophy",
+        "cologne":           "Agrippa's birthplace; Albertus Magnus's studium; De Occulta Philosophia (1531)",
+        "wurzburg":          "Trithemius's abbey; where Agrippa drafted De Occulta Philosophia (1510)",
     }
 
     # Build person_locations lookup: slug -> list of (person_id, name, role, role_primary)
@@ -1599,8 +1644,10 @@ def deploy_to(target_dir, cursor):
         if extras.get("note"):
             note_html = f"<br><br><em style='color:#a0a0a0'>{extras['note']}</em>"
         full_popup = f"{desc}{figures_html}{texts_html}{archives_html}{note_html}"
+        tagline = LOCATION_TAGLINES.get(slug, "")
         loc_js_objects.append(
             f'{{ "label": {repr(l["label"])}, "lat": {l["lat"]}, "lng": {l["lng"]}, '
+            f'"tagline": {repr(tagline)}, '
             f'"desc": {repr(l["description"] or "")}, "popup": {repr(full_popup)} }}'
         )
 
@@ -1636,7 +1683,13 @@ def deploy_to(target_dir, cursor):
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {{
-                const map = L.map('map').setView([35, 25], 4);
+                // Bounds: North Africa → Northern Europe, Iberia → Mesopotamia
+                const HERMETIC_BOUNDS = [[19, -16], [58, 56]];
+                const map = L.map('map', {{
+                    maxBounds: HERMETIC_BOUNDS,
+                    maxBoundsViscosity: 0.85,
+                    minZoom: 3
+                }}).fitBounds([[23, -6], [53, 50]]);
                 L.tileLayer('https://{{s}}.basemaps.cartocdn.com/dark_all/{{z}}/{{x}}/{{y}}{{r}}.png', {{
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
                     maxZoom: 18
@@ -1689,7 +1742,10 @@ def deploy_to(target_dir, cursor):
                 locations.forEach(loc => {{
                     const marker = L.marker([loc.lat, loc.lng], {{icon: hermeticIcon}});
 
-                    marker.bindTooltip(loc.label, {{
+                    const tooltipHtml = loc.tagline
+                        ? `<b style="font-size:0.88rem">${{loc.label}}</b><br><span style="font-size:0.78rem; color:#c8a84b; font-weight:400">${{loc.tagline}}</span>`
+                        : `<b>${{loc.label}}</b>`;
+                    marker.bindTooltip(tooltipHtml, {{
                         permanent: false,
                         direction: 'top',
                         offset: [0, -10],
@@ -1764,10 +1820,13 @@ def deploy_to(target_dir, cursor):
                 color: #f1d37e;
                 font-family: 'Outfit', sans-serif;
                 font-size: 0.85rem;
-                padding: 0.3rem 0.7rem;
+                padding: 0.4rem 0.85rem;
                 border-radius: 6px;
                 font-weight: 600;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+                max-width: 280px;
+                line-height: 1.4;
+                white-space: normal;
             }}
             .hermetic-tooltip::before {{
                 border-top-color: rgba(212,175,55,0.6) !important;
