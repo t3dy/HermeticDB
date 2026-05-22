@@ -1,7 +1,7 @@
 # Phase Status — EmeraldTablet
 
 **Updated:** 2026-05-21
-**Current Phase:** PHASE 4C — DICTIONARY ARCHITECTURE (IN PROGRESS; 4B COMPLETE)
+**Current Phase:** PHASE 4C — DICTIONARY ARCHITECTURE (✅ COMPLETE) | PHASE 4D — COMING NEXT
 
 ---
 
@@ -54,12 +54,14 @@ For all 81 concepts:
 **Session 1 Outcome:** 16 biographies expanded from stubs to full standard.
 **Session 2 Outcome:** All remaining 23 texts (14 empty + 9 partial) expanded to standard.
 
-### 4C — Site Architecture: Two-Level Dictionary (🔄 ACTIVE)
-- [ ] Build `/dictionary/[slug].html` encyclopedia pages in DEPLOY_PORTAL.py
-- [ ] Build `/dictionary/index.html` with index card grid + filtering
-- [ ] Render `concept_links` table on concept and dictionary pages
-- [ ] Add "Read the full dictionary entry →" cross-links from `/concepts/` to `/dictionary/`
-- [ ] Add category-browsing within dictionary section
+### 4C — Site Architecture: Two-Level Dictionary (✅ COMPLETE)
+- [x] Build `/dictionary/[slug].html` encyclopedia pages in DEPLOY_PORTAL.py
+- [x] Build `/dictionary/index.html` with index card grid + filtering
+- [x] Render `concept_links` table on concept and dictionary pages
+- [x] Add "Read the full dictionary entry →" cross-links from `/concepts/` to `/dictionary/`
+- [x] Add category-browsing within dictionary section
+
+**Session 3 Outcome:** Two-level dictionary architecture fully implemented. All 81 concept pages in `/concepts/` now show concept_links for relational browsing. All 81 encyclopedia pages in `/dictionary/` fully functional with concept_links. Dictionary index (`dictionary.html`) complete with category filtering.
 
 ### 4D — Relational Browsing Enhancement (PLANNED)
 - [ ] Render `concept_links` table on `/concepts/[slug].html` pages (currently zero links rendered)
@@ -71,13 +73,18 @@ For all 81 concepts:
 
 ## Remaining Work (as of 2026-05-21)
 
-### Phase 4C Focus: Dictionary Architecture
+### Phase 4C: COMPLETE ✅
+All three sub-tasks delivered:
+- `/dictionary/[slug].html` pages (81 total) with full encyclopedia content
+- `/dictionary/index.html` with category filtering and index cards
+- `concept_links` rendering on BOTH `/concepts/` and `/dictionary/` pages
+
+### Phase 4D Focus: Relational Browsing Enhancement (Planned)
 | Gap | Impact | Status |
 |-----|--------|--------|
-| `/dictionary/[slug].html` pages not built | Two-level architecture incomplete | 🔄 NEXT: Modify DEPLOY_PORTAL.py |
-| `/dictionary/index.html` not built | No browsable alphabetical index | 🔄 NEXT: Add to DEPLOY_PORTAL.py |
-| `concept_links` table not rendered | Zero relational browsing between concepts | 🔄 NEXT: Render on concept/dictionary pages |
-| Internal cross-links incomplete | Some entities missing 3+ internal links | ⏸ Deferred post-4C |
+| Person-to-concept links on biography pages | Scholars not showing concepts they worked with | ⏸ 4D Task 1 |
+| Text-to-concept links on text analysis pages | Texts not showing their conceptual framework | ⏸ 4D Task 2 |
+| Ensure every entity has 3+ outbound links | Dead-end pages reduce exploration | ⏸ 4D Task 3 |
 
 ### Completed Gaps (Sessions 1–2)
 | Gap | Status | Notes |
