@@ -382,6 +382,8 @@ def ensure_concept_link(cur, from_slug, to_slug, relationship):
 def main():
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
+    cur.execute("PRAGMA journal_mode=MEMORY")
+    cur.execute("PRAGMA temp_store=MEMORY")
 
     ensure_person(
         cur,

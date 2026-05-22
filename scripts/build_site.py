@@ -395,6 +395,33 @@ def truncate(text, length=150):
     return text[:length].rsplit(' ', 1)[0] + "..."
 
 
+def clear_directory_best_effort(path):
+    """Remove as much of a directory tree as possible without failing on locked files."""
+    if not path.exists():
+        return
+
+    if path.is_file() or path.is_symlink():
+        try:
+            path.unlink()
+        except PermissionError:
+            pass
+        return
+
+    for child in sorted(path.rglob('*'), key=lambda p: len(p.parts), reverse=True):
+        try:
+            if child.is_file() or child.is_symlink():
+                child.unlink()
+            elif child.is_dir():
+                child.rmdir()
+        except (PermissionError, OSError):
+            continue
+
+    try:
+        path.rmdir()
+    except (PermissionError, OSError):
+        pass
+
+
 def badge_html(label, color="#7f8c8d"):
     return f'<span class="badge" style="background:{color}">{label}</span>'
 
@@ -1149,8 +1176,7 @@ def main():
     # Clean output directories (stale file cleanup)
     for subdir in ['texts', 'persons', 'concepts', 'translations', 'manuscripts']:
         d = SITE_DIR / subdir
-        if d.exists():
-            shutil.rmtree(d)
+        clear_directory_best_effort(d)
 
     # Create directories
     for subdir in ['texts', 'persons', 'concepts', 'translations', 'manuscripts']:
