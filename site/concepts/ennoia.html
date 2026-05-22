@@ -1,32 +1,446 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ennoia (Thought) — EmeraldTablet</title>
-    <link rel="stylesheet" href="../style.css">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title><p>Ennoia (Thought)</p> - HermeticDB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        
+:root {
+    --bg: #0a0a0c;
+    --bg-card: #141418;
+    --accent: #d4af37;
+    --accent-light: #f1d37e;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --border: rgba(212, 175, 55, 0.2);
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.site-nav {
+    background: rgba(10, 10, 12, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.title-large {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: var(--accent-light);
+    margin-bottom: 1rem;
+}
+
+.text-subtitle {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--accent-light);
+    margin-bottom: 0.5rem;
+}
+
+.card-meta {
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.card-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.prose-content {
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    font-size: 1.15rem;
+    color: #d8d8d8;
+}
+
+.prose-content h2 {
+    font-family: var(--font-display);
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+}
+
+.prose-content p {
+    margin-bottom: 1.5rem;
+}
+
+.back-link {
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.scholarly-fragment {
+    border-left: 3px solid var(--accent);
+    background: rgba(212, 175, 55, 0.05);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.fragment-source {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    font-style: normal;
+    color: var(--accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+    .theme-tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.theme-tag:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+</style>
 </head>
 <body>
+    
 <nav class="site-nav">
-  <span class="site-title">EmeraldTablet</span>
-  <a href="../index.html">Home</a>
-  <a href="../texts/index.html">Texts</a>
-  <a href="../persons/index.html">Persons</a>
-  <a href="../translations/index.html">Translations</a>
-  <a href="../concepts/index.html" class="active">Concepts</a>
-  <a href="../timeline.html">Timeline</a>
-  <a href="../bibliography.html">Bibliography</a>
-  <a href="../manuscripts/index.html">Manuscripts</a>
-  <a href="../about.html">About</a>
+    <div class="nav-container">
+        <a class="nav-logo" href="/HermeticDB">HERMETICDB</a>
+        <div class="nav-links">
+            <a class="nav-link" href="/HermeticDB/eras/late-antiquity.html">Late Antiquity</a>
+            <a class="nav-link" href="/HermeticDB/eras/medieval.html">Medieval</a>
+            <a class="nav-link" href="/HermeticDB/eras/renaissance.html">Renaissance</a>
+            <div style="width:1px;height:20px;background:rgba(255,255,255,0.1)"></div>
+            <a class="nav-link" href="/HermeticDB/corpus.html" style="color:var(--accent-light); font-weight:bold">Corpus Map</a>
+            <a class="nav-link" href="/HermeticDB/texts.html">Texts</a>
+            <a class="nav-link" href="/HermeticDB/biographies.html">Biographies</a>
+            <a class="nav-link" href="/HermeticDB/scholars.html">Scholars</a>
+            <a class="nav-link" href="/HermeticDB/dictionary.html">Dictionary</a>
+            <a class="nav-link" href="/HermeticDB/debates.html">Debates</a>
+            <a class="nav-link" href="/HermeticDB/timeline.html">Timeline</a>
+            <a class="nav-link" href="/HermeticDB/map.html">Interactive Map</a>
+            <a class="nav-link" href="/HermeticDB/graph.html" style="color:var(--accent); font-weight:bold">Relationship Graph</a>
+            <a class="nav-link" href="/HermeticDB/about.html">Methodology</a>
+            <button id="gs-btn" title="Search (press /)"
+                style="background:none;border:1px solid var(--border);color:var(--text-muted);border-radius:6px;
+                       padding:0.3rem 0.7rem;font-size:1rem;cursor:pointer;transition:all 0.2s;line-height:1"
+                onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'"
+                onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">⌕</button>
+        </div>
+    </div>
 </nav>
 
-<div class="page-content">
-<a href="index.html" class="back-link">&larr; Concepts</a>
-<h1>Ennoia (Thought) <span class="badge" style="background:#2c3e50">PHILOSOPHICAL</span></h1>
-<div style="border-left:3px solid #2c3e50;padding-left:1rem;margin:1rem 0;font-style:italic">Ennoia (Greek: en + nous, inner thought, concept) is an Actor Term employed in the Philosophical Hermetica to denote the first interior movement of the divine Nous — the generative self-reflection of the divine mind that initiates the cosmogonic process. Attested in Corpus Hermeticum I and related texts, Ennoia functions as the feminine creative principle paired with Logos in the Poimandres creation account, standing at the threshold between the purely transcendent Father and the ordered world. Its complex relationship to Nous, Logos, and the generative matrix of creation marks one of the more subtle doctrinal innovations of the Hermetic theological imagination.</div>
-<div style="margin:1rem 0;line-height:1.8"><p><p><i>Ennoia</i> (Greek: <i>ennoia</i>, from <i>en</i> + <i>nous</i>, that which is in the mind; inner thought, concept, intention) is an Actor Term — a concept used by the historical authors of the Hermetic texts themselves — denoting the divine Thought that arises within the Nous of the Father as the first movement of creation. It is attested most fully in <i>Corpus Hermeticum</i> I, the <i>Poimandres</i>, where the cosmogonic narrative identifies a feminine creative principle that pairs with the masculine Logos in the generation of the lower creation. The Greek philosophical inheritance of the term is rich: <i>ennoia</i> appears in Stoic epistemology as the concept or mental representation formed in response to external impressions, and in Platonic tradition as the mind's inner grasp of a Form before its expression in discourse. In the Hermetic context, however, the term is lifted out of its epistemological register and elevated into a cosmological and theological role: it becomes the name for the self-awareness of the divine mind, the moment at which the boundless Light of the Father turns inward and conceives the world before bringing it into being. The relationship between Ennoia and Logos in the cosmogonic process — and whether they are distinct principles or aspects of a single creative act — is one of the subtler problems in Hermetic doctrine.</p></p><p><h2>Historical Usage</h2></p><p><p>The <i>Poimandres</i> (<i>Corpus Hermeticum</i> I) is the primary locus for Ennoia in the Hermetic corpus. The cosmogonic narrative describes a sequence of creative events proceeding from the Father: the Father first begets the Nous (conceived as luminous Life-and-Light), and then from the Father's creative purpose — his Ennoia — the Logos leaps forth. The text presents the relationship between Ennoia and Logos in terms that are deliberately dense: Ennoia is the divine Thought that contains the plan of creation in potentiality, while Logos is the expressive act through which that plan is realized. The passage CH I.8–9 describes how the luminous Word that emerged from Ennoia united with the Demiurgic Nous to fashion the seven planetary administrators. In this account, Ennoia is not a fully independent hypostasis but rather the interior dimension of the Father's creative act — the divine self-awareness that precedes and enables the creative Word.</p></p><p><p>The text of CH I is, however, not entirely consistent in its handling of these terms, and the relationship between Ennoia and the "Physis" (Nature, understood as the generative matrix of the material world) is one of the more contested questions in Hermetic exegesis. At CH I.14, the narrator describes how the divine Anthropos, descending through the seven spheres, falls in love with Physis — the earthly Nature that reflects his image back to him. Some interpreters have read this Nature as a lower manifestation of Ennoia, the divine creative thought become material generatrix, while others maintain the distinction between the transcendent Ennoia and the immanent, material Physis. The ambiguity is textually grounded and cannot be resolved by appeal to a systematic theology that the text does not provide.</p></p><p><p>Gnostic parallels are instructive both for the similarities they reveal and for the differences they mark. In the Valentinian Gnostic system, <i>Ennoia</i> or <i>Thought</i> is one of the earliest emanations within the divine Pleroma — specifically, the first female Aeon who pairs with the supreme Father (Bythos) to generate the subsequent pairs of Aeons. In the system attributed to Simon Magus (described by Hippolytus and Irenaeus), Ennoia is the supreme feminine divine power who descends into matter and becomes progressively entrapped, ultimately requiring liberation by the divine male principle. These Gnostic uses of Ennoia share with the Hermetic version the elevation of divine Thought to cosmological status, but the Gnostic narrative typically assigns Ennoia a more dramatic and more explicitly soteriological role — she falls, she suffers, she must be rescued — while the Hermetic Ennoia remains more consistently a creative and organizing principle rather than a tragic protagonist. This difference reflects the broader divergence between Gnostic and Hermetic cosmological sensibilities: where Gnostic mythology dramatizes the trauma of cosmic creation, the Hermetic texts tend toward a more philosophical and less dramatized account.</p></p><p><p>The <i>Stobaean fragments</i> of the Hermetic corpus — the excerpts preserved by John of Stobi in the fifth century CE — contain further material relevant to Ennoia, though the term does not always appear with the same technical precision as in the <i>Poimandres</i>. The Stobaean fragments tend to use a broader vocabulary of creative divine thought, including terms like <i>boulesis</i> (will, intention) and <i>prothesis</i> (purpose, plan), that overlap with the semantic field of <i>ennoia</i> without being identical to it. M. David Litwa's translation and commentary in <i>Hermetica II</i> (2018) provides the most recent scholarly treatment of these passages.</p></p><p><h2>Scholarly Significance</h2></p><p><p>Festugière's treatment of Ennoia in <i>La Révélation d'Hermès Trismégiste</i> (1944–1954) situated the Hermetic use of the term within the Middle Platonic tradition of creative divine thought and the Stoic concept of the generative rational principle. Festugière tended to read Ennoia as a somewhat loose and inconsistently applied term in the Hermetic texts, reflecting the syncretistic character of the corpus rather than any precise doctrinal intention. His analysis was foundational but has been complicated by subsequent work that pays closer attention to the Egyptian background.</p></p><p><p>Garth Fowden, in <i>The Egyptian Hermes</i> (1986), drew attention to the possibility of reading the Hermetic feminine creative principle — including Ennoia as the generative divine thought — against the background of Egyptian goddess theology, in which feminine divine powers such as Isis, Neith, and Nut serve as the generative matrices of cosmic creation. This Egyptian background does not replace the Greek philosophical inheritance but supplements it, suggesting that the Hermetic Ennoia resonates with a much wider field of religious meaning than purely Greek philosophical analysis can capture.</p></p><p><p>Brian P. Copenhaver's notes in <i>Hermetica</i> (1992) provide a careful lexicographical analysis of the Ennoia passages in CH I, distinguishing the specific occurrences of the term from the broader vocabulary of divine creative thought in the tractate and clarifying the relationship between Ennoia and Logos in the cosmogonic sequence. Copenhaver is appropriately cautious about imposing systematic coherence on passages that the text itself leaves partially ambiguous, and his approach has been methodologically influential for subsequent Hermetic scholarship.</p></p><p><p>The debate about whether Ennoia is identical to or distinct from Logos in the Hermetic cosmogony has not been resolved by scholarship. Some interpreters, following the Neoplatonic tendency toward systematic hierarchy, have argued that Ennoia is a distinct hypostasis preceding Logos in the emanative chain — a kind of divine self-reflection that enables but does not yet constitute the creative act. Others, more attentive to the actual textual usage, have preferred to treat Ennoia and Logos as two aspects of a single creative movement, distinguishable conceptually but not ontologically separable. Jean-Pierre Mahé's work on the Coptic Hermetic texts preserved in the Nag Hammadi codices (particularly the <i>Discourse on the Eighth and Ninth</i> and the <i>Prayer of Thanksgiving</i>) has added important new material to this debate, though the Coptic texts do not always use the same Greek technical vocabulary.</p></p><p><h2>Related Concepts</h2></p><p><p>The relationship between Ennoia and <a href="../concepts/nous.html"><i>Nous</i></a> is constitutive: Ennoia is the inner movement of the divine intellect, the first act of self-reflection through which Nous becomes creative rather than merely contemplative. Without this initial self-movement, the divine Nous would remain eternally self-contained and without issue. The pairing of Ennoia with <a href="../concepts/logos.html"><i>Logos</i></a> — where Ennoia is the thought and Logos is the word through which that thought is expressed outwardly — is the fundamental dyadic structure of the Hermetic cosmogony in the <i>Poimandres</i>. The <a href="../concepts/demiurge.html">Demiurge</a> takes up the creative work that Ennoia and Logos initiate: the Demiurgic Nous fashions the planetary spheres and the material world in accordance with the plan that divine Thought has conceived. The broader cosmological doctrine of <a href="../concepts/emanationism.html">Emanationism</a> provides the framework within which Ennoia functions: it is the first of the series of emanations through which the divine power flows from the transcendent Father toward the material world, each stage further from the source but never wholly severed from it. The figure of the divine feminine creative matrix recurs in a different register in the concept of the <a href="../concepts/anima_mundi.html">Anima Mundi</a>, the World Soul, which can be understood as the cosmic-level expression of the generative divine thought that Ennoia initiates at the highest level.</p></p><p><h2>Literature</h2></p><p><p>Bull, Christian H. <i>The Tradition of Hermes Trismegistus: The Egyptian Priestly Figure as a Teacher of Hellenized Wisdom</i>. Leiden: Brill, 2018.<br></p><p>Copenhaver, Brian P. <i>Hermetica: The Greek Corpus Hermeticum and the Latin Asclepius in a New English Translation with Notes and Introduction</i>. Cambridge: Cambridge University Press, 1992.<br></p><p>Festugière, André-Jean. <i>La Révélation d'Hermès Trismégiste</i>. 4 vols. Paris: Gabalda, 1944–1954.<br></p><p>Fowden, Garth. <i>The Egyptian Hermes: A Historical Approach to the Late Pagan Mind</i>. Cambridge: Cambridge University Press, 1986.<br></p><p>Litwa, M. David. <i>Hermetica II: The Excerpts of Stobaeus, Papyrus Fragments, and Ancient Testimonies in an English Translation with Notes and Introduction</i>. Cambridge: Cambridge University Press, 2018.<br></p><p>Mahé, Jean-Pierre. <i>Hermès en Haute-Égypte</i>. 2 vols. Quebec: Presses de l'Université Laval, 1978–1982.<br></p><p>Nock, Arthur Darby, and André-Jean Festugière (eds. and trans.). <i>Corpus Hermeticum</i>. 4 vols. Paris: Les Belles Lettres, 1945–1954.<br></p><p>Pearson, Birger A. <i>Gnosticism, Judaism, and Egyptian Christianity</i>. Minneapolis: Fortress Press, 1990.</p></p></div>
-<div class="provenance">Source: SEED_DATA &middot; Confidence: HIGH</div>
-</div>
+    <main class="page-container"><a href="/HermeticDB/dictionary.html" class="back-link">← Return to Dictionary</a><h1 class="title-large"><p>Ennoia (Thought)</p></h1><div class="card-meta" style="margin-bottom:1.5rem">PHILOSOPHICAL Concept · ACTOR TERM</div><div style="margin-bottom:2rem;padding:1rem 1.5rem;background:rgba(212,175,55,0.06);border:1px solid var(--border);border-radius:8px;display:flex;justify-content:space-between;align-items:center"><span style="color:var(--text-muted);font-size:0.9rem">Relational connections for <strong style="color:var(--text-main)">Ennoia (Thought)</strong></span><a href="/HermeticDB/dictionary/ennoia.html" class="nav-link" style="color:var(--accent);font-size:0.9rem;font-weight:600">Read full encyclopedia entry →</a></div><div class="prose-content"><p><i>Ennoia</i> (Greek: <i>ennoia</i>, from <i>en</i> + <i><i>Nous</i></i>, that which is in the mind; inner thought, concept, intention) is an Actor Term — a concept used by the historical authors of the Hermetic texts themselves — denoting the divine Thought that arises within the <i>Nous</i> of the Father as the first movement of creation. It is attested most fully in <i>Corpus Hermeticum</i> I, the <i><i>Poimandres</i></i>, where the cosmogonic narrative identifies a feminine creative principle that pairs with the masculine <i>Logos</i> in the generation of the lower creation. The Greek philosophical inheritance of the term is rich: <i>ennoia</i> appears in Stoic epistemology as the concept or mental representation formed in response to external impressions, and in Platonic tradition as the mind's inner grasp of a Form before its expression in discourse. In the Hermetic context, however, the term is lifted out of its epistemological register and elevated into a cosmological and theological role: it becomes the name for the self-awareness of the divine mind, the moment at which the boundless Light of the Father turns inward and conceives the world before bringing it into being. The relationship between Ennoia and <i>Logos</i> in the cosmogonic process — and whether they are distinct principles or aspects of a single creative act — is one of the subtler problems in Hermetic doctrine.</p>
 
+<h2>Historical Usage</h2>
+<p>The <i><i>Poimandres</i></i> (<i>Corpus Hermeticum</i> I) is the primary locus for Ennoia in the Hermetic corpus. The cosmogonic narrative describes a sequence of creative events proceeding from the Father: the Father first begets the <i>Nous</i> (conceived as luminous Life-and-Light), and then from the Father's creative purpose — his Ennoia — the <i>Logos</i> leaps forth. The text presents the relationship between Ennoia and <i>Logos</i> in terms that are deliberately dense: Ennoia is the divine Thought that contains the plan of creation in potentiality, while <i>Logos</i> is the expressive act through which that plan is realized. The passage CH I.8–9 describes how the luminous Word that emerged from Ennoia united with the Demiurgic <i>Nous</i> to fashion the seven planetary administrators. In this account, Ennoia is not a fully independent hypostasis but rather the interior dimension of the Father's creative act — the divine self-awareness that precedes and enables the creative Word.</p>
+<p>The text of CH I is, however, not entirely consistent in its handling of these terms, and the relationship between Ennoia and the "Physis" (Nature, understood as the generative matrix of the material world) is one of the more contested questions in Hermetic exegesis. At CH I.14, the narrator describes how the divine Anthropos, descending through the seven spheres, falls in love with Physis — the earthly Nature that reflects his image back to him. Some interpreters have read this Nature as a lower manifestation of Ennoia, the divine creative thought become material generatrix, while others maintain the distinction between the transcendent Ennoia and the immanent, material Physis. The ambiguity is textually grounded and cannot be resolved by appeal to a systematic theology that the text does not provide.</p>
+<p>Gnostic parallels are instructive both for the similarities they reveal and for the differences they mark. In the Valentinian Gnostic system, <i>Ennoia</i> or <i>Thought</i> is one of the earliest emanations within the divine Pleroma — specifically, the first female Aeon who pairs with the supreme Father (Bythos) to generate the subsequent pairs of Aeons. In the system attributed to Simon Magus (described by Hippolytus and Irenaeus), Ennoia is the supreme feminine divine power who descends into matter and becomes progressively entrapped, ultimately requiring liberation by the divine male principle. These Gnostic uses of Ennoia share with the Hermetic version the elevation of divine Thought to cosmological status, but the Gnostic narrative typically assigns Ennoia a more dramatic and more explicitly soteriological role — she falls, she suffers, she must be rescued — while the Hermetic Ennoia remains more consistently a creative and organizing principle rather than a tragic protagonist. This difference reflects the broader divergence between Gnostic and Hermetic cosmological sensibilities: where Gnostic mythology dramatizes the trauma of cosmic creation, the Hermetic texts tend toward a more philosophical and less dramatized account.</p>
+<p>The <i>Stobaean fragments</i> of the Hermetic corpus — the excerpts preserved by John of Stobi in the fifth century CE — contain further material relevant to Ennoia, though the term does not always appear with the same technical precision as in the <i><i>Poimandres</i></i>. The Stobaean fragments tend to use a broader vocabulary of creative divine thought, including terms like <i>boulesis</i> (will, intention) and <i>prothesis</i> (purpose, plan), that overlap with the semantic field of <i>ennoia</i> without being identical to it. M. David Litwa's translation and commentary in <i>Hermetica II</i> (2018) provides the most recent scholarly treatment of these passages.</p>
+
+<h2>Scholarly Significance</h2>
+<p>Festugière's treatment of Ennoia in <i>La Révélation d'Hermès Trismégiste</i> (1944–1954) situated the Hermetic use of the term within the Middle Platonic tradition of creative divine thought and the Stoic concept of the generative rational principle. Festugière tended to read Ennoia as a somewhat loose and inconsistently applied term in the Hermetic texts, reflecting the syncretistic character of the corpus rather than any precise doctrinal intention. His analysis was foundational but has been complicated by subsequent work that pays closer attention to the Egyptian background.</p>
+<p>Garth Fowden, in <i>The Egyptian Hermes</i> (1986), drew attention to the possibility of reading the Hermetic feminine creative principle — including Ennoia as the generative divine thought — against the background of Egyptian goddess theology, in which feminine divine powers such as Isis, Neith, and Nut serve as the generative matrices of cosmic creation. This Egyptian background does not replace the Greek philosophical inheritance but supplements it, suggesting that the Hermetic Ennoia resonates with a much wider field of religious meaning than purely Greek philosophical analysis can capture.</p>
+<p>Brian P. Copenhaver's notes in <i>Hermetica</i> (1992) provide a careful lexicographical analysis of the Ennoia passages in CH I, distinguishing the specific occurrences of the term from the broader vocabulary of divine creative thought in the tractate and clarifying the relationship between Ennoia and <i>Logos</i> in the cosmogonic sequence. Copenhaver is appropriately cautious about imposing systematic coherence on passages that the text itself leaves partially ambiguous, and his approach has been methodologically influential for subsequent Hermetic scholarship.</p>
+<p>The debate about whether Ennoia is identical to or distinct from <i>Logos</i> in the Hermetic cosmogony has not been resolved by scholarship. Some interpreters, following the Neoplatonic tendency toward systematic hierarchy, have argued that Ennoia is a distinct hypostasis preceding <i>Logos</i> in the emanative chain — a kind of divine self-reflection that enables but does not yet constitute the creative act. Others, more attentive to the actual textual usage, have preferred to treat Ennoia and <i>Logos</i> as two aspects of a single creative movement, distinguishable conceptually but not ontologically separable. Jean-Pierre Mahé's work on the Coptic Hermetic texts preserved in the Nag Hammadi codices (particularly the <i>Discourse on the Eighth and Ninth</i> and the <i>Prayer of Thanksgiving</i>) has added important new material to this debate, though the Coptic texts do not always use the same Greek technical vocabulary.</p>
+
+<h2>Related Concepts</h2>
+<p>The relationship between Ennoia and <a href="../concepts/<i>Nous</i>.html"><i><i>Nous</i></i></a> is constitutive: Ennoia is the inner movement of the divine intellect, the first act of self-reflection through which <i>Nous</i> becomes creative rather than merely contemplative. Without this initial self-movement, the divine <i>Nous</i> would remain eternally self-contained and without issue. The pairing of Ennoia with <a href="../concepts/<i>Logos</i>.html"><i><i>Logos</i></i></a> — where Ennoia is the thought and <i>Logos</i> is the word through which that thought is expressed outwardly — is the fundamental dyadic structure of the Hermetic cosmogony in the <i><i>Poimandres</i></i>. The <a href="../concepts/demiurge.html">Demiurge</a> takes up the creative work that Ennoia and <i>Logos</i> initiate: the Demiurgic <i>Nous</i> fashions the planetary spheres and the material world in accordance with the plan that divine Thought has conceived. The broader cosmological doctrine of <a href="../concepts/emanationism.html">Emanationism</a> provides the framework within which Ennoia functions: it is the first of the series of emanations through which the divine power flows from the transcendent Father toward the material world, each stage further from the source but never wholly severed from it. The figure of the divine feminine creative matrix recurs in a different register in the concept of the <a href="../concepts/anima_mundi.html">Anima Mundi</a>, the World Soul, which can be understood as the cosmic-level expression of the generative divine thought that Ennoia initiates at the highest level.</p>
+
+<h2>Literature</h2>
+<p>Bull, Christian H. <i>The Tradition of Hermes Trismegistus: The Egyptian Priestly Figure as a Teacher of Hellenized Wisdom</i>. Leiden: Brill, 2018.<br>
+Copenhaver, Brian P. <i>Hermetica: The Greek Corpus Hermeticum and the Latin Asclepius in a New English Translation with Notes and Introduction</i>. Cambridge: Cambridge University Press, 1992.<br>
+Festugière, André-Jean. <i>La Révélation d'Hermès Trismégiste</i>. 4 vols. Paris: Gabalda, 1944–1954.<br>
+Fowden, Garth. <i>The Egyptian Hermes: A Historical Approach to the Late Pagan Mind</i>. Cambridge: Cambridge University Press, 1986.<br>
+Litwa, M. David. <i>Hermetica II: The Excerpts of Stobaeus, Papyrus Fragments, and Ancient Testimonies in an English Translation with Notes and Introduction</i>. Cambridge: Cambridge University Press, 2018.<br>
+Mahé, Jean-Pierre. <i>Hermès en Haute-Égypte</i>. 2 vols. Quebec: Presses de l'Université Laval, 1978–1982.<br>
+Nock, Arthur Darby, and André-Jean Festugière (eds. and trans.). <i>Corpus Hermeticum</i>. 4 vols. Paris: Les Belles Lettres, 1945–1954.<br>
+Pearson, Birger A. <i>Gnosticism, Judaism, and Egyptian Christianity</i>. Minneapolis: Fortress Press, 1990.</p></div></main>
+    <footer style="text-align:center; padding: 6rem 2rem; color: var(--text-muted); border-top: 1px solid var(--border); background: #08080a">
+        &copy; 2026 The Hermetic Knowledge Portal<br/>
+        <span style="font-size: 0.7rem; opacity: 0.5; margin-top: 1rem; display: block">Curated Scholar-Synthesized Narrative Database</span>
+    </footer>
+
+    <!-- Back-to-top -->
+    <button id="btt" onclick="window.scrollTo({{top:0,behavior:'smooth'}})"
+        style="display:none;position:fixed;bottom:2rem;right:2rem;z-index:500;background:var(--bg-card);
+               border:1px solid var(--border);color:var(--accent);border-radius:50%;width:44px;height:44px;
+               font-size:1.2rem;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 16px rgba(0,0,0,0.4)">↑</button>
+    <script>
+    (function(){{
+        var btn = document.getElementById('btt');
+        window.addEventListener('scroll', function(){{
+            btn.style.display = window.scrollY > 400 ? 'block' : 'none';
+        }}, {{passive:true}});
+    }})();
+    </script>
+
+    <!-- Global search overlay -->
+    <div id="gs-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.87);backdrop-filter:blur(6px);padding:8vh 2rem 2rem">
+        <div style="max-width:680px;margin:0 auto">
+            <div style="position:relative;margin-bottom:1.2rem">
+                <span style="position:absolute;left:1.1rem;top:50%;transform:translateY(-50%);color:var(--accent);font-size:1.2rem;pointer-events:none">⌕</span>
+                <input id="gs-input" type="text" placeholder="Search persons, texts, concepts…" autocomplete="off"
+                    style="width:100%;box-sizing:border-box;background:#141418;border:1px solid rgba(212,175,55,0.5);
+                           color:#e0e0e0;font-size:1.2rem;padding:0.9rem 3rem 0.9rem 3rem;border-radius:12px;
+                           font-family:Inter,sans-serif;outline:none">
+                <button onclick="gsClose()" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);
+                    background:none;border:none;color:#a0a0a0;font-size:1.3rem;cursor:pointer;line-height:1">✕</button>
+            </div>
+            <div id="gs-results" style="max-height:58vh;overflow-y:auto;border-radius:8px"></div>
+            <div style="margin-top:0.8rem;font-size:0.75rem;color:#444;text-align:center">Press <kbd style="background:#222;border:1px solid #444;padding:0.1rem 0.4rem;border-radius:3px">/</kbd> to open &nbsp;·&nbsp; <kbd style="background:#222;border:1px solid #444;padding:0.1rem 0.4rem;border-radius:3px">Esc</kbd> to close</div>
+        </div>
+    </div>
+
+    <!-- Hover preview card -->
+    <div id="hc-card" style="display:none;position:fixed;z-index:8888;max-width:310px;background:#141418;
+        border:1px solid rgba(212,175,55,0.35);border-radius:10px;padding:1rem 1.2rem;
+        pointer-events:none;box-shadow:0 8px 32px rgba(0,0,0,0.65)">
+        <div id="hc-label" style="font-family:Outfit,sans-serif;font-size:1rem;color:#f1d37e;font-weight:600;margin-bottom:0.25rem"></div>
+        <div id="hc-meta" style="font-size:0.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem"></div>
+        <div id="hc-desc" style="font-size:0.85rem;color:#a8a8a8;line-height:1.5"></div>
+        <div style="margin-top:0.6rem;font-size:0.72rem;color:#444;font-style:italic">click for full entry</div>
+    </div>
+
+    <script>
+    (function(){{
+        var REPO = '{REPO_URL}';
+        var idx = null;
+
+        function loadIdx(cb) {{
+            if (idx) return cb(idx);
+            fetch(REPO + '/search_index.json')
+                .then(function(r){{ return r.json(); }})
+                .then(function(d){{ idx = d; cb(d); }})
+                .catch(function(){{ idx = []; cb([]); }});
+        }}
+
+        // --- GLOBAL SEARCH ---
+        var overlay = document.getElementById('gs-overlay');
+        var gsInput = document.getElementById('gs-input');
+        var gsResults = document.getElementById('gs-results');
+        var TYPE_COLOR = {{ PERSON: '#4a9eff', TEXT: '#d4af37', CONCEPT: '#20c997' }};
+
+        window.gsClose = function() {{ overlay.style.display = 'none'; }};
+        function gsOpen() {{ overlay.style.display = 'block'; gsInput.focus(); gsInput.select(); }}
+
+        document.addEventListener('keydown', function(e){{
+            if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {{
+                e.preventDefault(); gsOpen();
+            }}
+            if (e.key === 'Escape') gsClose();
+        }});
+        overlay.addEventListener('click', function(e){{ if (e.target === overlay) gsClose(); }});
+
+        var gsBtn = document.getElementById('gs-btn');
+        if (gsBtn) gsBtn.addEventListener('click', gsOpen);
+
+        function renderResults(items) {{
+            if (!items.length) {{
+                gsResults.innerHTML = '<p style="color:#555;text-align:center;padding:2rem 0">No matches found</p>';
+                return;
+            }}
+            gsResults.innerHTML = items.slice(0, 14).map(function(r){{
+                var c = TYPE_COLOR[r.type] || '#888';
+                return '<a href="' + r.url + '" onclick="gsClose()" style="display:block;padding:0.8rem 1rem;margin-bottom:0.3rem;background:#1a1a20;'
+                    + 'border:1px solid rgba(255,255,255,0.05);border-radius:8px;text-decoration:none;transition:border-color 0.15s" '
+                    + 'onmouseover="this.style.borderColor='rgba(212,175,55,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.05)'">'
+                    + '<span style="display:inline-block;padding:0.12rem 0.45rem;background:' + c + '22;color:' + c + ';border-radius:4px;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.07em;margin-right:0.4rem">' + r.type + '</span>'
+                    + '<strong style="color:#e0e0e0">' + r.label + '</strong>'
+                    + '<span style="display:block;color:#777;font-size:0.8rem;margin-top:0.25rem">' + (r.desc || '').slice(0, 100) + (r.desc && r.desc.length > 100 ? '…' : '') + '</span>'
+                    + '</a>';
+            }}).join('');
+        }}
+
+        var gsTimer;
+        gsInput.addEventListener('input', function(){{
+            clearTimeout(gsTimer);
+            var q = this.value.trim().toLowerCase();
+            if (!q) {{ gsResults.innerHTML = ''; return; }}
+            gsTimer = setTimeout(function(){{
+                loadIdx(function(data){{
+                    var hits = data.filter(function(r){{
+                        return r.label.toLowerCase().indexOf(q) !== -1 || (r.desc && r.desc.toLowerCase().indexOf(q) !== -1);
+                    }}).sort(function(a, b){{
+                        var al = a.label.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+                        var bl = b.label.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+                        return al - bl;
+                    }});
+                    renderResults(hits);
+                }});
+            }}, 150);
+        }});
+
+        // --- HOVER PREVIEW ---
+        var hcCard = document.getElementById('hc-card');
+        var hcLabel = document.getElementById('hc-label');
+        var hcMeta = document.getElementById('hc-meta');
+        var hcDesc = document.getElementById('hc-desc');
+        var hcTimer;
+        var PATHS = ['/biographies/', '/scholars/', '/dictionary/', '/concepts/', '/texts/'];
+
+        function slugFromHref(href) {{
+            var m = href.match(/\/([^\/]+)\.html$/);
+            return m ? m[1] : null;
+        }}
+
+        document.addEventListener('mouseover', function(e){{
+            var a = e.target.closest('a[href]');
+            if (!a) return;
+            var href = a.getAttribute('href') || '';
+            if (!PATHS.some(function(p){{ return href.indexOf(p) !== -1; }})) return;
+            var slug = slugFromHref(href);
+            if (!slug) return;
+            clearTimeout(hcTimer);
+            hcTimer = setTimeout(function(){{
+                loadIdx(function(data){{
+                    var entry = null;
+                    for (var i = 0; i < data.length; i++) {{
+                        if (data[i].id === slug) {{ entry = data[i]; break; }}
+                    }}
+                    if (!entry) return;
+                    hcLabel.textContent = entry.label;
+                    hcMeta.textContent = entry.meta;
+                    hcDesc.textContent = (entry.desc || '').slice(0, 130) + ((entry.desc && entry.desc.length > 130) ? '…' : '');
+                    var rect = a.getBoundingClientRect();
+                    var left = Math.min(rect.left + window.scrollX, window.innerWidth - 330);
+                    hcCard.style.left = Math.max(8, left) + 'px';
+                    hcCard.style.top = (rect.bottom + window.scrollY + 8) + 'px';
+                    hcCard.style.display = 'block';
+                }});
+            }}, 280);
+        }});
+
+        document.addEventListener('mouseout', function(e){{
+            var a = e.target.closest('a[href]');
+            if (!a) return;
+            clearTimeout(hcTimer);
+            hcCard.style.display = 'none';
+        }});
+    }})();
+    </script>
 </body>
 </html>

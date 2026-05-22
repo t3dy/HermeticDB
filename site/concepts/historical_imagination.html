@@ -1,36 +1,451 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historical Imagination — EmeraldTablet</title>
-    <link rel="stylesheet" href="../style.css">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title><p>Historical Imagination</p> - HermeticDB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        
+:root {
+    --bg: #0a0a0c;
+    --bg-card: #141418;
+    --accent: #d4af37;
+    --accent-light: #f1d37e;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --border: rgba(212, 175, 55, 0.2);
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.site-nav {
+    background: rgba(10, 10, 12, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.title-large {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: var(--accent-light);
+    margin-bottom: 1rem;
+}
+
+.text-subtitle {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--accent-light);
+    margin-bottom: 0.5rem;
+}
+
+.card-meta {
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.card-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.prose-content {
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    font-size: 1.15rem;
+    color: #d8d8d8;
+}
+
+.prose-content h2 {
+    font-family: var(--font-display);
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+}
+
+.prose-content p {
+    margin-bottom: 1.5rem;
+}
+
+.back-link {
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.scholarly-fragment {
+    border-left: 3px solid var(--accent);
+    background: rgba(212, 175, 55, 0.05);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.fragment-source {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    font-style: normal;
+    color: var(--accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+    .theme-tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.theme-tag:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+</style>
 </head>
 <body>
+    
 <nav class="site-nav">
-  <span class="site-title">EmeraldTablet</span>
-  <a href="../index.html">Home</a>
-  <a href="../texts/index.html">Texts</a>
-  <a href="../persons/index.html">Persons</a>
-  <a href="../translations/index.html">Translations</a>
-  <a href="../concepts/index.html" class="active">Concepts</a>
-  <a href="../timeline.html">Timeline</a>
-  <a href="../bibliography.html">Bibliography</a>
-  <a href="../manuscripts/index.html">Manuscripts</a>
-  <a href="../about.html">About</a>
+    <div class="nav-container">
+        <a class="nav-logo" href="/HermeticDB">HERMETICDB</a>
+        <div class="nav-links">
+            <a class="nav-link" href="/HermeticDB/eras/late-antiquity.html">Late Antiquity</a>
+            <a class="nav-link" href="/HermeticDB/eras/medieval.html">Medieval</a>
+            <a class="nav-link" href="/HermeticDB/eras/renaissance.html">Renaissance</a>
+            <div style="width:1px;height:20px;background:rgba(255,255,255,0.1)"></div>
+            <a class="nav-link" href="/HermeticDB/corpus.html" style="color:var(--accent-light); font-weight:bold">Corpus Map</a>
+            <a class="nav-link" href="/HermeticDB/texts.html">Texts</a>
+            <a class="nav-link" href="/HermeticDB/biographies.html">Biographies</a>
+            <a class="nav-link" href="/HermeticDB/scholars.html">Scholars</a>
+            <a class="nav-link" href="/HermeticDB/dictionary.html">Dictionary</a>
+            <a class="nav-link" href="/HermeticDB/debates.html">Debates</a>
+            <a class="nav-link" href="/HermeticDB/timeline.html">Timeline</a>
+            <a class="nav-link" href="/HermeticDB/map.html">Interactive Map</a>
+            <a class="nav-link" href="/HermeticDB/graph.html" style="color:var(--accent); font-weight:bold">Relationship Graph</a>
+            <a class="nav-link" href="/HermeticDB/about.html">Methodology</a>
+            <button id="gs-btn" title="Search (press /)"
+                style="background:none;border:1px solid var(--border);color:var(--text-muted);border-radius:6px;
+                       padding:0.3rem 0.7rem;font-size:1rem;cursor:pointer;transition:all 0.2s;line-height:1"
+                onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'"
+                onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">⌕</button>
+        </div>
+    </div>
 </nav>
 
-<div class="page-content">
-<a href="index.html" class="back-link">&larr; Concepts</a>
-<h1>Historical Imagination <span class="badge" style="background:#2c3e50">PHILOSOPHICAL</span></h1>
-<div style="border-left:3px solid #2c3e50;padding-left:1rem;margin:1rem 0;font-style:italic">Historical Imagination is an Analyst Term introduced by Wouter J. Hanegraaff as the organizing framework of his Hermetic Spirituality and the Historical Imagination (2022). It designates the faculty — operative in both ancient Hermetic authors and modern scholars — by which narratives of the past are constructed, legitimated, and made persuasive. Hanegraaff argues that the Hermetic texts are themselves products of a historical imagination projecting primordial wisdom onto the mythical Hermes Trismegistus, and that modern historians of the tradition inevitably exercise a comparable imaginative faculty in their own reconstructions.</div>
-<div style="margin:1rem 0;line-height:1.8"><p><p>Historical Imagination is an Analyst Term — a retrospective scholarly category — introduced by Wouter J. Hanegraaff as the governing conceptual framework of his major study <i>Hermetic Spirituality and the Historical Imagination</i> (Oxford University Press, 2022). As an Analyst Term in the Hanegraaffian sense, it does not name a concept used by historical Hermetic practitioners but rather a critical-analytical category designed to illuminate the relationship between historiography, narrative, and the construction of religious and philosophical traditions. The term designates the faculty by which human beings — both ancient and modern — construct compelling narratives of the past: selecting, shaping, and endowing with authority a version of history that serves present needs and reflects present assumptions. Hanegraaff's central argument is that both the ancient Hermetic authors and the modern scholars who study them exercise this faculty, and that a fully critical history of Hermeticism must be reflexively aware of its own imaginative operations. The concept draws on a lineage of historiographical theory from Hayden White's <i>Metahistory: The Historical Imagination in Nineteenth-Century Europe</i> (1973) and Paul Ricoeur's <i>Time and Narrative</i> (3 vols., 1983–1985) while applying it to the specific case of the Hermetic tradition.</p></p><p><h2>Historical Usage</h2></p><p><p>Since Historical Imagination is an Analyst Term coined by Hanegraaff in 2022, it has no historical usage in the sense that Actor Terms do — it was not employed by ancient Hermetic practitioners as a self-description. What Hanegraaff's concept illuminates, however, is a historical phenomenon that pervades the Hermetic textual tradition: the systematic construction of a narrative of primordial wisdom attributed to a mythical sage who never existed in the form the tradition claims. Hermes Trismegistus — "Thrice-Greatest Hermes" — is presented in the Hermetic texts themselves and in their subsequent reception as a historical figure of supreme antiquity who received divine revelation and transmitted it across the generations. The Late Antique Hermetic authors who composed the texts of the <i>Corpus Hermeticum</i> (2nd–3rd centuries CE) were not simply recording a preexisting tradition but actively constructing one — projecting wisdom that was genuinely their own (synthesized from Platonic, Stoic, Egyptian, and Jewish sources) onto the figure of a mythical Egyptian sage of immense antiquity.</p></p><p><p>This construction was enormously successful: Lactantius (c. 250–325 CE) cited Hermes Trismegistus as a pagan prophet of Christ; Augustine of Hippo (354–430 CE) engaged with the <i>Asclepius</i> seriously in <i>De civitate Dei</i>; the Renaissance humanists who received Marsilio Ficino's Latin <i>Pimander</i> (1463) believed they were reading the work of a sage as ancient as Moses. Isaac Casaubon's 1614 demonstration that the Greek <i>Corpus Hermeticum</i> was not ancient but Hellenistic-era in composition — a demonstration achieved through internal stylistic and linguistic analysis — was the decisive modern interruption of this historical imagination. But as Hanegraaff shows, the Casaubon critique did not end the imaginative construction: it merely forced it to relocate and reformulate. Subsequent esoteric appropriations of the Hermetic tradition have continued to exercise historical imagination — constructing narratives of perennial wisdom, of suppressed priestly knowledge, of ancient Egyptian mysticism — in ways that are recognizably continuous with the original Hermetic historical imagination even while departing from its specific claims.</p></p><p><h2>Scholarly Significance</h2></p><p><p>Hanegraaff's concept of Historical Imagination intervenes in the ongoing methodological debates within the academic study of Western esotericism over the relationship between historical scholarship and the traditions it studies. The debate has several dimensions. The first concerns what Antoine Faivre, in his foundational typological approach, called the "forms" of esotericism — a set of structural characteristics (living nature, correspondences, imagination, transmutation, concordance, transmission) that Faivre used to define Western esotericism as a coherent object of study. Hanegraaff has consistently criticized Faivre's approach for building perennialist and essentialist assumptions into the analytical framework, inadvertently reproducing the claims of the traditions under study rather than analyzing them critically.</p></p><p><p>The second dimension concerns the Yates Paradigm — Frances Yates's influential thesis in <i>Giordano Bruno and the Hermetic Tradition</i> (1964) that Renaissance Hermeticism was a driving force behind the Scientific Revolution. Hanegraaff's analysis shows that Yates herself exercised a powerful historical imagination in constructing a narrative of Hermetic influence that served her interpretive purposes (emphasizing continuity between ancient wisdom and modern science) while flattening the enormous complexity and internal tensions of the tradition. Copenhaver's and Hanegraaff's subsequent revisions of the Yates Paradigm have restored much of this complexity.</p></p><p><p>The third dimension is reflexive: Hanegraaff's concept of Historical Imagination applies not only to the object of study (the Hermetic tradition) but to the scholarly practice of studying it. Modern academic historians of esotericism — including Hanegraaff himself — exercise historical imagination in constructing their accounts of the tradition. The difference between critical historical scholarship and esoteric historiography, on this account, is not that one exercises imagination and the other does not, but that critical scholarship is reflexively aware of its imaginative operations and subjects them to methodological scrutiny, while esoteric historiography typically presents its imaginative constructions as historical fact. This reflexive dimension of the concept connects it to the broader tradition of historiographical theory from White and Ricoeur through to contemporary approaches in intellectual history.</p></p><p><h2>Transmission and Variant Forms</h2></p><p><p>The concept of Historical Imagination as developed by Hanegraaff synthesizes elements from several intellectual traditions. Hayden White's <i>Metahistory</i> (1973) demonstrated that historical writing employs literary tropes (irony, tragedy, comedy, romance) to organize events into intelligible narratives — a claim that applies directly to the Hermetic tradition's self-presentation as a narrative of primordial revelation transmitted across the ages. Paul Ricoeur's <i>Time and Narrative</i> (1983–1985) provided a phenomenological account of how narrative constitutes temporal experience and historical identity. Michel Foucault's genealogical approach — tracing the contingent historical conditions that make certain knowledge claims possible — is also relevant to Hanegraaff's analysis, though Hanegraaff maintains a more traditionally historicist framework. The concept has affinities with Jan Assmann's work on "cultural memory" (<i>Das kulturelle Gedächtnis</i>, 1992) and with the sociology of knowledge tradition from Karl Mannheim onward, but it is specifically adapted to the Hermetic case in Hanegraaff's application.</p></p><p><h2>Related Concepts</h2></p><p><p>The concept of Historical Imagination is directly related to Hanegraaff's other major Analyst Terms for the Hermetic tradition. The concept of <a href="../concepts/altered_states_of_knowledge.html">Altered States of Knowledge</a> provides its experiential counterpart: where Historical Imagination describes how Hermetic traditions construct and legitimate their claims about the past, Altered States of Knowledge describes the transformed cognitive state that the Hermetic path aims to produce in the practitioner. The <a href="../concepts/the_way_of_hermes.html">Way of Hermes</a> names the specific path whose historical legitimation is constructed through the historical imagination. The concept also relates to the broader framework of <a href="../concepts/gnosis.html"><i>gnosis</i></a> — the specific form of knowledge claimed by the Hermetic tradition — whose relationship to historical authority (the authority of the ancient sage Hermes Trismegistus) is precisely what the historical imagination constructs and the critical historian deconstructs.</p></p><p><h2>Literature</h2></p><p><p>Hanegraaff, Wouter J. <i>Hermetic Spirituality and the Historical Imagination</i>. Oxford: Oxford University Press, 2022.</p></p><p><p>Hanegraaff, Wouter J. (ed.). <i>Dictionary of Gnosis and Western Esotericism</i>. 2 vols. Leiden: Brill, 2006.</p></p><p><p>White, Hayden. <i>Metahistory: The Historical Imagination in Nineteenth-Century Europe</i>. Baltimore: Johns Hopkins University Press, 1973.</p></p><p><p>Ricoeur, Paul. <i>Time and Narrative</i>. 3 vols. Translated by Kathleen McLaughlin and David Pellauer. Chicago: University of Chicago Press, 1983–1985.</p></p><p><p>Yates, Frances A. <i>Giordano Bruno and the Hermetic Tradition</i>. London: Routledge and Kegan Paul, 1964.</p></p><p><p>Copenhaver, Brian P. <i>Hermetica: The Greek Corpus Hermeticum and the Latin Asclepius</i>. Cambridge: Cambridge University Press, 1992.</p></p><p><p>Fowden, Garth. <i>The Egyptian Hermes: A Historical Approach to the Late Pagan Mind</i>. Cambridge: Cambridge University Press, 1986.</p></p><p><p>Faivre, Antoine. <i>Access to Western Esotericism</i>. Albany: SUNY Press, 1994.</p></p><p><p>Assmann, Jan. <i>Das kulturelle Gedächtnis: Schrift, Erinnerung und politische Identität in frühen Hochkulturen</i>. Munich: Beck, 1992.</p></p><p><p>Bull, Christian H. <i>The Tradition of Hermes Trismegistus: The Egyptian Priestly Figure as a Teacher of Hellenized Wisdom</i>. Leiden: Brill, 2018.</p></p></div>
-<h3 style="color:var(--accent);margin-top:1.5rem">Appears In</h3>
-<div style="display:flex;flex-wrap:wrap;gap:0.5rem">
-<a href="../texts/hermetic_spirituality_hanegraaff.html" style="display:inline-block;padding:0.3rem 0.7rem;background:#faf8f4;border:1px solid var(--border);border-radius:4px;color:var(--accent);text-decoration:none;font-size:0.85rem">Hermetic Spirituality and the Historical Imagination</a>
-</div>
-<div class="provenance">Source: SEED_DATA &middot; Confidence: HIGH</div>
-</div>
+    <main class="page-container"><a href="/HermeticDB/dictionary.html" class="back-link">← Return to Dictionary</a><h1 class="title-large"><p>Historical Imagination</p></h1><div class="card-meta" style="margin-bottom:1.5rem">PHILOSOPHICAL Concept · ANALYST TERM</div><div style="margin-bottom:2rem;padding:1rem 1.5rem;background:rgba(212,175,55,0.06);border:1px solid var(--border);border-radius:8px;display:flex;justify-content:space-between;align-items:center"><span style="color:var(--text-muted);font-size:0.9rem">Relational connections for <strong style="color:var(--text-main)">Historical Imagination</strong></span><a href="/HermeticDB/dictionary/historical_imagination.html" class="nav-link" style="color:var(--accent);font-size:0.9rem;font-weight:600">Read full encyclopedia entry →</a></div><div class="prose-content"><p>Historical Imagination is an Analyst Term — a retrospective scholarly category — introduced by Wouter J. Hanegraaff as the governing conceptual framework of his major study <i>Hermetic Spirituality and the Historical Imagination</i> (Oxford University Press, 2022). As an Analyst Term in the Hanegraaffian sense, it does not name a concept used by historical Hermetic practitioners but rather a critical-analytical category designed to illuminate the relationship between historiography, narrative, and the construction of religious and philosophical traditions. The term designates the faculty by which human beings — both ancient and modern — construct compelling narratives of the past: selecting, shaping, and endowing with authority a version of history that serves present needs and reflects present assumptions. Hanegraaff's central argument is that both the ancient Hermetic authors and the modern scholars who study them exercise this faculty, and that a fully critical history of Hermeticism must be reflexively aware of its own imaginative operations. The concept draws on a lineage of historiographical theory from Hayden White's <i>Metahistory: The Historical Imagination in Nineteenth-Century Europe</i> (1973) and Paul Ricoeur's <i>Time and Narrative</i> (3 vols., 1983–1985) while applying it to the specific case of the Hermetic tradition.</p>
 
+<h2>Historical Usage</h2>
+<p>Since Historical Imagination is an Analyst Term coined by Hanegraaff in 2022, it has no historical usage in the sense that Actor Terms do — it was not employed by ancient Hermetic practitioners as a self-description. What Hanegraaff's concept illuminates, however, is a historical phenomenon that pervades the Hermetic textual tradition: the systematic construction of a narrative of primordial wisdom attributed to a mythical sage who never existed in the form the tradition claims. Hermes Trismegistus — "Thrice-Greatest Hermes" — is presented in the Hermetic texts themselves and in their subsequent reception as a historical figure of supreme antiquity who received divine revelation and transmitted it across the generations. The Late Antique Hermetic authors who composed the texts of the <i>Corpus Hermeticum</i> (2nd–3rd centuries CE) were not simply recording a preexisting tradition but actively constructing one — projecting wisdom that was genuinely their own (synthesized from Platonic, Stoic, Egyptian, and Jewish sources) onto the figure of a mythical Egyptian sage of immense antiquity.</p>
+
+<p>This construction was enormously successful: Lactantius (c. 250–325 CE) cited Hermes Trismegistus as a pagan prophet of Christ; Augustine of Hippo (354–430 CE) engaged with the <i>Asclepius</i> seriously in <i>De civitate Dei</i>; the Renaissance humanists who received Marsilio Ficino's Latin <i>Pimander</i> (1463) believed they were reading the work of a sage as ancient as Moses. Isaac Casaubon's 1614 demonstration that the Greek <i>Corpus Hermeticum</i> was not ancient but Hellenistic-era in composition — a demonstration achieved through internal stylistic and linguistic analysis — was the decisive modern interruption of this historical imagination. But as Hanegraaff shows, the Casaubon critique did not end the imaginative construction: it merely forced it to relocate and reformulate. Subsequent esoteric appropriations of the Hermetic tradition have continued to exercise historical imagination — constructing narratives of perennial wisdom, of suppressed priestly knowledge, of ancient Egyptian mysticism — in ways that are recognizably continuous with the original Hermetic historical imagination even while departing from its specific claims.</p>
+
+<h2>Scholarly Significance</h2>
+<p>Hanegraaff's concept of Historical Imagination intervenes in the ongoing methodological debates within the academic study of Western esotericism over the relationship between historical scholarship and the traditions it studies. The debate has several dimensions. The first concerns what Antoine Faivre, in his foundational typological approach, called the "forms" of esotericism — a set of structural characteristics (living nature, correspondences, imagination, transmutation, concordance, transmission) that Faivre used to define Western esotericism as a coherent object of study. Hanegraaff has consistently criticized Faivre's approach for building perennialist and essentialist assumptions into the analytical framework, inadvertently reproducing the claims of the traditions under study rather than analyzing them critically.</p>
+
+<p>The second dimension concerns the Yates Paradigm — Frances Yates's influential thesis in <i>Giordano Bruno and the Hermetic Tradition</i> (1964) that Renaissance Hermeticism was a driving force behind the Scientific Revolution. Hanegraaff's analysis shows that Yates herself exercised a powerful historical imagination in constructing a narrative of Hermetic influence that served her interpretive purposes (emphasizing continuity between ancient wisdom and modern science) while flattening the enormous complexity and internal tensions of the tradition. Copenhaver's and Hanegraaff's subsequent revisions of the Yates Paradigm have restored much of this complexity.</p>
+
+<p>The third dimension is reflexive: Hanegraaff's concept of Historical Imagination applies not only to the object of study (the Hermetic tradition) but to the scholarly practice of studying it. Modern academic historians of esotericism — including Hanegraaff himself — exercise historical imagination in constructing their accounts of the tradition. The difference between critical historical scholarship and esoteric historiography, on this account, is not that one exercises imagination and the other does not, but that critical scholarship is reflexively aware of its imaginative operations and subjects them to methodological scrutiny, while esoteric historiography typically presents its imaginative constructions as historical fact. This reflexive dimension of the concept connects it to the broader tradition of historiographical theory from White and Ricoeur through to contemporary approaches in intellectual history.</p>
+
+<h2>Transmission and Variant Forms</h2>
+<p>The concept of Historical Imagination as developed by Hanegraaff synthesizes elements from several intellectual traditions. Hayden White's <i>Metahistory</i> (1973) demonstrated that historical writing employs literary tropes (irony, tragedy, comedy, romance) to organize events into intelligible narratives — a claim that applies directly to the Hermetic tradition's self-presentation as a narrative of primordial revelation transmitted across the ages. Paul Ricoeur's <i>Time and Narrative</i> (1983–1985) provided a phenomenological account of how narrative constitutes temporal experience and historical identity. Michel Foucault's genealogical approach — tracing the contingent historical conditions that make certain knowledge claims possible — is also relevant to Hanegraaff's analysis, though Hanegraaff maintains a more traditionally historicist framework. The concept has affinities with Jan Assmann's work on "cultural memory" (<i>Das kulturelle Gedächtnis</i>, 1992) and with the sociology of knowledge tradition from Karl Mannheim onward, but it is specifically adapted to the Hermetic case in Hanegraaff's application.</p>
+
+<h2>Related Concepts</h2>
+<p>The concept of Historical Imagination is directly related to Hanegraaff's other major Analyst Terms for the Hermetic tradition. The concept of <a href="../concepts/altered_states_of_knowledge.html">Altered States of Knowledge</a> provides its experiential counterpart: where Historical Imagination describes how Hermetic traditions construct and legitimate their claims about the past, Altered States of Knowledge describes the transformed cognitive state that the Hermetic path aims to produce in the practitioner. The <a href="../concepts/the_way_of_hermes.html">Way of Hermes</a> names the specific path whose historical legitimation is constructed through the historical imagination. The concept also relates to the broader framework of <a href="../concepts/<i>Gnosis</i>.html"><i><i>Gnosis</i></i></a> — the specific form of knowledge claimed by the Hermetic tradition — whose relationship to historical authority (the authority of the ancient sage Hermes Trismegistus) is precisely what the historical imagination constructs and the critical historian deconstructs.</p>
+
+<h2>Literature</h2>
+<p>Hanegraaff, Wouter J. <i>Hermetic Spirituality and the Historical Imagination</i>. Oxford: Oxford University Press, 2022.</p>
+<p>Hanegraaff, Wouter J. (ed.). <i>Dictionary of <i>Gnosis</i> and Western Esotericism</i>. 2 vols. Leiden: Brill, 2006.</p>
+<p>White, Hayden. <i>Metahistory: The Historical Imagination in Nineteenth-Century Europe</i>. Baltimore: Johns Hopkins University Press, 1973.</p>
+<p>Ricoeur, Paul. <i>Time and Narrative</i>. 3 vols. Translated by Kathleen McLaughlin and David Pellauer. Chicago: University of Chicago Press, 1983–1985.</p>
+<p>Yates, Frances A. <i>Giordano Bruno and the Hermetic Tradition</i>. London: Routledge and Kegan Paul, 1964.</p>
+<p>Copenhaver, Brian P. <i>Hermetica: The Greek Corpus Hermeticum and the Latin Asclepius</i>. Cambridge: Cambridge University Press, 1992.</p>
+<p>Fowden, Garth. <i>The Egyptian Hermes: A Historical Approach to the Late Pagan Mind</i>. Cambridge: Cambridge University Press, 1986.</p>
+<p>Faivre, Antoine. <i>Access to Western Esotericism</i>. Albany: SUNY Press, 1994.</p>
+<p>Assmann, Jan. <i>Das kulturelle Gedächtnis: Schrift, Erinnerung und politische Identität in frühen Hochkulturen</i>. Munich: Beck, 1992.</p>
+<p>Bull, Christian H. <i>The Tradition of Hermes Trismegistus: The Egyptian Priestly Figure as a Teacher of Hellenized Wisdom</i>. Leiden: Brill, 2018.</p></div></main>
+    <footer style="text-align:center; padding: 6rem 2rem; color: var(--text-muted); border-top: 1px solid var(--border); background: #08080a">
+        &copy; 2026 The Hermetic Knowledge Portal<br/>
+        <span style="font-size: 0.7rem; opacity: 0.5; margin-top: 1rem; display: block">Curated Scholar-Synthesized Narrative Database</span>
+    </footer>
+
+    <!-- Back-to-top -->
+    <button id="btt" onclick="window.scrollTo({{top:0,behavior:'smooth'}})"
+        style="display:none;position:fixed;bottom:2rem;right:2rem;z-index:500;background:var(--bg-card);
+               border:1px solid var(--border);color:var(--accent);border-radius:50%;width:44px;height:44px;
+               font-size:1.2rem;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 16px rgba(0,0,0,0.4)">↑</button>
+    <script>
+    (function(){{
+        var btn = document.getElementById('btt');
+        window.addEventListener('scroll', function(){{
+            btn.style.display = window.scrollY > 400 ? 'block' : 'none';
+        }}, {{passive:true}});
+    }})();
+    </script>
+
+    <!-- Global search overlay -->
+    <div id="gs-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.87);backdrop-filter:blur(6px);padding:8vh 2rem 2rem">
+        <div style="max-width:680px;margin:0 auto">
+            <div style="position:relative;margin-bottom:1.2rem">
+                <span style="position:absolute;left:1.1rem;top:50%;transform:translateY(-50%);color:var(--accent);font-size:1.2rem;pointer-events:none">⌕</span>
+                <input id="gs-input" type="text" placeholder="Search persons, texts, concepts…" autocomplete="off"
+                    style="width:100%;box-sizing:border-box;background:#141418;border:1px solid rgba(212,175,55,0.5);
+                           color:#e0e0e0;font-size:1.2rem;padding:0.9rem 3rem 0.9rem 3rem;border-radius:12px;
+                           font-family:Inter,sans-serif;outline:none">
+                <button onclick="gsClose()" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);
+                    background:none;border:none;color:#a0a0a0;font-size:1.3rem;cursor:pointer;line-height:1">✕</button>
+            </div>
+            <div id="gs-results" style="max-height:58vh;overflow-y:auto;border-radius:8px"></div>
+            <div style="margin-top:0.8rem;font-size:0.75rem;color:#444;text-align:center">Press <kbd style="background:#222;border:1px solid #444;padding:0.1rem 0.4rem;border-radius:3px">/</kbd> to open &nbsp;·&nbsp; <kbd style="background:#222;border:1px solid #444;padding:0.1rem 0.4rem;border-radius:3px">Esc</kbd> to close</div>
+        </div>
+    </div>
+
+    <!-- Hover preview card -->
+    <div id="hc-card" style="display:none;position:fixed;z-index:8888;max-width:310px;background:#141418;
+        border:1px solid rgba(212,175,55,0.35);border-radius:10px;padding:1rem 1.2rem;
+        pointer-events:none;box-shadow:0 8px 32px rgba(0,0,0,0.65)">
+        <div id="hc-label" style="font-family:Outfit,sans-serif;font-size:1rem;color:#f1d37e;font-weight:600;margin-bottom:0.25rem"></div>
+        <div id="hc-meta" style="font-size:0.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem"></div>
+        <div id="hc-desc" style="font-size:0.85rem;color:#a8a8a8;line-height:1.5"></div>
+        <div style="margin-top:0.6rem;font-size:0.72rem;color:#444;font-style:italic">click for full entry</div>
+    </div>
+
+    <script>
+    (function(){{
+        var REPO = '{REPO_URL}';
+        var idx = null;
+
+        function loadIdx(cb) {{
+            if (idx) return cb(idx);
+            fetch(REPO + '/search_index.json')
+                .then(function(r){{ return r.json(); }})
+                .then(function(d){{ idx = d; cb(d); }})
+                .catch(function(){{ idx = []; cb([]); }});
+        }}
+
+        // --- GLOBAL SEARCH ---
+        var overlay = document.getElementById('gs-overlay');
+        var gsInput = document.getElementById('gs-input');
+        var gsResults = document.getElementById('gs-results');
+        var TYPE_COLOR = {{ PERSON: '#4a9eff', TEXT: '#d4af37', CONCEPT: '#20c997' }};
+
+        window.gsClose = function() {{ overlay.style.display = 'none'; }};
+        function gsOpen() {{ overlay.style.display = 'block'; gsInput.focus(); gsInput.select(); }}
+
+        document.addEventListener('keydown', function(e){{
+            if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {{
+                e.preventDefault(); gsOpen();
+            }}
+            if (e.key === 'Escape') gsClose();
+        }});
+        overlay.addEventListener('click', function(e){{ if (e.target === overlay) gsClose(); }});
+
+        var gsBtn = document.getElementById('gs-btn');
+        if (gsBtn) gsBtn.addEventListener('click', gsOpen);
+
+        function renderResults(items) {{
+            if (!items.length) {{
+                gsResults.innerHTML = '<p style="color:#555;text-align:center;padding:2rem 0">No matches found</p>';
+                return;
+            }}
+            gsResults.innerHTML = items.slice(0, 14).map(function(r){{
+                var c = TYPE_COLOR[r.type] || '#888';
+                return '<a href="' + r.url + '" onclick="gsClose()" style="display:block;padding:0.8rem 1rem;margin-bottom:0.3rem;background:#1a1a20;'
+                    + 'border:1px solid rgba(255,255,255,0.05);border-radius:8px;text-decoration:none;transition:border-color 0.15s" '
+                    + 'onmouseover="this.style.borderColor='rgba(212,175,55,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.05)'">'
+                    + '<span style="display:inline-block;padding:0.12rem 0.45rem;background:' + c + '22;color:' + c + ';border-radius:4px;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.07em;margin-right:0.4rem">' + r.type + '</span>'
+                    + '<strong style="color:#e0e0e0">' + r.label + '</strong>'
+                    + '<span style="display:block;color:#777;font-size:0.8rem;margin-top:0.25rem">' + (r.desc || '').slice(0, 100) + (r.desc && r.desc.length > 100 ? '…' : '') + '</span>'
+                    + '</a>';
+            }}).join('');
+        }}
+
+        var gsTimer;
+        gsInput.addEventListener('input', function(){{
+            clearTimeout(gsTimer);
+            var q = this.value.trim().toLowerCase();
+            if (!q) {{ gsResults.innerHTML = ''; return; }}
+            gsTimer = setTimeout(function(){{
+                loadIdx(function(data){{
+                    var hits = data.filter(function(r){{
+                        return r.label.toLowerCase().indexOf(q) !== -1 || (r.desc && r.desc.toLowerCase().indexOf(q) !== -1);
+                    }}).sort(function(a, b){{
+                        var al = a.label.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+                        var bl = b.label.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+                        return al - bl;
+                    }});
+                    renderResults(hits);
+                }});
+            }}, 150);
+        }});
+
+        // --- HOVER PREVIEW ---
+        var hcCard = document.getElementById('hc-card');
+        var hcLabel = document.getElementById('hc-label');
+        var hcMeta = document.getElementById('hc-meta');
+        var hcDesc = document.getElementById('hc-desc');
+        var hcTimer;
+        var PATHS = ['/biographies/', '/scholars/', '/dictionary/', '/concepts/', '/texts/'];
+
+        function slugFromHref(href) {{
+            var m = href.match(/\/([^\/]+)\.html$/);
+            return m ? m[1] : null;
+        }}
+
+        document.addEventListener('mouseover', function(e){{
+            var a = e.target.closest('a[href]');
+            if (!a) return;
+            var href = a.getAttribute('href') || '';
+            if (!PATHS.some(function(p){{ return href.indexOf(p) !== -1; }})) return;
+            var slug = slugFromHref(href);
+            if (!slug) return;
+            clearTimeout(hcTimer);
+            hcTimer = setTimeout(function(){{
+                loadIdx(function(data){{
+                    var entry = null;
+                    for (var i = 0; i < data.length; i++) {{
+                        if (data[i].id === slug) {{ entry = data[i]; break; }}
+                    }}
+                    if (!entry) return;
+                    hcLabel.textContent = entry.label;
+                    hcMeta.textContent = entry.meta;
+                    hcDesc.textContent = (entry.desc || '').slice(0, 130) + ((entry.desc && entry.desc.length > 130) ? '…' : '');
+                    var rect = a.getBoundingClientRect();
+                    var left = Math.min(rect.left + window.scrollX, window.innerWidth - 330);
+                    hcCard.style.left = Math.max(8, left) + 'px';
+                    hcCard.style.top = (rect.bottom + window.scrollY + 8) + 'px';
+                    hcCard.style.display = 'block';
+                }});
+            }}, 280);
+        }});
+
+        document.addEventListener('mouseout', function(e){{
+            var a = e.target.closest('a[href]');
+            if (!a) return;
+            clearTimeout(hcTimer);
+            hcCard.style.display = 'none';
+        }});
+    }})();
+    </script>
 </body>
 </html>

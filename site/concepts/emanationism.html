@@ -1,36 +1,454 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emanationism — EmeraldTablet</title>
-    <link rel="stylesheet" href="../style.css">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title><p>Emanationism</p> - HermeticDB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        
+:root {
+    --bg: #0a0a0c;
+    --bg-card: #141418;
+    --accent: #d4af37;
+    --accent-light: #f1d37e;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --border: rgba(212, 175, 55, 0.2);
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.site-nav {
+    background: rgba(10, 10, 12, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.title-large {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: var(--accent-light);
+    margin-bottom: 1rem;
+}
+
+.text-subtitle {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--accent-light);
+    margin-bottom: 0.5rem;
+}
+
+.card-meta {
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.card-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.prose-content {
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    font-size: 1.15rem;
+    color: #d8d8d8;
+}
+
+.prose-content h2 {
+    font-family: var(--font-display);
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+}
+
+.prose-content p {
+    margin-bottom: 1.5rem;
+}
+
+.back-link {
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.scholarly-fragment {
+    border-left: 3px solid var(--accent);
+    background: rgba(212, 175, 55, 0.05);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.fragment-source {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    font-style: normal;
+    color: var(--accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+    .theme-tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.theme-tag:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+</style>
 </head>
 <body>
+    
 <nav class="site-nav">
-  <span class="site-title">EmeraldTablet</span>
-  <a href="../index.html">Home</a>
-  <a href="../texts/index.html">Texts</a>
-  <a href="../persons/index.html">Persons</a>
-  <a href="../translations/index.html">Translations</a>
-  <a href="../concepts/index.html" class="active">Concepts</a>
-  <a href="../timeline.html">Timeline</a>
-  <a href="../bibliography.html">Bibliography</a>
-  <a href="../manuscripts/index.html">Manuscripts</a>
-  <a href="../about.html">About</a>
+    <div class="nav-container">
+        <a class="nav-logo" href="/HermeticDB">HERMETICDB</a>
+        <div class="nav-links">
+            <a class="nav-link" href="/HermeticDB/eras/late-antiquity.html">Late Antiquity</a>
+            <a class="nav-link" href="/HermeticDB/eras/medieval.html">Medieval</a>
+            <a class="nav-link" href="/HermeticDB/eras/renaissance.html">Renaissance</a>
+            <div style="width:1px;height:20px;background:rgba(255,255,255,0.1)"></div>
+            <a class="nav-link" href="/HermeticDB/corpus.html" style="color:var(--accent-light); font-weight:bold">Corpus Map</a>
+            <a class="nav-link" href="/HermeticDB/texts.html">Texts</a>
+            <a class="nav-link" href="/HermeticDB/biographies.html">Biographies</a>
+            <a class="nav-link" href="/HermeticDB/scholars.html">Scholars</a>
+            <a class="nav-link" href="/HermeticDB/dictionary.html">Dictionary</a>
+            <a class="nav-link" href="/HermeticDB/debates.html">Debates</a>
+            <a class="nav-link" href="/HermeticDB/timeline.html">Timeline</a>
+            <a class="nav-link" href="/HermeticDB/map.html">Interactive Map</a>
+            <a class="nav-link" href="/HermeticDB/graph.html" style="color:var(--accent); font-weight:bold">Relationship Graph</a>
+            <a class="nav-link" href="/HermeticDB/about.html">Methodology</a>
+            <button id="gs-btn" title="Search (press /)"
+                style="background:none;border:1px solid var(--border);color:var(--text-muted);border-radius:6px;
+                       padding:0.3rem 0.7rem;font-size:1rem;cursor:pointer;transition:all 0.2s;line-height:1"
+                onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'"
+                onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">⌕</button>
+        </div>
+    </div>
 </nav>
 
-<div class="page-content">
-<a href="index.html" class="back-link">&larr; Concepts</a>
-<h1>Emanationism <span class="badge" style="background:#1a5276">COSMOLOGICAL</span></h1>
-<div style="border-left:3px solid #1a5276;padding-left:1rem;margin:1rem 0;font-style:italic">Emanationism is an Actor Term denoting the cosmological doctrine, present in the Philosophical Hermetica and closely parallel to Plotinian Neoplatonism, that reality proceeds from a transcendent divine source by a necessary and continuous overflow — not by an act of deliberate creation from nothing — so that each level of being derives from and remains ontologically dependent on the level above it. Attested most fully in Corpus Hermeticum I and XIV and in the Neoplatonic synthesis of Plotinus, the doctrine entered Arabic philosophy as fayd (overflow) through al-Farabi and Avicenna, and influenced medieval Kabbalistic accounts of the Sephiroth. Hanegraaff and Festugière have both treated emanationism as structurally central to Hermetic cosmology, though they disagree on its philosophical genealogy.</div>
-<div style="margin:1rem 0;line-height:1.8"><p><p>Emanationism denotes the cosmological conviction that reality proceeds from a supreme transcendent source not by a deliberate act of will directed outward — as in the Biblical doctrine of creation <i>ex nihilo</i> — but by a continuous and necessary overflow or radiation from that source, analogous to the light that issues without diminishment from the sun. The doctrine is an Actor Term: it names a position that Hermetic authors, Neoplatonic philosophers, and later medieval thinkers actually held, expressed in their own vocabulary, and used to organize their accounts of divine creativity, cosmic structure, and the human soul's situation in the world. Its earliest fully articulated form in the tradition under discussion appears in Plotinus of Lycopolis (c. 205–270 CE), whose <i>Enneads</i> — especially <i>Ennead</i> I.7 and V.1 — develop the doctrine that the One overflows necessarily, producing Nous (Intellect), from which in turn Soul proceeds, from which the material world unfolds. The Hermetic texts, composed in Egypt roughly between the first and fourth centuries CE, articulate a cosmological vision structurally convergent with emanationism without always employing the precise technical vocabulary that Plotinus developed. Understanding how the Hermetic corpus stands in relation to the Plotinian and Proclean emanative schemes — whether the Hermetic texts are a source for Neoplatonism, a parallel development, or a recipient of Neoplatonic influence — has been one of the organizing questions of the field since André-Jean Festugière's foundational four-volume study.</p></p><p><h2>Historical Usage</h2></p><p><p><i>Corpus Hermeticum</i> I, the <i>Poimandres</i> (composed probably in the second or third century CE in Egypt), provides the most fully developed Hermetic cosmogony. The account opens with a vision of boundless Light that the divine Nous of the Sovereignty reveals as the divine reality, followed by a downward darkness that appears as the primal chaos. The divine Logos then descends from the light into the darkness and "leaps out" to begin the ordering of the elements. The structure of this cosmogonic narrative assumes an emanative logic: each stage of reality proceeds from what precedes it, bearing the character of its source while being less perfect than it. The seven planetary governors who rule the sublunary world proceed from the creative activity of the Logos and the Demiurgic Nous; they are divine emanations in the functional sense, expressions of a divine creativity that does not diminish the source but populates the intermediate regions of the cosmos with ordering powers. The material world at the bottom of this cosmological chain retains a residue of divine origin — it is never presented as evil or alien to the divine — because it has come forth from a divine source even if at the furthest remove from it.</p></p><p><p><i>Corpus Hermeticum</i> XIV, addressed to Asclepius under the title <i>On the Common Mind</i>, develops the theme of divine abundance more explicitly. The text declares that God is filled with all things and that all things are generated within God, who comprehends all things. The generative character of the divine is figured as an inexhaustible abundance: God does not create from outside himself but contains the principles of all things within himself and expresses them in the created order. This is the emanationist intuition in its most compressed form: the cosmos is not something foreign to the divine but is the divine outwardly expressed, though no expression of an infinite source can be adequate to its origin.</p></p><p><p>Plotinus, whose <i>Enneads</i> provide the most systematic ancient formulation of the emanationist cosmology, clarifies the philosophical logic that the Hermetic texts presuppose rather than argue. In <i>Ennead</i> V.1, the One overflows (<i>hyperreon</i>) not from any deficiency or deliberate intention but from the superabundance of its own perfection: what is perfect cannot be contained within itself and must necessarily produce something beyond itself, just as the sun necessarily radiates light without any diminishment of its substance. From the One, Nous proceeds; from Nous, Soul proceeds; from Soul, the material world unfolds as a final image of the divine beauty. Each hypostasis in this chain contemplates its source and thereby generates the next level. The Hermetic texts do not use the language of hypostases in quite this Plotinian sense, but the cosmological vision they presuppose shares the fundamental structure: the divine source is superabundant and productive, the cosmos is a hierarchically ordered expression of that productivity, and the human soul stands at the hinge between the spiritual and material levels.</p></p><p><p>Proclus (c. 412–485 CE), in the <i>Elements of Theology</i> and the <i>Platonic Theology</i>, elaborated the emanative scheme with even greater precision, adding to the Plotinian triad a systematic account of how each emanated level participates in, proceeds from, and returns to its source. The Proclean scheme was enormously influential in the subsequent history of Neoplatonism and entered the Latin West through the <i>Liber de Causis</i> (attributed in the medieval period to Aristotle but now recognized as a compilation from Proclus's <i>Elements</i>), where it shaped the cosmological vocabulary of medieval scholasticism. The <i>Liber de Causis</i> traveled alongside the Latin Hermetic texts in the medieval manuscript tradition, creating a rich context in which Hermetic emanationism and Neoplatonic emanationism were read as complementary expressions of the same fundamental cosmological vision.</p></p><p><p>The contrast with Biblical creation <i>ex nihilo</i> is doctrinally decisive. In the tradition that derives from Genesis 1:1 and was systematized by early Christian and Jewish theologians, God creates the world from absolute nothingness by a free act of will. The world is wholly contingent, wholly other than God, and depends entirely on a sovereign divine choice for its continued existence. Emanationism denies each of these claims: the world is necessary (not contingent), it proceeds from the divine nature rather than from a free external act, and it retains an ontological connection to its source that cannot be broken without its ceasing to exist. This structural conflict between emanationism and creation <i>ex nihilo</i> made the reception of Hermetic and Neoplatonic emanationist texts in Christian, Jewish, and Islamic contexts a complex and sometimes contentious affair throughout the medieval period.</p></p><p><h2>Scholarly Significance</h2></p><p><p>André-Jean Festugière, in <i>La Révélation d'Hermès Trismégiste</i> (1944–1954), provided the foundational scholarly analysis of Hermetic cosmological structure, arguing that the Hermetic texts represent a Greek philosophical inheritance — primarily Middle Platonic and Stoic — rather than an Egyptian one. For Festugière, the emanationist cosmology of the Hermetica is essentially the product of the Alexandrian philosophical school's engagement with Platonic cosmology, and the Egyptian elements are largely decorative or superficial. His analysis was comprehensive and philologically rigorous, and it established the terms of debate for a generation of scholarship.</p></p><p><p>Garth Fowden, in <i>The Egyptian Hermes</i> (1986), challenged Festugière's Hellenocentrism, arguing that the creative abundance expressed in the Hermetic cosmological texts resonates with specifically Egyptian theological traditions in which the creator god Amun-Re or Ptah is understood as the inexhaustible generative power that fills and sustains the cosmos. Fowden's corrective has been widely accepted: the current consensus holds that the Hermetic emanationist cosmology represents a genuine synthesis of Greek philosophical and Egyptian priestly traditions, in which the structural logic of Platonic emanationism has been filled with the theological content of Egyptian cosmological piety.</p></p><p><p>Wouter J. Hanegraaff, in <i>Hermetic Spirituality and the Historical Imagination</i> (Cambridge, 2022), situates Hermetic emanationism within his broader methodological framework. Hanegraaff stresses that the emanationist logic of the Hermetic texts must be understood as an Actor Term — as the actual cosmological conviction of the texts' authors — and not merely as a philosophical position abstractly adopted from the Platonic tradition. For Hanegraaff, what distinguishes Hermetic emanationism from its Neoplatonic counterpart is not primarily the logical structure but the existential and experiential register: the Hermetic texts are concerned with the soul's felt relation to the divine source, the experiential sense of divine illumination, and the practical path of return, in a way that gives the cosmological framework a lived, not merely theoretical, character.</p></p><p><p>The question of the relationship between Hermetic emanationism and Kabbalistic accounts of the divine Sephiroth has been addressed by Moshe Idel and, in a different register, by Hanegraaff. The Kabbalistic doctrine of the ten <i>Sefirot</i> — the ten attributes or emanations through which the <i>Ein Sof</i> (the infinite divine) expresses itself in the created world — shares the fundamental emanationist structure: the divine produces a hierarchical series of levels, each dependent on the preceding, and the human being participates in the divine through a process of ascending reintegration. Whether this parallel reflects direct historical contact between Kabbalistic and Hermetic traditions or represents a convergent response to similar cosmological problems remains an open question in the scholarship.</p></p><p><h2>Transmission and Variant Forms</h2></p><p><p>The Arabic transmission of emanationist cosmology proceeded through several channels. Al-Farabi (c. 872–950 CE) developed a Neoplatonic emanationism in which the Intellects of the celestial spheres proceed successively from the First Intellect, which itself proceeds from God, creating a hierarchical cosmological chain closely parallel to the Plotinian scheme. This Arabic Neoplatonic emanationism, which used the key term <i>fayd</i> (overflow, emanation) for the productive process, shaped the philosophical cosmology of the Islamic world for centuries. Avicenna (Ibn Sina, 980–1037 CE) elaborated this scheme in his <i>Shifa</i> and <i>Najat</i>, creating the most influential Arabic version of emanationist cosmology. Kevin van Bladel, in <i>The Arabic Hermes</i> (Oxford, 2009), has documented the parallel transmission of specifically Hermetic cosmological texts into Arabic and the ways in which the Arabic Hermetic tradition interacted with the Neoplatonic emanationist framework developed by the falasifa.</p></p><p><p>In the Latin West, the <i>Liber de Causis</i> — the Proclean compilation mistakenly attributed to Aristotle — carried the emanationist logic into the scholastic tradition, where it was read alongside the <i>Asclepius</i> (the only complete Hermetic text available in Latin before Ficino's 1463 translation) and later alongside Ficino's complete <i>Pimander</i>. Ficino himself explicitly aligned the Hermetic cosmological vision with Platonic emanationism in his commentaries, creating the synthesis of Hermetic and Neoplatonic thought that shaped Renaissance cosmological speculation.</p></p><p><h2>Related Concepts</h2></p><p><p>Emanationism stands in the closest possible relation to the concept of the <a href="../concepts/demiurge.html">Demiurge</a> in the Hermetic texts: the Demiurge is the emanative power through which the divine source creates and governs the ordered cosmos, and the positive evaluation of the material world characteristic of Hermetic thought is grounded in the emanationist conviction that matter has proceeded from a divine source and retains a trace of its origin. The doctrine of <a href="../concepts/nous.html"><i>Nous</i></a> as the second principle of the divine hierarchy is the immediate cosmological expression of the emanationist logic: Nous proceeds from the Father as light proceeds from the sun, bearing the character of the source without exhausting or diminishing it. The process of <a href="../concepts/cosmic_ascent.html">Cosmic Ascent</a> through the planetary spheres represents the structural reverse of the emanative process: just as being proceeded downward from the divine source through the levels of the cosmos, the soul returns upward by retracing those levels until it reaches the origin. The doctrine of <a href="../concepts/macrocosm_microcosm.html">Macrocosm and Microcosm</a> also depends on emanationism: it is because all levels of the cosmos have proceeded from a single divine source that they share a structural homology, and the human being as microcosm can resonate with and know the macrocosm because both are expressions of the same divine abundance.</p></p><p><h2>Literature</h2></p><p><p>Copenhaver, Brian P. <i>Hermetica: The Greek Corpus Hermeticum and the Latin Asclepius in a New English Translation with Notes and Introduction</i>. Cambridge: Cambridge University Press, 1992.<br></p><p>Festugière, André-Jean. <i>La Révélation d'Hermès Trismégiste</i>. 4 vols. Paris: Gabalda, 1944–1954.<br></p><p>Fowden, Garth. <i>The Egyptian Hermes: A Historical Approach to the Late Pagan Mind</i>. Cambridge: Cambridge University Press, 1986.<br></p><p>Hanegraaff, Wouter J. <i>Hermetic Spirituality and the Historical Imagination</i>. Cambridge: Cambridge University Press, 2022.<br></p><p>Hanegraaff, Wouter J. (ed.). <i>Dictionary of Gnosis and Western Esotericism</i>. 2 vols. Leiden: Brill, 2006.<br></p><p>Idel, Moshe. <i>Kabbalah: New Perspectives</i>. New Haven: Yale University Press, 1988.<br></p><p>Litwa, M. David. <i>Hermetica II: The Excerpts of Stobaeus, Papyrus Fragments, and Ancient Testimonies in an English Translation with Notes and Introduction</i>. Cambridge: Cambridge University Press, 2018.<br></p><p>Nock, Arthur Darby, and André-Jean Festugière (eds. and trans.). <i>Corpus Hermeticum</i>. 4 vols. Paris: Les Belles Lettres, 1945–1954.<br></p><p>O'Meara, Dominic J. <i>Plotinus: An Introduction to the Enneads</i>. Oxford: Clarendon Press, 1993.<br></p><p>van Bladel, Kevin. <i>The Arabic Hermes: From Pagan Sage to Prophet of Science</i>. Oxford: Oxford University Press, 2009.<br></p><p>Wallis, R. T. <i>Neoplatonism</i>. London: Duckworth, 1972.</p></p></div>
-<h3 style="color:var(--accent);margin-top:1.5rem">Appears In</h3>
-<div style="display:flex;flex-wrap:wrap;gap:0.5rem">
-<a href="../texts/liber_de_causis.html" style="display:inline-block;padding:0.3rem 0.7rem;background:#faf8f4;border:1px solid var(--border);border-radius:4px;color:var(--accent);text-decoration:none;font-size:0.85rem">Liber de Causis</a>
-</div>
-<div class="provenance">Source: SEED_DATA &middot; Confidence: HIGH</div>
-</div>
+    <main class="page-container"><a href="/HermeticDB/dictionary.html" class="back-link">← Return to Dictionary</a><h1 class="title-large"><p>Emanationism</p></h1><div class="card-meta" style="margin-bottom:1.5rem">COSMOLOGICAL Concept · ACTOR TERM</div><div style="margin-bottom:2rem;padding:1rem 1.5rem;background:rgba(212,175,55,0.06);border:1px solid var(--border);border-radius:8px;display:flex;justify-content:space-between;align-items:center"><span style="color:var(--text-muted);font-size:0.9rem">Relational connections for <strong style="color:var(--text-main)">Emanationism</strong></span><a href="/HermeticDB/dictionary/emanationism.html" class="nav-link" style="color:var(--accent);font-size:0.9rem;font-weight:600">Read full encyclopedia entry →</a></div><div class="prose-content"><p>Emanationism denotes the cosmological conviction that reality proceeds from a supreme transcendent source not by a deliberate act of will directed outward — as in the Biblical doctrine of creation <i>ex nihilo</i> — but by a continuous and necessary overflow or radiation from that source, analogous to the light that issues without diminishment from the sun. The doctrine is an Actor Term: it names a position that Hermetic authors, Neoplatonic philosophers, and later medieval thinkers actually held, expressed in their own vocabulary, and used to organize their accounts of divine creativity, cosmic structure, and the human soul's situation in the world. Its earliest fully articulated form in the tradition under discussion appears in Plotinus of Lycopolis (c. 205–270 CE), whose <i>Enneads</i> — especially <i>Ennead</i> I.7 and V.1 — develop the doctrine that the One overflows necessarily, producing <i>Nous</i> (Intellect), from which in turn Soul proceeds, from which the material world unfolds. The Hermetic texts, composed in Egypt roughly between the first and fourth centuries CE, articulate a cosmological vision structurally convergent with emanationism without always employing the precise technical vocabulary that Plotinus developed. Understanding how the Hermetic corpus stands in relation to the Plotinian and Proclean emanative schemes — whether the Hermetic texts are a source for Neoplatonism, a parallel development, or a recipient of Neoplatonic influence — has been one of the organizing questions of the field since André-Jean Festugière's foundational four-volume study.</p>
 
+<h2>Historical Usage</h2>
+<p><i>Corpus Hermeticum</i> I, the <i><i>Poimandres</i></i> (composed probably in the second or third century CE in Egypt), provides the most fully developed Hermetic cosmogony. The account opens with a vision of boundless Light that the divine <i>Nous</i> of the Sovereignty reveals as the divine reality, followed by a downward darkness that appears as the primal chaos. The divine <i>Logos</i> then descends from the light into the darkness and "leaps out" to begin the ordering of the elements. The structure of this cosmogonic narrative assumes an emanative logic: each stage of reality proceeds from what precedes it, bearing the character of its source while being less perfect than it. The seven planetary governors who rule the sublunary world proceed from the creative activity of the <i>Logos</i> and the Demiurgic <i>Nous</i>; they are divine emanations in the functional sense, expressions of a divine creativity that does not diminish the source but populates the intermediate regions of the cosmos with ordering powers. The material world at the bottom of this cosmological chain retains a residue of divine origin — it is never presented as evil or alien to the divine — because it has come forth from a divine source even if at the furthest remove from it.</p>
+<p><i>Corpus Hermeticum</i> XIV, addressed to Asclepius under the title <i>On the Common Mind</i>, develops the theme of divine abundance more explicitly. The text declares that God is filled with all things and that all things are generated within God, who comprehends all things. The generative character of the divine is figured as an inexhaustible abundance: God does not create from outside himself but contains the principles of all things within himself and expresses them in the created order. This is the emanationist intuition in its most compressed form: the cosmos is not something foreign to the divine but is the divine outwardly expressed, though no expression of an infinite source can be adequate to its origin.</p>
+<p>Plotinus, whose <i>Enneads</i> provide the most systematic ancient formulation of the emanationist cosmology, clarifies the philosophical logic that the Hermetic texts presuppose rather than argue. In <i>Ennead</i> V.1, the One overflows (<i>hyperreon</i>) not from any deficiency or deliberate intention but from the superabundance of its own perfection: what is perfect cannot be contained within itself and must necessarily produce something beyond itself, just as the sun necessarily radiates light without any diminishment of its substance. From the One, <i>Nous</i> proceeds; from <i>Nous</i>, Soul proceeds; from Soul, the material world unfolds as a final image of the divine beauty. Each hypostasis in this chain contemplates its source and thereby generates the next level. The Hermetic texts do not use the language of hypostases in quite this Plotinian sense, but the cosmological vision they presuppose shares the fundamental structure: the divine source is superabundant and productive, the cosmos is a hierarchically ordered expression of that productivity, and the human soul stands at the hinge between the spiritual and material levels.</p>
+<p>Proclus (c. 412–485 CE), in the <i>Elements of Theology</i> and the <i>Platonic Theology</i>, elaborated the emanative scheme with even greater precision, adding to the Plotinian triad a systematic account of how each emanated level participates in, proceeds from, and returns to its source. The Proclean scheme was enormously influential in the subsequent history of Neoplatonism and entered the Latin West through the <i>Liber de Causis</i> (attributed in the medieval period to Aristotle but now recognized as a compilation from Proclus's <i>Elements</i>), where it shaped the cosmological vocabulary of medieval scholasticism. The <i>Liber de Causis</i> traveled alongside the Latin Hermetic texts in the medieval manuscript tradition, creating a rich context in which Hermetic emanationism and Neoplatonic emanationism were read as complementary expressions of the same fundamental cosmological vision.</p>
+<p>The contrast with Biblical creation <i>ex nihilo</i> is doctrinally decisive. In the tradition that derives from Genesis 1:1 and was systematized by early Christian and Jewish theologians, God creates the world from absolute nothingness by a free act of will. The world is wholly contingent, wholly other than God, and depends entirely on a sovereign divine choice for its continued existence. Emanationism denies each of these claims: the world is necessary (not contingent), it proceeds from the divine nature rather than from a free external act, and it retains an ontological connection to its source that cannot be broken without its ceasing to exist. This structural conflict between emanationism and creation <i>ex nihilo</i> made the reception of Hermetic and Neoplatonic emanationist texts in Christian, Jewish, and Islamic contexts a complex and sometimes contentious affair throughout the medieval period.</p>
+
+<h2>Scholarly Significance</h2>
+<p>André-Jean Festugière, in <i>La Révélation d'Hermès Trismégiste</i> (1944–1954), provided the foundational scholarly analysis of Hermetic cosmological structure, arguing that the Hermetic texts represent a Greek philosophical inheritance — primarily Middle Platonic and Stoic — rather than an Egyptian one. For Festugière, the emanationist cosmology of the Hermetica is essentially the product of the Alexandrian philosophical school's engagement with Platonic cosmology, and the Egyptian elements are largely decorative or superficial. His analysis was comprehensive and philologically rigorous, and it established the terms of debate for a generation of scholarship.</p>
+<p>Garth Fowden, in <i>The Egyptian Hermes</i> (1986), challenged Festugière's Hellenocentrism, arguing that the creative abundance expressed in the Hermetic cosmological texts resonates with specifically Egyptian theological traditions in which the creator god Amun-Re or Ptah is understood as the inexhaustible generative power that fills and sustains the cosmos. Fowden's corrective has been widely accepted: the current consensus holds that the Hermetic emanationist cosmology represents a genuine synthesis of Greek philosophical and Egyptian priestly traditions, in which the structural logic of Platonic emanationism has been filled with the theological content of Egyptian cosmological piety.</p>
+<p>Wouter J. Hanegraaff, in <i>Hermetic Spirituality and the Historical Imagination</i> (Cambridge, 2022), situates Hermetic emanationism within his broader methodological framework. Hanegraaff stresses that the emanationist logic of the Hermetic texts must be understood as an Actor Term — as the actual cosmological conviction of the texts' authors — and not merely as a philosophical position abstractly adopted from the Platonic tradition. For Hanegraaff, what distinguishes Hermetic emanationism from its Neoplatonic counterpart is not primarily the logical structure but the existential and experiential register: the Hermetic texts are concerned with the soul's felt relation to the divine source, the experiential sense of divine illumination, and the practical path of return, in a way that gives the cosmological framework a lived, not merely theoretical, character.</p>
+<p>The question of the relationship between Hermetic emanationism and Kabbalistic accounts of the divine Sephiroth has been addressed by Moshe Idel and, in a different register, by Hanegraaff. The Kabbalistic doctrine of the ten <i>Sefirot</i> — the ten attributes or emanations through which the <i>Ein Sof</i> (the infinite divine) expresses itself in the created world — shares the fundamental emanationist structure: the divine produces a hierarchical series of levels, each dependent on the preceding, and the human being participates in the divine through a process of ascending reintegration. Whether this parallel reflects direct historical contact between Kabbalistic and Hermetic traditions or represents a convergent response to similar cosmological problems remains an open question in the scholarship.</p>
+
+<h2>Transmission and Variant Forms</h2>
+<p>The Arabic transmission of emanationist cosmology proceeded through several channels. Al-Farabi (c. 872–950 CE) developed a Neoplatonic emanationism in which the Intellects of the celestial spheres proceed successively from the First Intellect, which itself proceeds from God, creating a hierarchical cosmological chain closely parallel to the Plotinian scheme. This Arabic Neoplatonic emanationism, which used the key term <i>fayd</i> (overflow, emanation) for the productive process, shaped the philosophical cosmology of the Islamic world for centuries. Avicenna (Ibn Sina, 980–1037 CE) elaborated this scheme in his <i>Shifa</i> and <i>Najat</i>, creating the most influential Arabic version of emanationist cosmology. Kevin van Bladel, in <i>The Arabic Hermes</i> (Oxford, 2009), has documented the parallel transmission of specifically Hermetic cosmological texts into Arabic and the ways in which the Arabic Hermetic tradition interacted with the Neoplatonic emanationist framework developed by the falasifa.</p>
+<p>In the Latin West, the <i>Liber de Causis</i> — the Proclean compilation mistakenly attributed to Aristotle — carried the emanationist logic into the scholastic tradition, where it was read alongside the <i>Asclepius</i> (the only complete Hermetic text available in Latin before Ficino's 1463 translation) and later alongside Ficino's complete <i>Pimander</i>. Ficino himself explicitly aligned the Hermetic cosmological vision with Platonic emanationism in his commentaries, creating the synthesis of Hermetic and Neoplatonic thought that shaped Renaissance cosmological speculation.</p>
+
+<h2>Related Concepts</h2>
+<p>Emanationism stands in the closest possible relation to the concept of the <a href="../concepts/demiurge.html">Demiurge</a> in the Hermetic texts: the Demiurge is the emanative power through which the divine source creates and governs the ordered cosmos, and the positive evaluation of the material world characteristic of Hermetic thought is grounded in the emanationist conviction that matter has proceeded from a divine source and retains a trace of its origin. The doctrine of <a href="../concepts/<i>Nous</i>.html"><i><i>Nous</i></i></a> as the second principle of the divine hierarchy is the immediate cosmological expression of the emanationist logic: <i>Nous</i> proceeds from the Father as light proceeds from the sun, bearing the character of the source without exhausting or diminishing it. The process of <a href="../concepts/cosmic_ascent.html">Cosmic Ascent</a> through the planetary spheres represents the structural reverse of the emanative process: just as being proceeded downward from the divine source through the levels of the cosmos, the soul returns upward by retracing those levels until it reaches the origin. The doctrine of <a href="../concepts/macrocosm_microcosm.html">Macrocosm and Microcosm</a> also depends on emanationism: it is because all levels of the cosmos have proceeded from a single divine source that they share a structural homology, and the human being as microcosm can resonate with and know the macrocosm because both are expressions of the same divine abundance.</p>
+
+<h2>Literature</h2>
+<p>Copenhaver, Brian P. <i>Hermetica: The Greek Corpus Hermeticum and the Latin Asclepius in a New English Translation with Notes and Introduction</i>. Cambridge: Cambridge University Press, 1992.<br>
+Festugière, André-Jean. <i>La Révélation d'Hermès Trismégiste</i>. 4 vols. Paris: Gabalda, 1944–1954.<br>
+Fowden, Garth. <i>The Egyptian Hermes: A Historical Approach to the Late Pagan Mind</i>. Cambridge: Cambridge University Press, 1986.<br>
+Hanegraaff, Wouter J. <i>Hermetic Spirituality and the Historical Imagination</i>. Cambridge: Cambridge University Press, 2022.<br>
+Hanegraaff, Wouter J. (ed.). <i>Dictionary of <i>Gnosis</i> and Western Esotericism</i>. 2 vols. Leiden: Brill, 2006.<br>
+Idel, Moshe. <i>Kabbalah: New Perspectives</i>. New Haven: Yale University Press, 1988.<br>
+Litwa, M. David. <i>Hermetica II: The Excerpts of Stobaeus, Papyrus Fragments, and Ancient Testimonies in an English Translation with Notes and Introduction</i>. Cambridge: Cambridge University Press, 2018.<br>
+Nock, Arthur Darby, and André-Jean Festugière (eds. and trans.). <i>Corpus Hermeticum</i>. 4 vols. Paris: Les Belles Lettres, 1945–1954.<br>
+O'Meara, Dominic J. <i>Plotinus: An Introduction to the Enneads</i>. Oxford: Clarendon Press, 1993.<br>
+van Bladel, Kevin. <i>The Arabic Hermes: From Pagan Sage to Prophet of Science</i>. Oxford: Oxford University Press, 2009.<br>
+Wallis, R. T. <i>Neoplatonism</i>. London: Duckworth, 1972.</p></div></main>
+    <footer style="text-align:center; padding: 6rem 2rem; color: var(--text-muted); border-top: 1px solid var(--border); background: #08080a">
+        &copy; 2026 The Hermetic Knowledge Portal<br/>
+        <span style="font-size: 0.7rem; opacity: 0.5; margin-top: 1rem; display: block">Curated Scholar-Synthesized Narrative Database</span>
+    </footer>
+
+    <!-- Back-to-top -->
+    <button id="btt" onclick="window.scrollTo({{top:0,behavior:'smooth'}})"
+        style="display:none;position:fixed;bottom:2rem;right:2rem;z-index:500;background:var(--bg-card);
+               border:1px solid var(--border);color:var(--accent);border-radius:50%;width:44px;height:44px;
+               font-size:1.2rem;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 16px rgba(0,0,0,0.4)">↑</button>
+    <script>
+    (function(){{
+        var btn = document.getElementById('btt');
+        window.addEventListener('scroll', function(){{
+            btn.style.display = window.scrollY > 400 ? 'block' : 'none';
+        }}, {{passive:true}});
+    }})();
+    </script>
+
+    <!-- Global search overlay -->
+    <div id="gs-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.87);backdrop-filter:blur(6px);padding:8vh 2rem 2rem">
+        <div style="max-width:680px;margin:0 auto">
+            <div style="position:relative;margin-bottom:1.2rem">
+                <span style="position:absolute;left:1.1rem;top:50%;transform:translateY(-50%);color:var(--accent);font-size:1.2rem;pointer-events:none">⌕</span>
+                <input id="gs-input" type="text" placeholder="Search persons, texts, concepts…" autocomplete="off"
+                    style="width:100%;box-sizing:border-box;background:#141418;border:1px solid rgba(212,175,55,0.5);
+                           color:#e0e0e0;font-size:1.2rem;padding:0.9rem 3rem 0.9rem 3rem;border-radius:12px;
+                           font-family:Inter,sans-serif;outline:none">
+                <button onclick="gsClose()" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);
+                    background:none;border:none;color:#a0a0a0;font-size:1.3rem;cursor:pointer;line-height:1">✕</button>
+            </div>
+            <div id="gs-results" style="max-height:58vh;overflow-y:auto;border-radius:8px"></div>
+            <div style="margin-top:0.8rem;font-size:0.75rem;color:#444;text-align:center">Press <kbd style="background:#222;border:1px solid #444;padding:0.1rem 0.4rem;border-radius:3px">/</kbd> to open &nbsp;·&nbsp; <kbd style="background:#222;border:1px solid #444;padding:0.1rem 0.4rem;border-radius:3px">Esc</kbd> to close</div>
+        </div>
+    </div>
+
+    <!-- Hover preview card -->
+    <div id="hc-card" style="display:none;position:fixed;z-index:8888;max-width:310px;background:#141418;
+        border:1px solid rgba(212,175,55,0.35);border-radius:10px;padding:1rem 1.2rem;
+        pointer-events:none;box-shadow:0 8px 32px rgba(0,0,0,0.65)">
+        <div id="hc-label" style="font-family:Outfit,sans-serif;font-size:1rem;color:#f1d37e;font-weight:600;margin-bottom:0.25rem"></div>
+        <div id="hc-meta" style="font-size:0.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem"></div>
+        <div id="hc-desc" style="font-size:0.85rem;color:#a8a8a8;line-height:1.5"></div>
+        <div style="margin-top:0.6rem;font-size:0.72rem;color:#444;font-style:italic">click for full entry</div>
+    </div>
+
+    <script>
+    (function(){{
+        var REPO = '{REPO_URL}';
+        var idx = null;
+
+        function loadIdx(cb) {{
+            if (idx) return cb(idx);
+            fetch(REPO + '/search_index.json')
+                .then(function(r){{ return r.json(); }})
+                .then(function(d){{ idx = d; cb(d); }})
+                .catch(function(){{ idx = []; cb([]); }});
+        }}
+
+        // --- GLOBAL SEARCH ---
+        var overlay = document.getElementById('gs-overlay');
+        var gsInput = document.getElementById('gs-input');
+        var gsResults = document.getElementById('gs-results');
+        var TYPE_COLOR = {{ PERSON: '#4a9eff', TEXT: '#d4af37', CONCEPT: '#20c997' }};
+
+        window.gsClose = function() {{ overlay.style.display = 'none'; }};
+        function gsOpen() {{ overlay.style.display = 'block'; gsInput.focus(); gsInput.select(); }}
+
+        document.addEventListener('keydown', function(e){{
+            if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {{
+                e.preventDefault(); gsOpen();
+            }}
+            if (e.key === 'Escape') gsClose();
+        }});
+        overlay.addEventListener('click', function(e){{ if (e.target === overlay) gsClose(); }});
+
+        var gsBtn = document.getElementById('gs-btn');
+        if (gsBtn) gsBtn.addEventListener('click', gsOpen);
+
+        function renderResults(items) {{
+            if (!items.length) {{
+                gsResults.innerHTML = '<p style="color:#555;text-align:center;padding:2rem 0">No matches found</p>';
+                return;
+            }}
+            gsResults.innerHTML = items.slice(0, 14).map(function(r){{
+                var c = TYPE_COLOR[r.type] || '#888';
+                return '<a href="' + r.url + '" onclick="gsClose()" style="display:block;padding:0.8rem 1rem;margin-bottom:0.3rem;background:#1a1a20;'
+                    + 'border:1px solid rgba(255,255,255,0.05);border-radius:8px;text-decoration:none;transition:border-color 0.15s" '
+                    + 'onmouseover="this.style.borderColor='rgba(212,175,55,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.05)'">'
+                    + '<span style="display:inline-block;padding:0.12rem 0.45rem;background:' + c + '22;color:' + c + ';border-radius:4px;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.07em;margin-right:0.4rem">' + r.type + '</span>'
+                    + '<strong style="color:#e0e0e0">' + r.label + '</strong>'
+                    + '<span style="display:block;color:#777;font-size:0.8rem;margin-top:0.25rem">' + (r.desc || '').slice(0, 100) + (r.desc && r.desc.length > 100 ? '…' : '') + '</span>'
+                    + '</a>';
+            }}).join('');
+        }}
+
+        var gsTimer;
+        gsInput.addEventListener('input', function(){{
+            clearTimeout(gsTimer);
+            var q = this.value.trim().toLowerCase();
+            if (!q) {{ gsResults.innerHTML = ''; return; }}
+            gsTimer = setTimeout(function(){{
+                loadIdx(function(data){{
+                    var hits = data.filter(function(r){{
+                        return r.label.toLowerCase().indexOf(q) !== -1 || (r.desc && r.desc.toLowerCase().indexOf(q) !== -1);
+                    }}).sort(function(a, b){{
+                        var al = a.label.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+                        var bl = b.label.toLowerCase().indexOf(q) === 0 ? 0 : 1;
+                        return al - bl;
+                    }});
+                    renderResults(hits);
+                }});
+            }}, 150);
+        }});
+
+        // --- HOVER PREVIEW ---
+        var hcCard = document.getElementById('hc-card');
+        var hcLabel = document.getElementById('hc-label');
+        var hcMeta = document.getElementById('hc-meta');
+        var hcDesc = document.getElementById('hc-desc');
+        var hcTimer;
+        var PATHS = ['/biographies/', '/scholars/', '/dictionary/', '/concepts/', '/texts/'];
+
+        function slugFromHref(href) {{
+            var m = href.match(/\/([^\/]+)\.html$/);
+            return m ? m[1] : null;
+        }}
+
+        document.addEventListener('mouseover', function(e){{
+            var a = e.target.closest('a[href]');
+            if (!a) return;
+            var href = a.getAttribute('href') || '';
+            if (!PATHS.some(function(p){{ return href.indexOf(p) !== -1; }})) return;
+            var slug = slugFromHref(href);
+            if (!slug) return;
+            clearTimeout(hcTimer);
+            hcTimer = setTimeout(function(){{
+                loadIdx(function(data){{
+                    var entry = null;
+                    for (var i = 0; i < data.length; i++) {{
+                        if (data[i].id === slug) {{ entry = data[i]; break; }}
+                    }}
+                    if (!entry) return;
+                    hcLabel.textContent = entry.label;
+                    hcMeta.textContent = entry.meta;
+                    hcDesc.textContent = (entry.desc || '').slice(0, 130) + ((entry.desc && entry.desc.length > 130) ? '…' : '');
+                    var rect = a.getBoundingClientRect();
+                    var left = Math.min(rect.left + window.scrollX, window.innerWidth - 330);
+                    hcCard.style.left = Math.max(8, left) + 'px';
+                    hcCard.style.top = (rect.bottom + window.scrollY + 8) + 'px';
+                    hcCard.style.display = 'block';
+                }});
+            }}, 280);
+        }});
+
+        document.addEventListener('mouseout', function(e){{
+            var a = e.target.closest('a[href]');
+            if (!a) return;
+            clearTimeout(hcTimer);
+            hcCard.style.display = 'none';
+        }});
+    }})();
+    </script>
 </body>
 </html>
