@@ -1082,7 +1082,24 @@ def deploy_to(target_dir, cursor):
                           f'<a href="{REPO_URL}/dictionary/{slug}.html" class="nav-link" style="color:var(--accent);font-size:0.9rem;font-weight:600">'
                           f'Read full encyclopedia entry →</a></div>')
         figures_html = get_concept_figures_html(cursor, slug)
-        html = BASE_TEMPLATE.replace("{{title}}", label).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container"><a href="{REPO_URL}/dictionary.html" class="back-link">← Return to Dictionary</a><h1 class="title-large">{label}</h1><div class="card-meta" style="margin-bottom:1.5rem">{meta_label}</div>{dict_crosslink}<div class="prose-content">{content}{figures_html}{fragments}</div></main>')
+
+        # Render concept_links for /concepts/ pages
+        related_html = ""
+        cursor.execute("""
+            SELECT c2.slug, c2.label, cl.relationship
+            FROM concept_links cl
+            JOIN concepts c2 ON cl.to_concept_id = c2.id
+            WHERE cl.from_concept_id = (SELECT id FROM concepts WHERE slug = ?)
+            ORDER BY c2.label
+        """, (slug,))
+        related = cursor.fetchall()
+        if related:
+            related_html = '<div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border)"><h2 style="font-family:var(--font-display);font-size:1.1rem;color:var(--accent);margin-bottom:1rem">Related Concepts</h2><ul style="list-style: none; padding: 0">'
+            for rslug, rlabel, rel_type in related:
+                related_html += f'<li style="margin-bottom: 0.5rem"><a href="{REPO_URL}/concepts/{rslug}.html" class="nav-link">{rlabel}</a> <span style="color: var(--text-muted); font-size: 0.85rem">({rel_type.replace("_", " ")})</span></li>'
+            related_html += '</ul></div>'
+
+        html = BASE_TEMPLATE.replace("{{title}}", label).replace("{{css}}", CSS).replace("{{nav}}", NAV_BAR).replace("{{content}}", f'<main class="page-container"><a href="{REPO_URL}/dictionary.html" class="back-link">← Return to Dictionary</a><h1 class="title-large">{label}</h1><div class="card-meta" style="margin-bottom:1.5rem">{meta_label}</div>{dict_crosslink}<div class="prose-content">{content}{figures_html}{related_html}{fragments}</div></main>')
         with open(target_dir / "concepts" / f"{slug}.html", "w", encoding="utf-8") as f: f.write(html)
 
     # 4B. DICTIONARY PAGES (Full Encyclopedia Entries)
