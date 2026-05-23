@@ -1,7 +1,7 @@
 # Phase Status — EmeraldTablet
 
-**Updated:** 2026-05-21
-**Current Phase:** PHASE 4C — DICTIONARY ARCHITECTURE (✅ COMPLETE) | PHASE 4D — COMING NEXT
+**Updated:** 2026-05-22
+**Current Phase:** PHASE 4D — RELATIONAL BROWSING (✅ COMPLETE) | PHASE 5 — LAUNCH READY
 
 ---
 
@@ -63,28 +63,37 @@ For all 81 concepts:
 
 **Session 3 Outcome:** Two-level dictionary architecture fully implemented. All 81 concept pages in `/concepts/` now show concept_links for relational browsing. All 81 encyclopedia pages in `/dictionary/` fully functional with concept_links. Dictionary index (`dictionary.html`) complete with category filtering.
 
-### 4D — Relational Browsing Enhancement (PLANNED)
-- [ ] Render `concept_links` table on `/concepts/[slug].html` pages (currently zero links rendered)
-- [ ] Add person-to-concept links on biography pages
-- [ ] Add text-to-concept links on text analysis pages
-- [ ] Ensure every entity page links to at least 3 other entities
+### 4D — Relational Browsing Enhancement (✅ COMPLETE)
+- [x] Render `concept_links` table on `/concepts/[slug].html` pages (completed in 4C)
+- [x] Add person-to-concept links on biography pages (already via `get_person_concepts_html()`)
+- [x] Add text-to-concept links on text analysis pages (already via KEY THEMES section)
+- [x] Ensure every entity page links to at least 3 other entities (all 368 pages verified ✅)
 
 ---
 
-## Remaining Work (as of 2026-05-21)
+## Remaining Work (as of 2026-05-22)
 
-### Phase 4C: COMPLETE ✅
-All three sub-tasks delivered:
-- `/dictionary/[slug].html` pages (81 total) with full encyclopedia content
-- `/dictionary/index.html` with category filtering and index cards
-- `concept_links` rendering on BOTH `/concepts/` and `/dictionary/` pages
+### Phase 4: ARCHITECTURE & CONTENT (✅ 100% COMPLETE)
 
-### Phase 4D Focus: Relational Browsing Enhancement (Planned)
-| Gap | Impact | Status |
-|-----|--------|--------|
-| Person-to-concept links on biography pages | Scholars not showing concepts they worked with | ⏸ 4D Task 1 |
-| Text-to-concept links on text analysis pages | Texts not showing their conceptual framework | ⏸ 4D Task 2 |
-| Ensure every entity has 3+ outbound links | Dead-end pages reduce exploration | ⏸ 4D Task 3 |
+**Phase 4A — Content Depth: Dictionary** ✅
+- All 81 concepts at 1,500–2,500 words
+
+**Phase 4B — Content Depth: Persons & Texts** ✅  
+- All 105 biographies at 1,200–2,200 words
+- All 101 texts at 1,000–1,800 words
+
+**Phase 4C — Two-Level Dictionary Architecture** ✅
+- `/dictionary/[slug].html` encyclopedia pages (81 total)
+- `/dictionary/index.html` with filtering
+- `concept_links` rendering on both sections
+
+**Phase 4D — Relational Browsing Enhancement** ✅
+- Person-to-concept links on all 105 biography pages (via Key Concepts section)
+- Text-to-concept links on all 101 text pages (via KEY THEMES section)  
+- All 368 entity pages have 3+ outbound links (verified)
+
+### Phase 5: LAUNCH (NEXT)
+Ready for production deployment to GitHub Pages. No architectural gaps remain.
 
 ### Completed Gaps (Sessions 1–2)
 | Gap | Status | Notes |
